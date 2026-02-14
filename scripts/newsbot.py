@@ -19,6 +19,7 @@ from openai import OpenAI, OpenAIError  # GitHub Models uses OpenAI-compatible A
 class NewsBot:
     """Main class for searching and aggregating security news."""
     
+    # Prompt template for LLM searches. Use .format(query=...) to substitute the search topic.
     LLM_SUMMARY_PROMPT = """Search for and summarize the latest news, articles, blog posts, and announcements about: {query}
 
 Focus on content from the last week that relates to:
@@ -105,7 +106,7 @@ Format as JSON array with objects containing: title, description, url, date, key
     def search_with_llm(self, query: str) -> str:
         """Use LLM to search and summarize results for a topic via GitHub Models."""
         if not self.openai_client:
-            logging.warning("GITHUB_TOKEN not set, skipping LLM search")
+            logging.warning("OpenAI client not initialized, skipping LLM search")
             return ""
         
         try:
