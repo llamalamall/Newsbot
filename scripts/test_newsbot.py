@@ -58,14 +58,41 @@ def test_web_search_helper():
     try:
         from scripts.web_search_helper import WebSearchHelper
         
+        # Test initialization with default parameters
         helper = WebSearchHelper()
         print(f"✓ Web search helper loaded successfully")
         print(f"  Available: {helper.is_available()}")
         
-        # Test search (will return empty results as it's a placeholder)
-        results = helper.search("test query")
-        print(f"✓ Search method callable")
-        print(f"  Results: {len(results)} items")
+        # Test initialization with custom parameters
+        custom_helper = WebSearchHelper(timeout=5, rate_limit_delay=0.5)
+        print(f"✓ Custom parameters accepted")
+        print(f"  Timeout: {custom_helper.timeout}s")
+        print(f"  Rate limit: {custom_helper.rate_limit_delay}s")
+        
+        # Test that search method exists and returns correct type
+        results = helper.search("test query", max_results=5)
+        if isinstance(results, list):
+            print(f"✓ Search method returns list")
+            print(f"  Results: {len(results)} items")
+        else:
+            print(f"✗ Search method should return list, got {type(results)}")
+            return False
+        
+        # Test URL cleaning method
+        test_urls = [
+            ("https://example.com", "https://example.com"),
+            ("//example.com", "https://example.com"),
+            ("", ""),
+            ("invalid", ""),
+        ]
+        
+        for test_url, expected in test_urls:
+            cleaned = helper.clean_url(test_url)
+            if cleaned == expected or (not cleaned and not expected):
+                print(f"✓ URL cleaning works for: {test_url}")
+            else:
+                print(f"✗ URL cleaning failed: {test_url} -> {cleaned}, expected {expected}")
+        
         print()
         return True
         
@@ -146,8 +173,65 @@ def test_integration():
         print(f"✗ Error: {e}")
         return False
     
+    # Test configuration loading
+    if 'web_search_enabled' in bot.config:
+        print(f"✓ Configuration includes web_search_enabled: {bot.config['web_search_enabled']}")
+    else:
+        print("✗ Configuration missing web_search_enabled")
+        return False
+    
+    if 'web_search_max_results' in bot.config:
+        print(f"✓ Configuration includes web_search_max_results: {bot.config['web_search_max_results']}")
+    else:
+        print("✗ Configuration missing web_search_max_results")
+        return False
+    
     print()
     return True
+
+
+def test_web_search_runner():
+    """Test the web search runner module."""
+    print("Testing Web Search Runner...")
+    print("=" * 60)
+    
+    try:
+        from scripts.web_search_runner import perform_web_search
+        
+        # Test the function with a simple query
+        result = perform_web_search("test query", max_results=5)
+        
+        # Check structure
+        required_keys = ["success", "query", "results", "count", "error"]
+        for key in required_keys:
+            if key in result:
+                print(f"✓ Result includes '{key}' field")
+            else:
+                print(f"✗ Result missing '{key}' field")
+                return False
+        
+        # Check types
+        if isinstance(result["results"], list):
+            print(f"✓ Results field is a list")
+        else:
+            print(f"✗ Results field should be a list")
+            return False
+        
+        if isinstance(result["query"], str):
+            print(f"✓ Query field is a string")
+        else:
+            print(f"✗ Query field should be a string")
+            return False
+        
+        print()
+        return True
+        
+    except Exception as e:
+        print(f"✗ Error: {e}")
+        import traceback
+        traceback.print_exc()
+        print()
+        return False
 
 
 def main():
@@ -160,6 +244,7 @@ def main():
     results = {
         "Credibility Assessment": test_credibility_assessment(),
         "Web Search Helper": test_web_search_helper(),
+        "Web Search Runner": test_web_search_runner(),
         "Article Extraction": test_article_extraction(),
         "LLM Prompt Structure": test_llm_prompt_structure(),
         "Component Integration": test_integration(),

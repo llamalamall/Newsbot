@@ -89,6 +89,10 @@ Edit `config.json` to customize:
 - `github_topics`: GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
+- `web_search_enabled`: Enable/disable web search functionality (default: true)
+- `web_search_max_results`: Maximum results per web search (default: 10)
+- `web_search_timeout`: Request timeout in seconds (default: 10)
+- `web_search_rate_limit`: Delay between requests in seconds (default: 1.0)
 
 Example:
 ```json
@@ -102,9 +106,22 @@ Example:
     "penetration-testing"
   ],
   "days_back": 7,
-  "max_results_per_topic": 10
+  "max_results_per_topic": 10,
+  "web_search_enabled": true,
+  "web_search_max_results": 10,
+  "web_search_timeout": 10,
+  "web_search_rate_limit": 1.0
 }
 ```
+
+### Web Search Configuration
+
+The web search functionality uses DuckDuckGo's HTML interface, which doesn't require API keys:
+
+- **web_search_enabled**: Toggle to enable or disable web search entirely. Set to `false` to use only GitHub repository search and LLM analysis.
+- **web_search_max_results**: Controls how many search results to retrieve per query. Higher values may take longer.
+- **web_search_timeout**: Maximum time to wait for search requests. Increase if experiencing timeouts.
+- **web_search_rate_limit**: Delay between search requests to avoid overwhelming the service. Minimum recommended: 1.0 second.
 
 ## Source Credibility Assessment
 
@@ -199,7 +216,8 @@ Newsbot/
 ├── scripts/
 │   ├── newsbot.py               # Main Python script
 │   ├── web_search_helper.py     # Web search helper module
-│   └── web_search_runner.py     # External web search runner
+│   ├── web_search_runner.py     # External web search runner
+│   └── test_newsbot.py          # Test suite
 ├── outputs/                     # Generated reports (gitignored)
 ├── config.json                  # Configuration file
 ├── requirements.txt             # Python dependencies
@@ -207,6 +225,13 @@ Newsbot/
 ├── .gitignore                   # Git ignore rules
 └── README.md                    # This file
 ```
+
+### Module Descriptions
+
+- **newsbot.py**: Main application that orchestrates GitHub searches, web searches, and LLM analysis
+- **web_search_helper.py**: Helper module that performs web searches using DuckDuckGo's HTML interface. Includes rate limiting, error handling, and result parsing.
+- **web_search_runner.py**: Standalone runner that can be called as a subprocess for web searches. Outputs results in JSON format.
+- **test_newsbot.py**: Comprehensive test suite for all components including web search functionality, credibility assessment, and integration tests.
 
 ## Security and Privacy Considerations
 

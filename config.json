@@ -36,5 +36,9 @@
     "security-automation"
   ],
   "days_back": 7,
-  "max_results_per_topic": 10
+  "max_results_per_topic": 10,
+  "web_search_enabled": true,
+  "web_search_max_results": 10,
+  "web_search_timeout": 10,
+  "web_search_rate_limit": 1.0
 }

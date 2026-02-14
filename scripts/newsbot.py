@@ -269,7 +269,7 @@ Only include items from credible sources. Exclude promotional content and low-qu
         """Perform a live web search for the given query.
         
         This method integrates with web search functionality. It attempts to use
-        the web_search_helper module if available.
+        the web_search_helper module if available and enabled in configuration.
         
         Args:
             query: Search query string
@@ -279,13 +279,25 @@ Only include items from credible sources. Exclude promotional content and low-qu
         """
         results = []
         
+        # Check if web search is enabled in configuration
+        if not self.config.get('web_search_enabled', True):
+            logging.info("Web search is disabled in configuration")
+            return results
+        
         try:
             # Try to import and use the web search helper
             from scripts.web_search_helper import WebSearchHelper
             
-            helper = WebSearchHelper()
+            # Get configuration parameters
+            max_results = self.config.get('web_search_max_results', 10)
+            timeout = self.config.get('web_search_timeout', 10)
+            rate_limit = self.config.get('web_search_rate_limit', 1.0)
+            
+            # Create helper with configuration
+            helper = WebSearchHelper(timeout=timeout, rate_limit_delay=rate_limit)
+            
             if helper.is_available():
-                search_results = helper.search(query, max_results=10)
+                search_results = helper.search(query, max_results=max_results)
                 
                 # Process and enrich results with credibility assessment
                 for result in search_results:
