@@ -124,7 +124,7 @@ class WebSearchHelper:
                     snippet = snippet_elem.get_text(strip=True) if snippet_elem else ''
                     
                     # Clean up URL (DuckDuckGo sometimes uses redirect URLs)
-                    url = self._clean_url(url)
+                    url = self.clean_url(url)
                     
                     if url and title:
                         results.append({
@@ -147,7 +147,7 @@ class WebSearchHelper:
             logging.error(f"Web search error: {str(e)}")
             return []
     
-    def _clean_url(self, url: str) -> str:
+    def clean_url(self, url: str) -> str:
         """Clean and validate a URL from search results.
         
         Args:

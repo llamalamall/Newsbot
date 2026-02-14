@@ -87,7 +87,7 @@ def test_web_search_helper():
         ]
         
         for test_url, expected in test_urls:
-            cleaned = helper._clean_url(test_url)
+            cleaned = helper.clean_url(test_url)
             if cleaned == expected or (not cleaned and not expected):
                 print(f"✓ URL cleaning works for: {test_url}")
             else:
