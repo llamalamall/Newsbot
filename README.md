@@ -284,8 +284,7 @@ Newsbot/
 │       └── newsbot.yml          # GitHub Actions workflow
 ├── scripts/
 │   ├── newsbot.py               # Main Python script
-│   ├── web_search_helper.py     # Web search helper module
-│   └── web_search_runner.py     # External web search runner
+│   └── searchers/               # Search provider modules
 ├── tests/                       # Test suite
 │   ├── test_newsbot.py          # Newsbot functionality tests
 │   ├── test_rss_manager.py      # RSS manager tests
@@ -302,9 +301,8 @@ Newsbot/
 ### Module Descriptions
 
 - **newsbot.py**: Main application that orchestrates GitHub searches, web searches, and LLM analysis
-- **web_search_helper.py**: Helper module that performs web searches using DuckDuckGo's HTML interface. Includes rate limiting, error handling, and result parsing.
-- **web_search_runner.py**: Standalone runner that can be called as a subprocess for web searches. Outputs results in JSON format.
-- **tests/**: Comprehensive test suite for all components including web search functionality, credibility assessment, RSS integration, and integration tests.
+- **searchers/**: Search providers for GitHub, RSS, and web context
+- **tests/**: Comprehensive test suite for all components including credibility assessment, RSS integration, and integration tests.
 
 ## Security and Privacy Considerations
 
