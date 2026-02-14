@@ -15,7 +15,7 @@ class SearchResult:
         title: Title of the result
         url: URL link to the source
         description: Description or summary of the content
-        source: Source type identifier (e.g., 'github', 'rss', 'web_search_llm')
+        source: Source type identifier (e.g., 'github', 'rss')
         credibility: Optional credibility rating ('high', 'medium', 'low')
     """
     title: str

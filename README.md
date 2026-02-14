@@ -1,6 +1,6 @@
 # Newsbot - Offensive Security AI/Automation News Aggregator
 
-An automated news aggregator that uses LLMs and GitHub Actions to search for the latest articles, announcements, repositories, and blog posts related to AI and automation in offensive security.
+An automated news aggregator that uses GitHub Actions to search for the latest articles, announcements, repositories, and blog posts related to AI and automation in offensive security.
 
 ## Overview
 
@@ -19,10 +19,8 @@ Newsbot automatically searches for and aggregates content related to:
 ## Features
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
-- **Live Web Search Integration**: Performs real-time web searches for current news and articles
-- **Source Credibility Assessment**: Automatically vets news sources for reliability
-- **Article Content Extraction**: Pulls full text and key excerpts from linked articles
-- **LLM-Powered Analysis**: Uses GitHub Models (GPT-4o) with web search context for enhanced summarization
+- **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
+- **Source Credibility Assessment**: Automatically vets RSS sources for reliability (used for RSS feeds)
 - **Intelligent Filtering**: Prioritizes high-credibility sources and filters low-quality content
 - **Automated Scheduling**: Runs daily via GitHub Actions
 - **Local Execution**: Helper script for running locally
@@ -32,7 +30,7 @@ Newsbot automatically searches for and aggregates content related to:
 
 ## Prerequisites
 
-- **GitHub Token** (required for both repository searches and LLM access via GitHub Models)
+- **GitHub Token** (required for GitHub repository searches)
 
 ## Setup
 
@@ -108,18 +106,10 @@ Edit `config.json` to customize:
 
 ### Core Settings
 
-- `search_topics`: Topics to search for using LLM
 - `search_keywords`: Keywords to filter results (used for RSS filtering)
 - `github_topics`: GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
-
-### Content Source Mode
-
-- `content_source`: Choose content aggregation mode:
-  - `"dual"` - Use both RSS feeds and web search (default, recommended)
-  - `"rss"` - Use only RSS feeds and GitHub
-  - `"web"` - Use only web search and GitHub
 
 ### RSS Feed Configuration
 
@@ -159,10 +149,6 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
 
 ```json
 {
-  "search_topics": [
-    "AI offensive security automation",
-    "LLM penetration testing"
-  ],
   "search_keywords": [
     "offensive security",
     "penetration testing",
@@ -174,7 +160,6 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
-  "content_source": "dual",
   "rss_enabled": true,
   "rss_feeds": [
     {
@@ -194,7 +179,7 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
 
 ## Source Credibility Assessment
 
-Newsbot automatically assesses the credibility of news sources to ensure high-quality results:
+Newsbot automatically assesses the credibility of RSS feed sources to ensure high-quality results:
 
 ### High Credibility Sources
 - Official security organizations (NIST, CISA, OWASP)
@@ -235,45 +220,33 @@ Description...
 - Updated: 2024-01-15
 - Topic: offensive-security
 
-## Web Search Results (N)
-*Results from live web searches with credibility assessment*
-
+## RSS Feed Articles (N)
 ### Article Title
 Description and summary...
-**Source:** [https://example.com/article](https://example.com/article)
-**Credibility:** High
-**Key Points:**
-- Point 1
-- Point 2
-*Published: 2024-01-15*
-*Search topic: AI offensive security*
-
-## Articles, Blog Posts & Announcements (N)
-### Article Title
-Description and key points...
-**Link:** https://example.com
-**Source Credibility:** Medium
+**Link:** https://example.com/article
+**Feed:** Security Blog
+**Category:** research
+**Priority:** high
+**Published:** 2024-01-15
 ```
 
 Reports now include:
-- Source credibility ratings for all web-sourced content
+- Source credibility ratings for RSS feed content
 - Direct citations to original articles
 - Publication dates when available
-- Clear categorization of results by source type
+- Clear categorization of results by source type (GitHub, RSS)
 - Filtering of low-credibility sources
 
 ## Workflow
 
 1. **GitHub Search**: Searches for repositories with relevant topics updated in the last N days
-2. **Live Web Search**: Performs real-time web searches for current news articles and blog posts
-3. **Source Credibility Vetting**: Assesses the credibility of discovered sources (high/medium/low)
-4. **Content Extraction**: Attempts to extract full article text from high-credibility sources
-5. **LLM Analysis**: Uses GitHub Models (GPT-4o) with web search context to analyze and summarize news
-6. **Intelligent Filtering**: Filters out low-credibility sources and promotional content
-7. **Aggregation**: Combines results from all sources with credibility ratings
-8. **Report Generation**: Creates formatted Markdown and JSON outputs with source citations
-9. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
-10. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
+2. **RSS Feed Aggregation**: Fetches and filters articles from configured RSS feeds
+3. **Source Credibility Vetting**: Assesses the credibility of RSS sources (high/medium/low)
+4. **Intelligent Filtering**: Filters by keywords and publication date
+5. **Aggregation**: Combines results from GitHub and RSS feeds with credibility ratings
+6. **Report Generation**: Creates formatted Markdown and JSON outputs with source citations
+7. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
+8. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
 
 ## Project Structure
 
@@ -300,8 +273,8 @@ Newsbot/
 
 ### Module Descriptions
 
-- **newsbot.py**: Main application that orchestrates GitHub searches, web searches, and LLM analysis
-- **searchers/**: Search providers for GitHub, RSS, and web context
+- **newsbot.py**: Main application that orchestrates GitHub searches and RSS feed aggregation
+- **searchers/**: Search providers for GitHub and RSS feeds
 - **tests/**: Comprehensive test suite for all components including credibility assessment, RSS integration, and integration tests.
 
 ## Security and Privacy Considerations
@@ -311,13 +284,6 @@ Newsbot/
 - Use GitHub Secrets for sensitive credentials (GITHUB_TOKEN is automatically provided in Actions)
 - Keep the `.env` file in `.gitignore`
 - Review the code before running to understand what it does
-
-### Web Scraping and Content Extraction
-- Newsbot respects robots.txt and website terms of service
-- Content extraction is limited and used only for summarization purposes
-- User-Agent headers identify the bot and provide contact information
-- Requests include appropriate timeouts to avoid overloading servers
-- Failed requests are handled gracefully without retry storms
 
 ### Rate Limiting
 - Be mindful of API rate limits when using search APIs
