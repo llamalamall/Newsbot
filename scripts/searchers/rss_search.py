@@ -145,15 +145,15 @@ def search_rss_feeds(
                     result.llm_credibility_flags = credibility_result.get('flags', [])
                     
                     # Apply filtering based on LLM assessment
-                    if filter_inapplicable and not result.llm_applicable:
-                        if result.llm_applicability_score < applicability_threshold:
-                            logging.debug(f"Filtered out (inapplicable): {result.title[:50]}...")
-                            continue
+                    # Filter if applicability score is below threshold
+                    if filter_inapplicable and result.llm_applicability_score < applicability_threshold:
+                        logging.debug(f"Filtered out (inapplicable, score={result.llm_applicability_score:.2f}): {result.title[:50]}...")
+                        continue
                     
-                    if filter_not_credible and not result.llm_credible:
-                        if result.llm_credibility_score < credibility_threshold:
-                            logging.debug(f"Filtered out (not credible): {result.title[:50]}...")
-                            continue
+                    # Filter if credibility score is below threshold
+                    if filter_not_credible and result.llm_credibility_score < credibility_threshold:
+                        logging.debug(f"Filtered out (not credible, score={result.llm_credibility_score:.2f}): {result.title[:50]}...")
+                        continue
                     
                 except Exception as e:
                     logging.warning(f"LLM assessment failed for '{result.title[:50]}...': {str(e)}")
