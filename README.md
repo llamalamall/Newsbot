@@ -1,0 +1,2 @@
+# Newsbot
+Offsec Newsbot
