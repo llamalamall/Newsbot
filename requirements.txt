@@ -3,3 +3,5 @@ beautifulsoup4>=4.12.0
 openai>=1.12.0  # Used for GitHub Models API (OpenAI-compatible)
 python-dotenv>=1.0.0
 PyGithub>=2.1.1
+feedparser>=6.0.10  # RSS/Atom feed parsing
+python-dateutil>=2.8.2  # Date parsing and manipulation

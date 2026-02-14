@@ -83,6 +83,23 @@ Only include items from credible sources. Exclude promotional content and low-qu
         self.results = []
         self.web_search_available = True  # Track if web search is available
         
+        # Initialize RSS Feed Manager if enabled
+        self.rss_manager = None
+        if self.config.get('rss_enabled', False):
+            try:
+                from scripts.rss_feed_manager import RSSFeedManager
+                rss_settings = self.config.get('rss_settings', {})
+                self.rss_manager = RSSFeedManager(
+                    timeout=rss_settings.get('request_timeout', 10),
+                    cache_enabled=rss_settings.get('cache_enabled', True),
+                    cache_ttl_hours=rss_settings.get('cache_ttl_hours', 6),
+                    rate_limit_delay=rss_settings.get('rate_limit_delay', 0.5)
+                )
+                logging.info("RSS Feed Manager initialized")
+            except Exception as e:
+                logging.warning(f"Could not initialize RSS Feed Manager: {str(e)}")
+                self.rss_manager = None
+        
         # Initialize OpenAI client if token is available
         if self.github_token:
             self.openai_client = OpenAI(
@@ -414,51 +431,136 @@ Only include items from credible sources. Exclude promotional content and low-qu
         
         return results
     
+    def search_rss_feeds(self) -> List[Dict[str, Any]]:
+        """Search and aggregate content from RSS feeds.
+        
+        This method fetches all configured RSS feeds, filters them by date
+        and keywords, and returns relevant articles.
+        
+        Returns:
+            List of relevant RSS feed entries
+        """
+        results = []
+        
+        if not self.rss_manager:
+            logging.info("RSS Feed Manager not initialized, skipping RSS search")
+            return results
+        
+        try:
+            logging.info("Fetching RSS feeds...")
+            
+            # Get RSS feed configuration
+            feeds = self.config.get('rss_feeds', [])
+            if not feeds:
+                logging.warning("No RSS feeds configured")
+                return results
+            
+            # Get RSS settings
+            rss_settings = self.config.get('rss_settings', {})
+            max_age_days = rss_settings.get('max_age_days', self.config.get('days_back', 7))
+            min_keyword_matches = rss_settings.get('min_keyword_matches', 1)
+            
+            # Fetch all feeds
+            all_entries = self.rss_manager.fetch_all_feeds(feeds)
+            
+            # Filter by date
+            recent_entries = self.rss_manager.filter_by_date(all_entries, max_age_days)
+            
+            # Filter by keywords
+            keywords = self.config.get('search_keywords', [])
+            if keywords:
+                filtered_entries = self.rss_manager.filter_by_keywords(
+                    recent_entries,
+                    keywords,
+                    min_keyword_matches
+                )
+            else:
+                filtered_entries = recent_entries
+            
+            # Convert to NewsBot result format
+            for entry in filtered_entries:
+                result = {
+                    'title': entry.get('title', 'Untitled'),
+                    'url': entry.get('link', ''),
+                    'description': entry.get('description', ''),
+                    'published': entry.get('published'),
+                    'source': 'rss',
+                    'feed_name': entry.get('feed_name', 'Unknown Feed'),
+                    'feed_category': entry.get('category'),
+                    'priority': entry.get('priority', 'medium'),
+                    'keyword_matches': entry.get('keyword_matches', 0),
+                    'author': entry.get('author'),
+                    'tags': entry.get('tags', [])
+                }
+                
+                # Assess source credibility
+                if result['url']:
+                    result['credibility'] = self.assess_source_credibility(result['url'])
+                
+                results.append(result)
+            
+            logging.info(f"Found {len(results)} relevant articles from RSS feeds")
+            
+        except Exception as e:
+            logging.error(f"Error in RSS feed search: {str(e)}")
+        
+        return results
+    
     def aggregate_news(self) -> List[Dict[str, Any]]:
-        """Aggregate news from multiple sources with enhanced web search integration."""
+        """Aggregate news from multiple sources including RSS feeds, GitHub, and web search."""
         logging.info("Aggregating news from multiple sources...")
         all_results = []
         
-        # Search GitHub repositories
+        # Determine content source mode
+        content_source = self.config.get('content_source', 'dual')
+        
+        # Search GitHub repositories (always enabled)
         github_results = self.search_github_repos()
         all_results.extend(github_results)
         
-        # Enhanced search using web context for each topic
-        for topic in self.config.get("search_topics", []):
-            logging.info(f"Enhanced web search for: {topic}")
-            
-            try:
-                # Try the new web-enhanced search first
-                web_enhanced_results = self.search_with_web_context(topic)
-                if web_enhanced_results:
-                    all_results.extend(web_enhanced_results)
-                else:
-                    # Fallback to original LLM-only search
-                    logging.info(f"Falling back to LLM-only search for: {topic}")
-                    llm_response = self.search_with_llm(topic)
-                    
-                    if llm_response:
-                        try:
-                            # Try to parse JSON response
-                            json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
-                            if json_match:
-                                llm_results = json.loads(json_match.group())
-                                for item in llm_results:
-                                    item["source"] = "llm_search"
-                                    item["search_topic"] = topic
-                                    all_results.append(item)
-                        except json.JSONDecodeError:
-                            # If not JSON, store as text summary
-                            all_results.append({
-                                "title": f"Summary: {topic}",
-                                "description": llm_response,
-                                "source": "llm_summary",
-                                "search_topic": topic
-                            })
-            except Exception as e:
-                logging.error(f"Error processing topic '{topic}': {str(e)[:200]}")
-                # Continue with next topic even if one fails
-                continue
+        # RSS feed search (if enabled)
+        if content_source in ['rss', 'dual'] and self.config.get('rss_enabled', False):
+            rss_results = self.search_rss_feeds()
+            all_results.extend(rss_results)
+        
+        # Web search (if enabled and in dual or web mode)
+        if content_source in ['web', 'dual'] and self.config.get('web_search_enabled', True):
+            # Enhanced search using web context for each topic
+            for topic in self.config.get("search_topics", []):
+                logging.info(f"Enhanced web search for: {topic}")
+                
+                try:
+                    # Try the new web-enhanced search first
+                    web_enhanced_results = self.search_with_web_context(topic)
+                    if web_enhanced_results:
+                        all_results.extend(web_enhanced_results)
+                    else:
+                        # Fallback to original LLM-only search
+                        logging.info(f"Falling back to LLM-only search for: {topic}")
+                        llm_response = self.search_with_llm(topic)
+                        
+                        if llm_response:
+                            try:
+                                # Try to parse JSON response
+                                json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
+                                if json_match:
+                                    llm_results = json.loads(json_match.group())
+                                    for item in llm_results:
+                                        item["source"] = "llm_search"
+                                        item["search_topic"] = topic
+                                        all_results.append(item)
+                            except json.JSONDecodeError:
+                                # If not JSON, store as text summary
+                                all_results.append({
+                                    "title": f"Summary: {topic}",
+                                    "description": llm_response,
+                                    "source": "llm_summary",
+                                    "search_topic": topic
+                                })
+                except Exception as e:
+                    logging.error(f"Error processing topic '{topic}': {str(e)[:200]}")
+                    # Continue with next topic even if one fails
+                    continue
         
         self.results = all_results
         return all_results
@@ -476,6 +578,7 @@ Only include items from credible sources. Exclude promotional content and low-qu
         
         # Group by source
         github_items = [r for r in self.results if r.get("source") == "github"]
+        rss_items = [r for r in self.results if r.get("source") == "rss"]
         web_items = [r for r in self.results if r.get("source") in ["web_search_llm", "web_search_summary"]]
         llm_items = [r for r in self.results if r.get("source") in ["llm_search", "llm_summary"]]
         
@@ -490,6 +593,48 @@ Only include items from credible sources. Exclude promotional content and low-qu
                 report += f"- **Stars:** {item.get('stars', 'N/A')}\n"
                 report += f"- **Updated:** {item.get('updated', 'N/A')}\n"
                 report += f"- **Topic:** {item.get('topic', 'N/A')}\n\n"
+        
+        if rss_items:
+            report += f"## RSS Feed Articles ({len(rss_items)})\n\n"
+            report += "*Articles from curated RSS feeds*\n\n"
+            
+            # Sort by priority and keyword matches
+            rss_items.sort(
+                key=lambda x: (
+                    0 if x.get('priority') == 'high' else 1,
+                    -x.get('keyword_matches', 0)
+                )
+            )
+            
+            for item in rss_items:
+                report += f"### {item.get('title', 'Untitled')}\n\n"
+                if item.get("description"):
+                    # Clean HTML from description if present
+                    desc = item['description']
+                    if '<' in desc and '>' in desc:
+                        from bs4 import BeautifulSoup
+                        desc = BeautifulSoup(desc, 'html.parser').get_text()
+                    # Truncate long descriptions
+                    if len(desc) > 500:
+                        desc = desc[:500] + "..."
+                    report += f"{desc}\n\n"
+                
+                if item.get("url"):
+                    report += f"**Link:** [{item.get('url')}]({item.get('url')})\n\n"
+                
+                report += f"**Source:** {item.get('feed_name', 'Unknown Feed')}"
+                if item.get('feed_category'):
+                    report += f" ({item['feed_category']})"
+                report += "\n\n"
+                
+                if item.get("credibility"):
+                    report += f"**Credibility:** {item['credibility'].title()}\n\n"
+                
+                if item.get("published"):
+                    report += f"*Published: {item['published']}*\n\n"
+                
+                if item.get("keyword_matches", 0) > 0:
+                    report += f"*Keyword matches: {item['keyword_matches']}*\n\n"
         
         if web_items:
             report += f"## Web Search Results ({len(web_items)})\n\n"
@@ -533,6 +678,8 @@ Only include items from credible sources. Exclude promotional content and low-qu
         # Add footer with credibility notice
         report += "\n---\n\n"
         report += "*Note: Results are filtered for credibility and relevance. "
+        if rss_items:
+            report += "RSS feed articles are from curated, high-quality sources. "
         report += "Web search results are assessed for source reliability before inclusion.*\n"
         
         # Save report
