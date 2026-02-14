@@ -17,8 +17,8 @@ MAX_CONTEXT_SNIPPET_LENGTH = 1000
 LLM_SYSTEM_PROMPT = (
     "You are a security researcher assistant who helps "
     "find and summarize the latest offensive security news "
-    "and developments. You prioritize credible sources and "
-    "fact-based reporting."
+    "and developments, especially related to AI and automation. "
+    "You prioritize credible sources and fact-based reporting."
 )
 
 # Prompt template for LLM searches with web search context
