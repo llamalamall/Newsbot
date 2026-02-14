@@ -1,0 +1,241 @@
+[
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "stars": 0,
+    "updated": "2026-02-14T16:29:39+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "DDooDDgg/SploitGPT",
+    "url": "https://github.com/DDooDDgg/SploitGPT",
+    "description": "\ud83d\udee0\ufe0f Automate penetration testing with SploitGPT, an AI agent using Kali Linux tools for efficient security assessments and minimal user input.",
+    "stars": 2,
+    "updated": "2026-02-14T16:22:09+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Sylphoraz/SharpAllowedToAct-Modify",
+    "url": "https://github.com/Sylphoraz/SharpAllowedToAct-Modify",
+    "description": "Computer object takeover through Resource-Based Constrained Delegation msDS-AllowedToActOnBehalfOfOtherIdentity",
+    "stars": 0,
+    "updated": "2026-02-14T16:19:48+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Methat210747/token-speed-tester",
+    "url": "https://github.com/Methat210747/token-speed-tester",
+    "description": "\ud83d\ude80 Measure and analyze LLM API token output speeds with this command-line tool, supporting both Anthropic and OpenAI APIs for detailed performance metrics.",
+    "stars": 0,
+    "updated": "2026-02-14T16:22:42+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "DDooDDgg/SploitGPT",
+    "url": "https://github.com/DDooDDgg/SploitGPT",
+    "description": "\ud83d\udee0\ufe0f Automate penetration testing with SploitGPT, an AI agent using Kali Linux tools for efficient security assessments and minimal user input.",
+    "stars": 2,
+    "updated": "2026-02-14T16:22:09+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "DDooDDgg/SploitGPT",
+    "url": "https://github.com/DDooDDgg/SploitGPT",
+    "description": "\ud83d\udee0\ufe0f Automate penetration testing with SploitGPT, an AI agent using Kali Linux tools for efficient security assessments and minimal user input.",
+    "stars": 2,
+    "updated": "2026-02-14T16:22:09+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "v2lurpin/portscan-vulnerabilidades",
+    "url": "https://github.com/v2lurpin/portscan-vulnerabilidades",
+    "description": "\ud83d\udee1\ufe0f Scan networks for vulnerabilities with a powerful Python tool, featuring GUI and CLI modes for fast, efficient reconnaissance and risk assessment.",
+    "stars": 7,
+    "updated": "2026-02-14T16:16:59+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "stars": 0,
+    "updated": "2026-02-14T16:29:39+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "stars": 7,
+    "updated": "2026-02-14T16:30:13+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "Mr-Vitoo/lisa",
+    "url": "https://github.com/Mr-Vitoo/lisa",
+    "description": "\ud83d\udca1 Streamline your feature planning with Lisa, an interactive plugin that conducts detailed interviews and generates comprehensive specs for Claude Code.",
+    "stars": 0,
+    "updated": "2026-02-14T16:22:25+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "LXrdKnowkill/HikariSystem-HexCore",
+    "url": "https://github.com/LXrdKnowkill/HikariSystem-HexCore",
+    "description": "The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), and headless automation. Powered by Capstone, Unicorn & LLVM via N-API. ",
+    "stars": 5,
+    "updated": "2026-02-14T16:19:04+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "fhjlfer098/Malware-Analysis",
+    "url": "https://github.com/fhjlfer098/Malware-Analysis",
+    "description": "\ud83e\udda0 Analyze and investigate a multi-stage malware campaign, focusing on AsyncRAT and effective incident response techniques for real-world scenarios.",
+    "stars": 0,
+    "updated": "2026-02-14T16:24:09+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "LXrdKnowkill/HikariSystem-HexCore",
+    "url": "https://github.com/LXrdKnowkill/HikariSystem-HexCore",
+    "description": "The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), and headless automation. Powered by Capstone, Unicorn & LLVM via N-API. ",
+    "stars": 5,
+    "updated": "2026-02-14T16:19:04+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "3stythe/ai-novel-generator",
+    "url": "https://github.com/3stythe/ai-novel-generator",
+    "description": "\ud83e\udd16 Generate coherent long-form novels quickly and cost-effectively using AI, maintaining plot consistency and character integrity.",
+    "stars": 1,
+    "updated": "2026-02-14T16:19:47+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Laserman652/AIPhishingDetector",
+    "url": "https://github.com/Laserman652/AIPhishingDetector",
+    "description": "\ud83d\udd0d Analyze email text to detect phishing, suspicious, or legitimate messages with an efficient machine learning tool for informed decision-making.",
+    "stars": 1,
+    "updated": "2026-02-14T16:18:11+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "chevauxenbois/security-intelligence-digest",
+    "url": "https://github.com/chevauxenbois/security-intelligence-digest",
+    "description": "AI-powered daily security digest with persona-based insights. Automatically delivers CVEs, security news & AI regulations to Notion. 100% free & open source.",
+    "stars": 1,
+    "updated": "2026-02-14T16:17:52+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "stars": 0,
+    "updated": "2026-02-14T16:16:17+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Suleymkr/maais-runtime",
+    "url": "https://github.com/Suleymkr/maais-runtime",
+    "description": "\ud83d\udee1\ufe0f Enforce enterprise-grade security for autonomous AI agents with MAAIS-Runtime, ensuring real-time protection for your agentic AI systems.",
+    "stars": 0,
+    "updated": "2026-02-14T16:14:50+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "foodman1227/awesome-ai-tools",
+    "url": "https://github.com/foodman1227/awesome-ai-tools",
+    "description": "\ud83e\udd16 Explore essential AI tools for building, automating, and monetizing projects across content, video, e-commerce, and more.",
+    "stars": 1,
+    "updated": "2026-02-14T16:09:23+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Yasas9029/ai-design-engineering-cc-plugins",
+    "url": "https://github.com/Yasas9029/ai-design-engineering-cc-plugins",
+    "description": "\ud83d\udee0\ufe0f Build resilient agentic applications with AI-driven personas that guide you from concept to production in Claude Code.",
+    "stars": 1,
+    "updated": "2026-02-14T16:08:40+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T16:30:22+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Yjaballi/cybersecurity_roadmap",
+    "url": "https://github.com/Yjaballi/cybersecurity_roadmap",
+    "description": "\ud83d\udee1\ufe0f Build your career in cybersecurity with a practical roadmap of skills, certifications, and roles tailored for the real-world market.",
+    "stars": 0,
+    "updated": "2026-02-14T16:24:20+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "ar157209/soc-roadmap-2026",
+    "url": "https://github.com/ar157209/soc-roadmap-2026",
+    "description": "\ud83d\udd12 Build your skills with the SOC Roadmap 2026, a complete training program for aspiring SOC analysts focused on automation and effective investigation techniques.",
+    "stars": 2,
+    "updated": "2026-02-14T16:23:59+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "yud1takata/security-ops-blueprint",
+    "url": "https://github.com/yud1takata/security-ops-blueprint",
+    "description": "\ud83d\udee1\ufe0f Develop a vendor-neutral security operations framework for identity, segmentation, telemetry, and validation, tailored for scalability and automation.",
+    "stars": 0,
+    "updated": "2026-02-14T16:17:22+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "three2hot/cyber-agent",
+    "url": "https://github.com/three2hot/cyber-agent",
+    "description": "\ud83e\udd16 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient and effective security assessments.",
+    "stars": 0,
+    "updated": "2026-02-14T16:16:36+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Booz Allen Announces General Availability of Vellox Reverser to Automate Malware Defense",
+    "url": "https://www.darkreading.com/endpoint-security/booz-allen-announces-general-availability-vellox-reverser",
+    "description": "The AI-powered product delivers expert-grade malware analysis and reverse engineering in minutes.",
+    "published": "2026-02-12T21:23:06",
+    "source": "rss",
+    "feed_name": "Dark Reading",
+    "feed_category": "news",
+    "priority": "medium",
+    "keyword_matches": 2,
+    "author": "",
+    "tags": [],
+    "credibility": "low"
+  }
+]
