@@ -16,10 +16,16 @@ from github import Github
 from openai import OpenAI, OpenAIError  # GitHub Models uses OpenAI-compatible API
 from urllib.parse import urlparse
 import re
+from bs4 import BeautifulSoup
 
 
 class NewsBot:
     """Main class for searching and aggregating security news."""
+    
+    # Maximum characters to extract from article content for LLM processing
+    MAX_ARTICLE_CONTENT_LENGTH = 5000
+    # Maximum characters to include in context when passing to LLM
+    MAX_CONTEXT_SNIPPET_LENGTH = 1000
     
     # Prompt template for LLM searches with web search context
     LLM_SUMMARY_PROMPT = """Based on the following web search results about "{query}", provide a structured analysis of the latest news and developments.
@@ -138,7 +144,6 @@ Only include items from credible sources. Exclude promotional content and low-qu
             response.raise_for_status()
             
             # Use BeautifulSoup to extract text
-            from bs4 import BeautifulSoup
             soup = BeautifulSoup(response.content, 'html.parser')
             
             # Remove script and style elements
@@ -161,8 +166,8 @@ Only include items from credible sources. Exclude promotional content and low-qu
                 text = main_content.get_text(separator='\n', strip=True)
                 # Remove excessive whitespace
                 text = re.sub(r'\n\s*\n', '\n\n', text)
-                # Limit to first 5000 characters for processing
-                return text[:5000] if text else None
+                # Limit to MAX_ARTICLE_CONTENT_LENGTH for processing (balances context vs. token usage)
+                return text[:self.MAX_ARTICLE_CONTENT_LENGTH] if text else None
             
             return None
         except Exception as e:
@@ -338,7 +343,8 @@ Only include items from credible sources. Exclude promotional content and low-qu
                     # Step 3: Try to extract article content
                     content = self.extract_article_content(url)
                     if content:
-                        result['extracted_content'] = content[:1000]  # Limit size
+                        # Store shorter snippet for context to manage token usage
+                        result['extracted_content'] = content[:self.MAX_CONTEXT_SNIPPET_LENGTH]
             
             # Step 4: Build context for LLM
             if credible_results:
