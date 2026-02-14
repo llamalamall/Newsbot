@@ -175,8 +175,19 @@ def search_with_web_context(
                 response = openai_client.chat.completions.create(
                     model="gpt-4o",
                     messages=[
-                        {"role": "system", "content": "You are a security researcher assistant who helps find and summarize the latest offensive security news and developments. You prioritize credible sources and fact-based reporting."},
-                        {"role": "user", "content": prompt}
+                        {
+                            "role": "system",
+                            "content": (
+                                "You are a security researcher assistant who helps "
+                                "find and summarize the latest offensive security news "
+                                "and developments. You prioritize credible sources and "
+                                "fact-based reporting."
+                            )
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
                     ],
                     temperature=0.3,
                     max_tokens=2000
