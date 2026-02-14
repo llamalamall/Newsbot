@@ -1,17 +1,15 @@
 name: Newsbot - Security News Aggregator
 
 on:
-  # Run on schedule (daily at 9 AM UTC)
+  # Automatic daily schedule - runs at 9 AM UTC every day
+  # Customize the time by modifying the cron expression
   schedule:
     - cron: '0 9 * * *'
-  
-  # Allow manual trigger
+
+  # Manual trigger - run on-demand from the Actions tab
+  # Click "Run workflow" button in the GitHub Actions UI
   workflow_dispatch:
-  
-  # Run on push to main (for testing)
-  push:
-    branches:
-      - main
+
 
 jobs:
   aggregate-news:
