@@ -25,6 +25,7 @@
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
+  "github_enabled": false,
   "rss_enabled": true,
   "rss_feeds": [
     {

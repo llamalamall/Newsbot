@@ -115,6 +115,7 @@ Edit `config.json` to customize:
 - `github_topics`: GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
+- `github_enabled`: Enable/disable GitHub repository search (default: true)
 
 ### RSS Feed Configuration
 
@@ -181,6 +182,7 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
+  "github_enabled": true,
   "rss_enabled": true,
   "rss_feeds": [
     {
