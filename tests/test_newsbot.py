@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Test script for Newsbot enhancements.
-Tests the new web search integration and credibility assessment features.
+Test script for Newsbot functionality.
+Tests credibility assessment and article extraction features.
 """
 
 import sys
@@ -71,20 +71,12 @@ def test_article_extraction():
     return True
 
 
-def test_llm_prompt_structure():
-    """Test that the LLM prompt includes web search context."""
-    print("Testing LLM Prompt Structure...")
+def test_credible_sources():
+    """Test that credible sources are properly defined."""
+    print("Testing Credible Sources Configuration...")
     print("=" * 60)
     
     bot = NewsBot()
-    
-    # Check that the prompt template includes the search_context placeholder
-    if "{search_context}" in bot.LLM_SUMMARY_PROMPT and "{query}" in bot.LLM_SUMMARY_PROMPT:
-        print("✓ LLM prompt template includes web search context placeholder")
-        print("✓ LLM prompt template includes query placeholder")
-    else:
-        print("✗ LLM prompt template missing required placeholders")
-        return False
     
     # Check that credible sources are defined
     if bot.CREDIBLE_SOURCES and 'high' in bot.CREDIBLE_SOURCES and 'medium' in bot.CREDIBLE_SOURCES:
@@ -106,19 +98,21 @@ def test_integration():
     
     bot = NewsBot()
     
-    # Test that perform_web_search method exists and is callable
+    # Test that core methods exist
     try:
-        results = bot.perform_web_search("test query")
-        print(f"✓ perform_web_search method callable")
-        print(f"  Returns: {type(results)}")
-    except Exception as e:
-        print(f"✗ Error calling perform_web_search: {e}")
-        return False
-    
-    # Test that search_with_web_context method exists
-    try:
-        # Note: This will fail without GITHUB_TOKEN, but we're just checking it's callable
-        print("✓ search_with_web_context method exists")
+        # Check that aggregate_news method exists
+        if hasattr(bot, 'aggregate_news'):
+            print(f"✓ aggregate_news method exists")
+        else:
+            print(f"✗ aggregate_news method not found")
+            return False
+            
+        # Check that assess_source_credibility method exists
+        if hasattr(bot, 'assess_source_credibility'):
+            print(f"✓ assess_source_credibility method exists")
+        else:
+            print(f"✗ assess_source_credibility method not found")
+            return False
     except Exception as e:
         print(f"✗ Error: {e}")
         return False
@@ -132,14 +126,14 @@ def test_integration():
 def main():
     """Run all tests."""
     print("\n" + "=" * 60)
-    print("Newsbot Enhancement Test Suite")
+    print("Newsbot Test Suite")
     print("=" * 60)
     print()
     
     results = {
         "Credibility Assessment": test_credibility_assessment(),
         "Article Extraction": test_article_extraction(),
-        "LLM Prompt Structure": test_llm_prompt_structure(),
+        "Credible Sources": test_credible_sources(),
         "Component Integration": test_integration(),
     }
     

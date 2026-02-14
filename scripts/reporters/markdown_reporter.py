@@ -112,73 +112,6 @@ def _generate_rss_section(rss_items: List[Dict[str, Any]]) -> str:
     return section
 
 
-def _generate_web_section(web_items: List[Dict[str, Any]]) -> str:
-    """Generate web search results section of the report.
-    
-    Args:
-        web_items: List of web search items
-        
-    Returns:
-        Markdown section string
-    """
-    if not web_items:
-        return ""
-    
-    section = f"## Web Search Results ({len(web_items)})\n\n"
-    section += "*Results from live web searches with credibility assessment*\n\n"
-    for item in web_items:
-        section += f"### {item.get('title', 'Untitled')}\n\n"
-        if item.get("description"):
-            section += f"{item['description']}\n\n"
-        if item.get("url"):
-            section += f"**Source:** [{item.get('url')}]({item.get('url')})\n\n"
-        if item.get("credibility"):
-            section += f"**Credibility:** {item['credibility'].title()}\n\n"
-        if item.get("key_points"):
-            section += f"**Key Points:**\n"
-            if isinstance(item["key_points"], list):
-                for point in item["key_points"]:
-                    section += f"- {point}\n"
-            section += "\n"
-        if item.get("date"):
-            section += f"*Published: {item.get('date')}*\n\n"
-        section += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
-    
-    return section
-
-
-def _generate_llm_section(llm_items: List[Dict[str, Any]]) -> str:
-    """Generate LLM search results section of the report.
-    
-    Args:
-        llm_items: List of LLM search items
-        
-    Returns:
-        Markdown section string
-    """
-    if not llm_items:
-        return ""
-    
-    section = f"## Articles, Blog Posts & Announcements ({len(llm_items)})\n\n"
-    for item in llm_items:
-        section += f"### {item.get('title', 'Untitled')}\n\n"
-        if item.get("description"):
-            section += f"{item['description']}\n\n"
-        if item.get("url"):
-            section += f"**Link:** {item['url']}\n\n"
-        if item.get("credibility"):
-            section += f"**Source Credibility:** {item['credibility'].title()}\n\n"
-        if item.get("key_points"):
-            section += f"**Key Points:**\n"
-            if isinstance(item["key_points"], list):
-                for point in item["key_points"]:
-                    section += f"- {point}\n"
-            section += "\n"
-        section += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
-    
-    return section
-
-
 def _generate_report_footer(has_rss_items: bool) -> str:
     """Generate the report footer with credibility notice.
     
@@ -191,8 +124,9 @@ def _generate_report_footer(has_rss_items: bool) -> str:
     footer = "\n---\n\n"
     footer += "*Note: Results are filtered for credibility and relevance. "
     if has_rss_items:
-        footer += "RSS feed articles are from curated, high-quality sources. "
-    footer += "Web search results are assessed for source reliability before inclusion.*\n"
+        footer += "RSS feed articles are from curated, high-quality sources.*\n"
+    else:
+        footer += "All sources are assessed for reliability.*\n"
     return footer
 
 
@@ -216,14 +150,10 @@ def generate_report(results: List[Dict[str, Any]], output_path: str = None) -> s
     # Group by source
     github_items = [r for r in results if r.get("source") == "github"]
     rss_items = [r for r in results if r.get("source") == "rss"]
-    web_items = [r for r in results if r.get("source") in ["web_search_llm", "web_search_summary"]]
-    llm_items = [r for r in results if r.get("source") in ["llm_search", "llm_summary"]]
     
     # Generate sections
     report += _generate_github_section(github_items)
     report += _generate_rss_section(rss_items)
-    report += _generate_web_section(web_items)
-    report += _generate_llm_section(llm_items)
     
     # Add footer
     report += _generate_report_footer(bool(rss_items))

@@ -115,10 +115,7 @@ def test_newsbot_methods():
         # Check for required methods
         required_methods = [
             'search_github_repos',
-            'search_with_llm',
-            'perform_web_search',
-            'search_with_web_context',
-            'search_rss_feeds',  # NEW METHOD
+            'search_rss_feeds',
             'aggregate_news',
             'generate_report',
             'assess_source_credibility',
@@ -142,14 +139,13 @@ def test_newsbot_methods():
 
 
 def test_backwards_compatibility():
-    """Test that old configuration still works (web-only mode)."""
+    """Test that configuration without RSS fields still works (basic GitHub-only mode)."""
     print("=" * 60)
     print("TEST 4: Backwards Compatibility")
     print("=" * 60)
     
     # Create a minimal config without RSS
     old_config = {
-        "search_topics": ["test"],
         "search_keywords": ["test"],
         "github_topics": ["test"],
         "days_back": 7,
@@ -215,25 +211,17 @@ def test_report_generation_format():
             'feed_name': 'Test Feed',
             'description': 'Test description',
             'priority': 'high'
-        },
-        {
-            'title': 'Web Search Result',
-            'source': 'web_search_llm',
-            'url': 'https://example.com/web',
-            'description': 'Web result'
         }
     ]
     
     # Check that we can categorize sources
     github_items = [r for r in mock_results if r.get("source") == "github"]
     rss_items = [r for r in mock_results if r.get("source") == "rss"]
-    web_items = [r for r in mock_results if r.get("source") in ["web_search_llm", "web_search_summary"]]
     
     print(f"✓ GitHub items: {len(github_items)}")
     print(f"✓ RSS items: {len(rss_items)}")
-    print(f"✓ Web items: {len(web_items)}")
     
-    if len(github_items) == 1 and len(rss_items) == 1 and len(web_items) == 1:
+    if len(github_items) == 1 and len(rss_items) == 1:
         print("✓ Source categorization works correctly")
     else:
         print("✗ Source categorization failed")

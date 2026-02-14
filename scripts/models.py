@@ -15,7 +15,7 @@ class SearchResult:
         title: Title of the result
         url: URL link to the source
         description: Description or summary of the content
-        source: Source type identifier (e.g., 'github', 'rss', 'web_search_llm')
+        source: Source type identifier (e.g., 'github', 'rss')
         credibility: Optional credibility rating ('high', 'medium', 'low')
     """
     title: str
@@ -75,19 +75,3 @@ class RSSResult(SearchResult):
     def __post_init__(self):
         """Ensure source is set to 'rss'."""
         self.source = "rss"
-
-
-@dataclass
-class WebSearchResult(SearchResult):
-    """Web search result with LLM processing.
-    
-    Attributes:
-        search_topic: The search topic/query used
-        key_points: List of key takeaways from the content
-        date: Publication date if available
-        credible_sources_found: Number of credible sources found (for summaries)
-    """
-    search_topic: Optional[str] = None
-    key_points: Optional[List[str]] = None
-    date: Optional[str] = None
-    credible_sources_found: Optional[int] = None

@@ -1,16 +1,4 @@
 {
-  "search_topics": [
-    "AI offensive security automation",
-    "LLM penetration testing",
-    "machine learning red team",
-    "AI-powered reverse engineering",
-    "automated malware analysis AI",
-    "AI binary analysis tools",
-    "CVE reachability analysis automation",
-    "supply chain attack detection AI",
-    "AI security testing frameworks",
-    "automated exploit generation"
-  ],
   "search_keywords": [
     "offensive security",
     "penetration testing",
@@ -37,7 +25,6 @@
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
-  "content_source": "dual",
   "rss_enabled": true,
   "rss_feeds": [
     {

@@ -11,7 +11,7 @@ import os
 # Add scripts to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
 
-from models import SearchResult, GitHubResult, RSSResult, WebSearchResult
+from models import SearchResult, GitHubResult, RSSResult
 
 
 class TestSearchResult:
@@ -182,79 +182,6 @@ class TestRSSResult:
         assert "ai" in result.tags
 
 
-class TestWebSearchResult:
-    """Test WebSearchResult dataclass."""
-    
-    def test_create_web_search_result(self):
-        """Test creating a WebSearchResult."""
-        result = WebSearchResult(
-            title="AI Security News",
-            url="https://example.com/news",
-            description="Latest developments in AI security",
-            source="web_search_llm",
-            search_topic="AI security",
-            key_points=["Point 1", "Point 2"],
-            date="2024-01-01"
-        )
-        
-        assert result.title == "AI Security News"
-        assert result.url == "https://example.com/news"
-        assert result.description == "Latest developments in AI security"
-        assert result.source == "web_search_llm"
-        assert result.search_topic == "AI security"
-        assert len(result.key_points) == 2
-        assert result.date == "2024-01-01"
-    
-    def test_web_search_result_optional_fields(self):
-        """Test WebSearchResult with optional fields."""
-        result = WebSearchResult(
-            title="Summary",
-            url="",
-            description="Summary text",
-            source="web_search_summary"
-        )
-        
-        assert result.search_topic is None
-        assert result.key_points is None
-        assert result.date is None
-        assert result.credible_sources_found is None
-    
-    def test_web_search_result_with_credible_sources(self):
-        """Test WebSearchResult with credible_sources_found."""
-        result = WebSearchResult(
-            title="Summary: AI Security",
-            url="",
-            description="Summary of findings",
-            source="web_search_summary",
-            search_topic="AI security",
-            credible_sources_found=5
-        )
-        
-        assert result.credible_sources_found == 5
-    
-    def test_web_search_result_to_dict(self):
-        """Test converting WebSearchResult to dictionary."""
-        result = WebSearchResult(
-            title="AI Security News",
-            url="https://example.com/news",
-            description="Latest developments",
-            source="web_search_llm",
-            credibility="high",
-            search_topic="AI security",
-            key_points=["Point 1", "Point 2"],
-            date="2024-01-01"
-        )
-        
-        result_dict = result.to_dict()
-        
-        assert isinstance(result_dict, dict)
-        assert result_dict["source"] == "web_search_llm"
-        assert result_dict["credibility"] == "high"
-        assert result_dict["search_topic"] == "AI security"
-        assert len(result_dict["key_points"]) == 2
-        assert result_dict["date"] == "2024-01-01"
-
-
 class TestDataclassCompatibility:
     """Test dataclass compatibility with existing code."""
     
@@ -300,29 +227,6 @@ class TestDataclassCompatibility:
             "title", "url", "description", "source", "published",
             "feed_name", "feed_category", "priority", "keyword_matches",
             "author", "tags"
-        ]
-        for field in expected_fields:
-            assert field in result_dict
-    
-    def test_web_search_result_dict_compatibility(self):
-        """Test that WebSearchResult dict output matches old format."""
-        result = WebSearchResult(
-            title="News",
-            url="https://example.com",
-            description="Description",
-            source="web_search_llm",
-            credibility="high",
-            search_topic="topic",
-            key_points=["point"],
-            date="2024-01-01"
-        )
-        
-        result_dict = result.to_dict()
-        
-        # Check all expected fields are present
-        expected_fields = [
-            "title", "url", "description", "source", "credibility",
-            "search_topic", "key_points", "date"
         ]
         for field in expected_fields:
             assert field in result_dict

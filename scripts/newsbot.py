@@ -25,12 +25,8 @@ try:
     from .utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from .utils.content_extractor import extract_article_content
     from .searchers.github_search import search_github_repos
-    from .searchers.web_search import (
-        search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT, perform_web_search
-    )
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
-    from .models import WebSearchResult
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -41,12 +37,8 @@ except ImportError:
     from utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from utils.content_extractor import extract_article_content
     from searchers.github_search import search_github_repos
-    from searchers.web_search import (
-        search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT, perform_web_search
-    )
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
-    from models import WebSearchResult
 
 __all__ = ['NewsBot', 'main', 'parse_arguments']
 
@@ -59,7 +51,6 @@ class NewsBot:
     DEFAULT_RSS_RATE_LIMIT_DELAY = 0.5  # seconds
     
     # Expose constants for backward compatibility
-    LLM_SUMMARY_PROMPT = LLM_SUMMARY_PROMPT
     CREDIBLE_SOURCES = CREDIBLE_SOURCES
     
     def __init__(self, config_path: str = "config.json"):
@@ -67,7 +58,6 @@ class NewsBot:
         self.config = self.load_config(config_path)
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
-        self.web_search_available = True  # Track if web search is available
         
         # Initialize RSS Feed Manager if enabled
         self.rss_manager = None
@@ -123,118 +113,10 @@ class NewsBot:
         """
         return extract_article_content(url)
 
-    def perform_web_search(self, query: str):
-        """Perform a live web search for the given query.
-        
-        Args:
-            query: Search query string
-            
-        Returns:
-            List of search results with title, url, snippet, and credibility
-        """
-        return perform_web_search(query, assess_source_credibility, self.config)
-    
-    def search_with_web_context(self, query: str):
-        """Search using both web search and LLM with full context integration.
-        
-        Args:
-            query: The search topic/query
-            
-        Returns:
-            List of processed and enriched results
-        """
-        return search_with_web_context(
-            query=query,
-            openai_client=self.openai_client,
-            assess_credibility_func=assess_source_credibility,
-            extract_content_func=extract_article_content,
-            config=self.config
-        )
-    
-    def _process_web_search_topic(self, topic: str) -> List[Dict[str, Any]]:
-        """Process a single web search topic with fallback to LLM-only search.
-        
-        Args:
-            topic: Search topic/query
-            
-        Returns:
-            List of results for the topic
-        """
-        results = []
-        logging.info(f"Enhanced web search for: {topic}")
-        
-        try:
-            # Try the new web-enhanced search first
-            web_enhanced_results = search_with_web_context(
-                query=topic,
-                openai_client=self.openai_client,
-                assess_credibility_func=assess_source_credibility,
-                extract_content_func=extract_article_content,
-                config=self.config
-            )
-            if web_enhanced_results:
-                results.extend(web_enhanced_results)
-            else:
-                # Fallback to original LLM-only search
-                results.extend(self._fallback_llm_search(topic))
-        except Exception as e:
-            logging.error(f"Error processing topic '{topic}': {str(e)[:200]}")
-            # Continue with next topic even if one fails
-        
-        return results
-
-    def _fallback_llm_search(self, topic: str) -> List[Dict[str, Any]]:
-        """Fallback to LLM-only search when web search returns no results.
-        
-        Args:
-            topic: Search topic/query
-            
-        Returns:
-            List of results from LLM search
-        """
-        results = []
-        logging.info(f"Falling back to LLM-only search for: {topic}")
-        llm_response = search_with_llm(topic, self.openai_client)
-        
-        if llm_response:
-            try:
-                # Try to parse JSON response
-                json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
-                if json_match:
-                    llm_results = json.loads(json_match.group())
-                    for item in llm_results:
-                        # Create WebSearchResult from LLM parsed data
-                        result = WebSearchResult(
-                            title=item.get('title', 'Untitled'),
-                            url=item.get('url', ''),
-                            description=item.get('description', ''),
-                            source="llm_search",
-                            credibility=item.get('credibility'),
-                            search_topic=topic,
-                            key_points=item.get('key_points'),
-                            date=item.get('date')
-                        )
-                        results.append(result.to_dict())
-            except json.JSONDecodeError:
-                # If not JSON, store as text summary
-                result = WebSearchResult(
-                    title=f"Summary: {topic}",
-                    url="",
-                    description=llm_response,
-                    source="llm_summary",
-                    search_topic=topic
-                )
-                results.append(result.to_dict())
-        
-        return results
-
     def aggregate_news(self) -> List[Dict[str, Any]]:
-        """Aggregate news from multiple sources including RSS feeds, GitHub, and web search."""
+        """Aggregate news from GitHub and RSS feeds."""
         logging.info("Aggregating news from multiple sources...")
         all_results = []
-        
-        # Determine content source mode
-        content_source = self.config.get('content_source', 'dual')
         
         # Search GitHub repositories (always enabled)
         github_results = search_github_repos(
@@ -246,20 +128,13 @@ class NewsBot:
         all_results.extend(github_results)
         
         # RSS feed search (if enabled)
-        if content_source in ['rss', 'dual'] and self.config.get('rss_enabled', False):
+        if self.config.get('rss_enabled', False):
             rss_results = search_rss_feeds(
                 rss_manager=self.rss_manager,
                 assess_credibility_func=assess_source_credibility,
                 config=self.config
             )
             all_results.extend(rss_results)
-        
-        # Web search (if in dual or web mode)
-        if content_source in ['web', 'dual']:
-            # Enhanced search using web context for each topic
-            for topic in self.config.get("search_topics", []):
-                topic_results = self._process_web_search_topic(topic)
-                all_results.extend(topic_results)
         
         self.results = all_results
         return all_results
