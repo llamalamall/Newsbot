@@ -139,7 +139,7 @@ def test_newsbot_methods():
 
 
 def test_backwards_compatibility():
-    """Test that old configuration still works."""
+    """Test that configuration without RSS fields still works (basic GitHub-only mode)."""
     print("=" * 60)
     print("TEST 4: Backwards Compatibility")
     print("=" * 60)
