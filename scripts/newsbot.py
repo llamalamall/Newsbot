@@ -87,7 +87,7 @@ Only include items from credible sources. Exclude promotional content and low-qu
         self.rss_manager = None
         if self.config.get('rss_enabled', False):
             try:
-                from scripts.rss_feed_manager import RSSFeedManager
+                from rss_feed_manager import RSSFeedManager
                 rss_settings = self.config.get('rss_settings', {})
                 self.rss_manager = RSSFeedManager(
                     timeout=rss_settings.get('request_timeout', 10),
