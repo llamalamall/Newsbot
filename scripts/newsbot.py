@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import requests
 from github import Github
-from openai import OpenAI
+from openai import OpenAI  # GitHub Models uses OpenAI-compatible API
 
 
 class NewsBot:
@@ -21,7 +21,6 @@ class NewsBot:
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
         self.config = self.load_config(config_path)
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
         
@@ -76,13 +75,17 @@ class NewsBot:
         return results
     
     def search_with_llm(self, query: str) -> str:
-        """Use LLM to search and summarize results for a topic."""
-        if not self.openai_api_key:
-            print("Warning: OPENAI_API_KEY not set, skipping LLM search")
+        """Use LLM to search and summarize results for a topic via GitHub Models."""
+        if not self.github_token:
+            print("Warning: GITHUB_TOKEN not set, skipping LLM search")
             return ""
         
         try:
-            client = OpenAI(api_key=self.openai_api_key)
+            # GitHub Models uses OpenAI-compatible API
+            client = OpenAI(
+                base_url="https://models.inference.ai.azure.com",
+                api_key=self.github_token
+            )
             
             prompt = f"""Search for and summarize the latest news, articles, blog posts, and announcements about: {query}
 
@@ -103,7 +106,7 @@ Provide a structured summary with:
 Format as JSON array with objects containing: title, description, url, date, key_points."""
 
             response = client.chat.completions.create(
-                model="gpt-4-turbo-preview",
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": "You are a security researcher assistant who helps find and summarize the latest offensive security news and developments, especially related to AI and automation."},
                     {"role": "user", "content": prompt}
@@ -222,22 +225,15 @@ def main():
     print("=" * 80)
     print()
     
-    # Check for required API keys
-    has_openai = bool(os.getenv("OPENAI_API_KEY"))
+    # Check for required GITHUB_TOKEN
     has_github = bool(os.getenv("GITHUB_TOKEN"))
     
-    if not has_openai:
-        print("Warning: OPENAI_API_KEY environment variable not set")
-        print("LLM-based searches will be skipped")
-    
     if not has_github:
-        print("Warning: GITHUB_TOKEN environment variable not set")
-        print("GitHub repository searches will be skipped")
-    
-    if not has_openai and not has_github:
-        print("\nError: At least one API key (OPENAI_API_KEY or GITHUB_TOKEN) must be set")
-        print("\nPlease set at least one of:")
-        print("  export OPENAI_API_KEY=your_key_here")
+        print("Error: GITHUB_TOKEN environment variable not set")
+        print("\nGITHUB_TOKEN is required for:")
+        print("  - GitHub repository searches")
+        print("  - LLM-based searches via GitHub Models")
+        print("\nPlease set it:")
         print("  export GITHUB_TOKEN=your_token_here")
         sys.exit(1)
     

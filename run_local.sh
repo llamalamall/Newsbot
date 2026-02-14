@@ -30,16 +30,18 @@ if [ -f .env ]; then
 fi
 
 # Check for required environment variables
-if [ -z "$OPENAI_API_KEY" ] && [ -z "$GITHUB_TOKEN" ]; then
-    echo "ERROR: At least one of OPENAI_API_KEY or GITHUB_TOKEN must be set"
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "ERROR: GITHUB_TOKEN must be set"
     echo
-    echo "You can set them by:"
+    echo "GITHUB_TOKEN is required for:"
+    echo "  - GitHub repository searches"
+    echo "  - LLM-powered searches via GitHub Models"
+    echo
+    echo "You can set it by:"
     echo "1. Creating a .env file with:"
-    echo "   OPENAI_API_KEY=your_key_here"
     echo "   GITHUB_TOKEN=your_token_here"
     echo
-    echo "2. Or export them in your shell:"
-    echo "   export OPENAI_API_KEY=your_key_here"
+    echo "2. Or export it in your shell:"
     echo "   export GITHUB_TOKEN=your_token_here"
     exit 1
 fi

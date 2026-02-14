@@ -19,7 +19,7 @@ Newsbot automatically searches for and aggregates content related to:
 ## Features
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
-- **LLM-Powered Search**: Uses GPT-4 to search and summarize the latest news and articles
+- **LLM-Powered Search**: Uses GitHub Models (GPT-4o) to search and summarize the latest news and articles
 - **Automated Scheduling**: Runs daily via GitHub Actions
 - **Local Execution**: Helper script for running locally
 - **Multiple Output Formats**: Generates both Markdown reports and JSON data
@@ -27,20 +27,16 @@ Newsbot automatically searches for and aggregates content related to:
 
 ## Prerequisites
 
-At least one of the following API keys:
-- **OpenAI API Key** (for LLM-powered searches)
-- **GitHub Token** (for repository searches)
+- **GitHub Token** (required for both repository searches and LLM access via GitHub Models)
 
 ## Setup
 
 ### For GitHub Actions (Automated)
 
 1. Fork or clone this repository
-2. Add secrets to your GitHub repository:
-   - `OPENAI_API_KEY`: Your OpenAI API key (optional but recommended)
+2. Enable GitHub Actions in your repository settings
    - Note: `GITHUB_TOKEN` is automatically provided by GitHub Actions
-3. Enable GitHub Actions in your repository settings
-4. The workflow will run:
+3. The workflow will run:
    - Daily at 9 AM UTC (configurable in `.github/workflows/newsbot.yml`)
    - On manual trigger via the Actions tab
    - On push to main branch (for testing)
@@ -55,7 +51,6 @@ At least one of the following API keys:
 
 2. Create a `.env` file in the root directory:
    ```bash
-   OPENAI_API_KEY=your_openai_api_key_here
    GITHUB_TOKEN=your_github_token_here
    ```
 
@@ -73,8 +68,7 @@ At least one of the following API keys:
    # Install dependencies
    pip install -r requirements.txt
    
-   # Set environment variables
-   export OPENAI_API_KEY=your_key_here
+   # Set environment variable
    export GITHUB_TOKEN=your_token_here
    
    # Run newsbot
@@ -135,7 +129,7 @@ Description and key points...
 ## Workflow
 
 1. **GitHub Search**: Searches for repositories with relevant topics updated in the last N days
-2. **LLM Analysis**: Uses GPT-4 to search and summarize news for each configured topic
+2. **LLM Analysis**: Uses GitHub Models (GPT-4o) to search and summarize news for each configured topic
 3. **Aggregation**: Combines results from all sources
 4. **Report Generation**: Creates formatted Markdown and JSON outputs
 5. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
@@ -161,26 +155,25 @@ Newsbot/
 ## Security Considerations
 
 - Never commit API keys to the repository
-- Use GitHub Secrets for sensitive credentials
+- Use GitHub Secrets for sensitive credentials (GITHUB_TOKEN is automatically provided in Actions)
 - Keep the `.env` file in `.gitignore`
 - Review the code before running to understand what it does
 
 ## Troubleshooting
 
 ### No results found
-- Check that your API keys are correctly set
+- Check that GITHUB_TOKEN is correctly set
 - Verify the topics in `config.json` are specific enough
 - Increase `days_back` to search a longer time period
 
 ### GitHub Actions not running
 - Ensure GitHub Actions is enabled in repository settings
-- Check that secrets are properly configured
 - Review workflow logs in the Actions tab
 
 ### Local execution fails
 - Ensure Python 3.8+ is installed
 - Check that all dependencies are installed
-- Verify environment variables are set correctly
+- Verify GITHUB_TOKEN environment variable is set correctly
 
 ## Contributing
 

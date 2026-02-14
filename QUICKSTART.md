@@ -6,23 +6,17 @@ Get started with Newsbot in 5 minutes!
 
 1. **Fork this repository** to your GitHub account
 
-2. **Add your OpenAI API key** (optional but recommended):
-   - Go to your repository Settings → Secrets and variables → Actions
-   - Click "New repository secret"
-   - Name: `OPENAI_API_KEY`
-   - Value: Your OpenAI API key from https://platform.openai.com/api-keys
-   - Note: `GITHUB_TOKEN` is automatically provided by GitHub Actions
-
-3. **Enable GitHub Actions**:
+2. **Enable GitHub Actions**:
    - Go to the "Actions" tab in your repository
    - Click "I understand my workflows, go ahead and enable them"
+   - Note: `GITHUB_TOKEN` is automatically provided by GitHub Actions for both repository searches and LLM access via GitHub Models
 
-4. **Run manually** (optional):
+3. **Run manually** (optional):
    - Go to Actions → Newsbot workflow
    - Click "Run workflow"
    - Check the results in the "Artifacts" section
 
-5. **Automated runs**:
+4. **Automated runs**:
    - The workflow runs automatically daily at 9 AM UTC
    - Customize the schedule in `.github/workflows/newsbot.yml`
 
@@ -34,10 +28,10 @@ Get started with Newsbot in 5 minutes!
    cd Newsbot
    ```
 
-2. **Set up API keys**:
+2. **Set up GitHub token**:
    ```bash
    cp .env.example .env
-   # Edit .env and add your API keys
+   # Edit .env and add your GitHub token
    nano .env
    ```
 
@@ -62,13 +56,12 @@ Get started with Newsbot in 5 minutes!
 ## Troubleshooting
 
 **No results found?**
-- Ensure at least one API key is set (OPENAI_API_KEY or GITHUB_TOKEN)
+- Ensure GITHUB_TOKEN is set
 - Check the topics in `config.json`
 - Increase `days_back` in config to search further back
 
 **GitHub Actions not running?**
 - Verify GitHub Actions is enabled in repository settings
-- Check that `OPENAI_API_KEY` secret is set (optional)
 - Review workflow logs in the Actions tab
 
 **Permission errors?**
