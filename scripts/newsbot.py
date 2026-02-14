@@ -14,21 +14,36 @@ from datetime import datetime
 from typing import List, Dict, Any
 from openai import OpenAI
 
-# Import utility modules
-from utils.credibility import assess_source_credibility
-from utils.content_extractor import extract_article_content
-
-# Import searcher modules
-from searchers.github_search import search_github_repos
-from searchers.web_search import search_with_llm, perform_web_search, search_with_web_context
-from searchers.rss_search import search_rss_feeds
-
-# Import reporter modules
-from reporters.markdown_reporter import generate_report, save_json_results
+# Import utility modules (try both absolute and relative imports for compatibility)
+try:
+    from scripts.utils.credibility import assess_source_credibility
+    from scripts.utils.content_extractor import extract_article_content
+    from scripts.searchers.github_search import search_github_repos
+    from scripts.searchers.web_search import search_with_llm, perform_web_search, search_with_web_context
+    from scripts.searchers.rss_search import search_rss_feeds
+    from scripts.reporters.markdown_reporter import generate_report, save_json_results
+except ImportError:
+    # Fallback to relative imports when scripts is in sys.path
+    from utils.credibility import assess_source_credibility
+    from utils.content_extractor import extract_article_content
+    from searchers.github_search import search_github_repos
+    from searchers.web_search import search_with_llm, perform_web_search, search_with_web_context
+    from searchers.rss_search import search_rss_feeds
+    from reporters.markdown_reporter import generate_report, save_json_results
 
 
 class NewsBot:
     """Main class for searching and aggregating security news."""
+    
+    # Re-export constants for backward compatibility
+    try:
+        from scripts.utils.credibility import CREDIBLE_SOURCES
+        from scripts.searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
+        from scripts.utils.content_extractor import MAX_ARTICLE_CONTENT_LENGTH
+    except ImportError:
+        from utils.credibility import CREDIBLE_SOURCES
+        from searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
+        from utils.content_extractor import MAX_ARTICLE_CONTENT_LENGTH
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
@@ -67,6 +82,43 @@ class NewsBot:
         """Load configuration from JSON file."""
         with open(config_path, 'r') as f:
             return json.load(f)
+    
+    # Wrapper methods for backward compatibility
+    def assess_source_credibility(self, url: str) -> str:
+        """Assess the credibility of a news source (wrapper for backward compatibility)."""
+        return assess_source_credibility(url)
+    
+    def extract_article_content(self, url: str) -> str:
+        """Extract main content from a web article (wrapper for backward compatibility)."""
+        return extract_article_content(url)
+    
+    def perform_web_search(self, query: str) -> List[Dict[str, Any]]:
+        """Perform a live web search (wrapper for backward compatibility)."""
+        web_search_func = perform_web_search(self.config, assess_source_credibility)
+        return web_search_func(query)
+    
+    def search_github_repos(self) -> List[Dict[str, Any]]:
+        """Search GitHub for relevant repositories (wrapper for backward compatibility)."""
+        return search_github_repos(self.github_token, self.config)
+    
+    def search_rss_feeds(self) -> List[Dict[str, Any]]:
+        """Search RSS feeds (wrapper for backward compatibility)."""
+        return search_rss_feeds(self.rss_manager, self.config, assess_source_credibility)
+    
+    def search_with_web_context(self, query: str) -> List[Dict[str, Any]]:
+        """Search with web context (wrapper for backward compatibility)."""
+        web_search_func = perform_web_search(self.config, assess_source_credibility)
+        return search_with_web_context(
+            query,
+            web_search_func,
+            assess_source_credibility,
+            extract_article_content,
+            self.openai_client
+        )
+    
+    def search_with_llm(self, query: str) -> str:
+        """Search with LLM (wrapper for backward compatibility)."""
+        return search_with_llm(self.openai_client, query)
     
     def aggregate_news(self) -> List[Dict[str, Any]]:
         """Aggregate news from multiple sources including RSS feeds, GitHub, and web search."""
