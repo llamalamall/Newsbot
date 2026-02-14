@@ -5,15 +5,19 @@ Searches for the latest articles, announcements, repositories, and blog posts
 related to AI and automation in offensive security.
 """
 
-import os
+# Standard library
 import json
-import sys
 import logging
+import os
+import re
+import sys
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from openai import OpenAI
-import re
 
+# Third-party
+from openai import OpenAI
+
+# Local
 # Import from new modular structure
 # Use try-except to handle both direct execution and module import
 try:
