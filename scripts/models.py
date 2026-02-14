@@ -5,7 +5,6 @@ Defines dataclasses for different types of search results to improve type safety
 
 from dataclasses import dataclass, asdict, field
 from typing import Optional, List, Any, Dict
-from datetime import datetime
 
 
 @dataclass

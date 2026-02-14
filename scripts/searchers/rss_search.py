@@ -76,11 +76,16 @@ def search_rss_feeds(
         
         # Convert to NewsBot result format
         for entry in filtered_entries:
+            # Assess source credibility first
+            url = entry.get('link', '')
+            credibility = assess_credibility_func(url) if url else None
+            
             result = RSSResult(
                 title=entry.get('title', 'Untitled'),
-                url=entry.get('link', ''),
+                url=url,
                 description=entry.get('description', ''),
                 source='rss',
+                credibility=credibility,
                 published=entry.get('published'),
                 feed_name=entry.get('feed_name', 'Unknown Feed'),
                 feed_category=entry.get('category'),
@@ -89,10 +94,6 @@ def search_rss_feeds(
                 author=entry.get('author'),
                 tags=entry.get('tags', [])
             )
-            
-            # Assess source credibility
-            if result.url:
-                result.credibility = assess_credibility_func(result.url)
             
             results.append(result.to_dict())
         
