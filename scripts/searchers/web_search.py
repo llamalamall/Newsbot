@@ -6,7 +6,7 @@ Includes web search, LLM integration, and search with context.
 import logging
 import json
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Callable
 from openai import OpenAI, OpenAIError
 
 
@@ -95,8 +95,8 @@ def search_with_llm(openai_client: Optional[OpenAI], query: str) -> str:
 
 def perform_web_search(
     config: Dict[str, Any],
-    assess_credibility_func: callable
-) -> callable:
+    assess_credibility_func: Callable[[str], str]
+) -> Callable[[str], List[Dict[str, Any]]]:
     """Create a web search function with the given configuration.
     
     Args:
@@ -166,9 +166,9 @@ def perform_web_search(
 
 def search_with_web_context(
     query: str,
-    web_search_func: callable,
-    assess_credibility_func: callable,
-    extract_content_func: callable,
+    web_search_func: Callable[[str], List[Dict[str, Any]]],
+    assess_credibility_func: Callable[[str], str],
+    extract_content_func: Callable[[str], Optional[str]],
     openai_client: Optional[OpenAI]
 ) -> List[Dict[str, Any]]:
     """Search using both web search and LLM with full context integration.

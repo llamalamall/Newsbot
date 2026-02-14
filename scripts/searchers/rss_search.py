@@ -3,13 +3,13 @@ RSS feed search for NewsBot.
 """
 
 import logging
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Callable
 
 
 def search_rss_feeds(
     rss_manager: Optional[Any],
     config: Dict[str, Any],
-    assess_credibility_func: callable
+    assess_credibility_func: Callable[[str], str]
 ) -> List[Dict[str, Any]]:
     """Search and aggregate content from RSS feeds.
     

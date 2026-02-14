@@ -37,11 +37,12 @@ except ImportError:
 class NewsBot:
     """Main class for searching and aggregating security news."""
     
-    # Re-export constants for backward compatibility
-    CREDIBLE_SOURCES = CREDIBLE_SOURCES
-    LLM_SUMMARY_PROMPT = LLM_SUMMARY_PROMPT
-    MAX_CONTEXT_SNIPPET_LENGTH = MAX_CONTEXT_SNIPPET_LENGTH
-    MAX_ARTICLE_CONTENT_LENGTH = MAX_ARTICLE_CONTENT_LENGTH
+    # Class-level constants for backward compatibility with code that accesses NewsBot.CREDIBLE_SOURCES
+    # These are re-exported from the modules to maintain the original API
+    CREDIBLE_SOURCES: Dict[str, List[str]] = CREDIBLE_SOURCES
+    LLM_SUMMARY_PROMPT: str = LLM_SUMMARY_PROMPT
+    MAX_CONTEXT_SNIPPET_LENGTH: int = MAX_CONTEXT_SNIPPET_LENGTH
+    MAX_ARTICLE_CONTENT_LENGTH: int = MAX_ARTICLE_CONTENT_LENGTH
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
