@@ -31,9 +31,9 @@ Added to `requirements.txt`:
   - Rate limiting (0.5s delay)
 
 #### Tests
-- `scripts/test_rss_manager.py` - Unit tests for RSSFeedManager
-- `scripts/test_integration.py` - Integration tests for NewsBot + RSS
-- `scripts/test_rss_integration.py` - Comprehensive test suite (all tests pass ✓)
+- `tests/test_rss_manager.py` - Unit tests for RSSFeedManager
+- `tests/test_integration.py` - Integration tests for NewsBot + RSS
+- `tests/test_rss_integration.py` - Comprehensive test suite (all tests pass ✓)
 
 ### 3. Modified Files
 

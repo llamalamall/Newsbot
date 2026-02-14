@@ -65,7 +65,7 @@ This document summarizes the enhancements made to Newsbot to integrate live web 
 ## Code Quality
 
 ### Testing
-- **Test Suite**: Created comprehensive test suite (`test_newsbot.py`)
+- **Test Suite**: Created comprehensive test suite (`tests/test_newsbot.py`)
 - **Coverage**: Tests all major new features
 - **Results**: All tests passing (8/8 credibility tests, all integration tests)
 - **Demonstration**: Created feature demo script (`demo_features.py`)
@@ -109,7 +109,7 @@ This document summarizes the enhancements made to Newsbot to integrate live web 
 ### New Modules
 - `scripts/web_search_helper.py`: Web search helper class
 - `scripts/web_search_runner.py`: External runner interface
-- `scripts/test_newsbot.py`: Comprehensive test suite
+- `tests/test_newsbot.py`: Comprehensive test suite
 - `scripts/demo_features.py`: Feature demonstration
 
 ### New Constants
@@ -141,7 +141,7 @@ This document summarizes the enhancements made to Newsbot to integrate live web 
 ## Files Added
 1. `scripts/web_search_helper.py` - Web search module
 2. `scripts/web_search_runner.py` - Runner interface
-3. `scripts/test_newsbot.py` - Test suite
+3. `tests/test_newsbot.py` - Test suite
 4. `scripts/demo_features.py` - Feature demo
 
 ## Statistics
