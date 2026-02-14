@@ -11,23 +11,25 @@ import sys
 import logging
 import re
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from openai import OpenAI
 
 # Import utility modules (try both absolute and relative imports for compatibility)
 try:
-    from scripts.utils.credibility import assess_source_credibility
-    from scripts.utils.content_extractor import extract_article_content
+    from scripts.utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
+    from scripts.utils.content_extractor import extract_article_content, MAX_ARTICLE_CONTENT_LENGTH
     from scripts.searchers.github_search import search_github_repos
     from scripts.searchers.web_search import search_with_llm, perform_web_search, search_with_web_context
+    from scripts.searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
     from scripts.searchers.rss_search import search_rss_feeds
     from scripts.reporters.markdown_reporter import generate_report, save_json_results
 except ImportError:
     # Fallback to relative imports when scripts is in sys.path
-    from utils.credibility import assess_source_credibility
-    from utils.content_extractor import extract_article_content
+    from utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
+    from utils.content_extractor import extract_article_content, MAX_ARTICLE_CONTENT_LENGTH
     from searchers.github_search import search_github_repos
     from searchers.web_search import search_with_llm, perform_web_search, search_with_web_context
+    from searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
 
@@ -36,14 +38,10 @@ class NewsBot:
     """Main class for searching and aggregating security news."""
     
     # Re-export constants for backward compatibility
-    try:
-        from scripts.utils.credibility import CREDIBLE_SOURCES
-        from scripts.searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
-        from scripts.utils.content_extractor import MAX_ARTICLE_CONTENT_LENGTH
-    except ImportError:
-        from utils.credibility import CREDIBLE_SOURCES
-        from searchers.web_search import LLM_SUMMARY_PROMPT, MAX_CONTEXT_SNIPPET_LENGTH
-        from utils.content_extractor import MAX_ARTICLE_CONTENT_LENGTH
+    CREDIBLE_SOURCES = CREDIBLE_SOURCES
+    LLM_SUMMARY_PROMPT = LLM_SUMMARY_PROMPT
+    MAX_CONTEXT_SNIPPET_LENGTH = MAX_CONTEXT_SNIPPET_LENGTH
+    MAX_ARTICLE_CONTENT_LENGTH = MAX_ARTICLE_CONTENT_LENGTH
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
@@ -88,7 +86,7 @@ class NewsBot:
         """Assess the credibility of a news source (wrapper for backward compatibility)."""
         return assess_source_credibility(url)
     
-    def extract_article_content(self, url: str) -> str:
+    def extract_article_content(self, url: str) -> Optional[str]:
         """Extract main content from a web article (wrapper for backward compatibility)."""
         return extract_article_content(url)
     
