@@ -263,8 +263,8 @@ Only include items from credible sources. Exclude promotional content and low-qu
     def perform_web_search(self, query: str) -> List[Dict[str, Any]]:
         """Perform a live web search for the given query.
         
-        This method would integrate with a web search API. In this implementation,
-        it serves as a placeholder that can be extended with actual API integration.
+        This method integrates with web search functionality. It attempts to use
+        the web_search_helper module if available.
         
         Args:
             query: Search query string
@@ -274,15 +274,32 @@ Only include items from credible sources. Exclude promotional content and low-qu
         """
         results = []
         
-        # This is a placeholder for web search integration
-        # In a production environment, this would call a web search API
-        # such as Google Custom Search, Bing Search API, or similar
+        try:
+            # Try to import and use the web search helper
+            from scripts.web_search_helper import WebSearchHelper
+            
+            helper = WebSearchHelper()
+            if helper.is_available():
+                search_results = helper.search(query, max_results=10)
+                
+                # Process and enrich results with credibility assessment
+                for result in search_results:
+                    url = result.get('url', '')
+                    result['credibility'] = self.assess_source_credibility(url)
+                    results.append(result)
+                    
+                logging.info(f"Web search returned {len(results)} results for: {query}")
+            else:
+                logging.warning("Web search helper not available")
+                
+        except ImportError:
+            logging.debug("Web search helper module not found")
+        except Exception as e:
+            logging.error(f"Error in web search: {str(e)[:100]}")
         
-        logging.info(f"Web search for: {query}")
-        logging.warning("Web search API integration pending - using fallback method")
-        
-        # Fallback: Could be extended with actual API integration
-        # For now, we'll return an empty list and rely on LLM's knowledge
+        # If no results from web search, log it but don't fail
+        if not results:
+            logging.info(f"No web search results for '{query}', will use LLM-only search")
         
         return results
     
