@@ -50,8 +50,20 @@ Get started with Newsbot in 5 minutes!
 
 - Customize `config.json` to change search topics
 - Review `outputs/example_report.md` to see what reports look like
+- Run `python scripts/demo_features.py` to see enhanced features in action
+- Run `python scripts/test_newsbot.py` to verify functionality
 - Read the full [README.md](README.md) for detailed documentation
 - See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute
+
+## What's New
+
+**Enhanced Web Search Integration:**
+- Live web searches for current news and articles
+- Automatic source credibility assessment (high/medium/low)
+- Article content extraction from credible sources
+- LLM analysis enhanced with web search context
+- Improved reports with source citations and credibility ratings
+- Robust error handling for partial failures
 
 ## Troubleshooting
 

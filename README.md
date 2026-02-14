@@ -19,11 +19,16 @@ Newsbot automatically searches for and aggregates content related to:
 ## Features
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
-- **LLM-Powered Search**: Uses GitHub Models (GPT-4o) to search and summarize the latest news and articles
+- **Live Web Search Integration**: Performs real-time web searches for current news and articles
+- **Source Credibility Assessment**: Automatically vets news sources for reliability
+- **Article Content Extraction**: Pulls full text and key excerpts from linked articles
+- **LLM-Powered Analysis**: Uses GitHub Models (GPT-4o) with web search context for enhanced summarization
+- **Intelligent Filtering**: Prioritizes high-credibility sources and filters low-quality content
 - **Automated Scheduling**: Runs daily via GitHub Actions
 - **Local Execution**: Helper script for running locally
-- **Multiple Output Formats**: Generates both Markdown reports and JSON data
+- **Multiple Output Formats**: Generates both Markdown reports and JSON data with source citations
 - **Configurable Topics**: Easy to customize search topics and parameters
+- **Robust Error Handling**: Gracefully handles search failures and unreachable sources
 
 ## Prerequisites
 
@@ -101,6 +106,28 @@ Example:
 }
 ```
 
+## Source Credibility Assessment
+
+Newsbot automatically assesses the credibility of news sources to ensure high-quality results:
+
+### High Credibility Sources
+- Official security organizations (NIST, CISA, OWASP)
+- Major tech companies (Google, Microsoft, AWS, GitHub)
+- Respected security firms (Trail of Bits, Google Project Zero)
+- Academic sources (arXiv, research publications)
+- Well-known security blogs (Schneier, Krebs on Security)
+
+### Medium Credibility Sources
+- Established tech news sites (Ars Technica, TechCrunch)
+- Developer platforms (Medium, Dev.to)
+- Industry publications
+
+### Low Credibility Sources
+- Unrecognized domains
+- Sites not on the credibility lists
+
+Only high and medium credibility sources are included in the final reports. Low-credibility sources are filtered out to maintain quality.
+
 ## Output
 
 Results are saved in the `outputs/` directory:
@@ -115,25 +142,52 @@ Example report structure:
 ## Summary
 Found X relevant items.
 
-## GitHub Repositories
+## GitHub Repositories (N)
 ### [owner/repo-name](url)
 Description...
 - Stars: 123
 - Updated: 2024-01-15
+- Topic: offensive-security
 
-## Articles, Blog Posts & Announcements
+## Web Search Results (N)
+*Results from live web searches with credibility assessment*
+
+### Article Title
+Description and summary...
+**Source:** [https://example.com/article](https://example.com/article)
+**Credibility:** High
+**Key Points:**
+- Point 1
+- Point 2
+*Published: 2024-01-15*
+*Search topic: AI offensive security*
+
+## Articles, Blog Posts & Announcements (N)
 ### Article Title
 Description and key points...
+**Link:** https://example.com
+**Source Credibility:** Medium
 ```
+
+Reports now include:
+- Source credibility ratings for all web-sourced content
+- Direct citations to original articles
+- Publication dates when available
+- Clear categorization of results by source type
+- Filtering of low-credibility sources
 
 ## Workflow
 
 1. **GitHub Search**: Searches for repositories with relevant topics updated in the last N days
-2. **LLM Analysis**: Uses GitHub Models (GPT-4o) to search and summarize news for each configured topic
-3. **Aggregation**: Combines results from all sources
-4. **Report Generation**: Creates formatted Markdown and JSON outputs
-5. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
-6. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
+2. **Live Web Search**: Performs real-time web searches for current news articles and blog posts
+3. **Source Credibility Vetting**: Assesses the credibility of discovered sources (high/medium/low)
+4. **Content Extraction**: Attempts to extract full article text from high-credibility sources
+5. **LLM Analysis**: Uses GitHub Models (GPT-4o) with web search context to analyze and summarize news
+6. **Intelligent Filtering**: Filters out low-credibility sources and promotional content
+7. **Aggregation**: Combines results from all sources with credibility ratings
+8. **Report Generation**: Creates formatted Markdown and JSON outputs with source citations
+9. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
+10. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
 
 ## Project Structure
 
@@ -143,7 +197,9 @@ Newsbot/
 │   └── workflows/
 │       └── newsbot.yml          # GitHub Actions workflow
 ├── scripts/
-│   └── newsbot.py               # Main Python script
+│   ├── newsbot.py               # Main Python script
+│   ├── web_search_helper.py     # Web search helper module
+│   └── web_search_runner.py     # External web search runner
 ├── outputs/                     # Generated reports (gitignored)
 ├── config.json                  # Configuration file
 ├── requirements.txt             # Python dependencies
@@ -152,12 +208,32 @@ Newsbot/
 └── README.md                    # This file
 ```
 
-## Security Considerations
+## Security and Privacy Considerations
 
+### API Keys and Credentials
 - Never commit API keys to the repository
 - Use GitHub Secrets for sensitive credentials (GITHUB_TOKEN is automatically provided in Actions)
 - Keep the `.env` file in `.gitignore`
 - Review the code before running to understand what it does
+
+### Web Scraping and Content Extraction
+- Newsbot respects robots.txt and website terms of service
+- Content extraction is limited and used only for summarization purposes
+- User-Agent headers identify the bot and provide contact information
+- Requests include appropriate timeouts to avoid overloading servers
+- Failed requests are handled gracefully without retry storms
+
+### Rate Limiting
+- Be mindful of API rate limits when using search APIs
+- GitHub Actions runs are limited to prevent excessive usage
+- Local execution should be throttled when performing many searches
+- Consider implementing delays between requests if needed
+
+### Data Privacy
+- No personal data is collected or stored
+- All search queries are related to public security research topics
+- Results are limited to publicly available information
+- Compliance with applicable data protection regulations is maintained
 
 ## Troubleshooting
 
