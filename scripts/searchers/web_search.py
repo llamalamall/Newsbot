@@ -115,6 +115,92 @@ def perform_web_search(
     return results
 
 
+def _filter_credible_results(
+    web_results: List[Dict[str, Any]],
+    assess_credibility_func,
+    extract_content_func
+) -> List[Dict[str, Any]]:
+    """Filter web results by credibility and extract article content.
+    
+    Args:
+        web_results: List of web search results
+        assess_credibility_func: Function to assess URL credibility
+        extract_content_func: Function to extract article content
+        
+    Returns:
+        List of credible results with extracted content
+    """
+    credible_results = []
+    for result in web_results:
+        url = result.get('url', '')
+        credibility = assess_credibility_func(url)
+        
+        # Only include high and medium credibility sources
+        if credibility in ['high', 'medium']:
+            result['credibility'] = credibility
+            credible_results.append(result)
+            
+            # Try to extract article content
+            content = extract_content_func(url)
+            if content:
+                # Store shorter snippet for context to manage token usage
+                result['extracted_content'] = content[:MAX_CONTEXT_SNIPPET_LENGTH]
+    
+    return credible_results
+
+
+def _build_llm_context(credible_results: List[Dict[str, Any]]) -> str:
+    """Build context string from credible results for LLM.
+    
+    Args:
+        credible_results: List of credible search results
+        
+    Returns:
+        Formatted context string for LLM prompt
+    """
+    return "\n\n".join([
+        f"Title: {r.get('title', 'N/A')}\n"
+        f"URL: {r.get('url', 'N/A')}\n"
+        f"Snippet: {r.get('snippet', 'N/A')}\n"
+        f"Credibility: {r.get('credibility', 'unknown')}"
+        for r in credible_results[:10]  # Limit to top 10
+    ])
+
+
+def _parse_llm_response(llm_response: str, query: str, credible_results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Parse LLM response into structured results.
+    
+    Args:
+        llm_response: Raw response from LLM
+        query: Original search query
+        credible_results: List of credible results for metadata
+        
+    Returns:
+        List of parsed result dictionaries
+    """
+    results = []
+    
+    try:
+        json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
+        if json_match:
+            parsed_results = json.loads(json_match.group())
+            for item in parsed_results:
+                item["source"] = "web_search_llm"
+                item["search_topic"] = query
+                results.append(item)
+    except json.JSONDecodeError:
+        # If not JSON, return as summary
+        results.append({
+            "title": f"Web Search Summary: {query}",
+            "description": llm_response,
+            "source": "web_search_summary",
+            "search_topic": query,
+            "credible_sources_found": len(credible_results)
+        })
+    
+    return results
+
+
 def search_with_web_context(
     query: str,
     openai_client: Optional[OpenAI],
@@ -146,34 +232,16 @@ def search_with_web_context(
         # Step 1: Perform web search
         web_results = perform_web_search(query, assess_credibility_func, config)
         
-        # Step 2: Filter by credibility
-        credible_results = []
-        for result in web_results:
-            url = result.get('url', '')
-            credibility = assess_credibility_func(url)
-            
-            # Only include high and medium credibility sources
-            if credibility in ['high', 'medium']:
-                result['credibility'] = credibility
-                credible_results.append(result)
-                
-                # Step 3: Try to extract article content
-                content = extract_content_func(url)
-                if content:
-                    # Store shorter snippet for context to manage token usage
-                    result['extracted_content'] = content[:MAX_CONTEXT_SNIPPET_LENGTH]
+        # Step 2: Filter by credibility and extract content
+        credible_results = _filter_credible_results(
+            web_results, assess_credibility_func, extract_content_func
+        )
         
-        # Step 4: Build context for LLM
+        # Step 3: Process with LLM if credible results found
         if credible_results:
-            search_context = "\n\n".join([
-                f"Title: {r.get('title', 'N/A')}\n"
-                f"URL: {r.get('url', 'N/A')}\n"
-                f"Snippet: {r.get('snippet', 'N/A')}\n"
-                f"Credibility: {r.get('credibility', 'unknown')}"
-                for r in credible_results[:10]  # Limit to top 10
-            ])
+            search_context = _build_llm_context(credible_results)
             
-            # Step 5: Use LLM with web search context
+            # Step 4: Use LLM with web search context
             prompt = LLM_SUMMARY_PROMPT.format(
                 query=query,
                 search_context=search_context
@@ -198,24 +266,8 @@ def search_with_web_context(
                 
                 llm_response = response.choices[0].message.content
                 
-                # Parse LLM response into structured results
-                try:
-                    json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
-                    if json_match:
-                        parsed_results = json.loads(json_match.group())
-                        for item in parsed_results:
-                            item["source"] = "web_search_llm"
-                            item["search_topic"] = query
-                            results.append(item)
-                except json.JSONDecodeError:
-                    # If not JSON, return as summary
-                    results.append({
-                        "title": f"Web Search Summary: {query}",
-                        "description": llm_response,
-                        "source": "web_search_summary",
-                        "search_topic": query,
-                        "credible_sources_found": len(credible_results)
-                    })
+                # Step 5: Parse LLM response
+                results = _parse_llm_response(llm_response, query, credible_results)
         else:
             logging.info(f"No credible web results found for: {query}")
             

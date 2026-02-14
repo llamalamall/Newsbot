@@ -139,6 +139,72 @@ class NewsBot:
             config=self.config
         )
     
+    def _process_web_search_topic(self, topic: str) -> List[Dict[str, Any]]:
+        """Process a single web search topic with fallback to LLM-only search.
+        
+        Args:
+            topic: Search topic/query
+            
+        Returns:
+            List of results for the topic
+        """
+        results = []
+        logging.info(f"Enhanced web search for: {topic}")
+        
+        try:
+            # Try the new web-enhanced search first
+            web_enhanced_results = search_with_web_context(
+                query=topic,
+                openai_client=self.openai_client,
+                assess_credibility_func=assess_source_credibility,
+                extract_content_func=extract_article_content,
+                config=self.config
+            )
+            if web_enhanced_results:
+                results.extend(web_enhanced_results)
+            else:
+                # Fallback to original LLM-only search
+                results.extend(self._fallback_llm_search(topic))
+        except Exception as e:
+            logging.error(f"Error processing topic '{topic}': {str(e)[:200]}")
+            # Continue with next topic even if one fails
+        
+        return results
+
+    def _fallback_llm_search(self, topic: str) -> List[Dict[str, Any]]:
+        """Fallback to LLM-only search when web search returns no results.
+        
+        Args:
+            topic: Search topic/query
+            
+        Returns:
+            List of results from LLM search
+        """
+        results = []
+        logging.info(f"Falling back to LLM-only search for: {topic}")
+        llm_response = search_with_llm(topic, self.openai_client)
+        
+        if llm_response:
+            try:
+                # Try to parse JSON response
+                json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
+                if json_match:
+                    llm_results = json.loads(json_match.group())
+                    for item in llm_results:
+                        item["source"] = "llm_search"
+                        item["search_topic"] = topic
+                        results.append(item)
+            except json.JSONDecodeError:
+                # If not JSON, store as text summary
+                results.append({
+                    "title": f"Summary: {topic}",
+                    "description": llm_response,
+                    "source": "llm_summary",
+                    "search_topic": topic
+                })
+        
+        return results
+
     def aggregate_news(self) -> List[Dict[str, Any]]:
         """Aggregate news from multiple sources including RSS feeds, GitHub, and web search."""
         logging.info("Aggregating news from multiple sources...")
@@ -169,46 +235,8 @@ class NewsBot:
         if content_source in ['web', 'dual'] and self.config.get('web_search_enabled', True):
             # Enhanced search using web context for each topic
             for topic in self.config.get("search_topics", []):
-                logging.info(f"Enhanced web search for: {topic}")
-                
-                try:
-                    # Try the new web-enhanced search first
-                    web_enhanced_results = search_with_web_context(
-                        query=topic,
-                        openai_client=self.openai_client,
-                        assess_credibility_func=assess_source_credibility,
-                        extract_content_func=extract_article_content,
-                        config=self.config
-                    )
-                    if web_enhanced_results:
-                        all_results.extend(web_enhanced_results)
-                    else:
-                        # Fallback to original LLM-only search
-                        logging.info(f"Falling back to LLM-only search for: {topic}")
-                        llm_response = search_with_llm(topic, self.openai_client)
-                        
-                        if llm_response:
-                            try:
-                                # Try to parse JSON response
-                                json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
-                                if json_match:
-                                    llm_results = json.loads(json_match.group())
-                                    for item in llm_results:
-                                        item["source"] = "llm_search"
-                                        item["search_topic"] = topic
-                                        all_results.append(item)
-                            except json.JSONDecodeError:
-                                # If not JSON, store as text summary
-                                all_results.append({
-                                    "title": f"Summary: {topic}",
-                                    "description": llm_response,
-                                    "source": "llm_summary",
-                                    "search_topic": topic
-                                })
-                except Exception as e:
-                    logging.error(f"Error processing topic '{topic}': {str(e)[:200]}")
-                    # Continue with next topic even if one fails
-                    continue
+                topic_results = self._process_web_search_topic(topic)
+                all_results.extend(topic_results)
         
         self.results = all_results
         return all_results
