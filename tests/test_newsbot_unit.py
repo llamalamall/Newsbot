@@ -480,16 +480,18 @@ class TestMainFunction:
     def test_main_without_github_token(self, mock_save, mock_report, mock_bot):
         """Test main() exits when GITHUB_TOKEN is not set."""
         with patch.dict(os.environ, {}, clear=True):
-            with pytest.raises(SystemExit) as exc_info:
-                main()
-            
-            assert exc_info.value.code == 1
-            mock_bot.assert_not_called()
+            with patch('sys.argv', ['newsbot']):
+                with pytest.raises(SystemExit) as exc_info:
+                    main()
+                
+                assert exc_info.value.code == 1
+                mock_bot.assert_not_called()
     
     @patch('newsbot.NewsBot')
     @patch('newsbot.generate_report')
     @patch('newsbot.save_json_results')
-    def test_main_with_github_token(self, mock_save, mock_report, mock_bot_class):
+    @patch('os.makedirs')
+    def test_main_with_github_token(self, mock_makedirs, mock_save, mock_report, mock_bot_class):
         """Test main() executes successfully with GITHUB_TOKEN."""
         # Mock bot instance
         mock_bot_instance = MagicMock()
@@ -499,7 +501,8 @@ class TestMainFunction:
         mock_bot_class.return_value = mock_bot_instance
         
         with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
-            main()
+            with patch('sys.argv', ['newsbot']):
+                main()
         
         # Verify bot was initialized and methods called
         mock_bot_class.assert_called_once()
@@ -508,6 +511,101 @@ class TestMainFunction:
         # Verify reports were generated
         assert mock_report.called
         assert mock_save.called
+        
+        # Verify output directory was created
+        mock_makedirs.assert_called_once()
+    
+    @patch('newsbot.NewsBot')
+    @patch('newsbot.generate_report')
+    @patch('newsbot.save_json_results')
+    @patch('os.makedirs')
+    def test_main_with_custom_config(self, mock_makedirs, mock_save, mock_report, mock_bot_class):
+        """Test main() with custom config file path."""
+        mock_bot_instance = MagicMock()
+        mock_bot_instance.aggregate_news.return_value = []
+        mock_bot_class.return_value = mock_bot_instance
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot', '--config', 'custom.json']):
+                main()
+        
+        # Verify bot was initialized with custom config
+        mock_bot_class.assert_called_once_with(config_path='custom.json')
+    
+    @patch('newsbot.NewsBot')
+    @patch('newsbot.generate_report')
+    @patch('newsbot.save_json_results')
+    @patch('os.makedirs')
+    def test_main_with_custom_output_dir(self, mock_makedirs, mock_save, mock_report, mock_bot_class):
+        """Test main() with custom output directory."""
+        mock_bot_instance = MagicMock()
+        mock_bot_instance.aggregate_news.return_value = []
+        mock_bot_class.return_value = mock_bot_instance
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot', '--output-dir', 'custom_output']):
+                main()
+        
+        # Verify output directory was created with custom path
+        mock_makedirs.assert_called_once_with('custom_output', exist_ok=True)
+    
+    @patch('newsbot.NewsBot')
+    @patch('newsbot.generate_report')
+    @patch('newsbot.save_json_results')
+    @patch('os.makedirs')
+    def test_main_quiet_mode(self, mock_makedirs, mock_save, mock_report, mock_bot_class):
+        """Test main() in quiet mode."""
+        mock_bot_instance = MagicMock()
+        mock_bot_instance.aggregate_news.return_value = []
+        mock_bot_class.return_value = mock_bot_instance
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot', '--quiet']):
+                main()
+        
+        # Function should complete without errors
+        assert mock_bot_class.called
+    
+    @patch('newsbot.NewsBot')
+    @patch('newsbot.generate_report')
+    @patch('newsbot.save_json_results')
+    @patch('os.makedirs')
+    def test_main_verbose_mode(self, mock_makedirs, mock_save, mock_report, mock_bot_class):
+        """Test main() in verbose mode."""
+        mock_bot_instance = MagicMock()
+        mock_bot_instance.aggregate_news.return_value = []
+        mock_bot_class.return_value = mock_bot_instance
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot', '--verbose']):
+                main()
+        
+        # Function should complete without errors
+        assert mock_bot_class.called
+    
+    @patch('newsbot.NewsBot')
+    def test_main_config_file_not_found(self, mock_bot_class):
+        """Test main() with non-existent config file."""
+        mock_bot_class.side_effect = FileNotFoundError("Config not found")
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot', '--config', 'nonexistent.json']):
+                with pytest.raises(SystemExit) as exc_info:
+                    main()
+                
+                assert exc_info.value.code == 1
+    
+    @patch('newsbot.NewsBot')
+    def test_main_invalid_json_config(self, mock_bot_class):
+        """Test main() with invalid JSON config file."""
+        mock_bot_class.side_effect = json.JSONDecodeError("Invalid JSON", "", 0)
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('sys.argv', ['newsbot']):
+                with pytest.raises(SystemExit) as exc_info:
+                    main()
+                
+                assert exc_info.value.code == 1
 
 
 if __name__ == "__main__":
