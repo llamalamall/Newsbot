@@ -13,6 +13,9 @@ from bs4 import BeautifulSoup
 # Maximum characters to extract from article content for LLM processing
 MAX_ARTICLE_CONTENT_LENGTH = 5000
 
+# HTTP request timeout in seconds
+HTTP_REQUEST_TIMEOUT = 10
+
 
 def extract_article_content(url: str) -> Optional[str]:
     """Extract main content from a web article.
@@ -28,7 +31,7 @@ def extract_article_content(url: str) -> Optional[str]:
         headers = {
             'User-Agent': 'Mozilla/5.0 (compatible; Newsbot/1.0; +https://github.com/llamalamall/Newsbot)'
         }
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=HTTP_REQUEST_TIMEOUT)
         response.raise_for_status()
         
         # Use BeautifulSoup to extract text

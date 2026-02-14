@@ -13,6 +13,13 @@ from openai import OpenAI
 # Maximum characters to include in context when passing to LLM
 MAX_CONTEXT_SNIPPET_LENGTH = 1000
 
+# Maximum number of credible results to include in LLM context
+MAX_CREDIBLE_RESULTS_FOR_LLM = 10
+
+# LLM generation parameters
+LLM_TEMPERATURE = 0.3
+LLM_MAX_TOKENS = 2000
+
 # System prompt for LLM interactions
 LLM_SYSTEM_PROMPT = (
     "You are a security researcher assistant who helps "
@@ -163,7 +170,7 @@ def _build_llm_context(credible_results: List[Dict[str, Any]]) -> str:
         f"URL: {r.get('url', 'N/A')}\n"
         f"Snippet: {r.get('snippet', 'N/A')}\n"
         f"Credibility: {r.get('credibility', 'unknown')}"
-        for r in credible_results[:10]  # Limit to top 10
+        for r in credible_results[:MAX_CREDIBLE_RESULTS_FOR_LLM]
     ])
 
 
@@ -260,8 +267,8 @@ def search_with_web_context(
                             "content": prompt
                         }
                     ],
-                    temperature=0.3,
-                    max_tokens=2000
+                    temperature=LLM_TEMPERATURE,
+                    max_tokens=LLM_MAX_TOKENS
                 )
                 
                 llm_response = response.choices[0].message.content
@@ -317,8 +324,8 @@ def search_with_llm(query: str, openai_client: Optional[OpenAI]) -> str:
                 {"role": "system", "content": LLM_SYSTEM_PROMPT},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.3,
-            max_tokens=2000
+            temperature=LLM_TEMPERATURE,
+            max_tokens=LLM_MAX_TOKENS
         )
         return response.choices[0].message.content
     except Exception as e:
