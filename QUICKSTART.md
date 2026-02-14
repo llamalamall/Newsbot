@@ -51,7 +51,7 @@ Get started with Newsbot in 5 minutes!
 - Customize `config.json` to change search topics
 - Review `outputs/example_report.md` to see what reports look like
 - Run `python scripts/demo_features.py` to see enhanced features in action
-- Run `python scripts/test_newsbot.py` to verify functionality
+- Run `python tests/test_newsbot.py` to verify functionality
 - Read the full [README.md](README.md) for detailed documentation
 - See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute
 
