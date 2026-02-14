@@ -46,6 +46,11 @@ __all__ = ['NewsBot', 'main']
 class NewsBot:
     """Main class for searching and aggregating security news."""
     
+    # Default values for RSS settings
+    DEFAULT_RSS_TIMEOUT = 10  # seconds
+    DEFAULT_RSS_CACHE_TTL_HOURS = 6  # hours
+    DEFAULT_RSS_RATE_LIMIT_DELAY = 0.5  # seconds
+    
     # Expose constants for backward compatibility
     LLM_SUMMARY_PROMPT = LLM_SUMMARY_PROMPT
     CREDIBLE_SOURCES = CREDIBLE_SOURCES
@@ -64,10 +69,10 @@ class NewsBot:
                 from rss_feed_manager import RSSFeedManager
                 rss_settings = self.config.get('rss_settings', {})
                 self.rss_manager = RSSFeedManager(
-                    timeout=rss_settings.get('request_timeout', 10),
+                    timeout=rss_settings.get('request_timeout', self.DEFAULT_RSS_TIMEOUT),
                     cache_enabled=rss_settings.get('cache_enabled', True),
-                    cache_ttl_hours=rss_settings.get('cache_ttl_hours', 6),
-                    rate_limit_delay=rss_settings.get('rate_limit_delay', 0.5)
+                    cache_ttl_hours=rss_settings.get('cache_ttl_hours', self.DEFAULT_RSS_CACHE_TTL_HOURS),
+                    rate_limit_delay=rss_settings.get('rate_limit_delay', self.DEFAULT_RSS_RATE_LIMIT_DELAY)
                 )
                 logging.info("RSS Feed Manager initialized")
             except Exception as e:
