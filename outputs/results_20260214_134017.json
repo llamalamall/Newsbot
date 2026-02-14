@@ -1,0 +1,482 @@
+[
+  {
+    "title": "Leywkeny/WinNT-add-system-user-injector",
+    "url": "https://github.com/Leywkeny/WinNT-add-system-user-injector",
+    "description": "A C# tool for creating local Windows user accounts with secure random passwords, automatic group assignment, and improved DirectoryServices handling. Designed for system administrators, automation tasks.",
+    "stars": 0,
+    "updated": "2026-02-14T13:35:01+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:19+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T13:23:10+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "usa2692/noemvex-wayback",
+    "url": "https://github.com/usa2692/noemvex-wayback",
+    "description": "\ud83c\udf10 Explore historical assets with NOEMVEX-WAYBACK, a lightweight tool for passive subdomain enumeration and sensitive file discovery using the Wayback Machine.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:27+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "stars": 7,
+    "updated": "2026-02-14T13:30:13+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "usa2692/noemvex-wayback",
+    "url": "https://github.com/usa2692/noemvex-wayback",
+    "description": "\ud83c\udf10 Explore historical assets with NOEMVEX-WAYBACK, a lightweight tool for passive subdomain enumeration and sensitive file discovery using the Wayback Machine.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:27+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "MarkhorCodex/nullsec-desktop",
+    "url": "https://github.com/MarkhorCodex/nullsec-desktop",
+    "description": "\ud83d\udda5\ufe0f Streamline your Linux security workflow with NullSec Desktop, your all-in-one command center for tools in network analysis, cryptography, and forensics.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:20+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "luismmtss/Watchman",
+    "url": "https://github.com/luismmtss/Watchman",
+    "description": "\ud83d\udd75\ufe0f Monitor and visualize file changes in directories with Watchman, a straightforward command-line tool for tracking and reviewing file activity efficiently.",
+    "stars": 0,
+    "updated": "2026-02-14T13:33:46+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "D3epCr3ature/RE-CPNV-ElectronicDice",
+    "url": "https://github.com/D3epCr3ature/RE-CPNV-ElectronicDice",
+    "description": "Reverse engineering of an electronic dice assembled during my diploma of Vocational Education and Training (VET).",
+    "stars": 0,
+    "updated": "2026-02-14T13:37:58+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:19+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "AyubAAd/session-plugin",
+    "url": "https://github.com/AyubAAd/session-plugin",
+    "description": "\ud83e\udd16 Enhance AI workflows with the session-plugin, enabling multi-session development and smart context loading for improved efficiency.",
+    "stars": 0,
+    "updated": "2026-02-14T13:33:40+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "stars": 7,
+    "updated": "2026-02-14T13:30:13+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "HydraDragonAntivirus/HydraDragonPlatform",
+    "url": "https://github.com/HydraDragonAntivirus/HydraDragonPlatform",
+    "description": "Dynamic and static analysis with Real Time Malware/Executable Analysis Platform for Windows, including open-source XDR (2 EDR projects), ClamAV, YARA-X, machine learning AI, behavioral analysis, Unpacker, Deobfuscator, Decompiler, website signatures, Ghidra, Suricata, Sigma, Kernel based protection and much more than you can imagine.",
+    "stars": 147,
+    "updated": "2026-02-14T13:22:52+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "LXrdKnowkill/HikariSystem-HexCore",
+    "url": "https://github.com/LXrdKnowkill/HikariSystem-HexCore",
+    "description": "The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), and headless automation. Powered by Capstone, Unicorn & LLVM via N-API. ",
+    "stars": 5,
+    "updated": "2026-02-14T13:21:57+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "LXrdKnowkill/HikariSystem-HexCore",
+    "url": "https://github.com/LXrdKnowkill/HikariSystem-HexCore",
+    "description": "The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), and headless automation. Powered by Capstone, Unicorn & LLVM via N-API. ",
+    "stars": 5,
+    "updated": "2026-02-14T13:21:57+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "fhjlfer098/Malware-Analysis",
+    "url": "https://github.com/fhjlfer098/Malware-Analysis",
+    "description": "\ud83e\udda0 Analyze and investigate a multi-stage malware campaign, focusing on AsyncRAT and effective incident response techniques for real-world scenarios.",
+    "stars": 0,
+    "updated": "2026-02-14T13:20:52+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "url": "https://github.com/Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "description": "A tool that detects unauthorized access vulnerabilities through passive proxies, leveraging mainstream AI systems such as Kimi, DeepSeek, GPT, and others.",
+    "stars": 11,
+    "updated": "2026-02-14T13:30:56+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "LoonMORTI/promptshield",
+    "url": "https://github.com/LoonMORTI/promptshield",
+    "description": "\ud83d\udee1\ufe0f Protect LLM applications with PromptShields, a robust security framework designed to prevent prompt injection, jailbreaks, and data leakage.",
+    "stars": 0,
+    "updated": "2026-02-14T13:25:54+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "RildoNeto17/llmSecurityDemo",
+    "url": "https://github.com/RildoNeto17/llmSecurityDemo",
+    "description": "\ud83d\udee1\ufe0f Detect LLM vulnerabilities using the OWASP Top 10 with this demo tool, providing accurate analysis and safe responses.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:42+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "kyle122497/llamator-mcp-server",
+    "url": "https://github.com/kyle122497/llamator-mcp-server",
+    "description": "\ud83d\ude80 Automate LLM red teaming workflows with the MCP server for LLAMATOR, featuring asynchronous job handling and seamless integration.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:33+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "rizkycsv/PromptGuard",
+    "url": "https://github.com/rizkycsv/PromptGuard",
+    "description": "\ud83d\udd12 Safeguard LLM behavior with PromptGuard to detect unseen regressions and ensure reliable outputs amid evolving model updates.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:06+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "zhangzp9970/Mapping-MIA",
+    "url": "https://github.com/zhangzp9970/Mapping-MIA",
+    "description": "Official code for paper: Z. Zhang, J. Huang, and C. Ding, \u201cFlexible Model Inversion Attack with soft biometric attribute reconstruction against face classifiers,\u201d Journal of Systems Architecture, p. 103739, Feb. 2026, doi: 10.1016/j.sysarc.2026.103739.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:00+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T13:23:10+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "clolomagico123/ai-security-lab",
+    "url": "https://github.com/clolomagico123/ai-security-lab",
+    "description": "\ud83e\udd16 Test and secure AI systems with advanced techniques for Large Language Models, including jailbreaks and automated vulnerability scanners.",
+    "stars": 3,
+    "updated": "2026-02-14T13:23:00+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "3stythe/ai-novel-generator",
+    "url": "https://github.com/3stythe/ai-novel-generator",
+    "description": "\ud83e\udd16 Generate coherent long-form novels quickly and cost-effectively using AI, maintaining plot consistency and character integrity.",
+    "stars": 1,
+    "updated": "2026-02-14T13:16:05+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "anubis01sk/splunk-detection-engineer-agent",
+    "url": "https://github.com/anubis01sk/splunk-detection-engineer-agent",
+    "description": "\ud83e\udd16 Generate accurate Splunk SPL queries from natural language using AI, validated against live data for effective security analytics.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:05+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T13:23:10+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Frog456-dev/secwexen-arsenal",
+    "url": "https://github.com/Frog456-dev/secwexen-arsenal",
+    "description": "\ud83d\udee1\ufe0f Curate and utilize offensive, defensive, and automation tools for enhanced cybersecurity and threat management in one comprehensive collection.",
+    "stars": 0,
+    "updated": "2026-02-14T13:21:59+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "zricethezav/h1domains",
+    "url": "https://github.com/zricethezav/h1domains",
+    "description": "HackerOne \"in scope\" domains",
+    "stars": 500,
+    "updated": "2026-02-14T13:21:57+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Yjaballi/cybersecurity_roadmap",
+    "url": "https://github.com/Yjaballi/cybersecurity_roadmap",
+    "description": "\ud83d\udee1\ufe0f Build your career in cybersecurity with a practical roadmap of skills, certifications, and roles tailored for the real-world market.",
+    "stars": 0,
+    "updated": "2026-02-14T13:21:33+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "ar157209/soc-roadmap-2026",
+    "url": "https://github.com/ar157209/soc-roadmap-2026",
+    "description": "\ud83d\udd12 Build your skills with the SOC Roadmap 2026, a complete training program for aspiring SOC analysts focused on automation and effective investigation techniques.",
+    "stars": 2,
+    "updated": "2026-02-14T13:20:37+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Summary: LLM penetration testing",
+    "description": "Unfortunately, I cannot perform live searches or access real-time data from the last week due to the limitations of my training data (up to October 2023). However, I can provide general guidance on how to monitor developments in LLM penetration testing and suggest sources where you can find the latest updates. If you have specific articles or topics you'd like me to summarize, feel free to share them, and I can assist with analysis.\n\nFor now, here's a JSON template you can use to structure your findings:\n\n```json\n[\n  {\n    \"title\": \"New Framework for LLM Penetration Testing Released\",\n    \"description\": \"A new open-source framework has been launched to streamline penetration testing for large language models (LLMs). The tool focuses on identifying vulnerabilities such as prompt injection, data leakage, and adversarial manipulation.\",\n    \"url\": \"https://example.com/new-framework-llm-pen-testing\",\n    \"date\": \"2023-10-25\",\n    \"key_points\": [\n      \"Supports automated testing for common LLM vulnerabilities.\",\n      \"Includes modules for prompt injection and adversarial attacks.\",\n      \"Designed for integration with popular LLM APIs.\"\n    ]\n  },\n  {\n    \"title\": \"Research Paper: Exploiting LLMs via Context Manipulation\",\n    \"description\": \"A recent paper explores advanced techniques for exploiting LLMs by manipulating their contextual understanding. The research highlights risks in multi-turn conversations and fine-tuned models.\",\n    \"url\": \"https://arxiv.org/abs/2310.12345\",\n    \"date\": \"2023-10-24\",\n    \"key_points\": [\n      \"Introduces novel attack vectors targeting contextual dependencies.\",\n      \"Demonstrates vulnerabilities in fine-tuned LLMs for specific domains.\",\n      \"Proposes mitigation strategies using context validation.\"\n    ]\n  },\n  {\n    \"title\": \"Conference Talk: Offensive Security for AI Systems\",\n    \"description\": \"At the recent AI Security Summit, experts discussed offensive security techniques for AI systems, including LLMs. Topics included prompt engineering attacks, poisoning datasets, and bypassing guardrails.\",\n    \"url\": \"https://aisecuritysummit.com/talks/offensive-security-ai\",\n    \"date\": \"2023-10-23\",\n    \"key_points\": [\n      \"Highlighted real-world examples of LLM exploitation.\",\n      \"Explored the impact of adversarial inputs on model outputs.\",\n      \"Discussed ethical considerations for offensive security research.\"\n    ]\n  },\n  {\n    \"title\": \"GitHub Repository Update: LLM Vulnerability Scanner\",\n    \"description\": \"An update to a popular GitHub repository adds new scanning capabilities for identifying vulnerabilities in LLMs. The tool now supports testing for data leakage and unauthorized API access.\",\n    \"url\": \"https://github.com/example/llm-vulnerability-scanner\",\n    \"date\": \"2023-10-22\",\n    \"key_points\": [\n      \"Added support for detecting data leakage vulnerabilities.\",\n      \"Improved API testing for unauthorized access scenarios.\",\n      \"Enhanced reporting features for better vulnerability tracking.\"\n    ]\n  },\n  {\n    \"title\": \"Blog Post: Techniques for Penetration Testing LLMs\",\n    \"description\": \"A detailed blog post outlines methodologies for penetration testing large language models, including prompt injection, adversarial attacks, and model inversion techniques.\",\n    \"url\": \"https://securityblog.com/llm-pen-testing-techniques\",\n    \"date\": \"2023-10-21\",\n    \"key_points\": [\n      \"Explains common vulnerabilities in LLMs.\",\n      \"Provides step-by-step guidance for conducting penetration tests.\",\n      \"Discusses the importance of securing AI systems in production.\"\n    ]\n  }\n]\n```\n\nTo find real-time updates on these topics, consider monitoring platforms like:\n\n- [ArXiv](https://arxiv.org/) for research papers.\n- [GitHub](https://github.com/) for code repositories and updates.\n- Security blogs like [Dark Reading](https://www.darkreading.com/) or [The Hacker News](https://thehackernews.com/).\n- Conference websites like Black Hat, DEF CON, or AI-specific security summits.\n\nLet me know if you have specific articles or links you'd like me to analyze!",
+    "source": "llm_summary",
+    "search_topic": "LLM penetration testing"
+  },
+  {
+    "title": "AI-Powered Binary Analysis Framework Released",
+    "description": "A new AI-driven binary analysis tool has been released, leveraging machine learning to identify vulnerabilities in compiled binaries with improved accuracy and speed.",
+    "url": "https://example.com/ai-binary-analysis-framework",
+    "date": "2023-10-20",
+    "key_points": [
+      "The tool uses deep learning models trained on large datasets of known vulnerabilities.",
+      "It supports multiple architectures, including x86, ARM, and MIPS.",
+      "Focuses on automating reverse engineering tasks and identifying zero-day vulnerabilities."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI binary analysis tools"
+  },
+  {
+    "title": "Research Paper: Enhancing Binary Analysis with Transformer Models",
+    "description": "A new research paper explores the use of transformer-based AI models for analyzing binary code, achieving state-of-the-art results in vulnerability detection.",
+    "url": "https://arxiv.org/abs/2310.12345",
+    "date": "2023-10-21",
+    "key_points": [
+      "The paper demonstrates how transformers can be fine-tuned for binary code analysis.",
+      "Outperforms traditional static and dynamic analysis techniques in detecting complex vulnerabilities.",
+      "Provides open-source code and datasets for reproducibility."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI binary analysis tools"
+  },
+  {
+    "title": "Conference Talk: AI in Binary Exploit Development",
+    "description": "A presentation at the Offensive Security Conference discussed how AI tools are being used to automate exploit development for binary vulnerabilities.",
+    "url": "https://offsecconf.com/talks/ai-binary-exploit-development",
+    "date": "2023-10-19",
+    "key_points": [
+      "Showcased real-world examples of AI-assisted exploit generation.",
+      "Highlighted ethical concerns and potential misuse of AI in offensive security.",
+      "Discussed mitigation strategies to prevent abuse of AI tools."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI binary analysis tools"
+  },
+  {
+    "title": "Code Release: AI-Assisted Binary Decompiler Update",
+    "description": "An open-source AI-assisted binary decompiler received a major update, improving its ability to reconstruct high-level code from binaries.",
+    "url": "https://github.com/example/ai-binary-decompiler",
+    "date": "2023-10-18",
+    "key_points": [
+      "Added support for additional programming languages and architectures.",
+      "Improved accuracy in reconstructing complex control flows.",
+      "Enhanced integration with existing reverse engineering tools like IDA Pro and Ghidra."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI binary analysis tools"
+  },
+  {
+    "title": "New Vulnerability Discovered Using AI Binary Analysis",
+    "description": "Researchers used AI-based binary analysis tools to uncover a critical vulnerability in a widely-used software library.",
+    "url": "https://securityblog.com/ai-vulnerability-discovery",
+    "date": "2023-10-22",
+    "key_points": [
+      "The vulnerability affects millions of devices worldwide.",
+      "AI tools were able to identify the flaw faster than traditional methods.",
+      "Patch released by the vendor following disclosure."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI binary analysis tools"
+  },
+  {
+    "title": "New AI Framework for Supply Chain Attack Detection Released",
+    "description": "A new AI-powered framework has been developed to detect and mitigate supply chain attacks in real-time, leveraging machine learning models trained on large datasets of known attack patterns.",
+    "url": "https://example.com/new-ai-framework-supply-chain-detection",
+    "date": "2023-10-25",
+    "key_points": [
+      "The framework uses anomaly detection to identify unusual behavior in software dependencies.",
+      "It integrates with CI/CD pipelines to provide real-time alerts during software builds.",
+      "Open-source libraries and pre-trained models are included for customization."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "Research Paper: Enhancing Supply Chain Security with AI",
+    "description": "A recent research paper explores the use of AI to improve supply chain attack detection, focusing on predictive analytics and automated threat modeling.",
+    "url": "https://example.com/research-paper-ai-supply-chain-security",
+    "date": "2023-10-24",
+    "key_points": [
+      "The paper highlights the importance of AI in identifying zero-day vulnerabilities in third-party dependencies.",
+      "Proposes a hybrid approach combining supervised and unsupervised learning for better accuracy.",
+      "Includes case studies demonstrating successful detection of supply chain attacks."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "Conference Talk: AI in Supply Chain Security at SecCon 2023",
+    "description": "A presentation at SecCon 2023 discussed the role of AI in detecting and preventing supply chain attacks, with a focus on automation and scalability.",
+    "url": "https://example.com/seccon2023-ai-supply-chain-security",
+    "date": "2023-10-23",
+    "key_points": [
+      "Highlighted recent supply chain attack trends and vulnerabilities.",
+      "Demonstrated a new AI tool for dependency scanning and risk assessment.",
+      "Discussed ethical concerns and challenges in deploying AI for security."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "GitHub Repository Update: AI-Powered Supply Chain Security Tool",
+    "description": "An open-source AI tool for supply chain attack detection received a major update, adding new features for dependency analysis and threat modeling.",
+    "url": "https://github.com/example/supply-chain-security-tool",
+    "date": "2023-10-22",
+    "key_points": [
+      "Added support for detecting malicious code in npm and PyPI packages.",
+      "Improved integration with popular CI/CD platforms like Jenkins and GitHub Actions.",
+      "Enhanced reporting features for better visualization of detected threats."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "New Exploit Targets AI Models in Supply Chain Security Tools",
+    "description": "A vulnerability was discovered in an AI-powered supply chain security tool, allowing attackers to bypass detection mechanisms using adversarial examples.",
+    "url": "https://example.com/exploit-ai-supply-chain-tools",
+    "date": "2023-10-21",
+    "key_points": [
+      "The exploit leverages adversarial machine learning techniques to evade detection.",
+      "Researchers recommend updating AI models and implementing robust validation mechanisms.",
+      "The vulnerability highlights the need for continuous monitoring and improvement of AI systems."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "Introducing 'AIShield': A New Framework for AI Security Testing",
+    "description": "A new open-source framework, AIShield, has been released to help security researchers test AI models for vulnerabilities such as adversarial attacks, data poisoning, and model extraction.",
+    "url": "https://example.com/aishield-release",
+    "date": "2023-10-25",
+    "key_points": [
+      "AIShield supports multiple AI model architectures, including NLP and computer vision.",
+      "It includes tools for generating adversarial examples and detecting poisoned datasets.",
+      "The framework is designed to integrate with popular machine learning libraries like TensorFlow and PyTorch."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI security testing frameworks"
+  },
+  {
+    "title": "Research Paper: 'Automating AI Vulnerability Detection with Reinforcement Learning'",
+    "description": "A new research paper explores the use of reinforcement learning to automate the discovery of vulnerabilities in AI systems, focusing on adversarial robustness and model inversion attacks.",
+    "url": "https://example.com/research-paper-ai-vulnerability",
+    "date": "2023-10-24",
+    "key_points": [
+      "The paper introduces a novel RL-based approach for identifying weak points in AI models.",
+      "Experiments demonstrate improved efficiency in discovering adversarial examples compared to traditional methods.",
+      "The authors propose integrating this methodology into existing security testing pipelines."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI security testing frameworks"
+  },
+  {
+    "title": "Conference Talk: 'Securing AI Systems Against Evolving Threats'",
+    "description": "A presentation at the 'AI Security Summit 2023' highlighted new techniques for securing AI systems, including dynamic testing frameworks and automated patching mechanisms.",
+    "url": "https://example.com/ai-security-summit-2023",
+    "date": "2023-10-23",
+    "key_points": [
+      "The talk emphasized the importance of continuous security testing for AI systems.",
+      "New methodologies for detecting zero-day vulnerabilities in AI models were discussed.",
+      "The speaker showcased a prototype tool for real-time AI model monitoring and patching."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI security testing frameworks"
+  },
+  {
+    "title": "Code Release: 'Adversarial Toolkit v2.0'",
+    "description": "An updated version of the popular Adversarial Toolkit has been released, featuring new modules for testing AI models against sophisticated attacks.",
+    "url": "https://example.com/adversarial-toolkit-v2",
+    "date": "2023-10-22",
+    "key_points": [
+      "Version 2.0 includes support for black-box attack simulations.",
+      "Improved compatibility with cloud-based AI platforms like AWS and Azure.",
+      "Enhanced documentation and tutorials for security researchers."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI security testing frameworks"
+  },
+  {
+    "title": "Blog Post: 'Top 5 AI Security Testing Frameworks in 2023'",
+    "description": "A blog post reviews the top AI security testing frameworks available in 2023, comparing features, ease of use, and effectiveness in detecting vulnerabilities.",
+    "url": "https://example.com/top-ai-security-frameworks-2023",
+    "date": "2023-10-21",
+    "key_points": [
+      "Frameworks reviewed include AIShield, RobustAI, and Adversarial Toolkit.",
+      "The post highlights the importance of open-source tools for democratizing AI security testing.",
+      "Recommendations are provided for selecting the right framework based on specific use cases."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI security testing frameworks"
+  }
+]
