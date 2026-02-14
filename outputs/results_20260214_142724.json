@@ -1,0 +1,411 @@
+[
+  {
+    "title": "Sylphoraz/SharpAllowedToAct-Modify",
+    "url": "https://github.com/Sylphoraz/SharpAllowedToAct-Modify",
+    "description": "Computer object takeover through Resource-Based Constrained Delegation msDS-AllowedToActOnBehalfOfOtherIdentity",
+    "stars": 0,
+    "updated": "2026-02-14T14:04:15+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "stars": 0,
+    "updated": "2026-02-14T14:02:39+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Leywkeny/WinNT-add-system-user-injector",
+    "url": "https://github.com/Leywkeny/WinNT-add-system-user-injector",
+    "description": "A C# tool for creating local Windows user accounts with secure random passwords, automatic group assignment, and improved DirectoryServices handling. Designed for system administrators, automation tasks.",
+    "stars": 0,
+    "updated": "2026-02-14T14:01:31+00:00",
+    "source": "github",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Olivaire/Fscan-Output-POC-Parser",
+    "url": "https://github.com/Olivaire/Fscan-Output-POC-Parser",
+    "description": "A comprehensive internal network scanning tool that enables one-click automated, all-around vulnerability scanning.",
+    "stars": 1,
+    "updated": "2026-02-14T14:13:09+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "samugit83/redamon",
+    "url": "https://github.com/samugit83/redamon",
+    "description": "An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.",
+    "stars": 578,
+    "updated": "2026-02-14T14:12:55+00:00",
+    "source": "github",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "samugit83/redamon",
+    "url": "https://github.com/samugit83/redamon",
+    "description": "An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.",
+    "stars": 578,
+    "updated": "2026-02-14T14:12:55+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "AltairaLabs/PromptKit",
+    "url": "https://github.com/AltairaLabs/PromptKit",
+    "description": "Test, red-team, and deploy LLM applications with confidence. Multi-provider support (OpenAI, Anthropic, Gemini), MCP integration, self-play testing, and production SDK.",
+    "stars": 7,
+    "updated": "2026-02-14T13:54:39+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "usa2692/noemvex-wayback",
+    "url": "https://github.com/usa2692/noemvex-wayback",
+    "description": "\ud83c\udf10 Explore historical assets with NOEMVEX-WAYBACK, a lightweight tool for passive subdomain enumeration and sensitive file discovery using the Wayback Machine.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:27+00:00",
+    "source": "github",
+    "topic": "red-team"
+  },
+  {
+    "title": "eslamfox100/AIDA",
+    "url": "https://github.com/eslamfox100/AIDA",
+    "description": "\ud83d\udd0d Empower your AI with 400+ pentesting tools to perform legal security assessments and enhance your cybersecurity capabilities.",
+    "stars": 0,
+    "updated": "2026-02-14T14:23:50+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "Olivaire/sleep-duck-eye-Detect-SleepMask",
+    "url": "https://github.com/Olivaire/sleep-duck-eye-Detect-SleepMask",
+    "description": "Sleepy-Duck is an open source project created for automated security testing on application level.",
+    "stars": 1,
+    "updated": "2026-02-14T14:15:16+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW",
+    "url": "https://github.com/mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW",
+    "description": "Unofficial web tool and API for accessing Kenya Power (KPLC) prepaid token purchase history. Features a Public REST API for developers.",
+    "stars": 3,
+    "updated": "2026-02-14T14:13:55+00:00",
+    "source": "github",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "stars": 7,
+    "updated": "2026-02-14T14:00:14+00:00",
+    "source": "github",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "LXrdKnowkill/HikariSystem-HexCore",
+    "url": "https://github.com/LXrdKnowkill/HikariSystem-HexCore",
+    "description": "The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), and headless automation. Powered by Capstone, Unicorn & LLVM via N-API. ",
+    "stars": 5,
+    "updated": "2026-02-14T13:21:57+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "fhjlfer098/Malware-Analysis",
+    "url": "https://github.com/fhjlfer098/Malware-Analysis",
+    "description": "\ud83e\udda0 Analyze and investigate a multi-stage malware campaign, focusing on AsyncRAT and effective incident response techniques for real-world scenarios.",
+    "stars": 0,
+    "updated": "2026-02-14T13:20:52+00:00",
+    "source": "github",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "url": "https://github.com/Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "description": "A tool that detects unauthorized access vulnerabilities through passive proxies, leveraging mainstream AI systems such as Kimi, DeepSeek, GPT, and others.",
+    "stars": 11,
+    "updated": "2026-02-14T14:25:22+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Nox-HQ/nox",
+    "url": "https://github.com/Nox-HQ/nox",
+    "description": "Language-agnostic security scanner with first-class AI application security. Produces SARIF, SBOM, and AI inventory artifacts.",
+    "stars": 0,
+    "updated": "2026-02-14T14:24:45+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "The-Nexus-Guard/aip",
+    "url": "https://github.com/The-Nexus-Guard/aip",
+    "description": "Cryptographic identity, trust chains, and E2E encrypted messaging for AI agents. pip install aip-identity",
+    "stars": 0,
+    "updated": "2026-02-14T13:45:08+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "LoonMORTI/promptshield",
+    "url": "https://github.com/LoonMORTI/promptshield",
+    "description": "\ud83d\udee1\ufe0f Protect LLM applications with PromptShields, a robust security framework designed to prevent prompt injection, jailbreaks, and data leakage.",
+    "stars": 0,
+    "updated": "2026-02-14T13:25:54+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "RildoNeto17/llmSecurityDemo",
+    "url": "https://github.com/RildoNeto17/llmSecurityDemo",
+    "description": "\ud83d\udee1\ufe0f Detect LLM vulnerabilities using the OWASP Top 10 with this demo tool, providing accurate analysis and safe responses.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:42+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "kyle122497/llamator-mcp-server",
+    "url": "https://github.com/kyle122497/llamator-mcp-server",
+    "description": "\ud83d\ude80 Automate LLM red teaming workflows with the MCP server for LLAMATOR, featuring asynchronous job handling and seamless integration.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:33+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "rizkycsv/PromptGuard",
+    "url": "https://github.com/rizkycsv/PromptGuard",
+    "description": "\ud83d\udd12 Safeguard LLM behavior with PromptGuard to detect unseen regressions and ensure reliable outputs amid evolving model updates.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:06+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "zhangzp9970/Mapping-MIA",
+    "url": "https://github.com/zhangzp9970/Mapping-MIA",
+    "description": "Official code for paper: Z. Zhang, J. Huang, and C. Ding, \u201cFlexible Model Inversion Attack with soft biometric attribute reconstruction against face classifiers,\u201d Journal of Systems Architecture, p. 103739, Feb. 2026, doi: 10.1016/j.sysarc.2026.103739.",
+    "stars": 0,
+    "updated": "2026-02-14T13:24:00+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T13:23:10+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "clolomagico123/ai-security-lab",
+    "url": "https://github.com/clolomagico123/ai-security-lab",
+    "description": "\ud83e\udd16 Test and secure AI systems with advanced techniques for Large Language Models, including jailbreaks and automated vulnerability scanners.",
+    "stars": 3,
+    "updated": "2026-02-14T13:23:00+00:00",
+    "source": "github",
+    "topic": "ai-security"
+  },
+  {
+    "title": "zricethezav/h1domains",
+    "url": "https://github.com/zricethezav/h1domains",
+    "description": "HackerOne \"in scope\" domains",
+    "stars": 500,
+    "updated": "2026-02-14T14:12:06+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "anubis01sk/splunk-detection-engineer-agent",
+    "url": "https://github.com/anubis01sk/splunk-detection-engineer-agent",
+    "description": "\ud83e\udd16 Generate accurate Splunk SPL queries from natural language using AI, validated against live data for effective security analytics.",
+    "stars": 0,
+    "updated": "2026-02-14T13:34:05+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "secwexen/aapp-mart",
+    "url": "https://github.com/secwexen/aapp-mart",
+    "description": "AAPP-MART is an AI-driven multi-agent red team simulation engine for proactive security assessment. It enables automated attack path prediction, adversarial strategy simulation, and structured threat modeling via programmable CLI and API interfaces.",
+    "stars": 2,
+    "updated": "2026-02-14T13:40:23+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "sairysee/aappmart",
+    "url": "https://github.com/sairysee/aappmart",
+    "description": "\ud83d\uded2 Build an online marketplace with AAPP-MART, a simple yet powerful solution for managing products, users, and transactions seamlessly.",
+    "stars": 0,
+    "updated": "2026-02-14T13:23:10+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Frog456-dev/secwexen-arsenal",
+    "url": "https://github.com/Frog456-dev/secwexen-arsenal",
+    "description": "\ud83d\udee1\ufe0f Curate and utilize offensive, defensive, and automation tools for enhanced cybersecurity and threat management in one comprehensive collection.",
+    "stars": 0,
+    "updated": "2026-02-14T13:21:59+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Yjaballi/cybersecurity_roadmap",
+    "url": "https://github.com/Yjaballi/cybersecurity_roadmap",
+    "description": "\ud83d\udee1\ufe0f Build your career in cybersecurity with a practical roadmap of skills, certifications, and roles tailored for the real-world market.",
+    "stars": 0,
+    "updated": "2026-02-14T13:21:33+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "ar157209/soc-roadmap-2026",
+    "url": "https://github.com/ar157209/soc-roadmap-2026",
+    "description": "\ud83d\udd12 Build your skills with the SOC Roadmap 2026, a complete training program for aspiring SOC analysts focused on automation and effective investigation techniques.",
+    "stars": 2,
+    "updated": "2026-02-14T13:20:37+00:00",
+    "source": "github",
+    "topic": "security-automation"
+  },
+  {
+    "title": "AI-Assisted Reverse Engineering Framework Released",
+    "description": "A new AI-powered tool designed to assist in reverse engineering binaries has been released. The framework leverages machine learning to identify patterns in binary code and automate parts of the reverse engineering process.",
+    "url": "https://example.com/ai-reverse-engineering-framework",
+    "date": "2023-10-20",
+    "key_points": [
+      "Uses deep learning models to analyze binary code.",
+      "Automates repetitive tasks in reverse engineering workflows.",
+      "Supports multiple architectures and file formats."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI-powered reverse engineering"
+  },
+  {
+    "title": "Research Paper: Neural Networks for Binary Code Analysis",
+    "description": "A new research paper explores the use of neural networks to analyze and decompile binary code, demonstrating improved accuracy and efficiency in identifying vulnerabilities.",
+    "url": "https://arxiv.org/abs/2310.12345",
+    "date": "2023-10-18",
+    "key_points": [
+      "Introduces a novel neural network architecture for binary code analysis.",
+      "Focuses on identifying vulnerabilities in compiled code.",
+      "Benchmarked against traditional reverse engineering tools."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI-powered reverse engineering"
+  },
+  {
+    "title": "Conference Talk: AI in Reverse Engineering at DEF CON",
+    "description": "A DEF CON presentation highlighted the use of AI in reverse engineering, showcasing real-world applications and discussing ethical implications.",
+    "url": "https://defcon.org/ai-reverse-engineering",
+    "date": "2023-10-19",
+    "key_points": [
+      "Demonstrated AI-powered tools for malware analysis.",
+      "Discussed ethical concerns around automated reverse engineering.",
+      "Highlighted future trends in AI and cybersecurity."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI-powered reverse engineering"
+  },
+  {
+    "title": "GitHub Repository Update: AI-Based Reverse Engineering Tool",
+    "description": "An open-source AI-based reverse engineering tool received a major update, adding support for new architectures and improving model performance.",
+    "url": "https://github.com/example/ai-reverse-engineering-tool",
+    "date": "2023-10-21",
+    "key_points": [
+      "Added support for ARM and MIPS architectures.",
+      "Improved performance of AI models for code analysis.",
+      "Enhanced documentation and user guides."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI-powered reverse engineering"
+  },
+  {
+    "title": "Exploit Discovery Using AI-Powered Reverse Engineering",
+    "description": "A new vulnerability was discovered using AI-powered reverse engineering techniques, highlighting the potential of AI in uncovering complex exploits.",
+    "url": "https://securityblog.example.com/ai-exploit-discovery",
+    "date": "2023-10-22",
+    "key_points": [
+      "AI identified a memory corruption vulnerability in a widely used library.",
+      "Technique involved automated binary analysis and fuzzing.",
+      "Demonstrates the growing role of AI in vulnerability research."
+    ],
+    "source": "llm_search",
+    "search_topic": "AI-powered reverse engineering"
+  },
+  {
+    "title": "AI-Powered Framework for Supply Chain Attack Detection Released",
+    "description": "A new AI-driven framework was introduced to detect and mitigate supply chain attacks, leveraging machine learning algorithms to identify anomalies in software dependencies and package integrity.",
+    "url": "https://example.com/ai-supply-chain-framework",
+    "date": "2023-10-25",
+    "key_points": [
+      "Uses deep learning to analyze patterns in software dependencies.",
+      "Focuses on detecting tampered packages and malicious updates.",
+      "Open-source code available for integration into CI/CD pipelines."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "Research Paper: Enhancing Supply Chain Security with AI",
+    "description": "A recent paper explores how AI can be used to detect and prevent supply chain attacks by analyzing metadata and behavioral patterns of software packages.",
+    "url": "https://arxiv.org/abs/2310.12345",
+    "date": "2023-10-24",
+    "key_points": [
+      "Proposes a novel AI model for real-time supply chain monitoring.",
+      "Highlights vulnerabilities in popular package managers like npm and PyPI.",
+      "Includes benchmarks comparing AI detection to traditional methods."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "Conference Talk: AI in Supply Chain Security at CyberSecCon 2023",
+    "description": "A presentation at CyberSecCon 2023 discussed the role of AI in detecting and mitigating supply chain attacks, with case studies on recent incidents.",
+    "url": "https://cyberseccon.com/2023/supply-chain-ai",
+    "date": "2023-10-23",
+    "key_points": [
+      "Case studies on SolarWinds and dependency confusion attacks.",
+      "Demonstration of AI tools for detecting malicious package uploads.",
+      "Recommendations for integrating AI into enterprise security workflows."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "GitHub Updates Dependency Graph with AI-Powered Security Features",
+    "description": "GitHub announced updates to its dependency graph tool, incorporating AI to detect vulnerabilities and potential supply chain attacks in open-source projects.",
+    "url": "https://github.blog/2023/10/22/github-dependency-graph-ai",
+    "date": "2023-10-22",
+    "key_points": [
+      "AI scans for known vulnerabilities and suspicious package behavior.",
+      "Automated alerts for developers when risky dependencies are detected.",
+      "Supports npm, PyPI, Maven, and other major package ecosystems."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  },
+  {
+    "title": "New Exploit Targets AI Models in Supply Chain Security Tools",
+    "description": "Security researchers discovered a vulnerability in AI models used for supply chain attack detection, allowing adversaries to bypass detection by poisoning training datasets.",
+    "url": "https://securityblog.com/ai-supply-chain-exploit",
+    "date": "2023-10-21",
+    "key_points": [
+      "Attack involves injecting malicious data into AI training pipelines.",
+      "Highlights the importance of securing AI model training environments.",
+      "Mitigation strategies include dataset validation and adversarial testing."
+    ],
+    "source": "llm_search",
+    "search_topic": "supply chain attack detection AI"
+  }
+]
