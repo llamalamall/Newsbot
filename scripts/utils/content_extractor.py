@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 MAX_ARTICLE_CONTENT_LENGTH = 5000
 
 # HTTP request timeout in seconds
-HTTP_REQUEST_TIMEOUT = 10
+HTTP_REQUEST_TIMEOUT = 10  # seconds
 
 
 def extract_article_content(url: str) -> Optional[str]:

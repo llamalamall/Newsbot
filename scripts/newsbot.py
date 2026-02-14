@@ -47,9 +47,9 @@ class NewsBot:
     """Main class for searching and aggregating security news."""
     
     # Default values for RSS settings
-    DEFAULT_RSS_TIMEOUT = 10
-    DEFAULT_RSS_CACHE_TTL_HOURS = 6
-    DEFAULT_RSS_RATE_LIMIT_DELAY = 0.5
+    DEFAULT_RSS_TIMEOUT = 10  # seconds
+    DEFAULT_RSS_CACHE_TTL_HOURS = 6  # hours
+    DEFAULT_RSS_RATE_LIMIT_DELAY = 0.5  # seconds
     
     # Expose constants for backward compatibility
     LLM_SUMMARY_PROMPT = LLM_SUMMARY_PROMPT

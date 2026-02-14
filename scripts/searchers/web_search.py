@@ -17,8 +17,8 @@ MAX_CONTEXT_SNIPPET_LENGTH = 1000
 MAX_CREDIBLE_RESULTS_FOR_LLM = 10
 
 # LLM generation parameters
-LLM_TEMPERATURE = 0.3
-LLM_MAX_TOKENS = 2000
+LLM_TEMPERATURE = 0.3  # Lower = more deterministic
+LLM_MAX_TOKENS = 2000  # Maximum tokens in LLM response
 
 # System prompt for LLM interactions
 LLM_SYSTEM_PROMPT = (
