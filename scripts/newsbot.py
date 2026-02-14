@@ -10,7 +10,7 @@ import json
 import sys
 import logging
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from openai import OpenAI
 import re
 
@@ -20,7 +20,9 @@ try:
     from .utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from .utils.content_extractor import extract_article_content
     from .searchers.github_search import search_github_repos
-    from .searchers.web_search import search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT
+    from .searchers.web_search import (
+        search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT, perform_web_search
+    )
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
 except ImportError:
@@ -33,7 +35,9 @@ except ImportError:
     from utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from utils.content_extractor import extract_article_content
     from searchers.github_search import search_github_repos
-    from searchers.web_search import search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT
+    from searchers.web_search import (
+        search_with_web_context, search_with_llm, LLM_SUMMARY_PROMPT, perform_web_search
+    )
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
 
@@ -77,7 +81,7 @@ class NewsBot:
             )
         else:
             self.openai_client = None
-    
+
     def load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from JSON file."""
         with open(config_path, 'r') as f:
@@ -95,7 +99,7 @@ class NewsBot:
         """
         return assess_source_credibility(url)
     
-    def extract_article_content(self, url: str) -> str:
+    def extract_article_content(self, url: str) -> Optional[str]:
         """Extract main content from a web article.
         
         Args:
@@ -105,7 +109,7 @@ class NewsBot:
             Extracted text content or None if extraction fails
         """
         return extract_article_content(url)
-    
+
     def perform_web_search(self, query: str):
         """Perform a live web search for the given query.
         
@@ -115,7 +119,6 @@ class NewsBot:
         Returns:
             List of search results with title, url, snippet, and credibility
         """
-        from searchers.web_search import perform_web_search
         return perform_web_search(query, assess_source_credibility, self.config)
     
     def search_with_web_context(self, query: str):
