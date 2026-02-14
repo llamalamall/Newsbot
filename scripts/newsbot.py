@@ -41,6 +41,7 @@ except ImportError:
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
 
+__all__ = ['NewsBot', 'main']
 
 class NewsBot:
     """Main class for searching and aggregating security news."""
