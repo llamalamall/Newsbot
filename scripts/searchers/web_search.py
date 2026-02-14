@@ -13,6 +13,14 @@ from openai import OpenAI
 # Maximum characters to include in context when passing to LLM
 MAX_CONTEXT_SNIPPET_LENGTH = 1000
 
+# System prompt for LLM interactions
+LLM_SYSTEM_PROMPT = (
+    "You are a security researcher assistant who helps "
+    "find and summarize the latest offensive security news "
+    "and developments, especially related to AI and automation. "
+    "You prioritize credible sources and fact-based reporting."
+)
+
 # Prompt template for LLM searches with web search context
 LLM_SUMMARY_PROMPT = """Based on the following web search results about "{query}", provide a structured analysis of the latest news and developments.
 
@@ -177,12 +185,7 @@ def search_with_web_context(
                     messages=[
                         {
                             "role": "system",
-                            "content": (
-                                "You are a security researcher assistant who helps "
-                                "find and summarize the latest offensive security news "
-                                "and developments. You prioritize credible sources and "
-                                "fact-based reporting."
-                            )
+                            "content": LLM_SYSTEM_PROMPT
                         },
                         {
                             "role": "user",
@@ -259,7 +262,7 @@ def search_with_llm(query: str, openai_client: Optional[OpenAI]) -> str:
         response = openai_client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "You are a security researcher assistant who helps find and summarize the latest offensive security news and developments, especially related to AI and automation. You prioritize credible sources and fact-based reporting."},
+                {"role": "system", "content": LLM_SYSTEM_PROMPT},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
