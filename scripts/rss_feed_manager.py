@@ -27,6 +27,9 @@ class RSSFeedManager:
         rate_limit_delay: Delay between feed requests in seconds
     """
     
+    # User-Agent for RSS feed requests
+    USER_AGENT = 'Newsbot/1.0 (Security News Aggregator; +https://github.com/llamalamall/Newsbot)'
+    
     def __init__(
         self,
         timeout: int = 10,
@@ -50,7 +53,7 @@ class RSSFeedManager:
         self._last_request_time = 0
         
         # Configure feedparser
-        feedparser.USER_AGENT = 'Newsbot/1.0 (Security News Aggregator; +https://github.com/llamalamall/Newsbot)'
+        feedparser.USER_AGENT = self.USER_AGENT
     
     def _rate_limit(self):
         """Apply rate limiting to prevent overwhelming feed servers."""
@@ -146,7 +149,7 @@ class RSSFeedManager:
             # Parse the feed
             feed = feedparser.parse(
                 feed_url,
-                request_headers={'User-Agent': feedparser.USER_AGENT}
+                request_headers={'User-Agent': self.USER_AGENT}
             )
             
             # Check for feed errors
