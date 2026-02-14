@@ -9,6 +9,11 @@ import logging
 from datetime import datetime
 from typing import List, Dict, Any
 
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    BeautifulSoup = None
+
 
 def _generate_report_header(results: List[Dict[str, Any]]) -> str:
     """Generate the report header with summary information.
@@ -80,8 +85,7 @@ def _generate_rss_section(rss_items: List[Dict[str, Any]]) -> str:
         if item.get("description"):
             # Clean HTML from description if present
             desc = item['description']
-            if '<' in desc and '>' in desc:
-                from bs4 import BeautifulSoup
+            if '<' in desc and '>' in desc and BeautifulSoup:
                 desc = BeautifulSoup(desc, 'html.parser').get_text()
             # Truncate long descriptions
             if len(desc) > 500:
