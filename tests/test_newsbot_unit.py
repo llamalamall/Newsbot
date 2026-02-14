@@ -39,7 +39,6 @@ class TestNewsBotInitialization:
         # Verify initialization
         assert bot.config == config_data
         assert bot.results == []
-        assert bot.web_search_available is True
         
     def test_init_without_github_token(self, tmp_path):
         """Test NewsBot initialization without GITHUB_TOKEN."""
@@ -230,58 +229,6 @@ class TestArticleExtraction:
         assert result is None
 
 
-class TestWebSearch:
-    """Test web search functionality."""
-    
-    @pytest.fixture
-    def bot(self, tmp_path):
-        """Create a NewsBot instance for testing."""
-        config_data = {
-            "search_topics": ["test"],
-            "github_topics": ["test"],
-            "days_back": 7,
-            "max_results_per_topic": 10,
-        }
-        config_file = tmp_path / "config.json"
-        config_file.write_text(json.dumps(config_data))
-        return NewsBot(config_path=str(config_file))
-    
-    @patch('newsbot.perform_web_search')
-    def test_perform_web_search(self, mock_search, bot):
-        """Test perform_web_search wrapper method."""
-        mock_results = [
-            {
-                "title": "Test Article",
-                "url": "https://example.com/article",
-                "snippet": "Test snippet",
-                "credibility": "high"
-            }
-        ]
-        mock_search.return_value = mock_results
-        
-        results = bot.perform_web_search("test query")
-        
-        assert results == mock_results
-        assert mock_search.called
-    
-    @patch('newsbot.search_with_web_context')
-    def test_search_with_web_context(self, mock_search, bot):
-        """Test search_with_web_context wrapper method."""
-        mock_results = [
-            {
-                "title": "Enhanced Result",
-                "url": "https://example.com/enhanced",
-                "description": "Enhanced description"
-            }
-        ]
-        mock_search.return_value = mock_results
-        
-        results = bot.search_with_web_context("AI security")
-        
-        assert results == mock_results
-        assert mock_search.called
-
-
 class TestNewsAggregation:
     """Test news aggregation functionality."""
     
@@ -289,12 +236,10 @@ class TestNewsAggregation:
     def bot_with_token(self, tmp_path):
         """Create a NewsBot instance with mocked token."""
         config_data = {
-            "search_topics": ["AI security"],
             "github_topics": ["security"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "rss_enabled": False,
-            "content_source": "dual"
+            "rss_enabled": False
         }
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps(config_data))
@@ -328,12 +273,10 @@ class TestNewsAggregation:
     def test_aggregate_news_with_rss(self, mock_github, mock_rss, tmp_path):
         """Test news aggregation with RSS feeds enabled."""
         config_data = {
-            "search_topics": ["test"],
             "github_topics": ["test"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "rss_enabled": True,
-            "content_source": "rss"
+            "rss_enabled": True
         }
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps(config_data))
@@ -358,67 +301,6 @@ class TestNewsAggregation:
         rss_results = [r for r in results if r.get("source") == "rss"]
         assert len(rss_results) > 0
     
-    @patch('newsbot.search_with_web_context')
-    @patch('newsbot.search_github_repos')
-    def test_aggregate_news_with_web_search(self, mock_github, mock_web, tmp_path):
-        """Test news aggregation with web search enabled."""
-        config_data = {
-            "search_topics": ["AI security"],
-            "github_topics": ["security"],
-            "days_back": 7,
-            "max_results_per_topic": 5,
-            "rss_enabled": False,
-            "content_source": "web"
-        }
-        config_file = tmp_path / "config.json"
-        config_file.write_text(json.dumps(config_data))
-        
-        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
-            with patch('newsbot.OpenAI'):
-                bot = NewsBot(config_path=str(config_file))
-        
-        mock_github.return_value = []
-        mock_web.return_value = [
-            {
-                "title": "Web Article",
-                "url": "https://example.com/web",
-                "source": "web"
-            }
-        ]
-        
-        results = bot.aggregate_news()
-        
-        # Should call web search for each topic
-        assert mock_web.call_count >= 1
-    
-    @patch('newsbot.search_with_llm')
-    @patch('newsbot.search_with_web_context')
-    @patch('newsbot.search_github_repos')
-    def test_aggregate_news_web_fallback_to_llm(self, mock_github, mock_web, mock_llm, tmp_path):
-        """Test web search fallback to LLM-only search."""
-        config_data = {
-            "search_topics": ["AI security"],
-            "github_topics": ["security"],
-            "days_back": 7,
-            "max_results_per_topic": 5,
-            "content_source": "web"
-        }
-        config_file = tmp_path / "config.json"
-        config_file.write_text(json.dumps(config_data))
-        
-        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
-            with patch('newsbot.OpenAI'):
-                bot = NewsBot(config_path=str(config_file))
-        
-        mock_github.return_value = []
-        mock_web.return_value = []  # Empty results, should fallback
-        mock_llm.return_value = '[{"title": "LLM Result", "url": "https://example.com"}]'
-        
-        results = bot.aggregate_news()
-        
-        # Should fallback to LLM search
-        assert mock_llm.called
-    
     @patch('newsbot.search_github_repos')
     def test_aggregate_news_handles_github_errors(self, mock_github, bot_with_token):
         """Test that aggregate_news handles GitHub search errors gracefully."""
@@ -438,7 +320,6 @@ class TestConstants:
     def bot(self, tmp_path):
         """Create a NewsBot instance for testing."""
         config_data = {
-            "search_topics": ["test"],
             "github_topics": ["test"],
             "days_back": 7,
             "max_results_per_topic": 10
@@ -446,13 +327,6 @@ class TestConstants:
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps(config_data))
         return NewsBot(config_path=str(config_file))
-    
-    def test_llm_summary_prompt_constant(self, bot):
-        """Test that LLM_SUMMARY_PROMPT is exposed."""
-        assert hasattr(bot, 'LLM_SUMMARY_PROMPT')
-        assert isinstance(bot.LLM_SUMMARY_PROMPT, str)
-        assert '{query}' in bot.LLM_SUMMARY_PROMPT
-        assert '{search_context}' in bot.LLM_SUMMARY_PROMPT
     
     def test_credible_sources_constant(self, bot):
         """Test that CREDIBLE_SOURCES is exposed."""
