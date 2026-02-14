@@ -21,7 +21,7 @@ CREDIBLE_SOURCES = {
         'medium.com', 'towardsdatascience.com', 'dev.to', 'hackernoon.com',
         'researchgate.net', 'reddit.com/r/netsec', 'infosecurity-magazine.com',
         'bleepingcomputer.com', 'zdnet.com', 'arstechnica.com', 'wired.com',
-        'techcrunch.com', 'venturebeat.com'
+        'techcrunch.com', 'venturebeat.com', 'darkreading.com'
     ]
 }
 

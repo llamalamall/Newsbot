@@ -9,7 +9,13 @@ from typing import List, Dict, Any, Optional
 # Import dataclass models
 try:
     from ..models import RSSResult
-    from ..utils.llm_assessment import assess_article_applicability, assess_article_credibility
+    from ..utils.llm_assessment import (
+        assess_article_applicability,
+        assess_article_credibility,
+        filter_titles_by_relevance,
+        get_llm_call_count,
+        reset_llm_call_count
+    )
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -18,7 +24,13 @@ except ImportError:
     if script_dir not in sys.path:
         sys.path.insert(0, script_dir)
     from models import RSSResult
-    from utils.llm_assessment import assess_article_applicability, assess_article_credibility
+    from utils.llm_assessment import (
+        assess_article_applicability,
+        assess_article_credibility,
+        filter_titles_by_relevance,
+        get_llm_call_count,
+        reset_llm_call_count
+    )
 
 
 def search_rss_feeds(
@@ -47,6 +59,8 @@ def search_rss_feeds(
         logging.info("RSS Feed Manager not initialized, skipping RSS search")
         return results
     
+    reset_llm_call_count()
+
     try:
         logging.info("Fetching RSS feeds...")
         
@@ -76,16 +90,33 @@ def search_rss_feeds(
         # Filter by date
         recent_entries = rss_manager.filter_by_date(all_entries, max_age_days)
         
-        # Filter by keywords
+        # Filter by keywords (fallback if LLM returns no results)
         keywords = config.get('search_keywords', [])
-        if keywords:
+        filtered_entries = recent_entries
+        if llm_enabled and openai_client:
+            titles = [entry.get('title', '') for entry in recent_entries]
+            relevant_indices = filter_titles_by_relevance(
+                openai_client=openai_client,
+                titles=titles,
+                keywords=keywords,
+                model=llm_model
+            )
+            if relevant_indices:
+                filtered_entries = [recent_entries[idx] for idx in relevant_indices]
+            else:
+                logging.info("LLM title filtering returned no results; applying keyword filtering")
+                if keywords:
+                    filtered_entries = rss_manager.filter_by_keywords(
+                        recent_entries,
+                        keywords,
+                        min_keyword_matches
+                    )
+        elif keywords:
             filtered_entries = rss_manager.filter_by_keywords(
                 recent_entries,
                 keywords,
                 min_keyword_matches
             )
-        else:
-            filtered_entries = recent_entries
         
         logging.info(f"Processing {len(filtered_entries)} articles after keyword filtering...")
         
@@ -165,5 +196,7 @@ def search_rss_feeds(
         
     except Exception as e:
         logging.error(f"Error in RSS feed search: {str(e)}")
+    finally:
+        logging.info(f"Total LLM calls for RSS search: {get_llm_call_count()}")
     
     return results
