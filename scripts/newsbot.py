@@ -226,7 +226,7 @@ Format as JSON array with objects containing: title, description, url, date, key
 def main():
     """Main entry point."""
     # Configure logging at application level
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s', force=True)
     
     print("=" * 80)
     print("Newsbot - Offensive Security AI/Automation News Aggregator")
