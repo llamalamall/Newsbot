@@ -1,0 +1,261 @@
+#!/usr/bin/env python3
+"""
+Newsbot - AI-powered offensive security news aggregator
+Searches for the latest articles, announcements, repositories, and blog posts
+related to AI and automation in offensive security.
+"""
+
+import os
+import json
+import sys
+from datetime import datetime, timedelta
+from typing import List, Dict, Any
+import requests
+from github import Github
+from openai import OpenAI
+
+
+class NewsBot:
+    """Main class for searching and aggregating security news."""
+    
+    def __init__(self, config_path: str = "config.json"):
+        """Initialize the NewsBot with configuration."""
+        self.config = self.load_config(config_path)
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.github_token = os.getenv("GITHUB_TOKEN")
+        self.results = []
+        
+    def load_config(self, config_path: str) -> Dict[str, Any]:
+        """Load configuration from JSON file."""
+        with open(config_path, 'r') as f:
+            return json.load(f)
+    
+    def search_github_repos(self) -> List[Dict[str, Any]]:
+        """Search GitHub for relevant repositories."""
+        print("Searching GitHub repositories...")
+        results = []
+        
+        if not self.github_token:
+            print("Warning: GITHUB_TOKEN not set, skipping GitHub search")
+            return results
+        
+        try:
+            g = Github(self.github_token)
+            days_back = self.config.get("days_back", 7)
+            since_date = (datetime.now() - timedelta(days=days_back)).strftime("%Y-%m-%d")
+            
+            # Search for repositories with relevant topics
+            for topic in self.config.get("github_topics", []):
+                query = f"topic:{topic} pushed:>={since_date}"
+                repos = g.search_repositories(query=query, sort="updated", order="desc")
+                
+                for repo in repos[:self.config.get("max_results_per_topic", 10)]:
+                    # Check if repo description contains AI/automation keywords
+                    description = (repo.description or "").lower()
+                    if any(kw in description for kw in ["ai", "llm", "ml", "machine learning", "automation", "automated", "gpt"]):
+                        results.append({
+                            "title": repo.full_name,
+                            "url": repo.html_url,
+                            "description": repo.description,
+                            "stars": repo.stargazers_count,
+                            "updated": repo.updated_at.isoformat(),
+                            "source": "github",
+                            "topic": topic
+                        })
+            
+            print(f"Found {len(results)} relevant GitHub repositories")
+        except Exception as e:
+            print(f"Error searching GitHub: {e}")
+        
+        return results
+    
+    def search_with_llm(self, query: str) -> str:
+        """Use LLM to search and summarize results for a topic."""
+        if not self.openai_api_key:
+            print("Warning: OPENAI_API_KEY not set, skipping LLM search")
+            return ""
+        
+        try:
+            client = OpenAI(api_key=self.openai_api_key)
+            
+            prompt = f"""Search for and summarize the latest news, articles, blog posts, and announcements about: {query}
+
+Focus on content from the last week that relates to:
+- New tools or frameworks
+- Research papers or blog posts
+- Conference talks or presentations
+- Code releases or updates
+- Vulnerabilities or exploits
+- Techniques or methodologies
+
+Provide a structured summary with:
+1. Title
+2. Brief description
+3. Source/URL (if available)
+4. Key takeaways
+
+Format as JSON array with objects containing: title, description, url, date, key_points."""
+
+            response = client.chat.completions.create(
+                model="gpt-4-turbo-preview",
+                messages=[
+                    {"role": "system", "content": "You are a security researcher assistant who helps find and summarize the latest offensive security news and developments, especially related to AI and automation."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_tokens=2000
+            )
+            
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"Error with LLM search for '{query}': {e}")
+            return ""
+    
+    def aggregate_news(self) -> List[Dict[str, Any]]:
+        """Aggregate news from multiple sources."""
+        print("Aggregating news from multiple sources...")
+        all_results = []
+        
+        # Search GitHub repositories
+        github_results = self.search_github_repos()
+        all_results.extend(github_results)
+        
+        # Search using LLM for each topic
+        for topic in self.config.get("search_topics", []):
+            print(f"Searching for: {topic}")
+            llm_response = self.search_with_llm(topic)
+            
+            if llm_response:
+                try:
+                    # Try to parse JSON response
+                    # Look for JSON array in the response
+                    import re
+                    json_match = re.search(r'\[.*\]', llm_response, re.DOTALL)
+                    if json_match:
+                        llm_results = json.loads(json_match.group())
+                        for item in llm_results:
+                            item["source"] = "llm_search"
+                            item["search_topic"] = topic
+                            all_results.append(item)
+                except json.JSONDecodeError:
+                    # If not JSON, store as text summary
+                    all_results.append({
+                        "title": f"Summary: {topic}",
+                        "description": llm_response,
+                        "source": "llm_summary",
+                        "search_topic": topic
+                    })
+        
+        self.results = all_results
+        return all_results
+    
+    def generate_report(self, output_path: str = None) -> str:
+        """Generate a markdown report of the findings."""
+        if not self.results:
+            print("No results to report")
+            return ""
+        
+        report = f"# Offensive Security AI/Automation News\n\n"
+        report += f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
+        report += f"## Summary\n\n"
+        report += f"Found {len(self.results)} relevant items.\n\n"
+        
+        # Group by source
+        github_items = [r for r in self.results if r.get("source") == "github"]
+        llm_items = [r for r in self.results if r.get("source") in ["llm_search", "llm_summary"]]
+        
+        if github_items:
+            report += f"## GitHub Repositories ({len(github_items)})\n\n"
+            # Sort by stars
+            github_items.sort(key=lambda x: x.get("stars", 0), reverse=True)
+            for item in github_items:
+                report += f"### [{item['title']}]({item['url']})\n\n"
+                if item.get("description"):
+                    report += f"{item['description']}\n\n"
+                report += f"- **Stars:** {item.get('stars', 'N/A')}\n"
+                report += f"- **Updated:** {item.get('updated', 'N/A')}\n"
+                report += f"- **Topic:** {item.get('topic', 'N/A')}\n\n"
+        
+        if llm_items:
+            report += f"## Articles, Blog Posts & Announcements ({len(llm_items)})\n\n"
+            for item in llm_items:
+                report += f"### {item.get('title', 'Untitled')}\n\n"
+                if item.get("description"):
+                    report += f"{item['description']}\n\n"
+                if item.get("url"):
+                    report += f"**Link:** {item['url']}\n\n"
+                if item.get("key_points"):
+                    report += f"**Key Points:**\n"
+                    if isinstance(item["key_points"], list):
+                        for point in item["key_points"]:
+                            report += f"- {point}\n"
+                    report += "\n"
+                report += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
+        
+        # Save report
+        if output_path:
+            os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else ".", exist_ok=True)
+            with open(output_path, 'w') as f:
+                f.write(report)
+            print(f"Report saved to: {output_path}")
+        
+        return report
+    
+    def save_json_results(self, output_path: str):
+        """Save results as JSON."""
+        os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else ".", exist_ok=True)
+        with open(output_path, 'w') as f:
+            json.dump(self.results, f, indent=2, default=str)
+        print(f"JSON results saved to: {output_path}")
+
+
+def main():
+    """Main entry point."""
+    print("=" * 80)
+    print("Newsbot - Offensive Security AI/Automation News Aggregator")
+    print("=" * 80)
+    print()
+    
+    # Check for required API keys
+    if not os.getenv("OPENAI_API_KEY"):
+        print("Warning: OPENAI_API_KEY environment variable not set")
+        print("LLM-based searches will be skipped")
+    
+    if not os.getenv("GITHUB_TOKEN"):
+        print("Warning: GITHUB_TOKEN environment variable not set")
+        print("GitHub repository searches will be skipped")
+    
+    if not os.getenv("OPENAI_API_KEY") and not os.getenv("GITHUB_TOKEN"):
+        print("\nError: At least one API key (OPENAI_API_KEY or GITHUB_TOKEN) must be set")
+        sys.exit(1)
+    
+    print()
+    
+    # Initialize bot
+    bot = NewsBot()
+    
+    # Aggregate news
+    results = bot.aggregate_news()
+    
+    print()
+    print(f"Total results found: {len(results)}")
+    print()
+    
+    # Generate timestamp for filenames
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    # Generate and save reports
+    markdown_path = f"outputs/report_{timestamp}.md"
+    json_path = f"outputs/results_{timestamp}.json"
+    
+    bot.generate_report(markdown_path)
+    bot.save_json_results(json_path)
+    
+    print()
+    print("=" * 80)
+    print("Newsbot completed successfully!")
+    print("=" * 80)
+
+
+if __name__ == "__main__":
+    main()
