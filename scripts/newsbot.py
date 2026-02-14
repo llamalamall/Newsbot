@@ -6,6 +6,7 @@ related to AI and automation in offensive security.
 """
 
 # Standard library
+import argparse
 import json
 import logging
 import os
@@ -47,7 +48,7 @@ except ImportError:
     from reporters.markdown_reporter import generate_report, save_json_results
     from models import WebSearchResult
 
-__all__ = ['NewsBot', 'main']
+__all__ = ['NewsBot', 'main', 'parse_arguments']
 
 class NewsBot:
     """Main class for searching and aggregating security news."""
@@ -264,54 +265,147 @@ class NewsBot:
         return all_results
 
 
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments.
+    
+    Returns:
+        Parsed arguments namespace
+    """
+    parser = argparse.ArgumentParser(
+        prog='newsbot',
+        description='Newsbot - Offensive Security AI/Automation News Aggregator',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  %(prog)s                          # Run with default config
+  %(prog)s --config my_config.json  # Use custom config file
+  %(prog)s --output-dir ./reports   # Save to custom output directory
+  %(prog)s --quiet                  # Run with minimal output
+  %(prog)s --verbose                # Run with detailed logging
+        '''
+    )
+    
+    parser.add_argument(
+        '--config',
+        type=str,
+        default='config.json',
+        metavar='PATH',
+        help='path to configuration file (default: config.json)'
+    )
+    
+    parser.add_argument(
+        '--output-dir',
+        type=str,
+        default='outputs',
+        metavar='DIR',
+        help='directory for output files (default: outputs)'
+    )
+    
+    parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='enable verbose logging output'
+    )
+    
+    parser.add_argument(
+        '--quiet',
+        action='store_true',
+        help='suppress non-error output'
+    )
+    
+    parser.add_argument(
+        '--version',
+        action='version',
+        version='%(prog)s 1.0.0'
+    )
+    
+    return parser.parse_args()
+
+
 def main():
     """Main entry point."""
-    # Configure logging at application level
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s', force=True)
+    # Parse command-line arguments
+    args = parse_arguments()
     
-    print("=" * 80)
-    print("Newsbot - Offensive Security AI/Automation News Aggregator")
-    print("=" * 80)
-    print()
+    # Configure logging based on verbosity
+    if args.verbose:
+        log_level = logging.DEBUG
+        log_format = '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
+    elif args.quiet:
+        log_level = logging.ERROR
+        log_format = '%(levelname)s: %(message)s'
+    else:
+        log_level = logging.INFO
+        log_format = '%(levelname)s: %(message)s'
+    
+    logging.basicConfig(level=log_level, format=log_format, force=True)
     
     # Check for required GITHUB_TOKEN
     has_github = bool(os.getenv("GITHUB_TOKEN"))
     
     if not has_github:
-        print("Error: GITHUB_TOKEN environment variable not set")
-        print("\nGITHUB_TOKEN is required for:")
-        print("  - GitHub repository searches")
-        print("  - LLM-based searches via GitHub Models")
-        print("\nPlease set it:")
-        print("  export GITHUB_TOKEN=your_token_here")
+        print("Error: GITHUB_TOKEN environment variable not set", file=sys.stderr)
+        print("\nGITHUB_TOKEN is required for:", file=sys.stderr)
+        print("  - GitHub repository searches", file=sys.stderr)
+        print("  - LLM-based searches via GitHub Models", file=sys.stderr)
+        print("\nPlease set it:", file=sys.stderr)
+        print("  export GITHUB_TOKEN=your_token_here", file=sys.stderr)
         sys.exit(1)
     
-    print()
+    # Display banner unless quiet mode
+    if not args.quiet:
+        print("=" * 80)
+        print("Newsbot - Offensive Security AI/Automation News Aggregator")
+        print("=" * 80)
+        print()
     
-    # Initialize bot
-    bot = NewsBot()
+    if args.verbose:
+        logging.debug(f"Using config file: {args.config}")
+        logging.debug(f"Output directory: {args.output_dir}")
+    
+    if not args.quiet:
+        print()
+    
+    # Initialize bot with custom config path
+    try:
+        bot = NewsBot(config_path=args.config)
+    except FileNotFoundError:
+        logging.error(f"Configuration file not found: {args.config}")
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        logging.error(f"Invalid JSON in configuration file: {e}")
+        sys.exit(1)
     
     # Aggregate news
     results = bot.aggregate_news()
     
-    print()
-    print(f"Total results found: {len(results)}")
-    print()
+    if not args.quiet:
+        print()
+        print(f"Total results found: {len(results)}")
+        print()
+    else:
+        logging.info(f"Total results found: {len(results)}")
+    
+    # Ensure output directory exists
+    os.makedirs(args.output_dir, exist_ok=True)
     
     # Generate timestamp for filenames
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     # Generate and save reports
-    markdown_path = f"outputs/report_{timestamp}.md"
-    json_path = f"outputs/results_{timestamp}.json"
+    markdown_path = os.path.join(args.output_dir, f"report_{timestamp}.md")
+    json_path = os.path.join(args.output_dir, f"results_{timestamp}.json")
     
     generate_report(results, markdown_path)
     save_json_results(results, json_path)
     
-    print()
-    print("=" * 80)
-    print("Newsbot completed successfully!")
-    print("=" * 80)
+    if not args.quiet:
+        print()
+        print("=" * 80)
+        print("Newsbot completed successfully!")
+        print("=" * 80)
+    else:
+        logging.info("Newsbot completed successfully!")
 
 
 if __name__ == "__main__":
