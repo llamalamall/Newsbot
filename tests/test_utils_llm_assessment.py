@@ -33,7 +33,7 @@ class TestAssessArticleApplicability:
         assert "score" in result
         assert "reason" in result
         assert "matched_keywords" in result
-        assert result["applicable"] == True  # Default to including
+        assert result["applicable"] is True  # Default to including
         assert result["score"] == 0.5
         assert "unavailable" in result["reason"].lower()
     
@@ -64,7 +64,7 @@ class TestAssessArticleApplicability:
             keywords=["AI", "penetration testing", "automation"]
         )
         
-        assert result["applicable"] == True
+        assert result["applicable"] is True
         assert result["score"] == 0.85
         assert "penetration testing" in result["reason"].lower()
         assert "AI" in result["matched_keywords"]
@@ -96,7 +96,7 @@ class TestAssessArticleApplicability:
             keywords=["offensive security", "penetration testing"]
         )
         
-        assert result["applicable"] == False
+        assert result["applicable"] is False
         assert result["score"] == 0.2
         assert len(result["matched_keywords"]) == 0
     
@@ -126,7 +126,7 @@ class TestAssessArticleApplicability:
             content="Detailed content about LLM vulnerabilities and exploitation techniques..."
         )
         
-        assert result["applicable"] == True
+        assert result["applicable"] is True
         assert result["score"] == 0.9
         
         # Verify the API was called
@@ -157,7 +157,7 @@ class TestAssessArticleApplicability:
         )
         
         # Should return default values on error
-        assert result["applicable"] == True
+        assert result["applicable"] is True
         assert result["score"] == 0.5
         assert "parsing failed" in result["reason"].lower()
     
@@ -174,7 +174,7 @@ class TestAssessArticleApplicability:
         )
         
         # Should return default values on error
-        assert result["applicable"] == True
+        assert result["applicable"] is True
         assert result["score"] == 0.5
         assert "error" in result["reason"].lower()
     
@@ -235,7 +235,7 @@ class TestAssessArticleCredibility:
         assert "score" in result
         assert "reason" in result
         assert "flags" in result
-        assert result["credible"] == True
+        assert result["credible"] is True
         assert result["score"] == 0.5
         assert "unavailable" in result["reason"].lower()
     
@@ -266,7 +266,7 @@ class TestAssessArticleCredibility:
             domain_credibility="high"
         )
         
-        assert result["credible"] == True
+        assert result["credible"] is True
         assert result["score"] == 0.9
         assert "reputable" in result["reason"].lower() or "research" in result["reason"].lower()
         assert len(result["flags"]) == 0
@@ -298,7 +298,7 @@ class TestAssessArticleCredibility:
             domain_credibility="low"
         )
         
-        assert result["credible"] == False
+        assert result["credible"] is False
         assert result["score"] == 0.3
         assert "clickbait_title" in result["flags"]
         assert "no_sources" in result["flags"]
@@ -357,7 +357,7 @@ class TestAssessArticleCredibility:
             domain_credibility="medium"
         )
         
-        assert result["credible"] == True
+        assert result["credible"] is True
         assert result["score"] == 0.5
         assert "parsing failed" in result["reason"].lower()
     
@@ -375,7 +375,7 @@ class TestAssessArticleCredibility:
             domain_credibility="medium"
         )
         
-        assert result["credible"] == True
+        assert result["credible"] is True
         assert result["score"] == 0.5
         assert "error" in result["reason"].lower()
     
@@ -406,7 +406,7 @@ class TestAssessArticleCredibility:
             domain_credibility="high"
         )
         
-        assert result["credible"] == True
+        assert result["credible"] is True
         assert result["score"] == 0.85
 
 
@@ -462,7 +462,7 @@ class TestLLMAssessmentIntegration:
         )
         
         # Both should succeed
-        assert app_result["applicable"] == True
+        assert app_result["applicable"] is True
         assert app_result["score"] == 0.8
-        assert cred_result["credible"] == True
+        assert cred_result["credible"] is True
         assert cred_result["score"] == 0.85
