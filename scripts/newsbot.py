@@ -8,21 +8,50 @@ related to AI and automation in offensive security.
 import os
 import json
 import sys
+import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import requests
 from github import Github
-from openai import OpenAI  # GitHub Models uses OpenAI-compatible API
+from openai import OpenAI, OpenAIError  # GitHub Models uses OpenAI-compatible API
 
 
 class NewsBot:
     """Main class for searching and aggregating security news."""
     
+    LLM_SUMMARY_PROMPT = """Search for and summarize the latest news, articles, blog posts, and announcements about: {query}
+
+Focus on content from the last week that relates to:
+- New tools or frameworks
+- Research papers or blog posts
+- Conference talks or presentations
+- Code releases or updates
+- Vulnerabilities or exploits
+- Techniques or methodologies
+
+Provide a structured summary with:
+1. Title
+2. Brief description
+3. Source/URL (if available)
+4. Key takeaways
+
+Format as JSON array with objects containing: title, description, url, date, key_points."""
+    
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
+        logging.basicConfig(level=logging.INFO)
         self.config = self.load_config(config_path)
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
+        
+        # Initialize OpenAI client if token is available
+        if self.github_token:
+            self.openai_client = OpenAI(
+                base_url="https://models.inference.ai.azure.com",
+                api_key=self.github_token
+            )
+        else:
+            self.openai_client = None
         
     def load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from JSON file."""
@@ -31,11 +60,11 @@ class NewsBot:
     
     def search_github_repos(self) -> List[Dict[str, Any]]:
         """Search GitHub for relevant repositories."""
-        print("Searching GitHub repositories...")
+        logging.info("Searching GitHub repositories...")
         results = []
         
         if not self.github_token:
-            print("Warning: GITHUB_TOKEN not set, skipping GitHub search")
+            logging.warning("GITHUB_TOKEN not set, skipping GitHub search")
             return results
         
         try:
@@ -65,47 +94,24 @@ class NewsBot:
                                 "topic": topic
                             })
                 except Exception as topic_error:
-                    print(f"Error searching topic '{topic}': {str(topic_error)[:100]}")
+                    logging.error(f"Error searching topic '{topic}': {str(topic_error)[:100]}")
                     continue
             
-            print(f"Found {len(results)} relevant GitHub repositories")
+            logging.info(f"Found {len(results)} relevant GitHub repositories")
         except Exception as e:
-            print(f"Error initializing GitHub search: {str(e)[:100]}")
+            logging.error(f"Error initializing GitHub search: {str(e)[:100]}")
         
         return results
     
     def search_with_llm(self, query: str) -> str:
         """Use LLM to search and summarize results for a topic via GitHub Models."""
-        if not self.github_token:
-            print("Warning: GITHUB_TOKEN not set, skipping LLM search")
+        if not self.openai_client:
+            logging.warning("GITHUB_TOKEN not set, skipping LLM search")
             return ""
         
         try:
-            # GitHub Models uses OpenAI-compatible API
-            client = OpenAI(
-                base_url="https://models.inference.ai.azure.com",
-                api_key=self.github_token
-            )
-            
-            prompt = f"""Search for and summarize the latest news, articles, blog posts, and announcements about: {query}
-
-Focus on content from the last week that relates to:
-- New tools or frameworks
-- Research papers or blog posts
-- Conference talks or presentations
-- Code releases or updates
-- Vulnerabilities or exploits
-- Techniques or methodologies
-
-Provide a structured summary with:
-1. Title
-2. Brief description
-3. Source/URL (if available)
-4. Key takeaways
-
-Format as JSON array with objects containing: title, description, url, date, key_points."""
-
-            response = client.chat.completions.create(
+            prompt = self.LLM_SUMMARY_PROMPT.format(query=query)
+            response = self.openai_client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
                     {"role": "system", "content": "You are a security researcher assistant who helps find and summarize the latest offensive security news and developments, especially related to AI and automation."},
@@ -114,15 +120,14 @@ Format as JSON array with objects containing: title, description, url, date, key
                 temperature=0.3,
                 max_tokens=2000
             )
-            
             return response.choices[0].message.content
-        except Exception as e:
-            print(f"Error with LLM search for '{query}': {e}")
+        except OpenAIError as e:
+            logging.error(f"OpenAI API error for '{query}': {e}")
             return ""
     
     def aggregate_news(self) -> List[Dict[str, Any]]:
         """Aggregate news from multiple sources."""
-        print("Aggregating news from multiple sources...")
+        logging.info("Aggregating news from multiple sources...")
         all_results = []
         
         # Search GitHub repositories
@@ -131,7 +136,7 @@ Format as JSON array with objects containing: title, description, url, date, key
         
         # Search using LLM for each topic
         for topic in self.config.get("search_topics", []):
-            print(f"Searching for: {topic}")
+            logging.info(f"Searching for: {topic}")
             llm_response = self.search_with_llm(topic)
             
             if llm_response:
@@ -161,7 +166,7 @@ Format as JSON array with objects containing: title, description, url, date, key
     def generate_report(self, output_path: str = None) -> str:
         """Generate a markdown report of the findings."""
         if not self.results:
-            print("No results to report")
+            logging.warning("No results to report")
             return ""
         
         report = f"# Offensive Security AI/Automation News\n\n"
@@ -206,7 +211,7 @@ Format as JSON array with objects containing: title, description, url, date, key
             os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else ".", exist_ok=True)
             with open(output_path, 'w') as f:
                 f.write(report)
-            print(f"Report saved to: {output_path}")
+            logging.info(f"Report saved to: {output_path}")
         
         return report
     
@@ -215,29 +220,29 @@ Format as JSON array with objects containing: title, description, url, date, key
         os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else ".", exist_ok=True)
         with open(output_path, 'w') as f:
             json.dump(self.results, f, indent=2, default=str)
-        print(f"JSON results saved to: {output_path}")
+        logging.info(f"JSON results saved to: {output_path}")
 
 
 def main():
     """Main entry point."""
-    print("=" * 80)
-    print("Newsbot - Offensive Security AI/Automation News Aggregator")
-    print("=" * 80)
-    print()
+    logging.info("=" * 80)
+    logging.info("Newsbot - Offensive Security AI/Automation News Aggregator")
+    logging.info("=" * 80)
+    logging.info("")
     
     # Check for required GITHUB_TOKEN
     has_github = bool(os.getenv("GITHUB_TOKEN"))
     
     if not has_github:
-        print("Error: GITHUB_TOKEN environment variable not set")
-        print("\nGITHUB_TOKEN is required for:")
-        print("  - GitHub repository searches")
-        print("  - LLM-based searches via GitHub Models")
-        print("\nPlease set it:")
-        print("  export GITHUB_TOKEN=your_token_here")
+        logging.error("Error: GITHUB_TOKEN environment variable not set")
+        logging.info("\nGITHUB_TOKEN is required for:")
+        logging.info("  - GitHub repository searches")
+        logging.info("  - LLM-based searches via GitHub Models")
+        logging.info("\nPlease set it:")
+        logging.info("  export GITHUB_TOKEN=your_token_here")
         sys.exit(1)
     
-    print()
+    logging.info("")
     
     # Initialize bot
     bot = NewsBot()
@@ -245,9 +250,9 @@ def main():
     # Aggregate news
     results = bot.aggregate_news()
     
-    print()
-    print(f"Total results found: {len(results)}")
-    print()
+    logging.info("")
+    logging.info(f"Total results found: {len(results)}")
+    logging.info("")
     
     # Generate timestamp for filenames
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -259,10 +264,10 @@ def main():
     bot.generate_report(markdown_path)
     bot.save_json_results(json_path)
     
-    print()
-    print("=" * 80)
-    print("Newsbot completed successfully!")
-    print("=" * 80)
+    logging.info("")
+    logging.info("=" * 80)
+    logging.info("Newsbot completed successfully!")
+    logging.info("=" * 80)
 
 
 if __name__ == "__main__":
