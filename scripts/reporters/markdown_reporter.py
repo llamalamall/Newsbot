@@ -10,6 +10,188 @@ from datetime import datetime
 from typing import List, Dict, Any
 
 
+def _generate_report_header(results: List[Dict[str, Any]]) -> str:
+    """Generate the report header with summary information.
+    
+    Args:
+        results: List of aggregated results
+        
+    Returns:
+        Markdown header string
+    """
+    header = f"# Offensive Security AI/Automation News\n\n"
+    header += f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
+    header += f"## Summary\n\n"
+    header += f"Found {len(results)} relevant items.\n\n"
+    return header
+
+
+def _generate_github_section(github_items: List[Dict[str, Any]]) -> str:
+    """Generate GitHub repositories section of the report.
+    
+    Args:
+        github_items: List of GitHub repository items
+        
+    Returns:
+        Markdown section string
+    """
+    if not github_items:
+        return ""
+    
+    section = f"## GitHub Repositories ({len(github_items)})\n\n"
+    # Sort by stars
+    github_items.sort(key=lambda x: x.get("stars", 0), reverse=True)
+    for item in github_items:
+        section += f"### [{item['title']}]({item['url']})\n\n"
+        if item.get("description"):
+            section += f"{item['description']}\n\n"
+        section += f"- **Stars:** {item.get('stars', 'N/A')}\n"
+        section += f"- **Updated:** {item.get('updated', 'N/A')}\n"
+        section += f"- **Topic:** {item.get('topic', 'N/A')}\n\n"
+    
+    return section
+
+
+def _generate_rss_section(rss_items: List[Dict[str, Any]]) -> str:
+    """Generate RSS feed articles section of the report.
+    
+    Args:
+        rss_items: List of RSS feed items
+        
+    Returns:
+        Markdown section string
+    """
+    if not rss_items:
+        return ""
+    
+    section = f"## RSS Feed Articles ({len(rss_items)})\n\n"
+    section += "*Articles from curated RSS feeds*\n\n"
+    
+    # Sort by priority and keyword matches
+    rss_items.sort(
+        key=lambda x: (
+            0 if x.get('priority') == 'high' else 1,
+            -x.get('keyword_matches', 0)
+        )
+    )
+    
+    for item in rss_items:
+        section += f"### {item.get('title', 'Untitled')}\n\n"
+        if item.get("description"):
+            # Clean HTML from description if present
+            desc = item['description']
+            if '<' in desc and '>' in desc:
+                from bs4 import BeautifulSoup
+                desc = BeautifulSoup(desc, 'html.parser').get_text()
+            # Truncate long descriptions
+            if len(desc) > 500:
+                desc = desc[:500] + "..."
+            section += f"{desc}\n\n"
+        
+        if item.get("url"):
+            section += f"**Link:** [{item.get('url')}]({item.get('url')})\n\n"
+        
+        section += f"**Source:** {item.get('feed_name', 'Unknown Feed')}"
+        if item.get('feed_category'):
+            section += f" ({item['feed_category']})"
+        section += "\n\n"
+        
+        if item.get("credibility"):
+            section += f"**Credibility:** {item['credibility'].title()}\n\n"
+        
+        if item.get("published"):
+            section += f"*Published: {item['published']}*\n\n"
+        
+        if item.get("keyword_matches", 0) > 0:
+            section += f"*Keyword matches: {item['keyword_matches']}*\n\n"
+    
+    return section
+
+
+def _generate_web_section(web_items: List[Dict[str, Any]]) -> str:
+    """Generate web search results section of the report.
+    
+    Args:
+        web_items: List of web search items
+        
+    Returns:
+        Markdown section string
+    """
+    if not web_items:
+        return ""
+    
+    section = f"## Web Search Results ({len(web_items)})\n\n"
+    section += "*Results from live web searches with credibility assessment*\n\n"
+    for item in web_items:
+        section += f"### {item.get('title', 'Untitled')}\n\n"
+        if item.get("description"):
+            section += f"{item['description']}\n\n"
+        if item.get("url"):
+            section += f"**Source:** [{item.get('url')}]({item.get('url')})\n\n"
+        if item.get("credibility"):
+            section += f"**Credibility:** {item['credibility'].title()}\n\n"
+        if item.get("key_points"):
+            section += f"**Key Points:**\n"
+            if isinstance(item["key_points"], list):
+                for point in item["key_points"]:
+                    section += f"- {point}\n"
+            section += "\n"
+        if item.get("date"):
+            section += f"*Published: {item.get('date')}*\n\n"
+        section += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
+    
+    return section
+
+
+def _generate_llm_section(llm_items: List[Dict[str, Any]]) -> str:
+    """Generate LLM search results section of the report.
+    
+    Args:
+        llm_items: List of LLM search items
+        
+    Returns:
+        Markdown section string
+    """
+    if not llm_items:
+        return ""
+    
+    section = f"## Articles, Blog Posts & Announcements ({len(llm_items)})\n\n"
+    for item in llm_items:
+        section += f"### {item.get('title', 'Untitled')}\n\n"
+        if item.get("description"):
+            section += f"{item['description']}\n\n"
+        if item.get("url"):
+            section += f"**Link:** {item['url']}\n\n"
+        if item.get("credibility"):
+            section += f"**Source Credibility:** {item['credibility'].title()}\n\n"
+        if item.get("key_points"):
+            section += f"**Key Points:**\n"
+            if isinstance(item["key_points"], list):
+                for point in item["key_points"]:
+                    section += f"- {point}\n"
+            section += "\n"
+        section += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
+    
+    return section
+
+
+def _generate_report_footer(has_rss_items: bool) -> str:
+    """Generate the report footer with credibility notice.
+    
+    Args:
+        has_rss_items: Whether the report includes RSS items
+        
+    Returns:
+        Markdown footer string
+    """
+    footer = "\n---\n\n"
+    footer += "*Note: Results are filtered for credibility and relevance. "
+    if has_rss_items:
+        footer += "RSS feed articles are from curated, high-quality sources. "
+    footer += "Web search results are assessed for source reliability before inclusion.*\n"
+    return footer
+
+
 def generate_report(results: List[Dict[str, Any]], output_path: str = None) -> str:
     """Generate a markdown report of the findings with enhanced source citations.
     
@@ -24,10 +206,8 @@ def generate_report(results: List[Dict[str, Any]], output_path: str = None) -> s
         logging.warning("No results to report")
         return ""
     
-    report = f"# Offensive Security AI/Automation News\n\n"
-    report += f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
-    report += f"## Summary\n\n"
-    report += f"Found {len(results)} relevant items.\n\n"
+    # Generate header
+    report = _generate_report_header(results)
     
     # Group by source
     github_items = [r for r in results if r.get("source") == "github"]
@@ -35,105 +215,14 @@ def generate_report(results: List[Dict[str, Any]], output_path: str = None) -> s
     web_items = [r for r in results if r.get("source") in ["web_search_llm", "web_search_summary"]]
     llm_items = [r for r in results if r.get("source") in ["llm_search", "llm_summary"]]
     
-    if github_items:
-        report += f"## GitHub Repositories ({len(github_items)})\n\n"
-        # Sort by stars
-        github_items.sort(key=lambda x: x.get("stars", 0), reverse=True)
-        for item in github_items:
-            report += f"### [{item['title']}]({item['url']})\n\n"
-            if item.get("description"):
-                report += f"{item['description']}\n\n"
-            report += f"- **Stars:** {item.get('stars', 'N/A')}\n"
-            report += f"- **Updated:** {item.get('updated', 'N/A')}\n"
-            report += f"- **Topic:** {item.get('topic', 'N/A')}\n\n"
+    # Generate sections
+    report += _generate_github_section(github_items)
+    report += _generate_rss_section(rss_items)
+    report += _generate_web_section(web_items)
+    report += _generate_llm_section(llm_items)
     
-    if rss_items:
-        report += f"## RSS Feed Articles ({len(rss_items)})\n\n"
-        report += "*Articles from curated RSS feeds*\n\n"
-        
-        # Sort by priority and keyword matches
-        rss_items.sort(
-            key=lambda x: (
-                0 if x.get('priority') == 'high' else 1,
-                -x.get('keyword_matches', 0)
-            )
-        )
-        
-        for item in rss_items:
-            report += f"### {item.get('title', 'Untitled')}\n\n"
-            if item.get("description"):
-                # Clean HTML from description if present
-                desc = item['description']
-                if '<' in desc and '>' in desc:
-                    from bs4 import BeautifulSoup
-                    desc = BeautifulSoup(desc, 'html.parser').get_text()
-                # Truncate long descriptions
-                if len(desc) > 500:
-                    desc = desc[:500] + "..."
-                report += f"{desc}\n\n"
-            
-            if item.get("url"):
-                report += f"**Link:** [{item.get('url')}]({item.get('url')})\n\n"
-            
-            report += f"**Source:** {item.get('feed_name', 'Unknown Feed')}"
-            if item.get('feed_category'):
-                report += f" ({item['feed_category']})"
-            report += "\n\n"
-            
-            if item.get("credibility"):
-                report += f"**Credibility:** {item['credibility'].title()}\n\n"
-            
-            if item.get("published"):
-                report += f"*Published: {item['published']}*\n\n"
-            
-            if item.get("keyword_matches", 0) > 0:
-                report += f"*Keyword matches: {item['keyword_matches']}*\n\n"
-    
-    if web_items:
-        report += f"## Web Search Results ({len(web_items)})\n\n"
-        report += "*Results from live web searches with credibility assessment*\n\n"
-        for item in web_items:
-            report += f"### {item.get('title', 'Untitled')}\n\n"
-            if item.get("description"):
-                report += f"{item['description']}\n\n"
-            if item.get("url"):
-                report += f"**Source:** [{item.get('url')}]({item.get('url')})\n\n"
-            if item.get("credibility"):
-                report += f"**Credibility:** {item['credibility'].title()}\n\n"
-            if item.get("key_points"):
-                report += f"**Key Points:**\n"
-                if isinstance(item["key_points"], list):
-                    for point in item["key_points"]:
-                        report += f"- {point}\n"
-                report += "\n"
-            if item.get("date"):
-                report += f"*Published: {item.get('date')}*\n\n"
-            report += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
-    
-    if llm_items:
-        report += f"## Articles, Blog Posts & Announcements ({len(llm_items)})\n\n"
-        for item in llm_items:
-            report += f"### {item.get('title', 'Untitled')}\n\n"
-            if item.get("description"):
-                report += f"{item['description']}\n\n"
-            if item.get("url"):
-                report += f"**Link:** {item['url']}\n\n"
-            if item.get("credibility"):
-                report += f"**Source Credibility:** {item['credibility'].title()}\n\n"
-            if item.get("key_points"):
-                report += f"**Key Points:**\n"
-                if isinstance(item["key_points"], list):
-                    for point in item["key_points"]:
-                        report += f"- {point}\n"
-                report += "\n"
-            report += f"*Search topic: {item.get('search_topic', 'N/A')}*\n\n"
-    
-    # Add footer with credibility notice
-    report += "\n---\n\n"
-    report += "*Note: Results are filtered for credibility and relevance. "
-    if rss_items:
-        report += "RSS feed articles are from curated, high-quality sources. "
-    report += "Web search results are assessed for source reliability before inclusion.*\n"
+    # Add footer
+    report += _generate_report_footer(bool(rss_items))
     
     # Save report
     if output_path:
