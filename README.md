@@ -84,22 +84,76 @@ Newsbot automatically searches for and aggregates content related to:
 
 Edit `config.json` to customize:
 
+### Core Settings
+
 - `search_topics`: Topics to search for using LLM
-- `search_keywords`: Keywords to filter results
+- `search_keywords`: Keywords to filter results (used for RSS filtering)
 - `github_topics`: GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
-- `web_search_enabled`: Enable/disable web search functionality (default: true)
+
+### Content Source Mode
+
+- `content_source`: Choose content aggregation mode:
+  - `"dual"` - Use both RSS feeds and web search (default, recommended)
+  - `"rss"` - Use only RSS feeds and GitHub
+  - `"web"` - Use only web search and GitHub
+
+### RSS Feed Configuration
+
+- `rss_enabled`: Enable/disable RSS feed functionality (default: true)
+- `rss_feeds`: Array of RSS feed configurations (see format below)
+- `rss_settings`: RSS-specific settings
+  - `max_age_days`: Maximum age of articles to include (default: 7)
+  - `min_keyword_matches`: Minimum keyword matches for relevance (default: 1)
+  - `cache_enabled`: Enable feed caching to reduce network calls (default: true)
+  - `cache_ttl_hours`: Cache time-to-live in hours (default: 6)
+  - `request_timeout`: Request timeout in seconds (default: 10)
+  - `rate_limit_delay`: Delay between feed requests in seconds (default: 0.5)
+
+**RSS Feed Format:**
+```json
+{
+  "name": "Human-readable name",
+  "url": "https://example.com/feed.xml",
+  "priority": "high|medium|low",
+  "category": "official|research|news|ai|tools|academic|etc."
+}
+```
+
+**Default Feeds Include (20 total):**
+- **Official**: CISA, US-CERT
+- **Research**: Google Project Zero, Trail of Bits, Schneier on Security, Krebs on Security
+- **AI/ML**: OpenAI Blog, Google AI Blog, Microsoft Security Blog
+- **News**: The Hacker News, BleepingComputer, Dark Reading
+- **Academic**: arXiv (Security, AI, ML categories)
+- **Tools**: PortSwigger Research
+- **Red Team**: Penetration Testing Lab, NetSPI
+- **Malware**: Malwarebytes Labs
+
+See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation details.
+
+### Web Search Configuration
+
+- `web_search_enabled`: Toggle to enable or disable web search (default: true)
 - `web_search_max_results`: Maximum results per web search (default: 10)
 - `web_search_timeout`: Request timeout in seconds (default: 10)
 - `web_search_rate_limit`: Delay between requests in seconds (default: 1.0)
 
-Example:
+The web search uses DuckDuckGo's HTML interface (no API keys required).
+
+### Example Configuration
+
 ```json
 {
   "search_topics": [
     "AI offensive security automation",
     "LLM penetration testing"
+  ],
+  "search_keywords": [
+    "offensive security",
+    "penetration testing",
+    "AI automation"
   ],
   "github_topics": [
     "offensive-security",
@@ -107,21 +161,25 @@ Example:
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
+  "content_source": "dual",
+  "rss_enabled": true,
+  "rss_feeds": [
+    {
+      "name": "CISA Cybersecurity Advisories",
+      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "priority": "high",
+      "category": "official"
+    }
+  ],
+  "rss_settings": {
+    "max_age_days": 7,
+    "min_keyword_matches": 1,
+    "cache_enabled": true
+  },
   "web_search_enabled": true,
-  "web_search_max_results": 10,
-  "web_search_timeout": 10,
-  "web_search_rate_limit": 1.0
+  "web_search_max_results": 10
 }
 ```
-
-### Web Search Configuration
-
-The web search functionality uses DuckDuckGo's HTML interface, which doesn't require API keys:
-
-- **web_search_enabled**: Toggle to enable or disable web search entirely. Set to `false` to use only GitHub repository search and LLM analysis.
-- **web_search_max_results**: Controls how many search results to retrieve per query. Higher values may take longer.
-- **web_search_timeout**: Maximum time to wait for search requests. Increase if experiencing timeouts.
-- **web_search_rate_limit**: Delay between search requests to avoid overwhelming the service. Minimum recommended: 1.0 second.
 
 ## Source Credibility Assessment
 
