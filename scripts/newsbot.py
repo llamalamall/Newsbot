@@ -25,6 +25,7 @@ try:
     )
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
+    from .models import WebSearchResult
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -40,6 +41,7 @@ except ImportError:
     )
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
+    from models import WebSearchResult
 
 __all__ = ['NewsBot', 'main']
 
@@ -191,17 +193,28 @@ class NewsBot:
                 if json_match:
                     llm_results = json.loads(json_match.group())
                     for item in llm_results:
-                        item["source"] = "llm_search"
-                        item["search_topic"] = topic
-                        results.append(item)
+                        # Create WebSearchResult from LLM parsed data
+                        result = WebSearchResult(
+                            title=item.get('title', 'Untitled'),
+                            url=item.get('url', ''),
+                            description=item.get('description', ''),
+                            source="llm_search",
+                            credibility=item.get('credibility'),
+                            search_topic=topic,
+                            key_points=item.get('key_points'),
+                            date=item.get('date')
+                        )
+                        results.append(result.to_dict())
             except json.JSONDecodeError:
                 # If not JSON, store as text summary
-                results.append({
-                    "title": f"Summary: {topic}",
-                    "description": llm_response,
-                    "source": "llm_summary",
-                    "search_topic": topic
-                })
+                result = WebSearchResult(
+                    title=f"Summary: {topic}",
+                    url="",
+                    description=llm_response,
+                    source="llm_summary",
+                    search_topic=topic
+                )
+                results.append(result.to_dict())
         
         return results
 

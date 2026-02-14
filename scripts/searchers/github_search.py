@@ -8,6 +8,18 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from github import Github, Auth
 
+# Import dataclass models
+try:
+    from ..models import GitHubResult
+except ImportError:
+    # Fallback for direct execution
+    import sys
+    import os
+    script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    from models import GitHubResult
+
 
 def search_github_repos(
     github_token: Optional[str],
@@ -48,15 +60,16 @@ def search_github_repos(
                     # Check if repo description contains AI/automation keywords
                     description = (repo.description or "").lower()
                     if any(kw in description for kw in ["ai", "llm", "ml", "machine learning", "automation", "automated", "gpt"]):
-                        results.append({
-                            "title": repo.full_name,
-                            "url": repo.html_url,
-                            "description": repo.description,
-                            "stars": repo.stargazers_count,
-                            "updated": repo.updated_at.isoformat(),
-                            "source": "github",
-                            "topic": topic
-                        })
+                        result = GitHubResult(
+                            title=repo.full_name,
+                            url=repo.html_url,
+                            description=repo.description or "",
+                            source="github",
+                            stars=repo.stargazers_count,
+                            updated=repo.updated_at.isoformat(),
+                            topic=topic
+                        )
+                        results.append(result.to_dict())
             except Exception as topic_error:
                 logging.error(f"Error searching topic '{topic}': {str(topic_error)[:100]}")
                 continue

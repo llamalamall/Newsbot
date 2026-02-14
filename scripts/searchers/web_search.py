@@ -9,6 +9,18 @@ import re
 from typing import List, Dict, Any, Optional
 from openai import OpenAI
 
+# Import dataclass models
+try:
+    from ..models import WebSearchResult
+except ImportError:
+    # Fallback for direct execution
+    import sys
+    import os
+    script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    from models import WebSearchResult
+
 
 # Maximum characters to include in context when passing to LLM
 MAX_CONTEXT_SNIPPET_LENGTH = 1000
@@ -185,18 +197,29 @@ def _parse_llm_response(llm_response: str, query: str, credible_results: List[Di
         if json_match:
             parsed_results = json.loads(json_match.group())
             for item in parsed_results:
-                item["source"] = "web_search_llm"
-                item["search_topic"] = query
-                results.append(item)
+                # Create WebSearchResult from LLM parsed data
+                result = WebSearchResult(
+                    title=item.get('title', 'Untitled'),
+                    url=item.get('url', ''),
+                    description=item.get('description', ''),
+                    source="web_search_llm",
+                    credibility=item.get('credibility'),
+                    search_topic=query,
+                    key_points=item.get('key_points'),
+                    date=item.get('date')
+                )
+                results.append(result.to_dict())
     except json.JSONDecodeError:
         # If not JSON, return as summary
-        results.append({
-            "title": f"Web Search Summary: {query}",
-            "description": llm_response,
-            "source": "web_search_summary",
-            "search_topic": query,
-            "credible_sources_found": len(credible_results)
-        })
+        result = WebSearchResult(
+            title=f"Web Search Summary: {query}",
+            url="",
+            description=llm_response,
+            source="web_search_summary",
+            search_topic=query,
+            credible_sources_found=len(credible_results)
+        )
+        results.append(result.to_dict())
     
     return results
 

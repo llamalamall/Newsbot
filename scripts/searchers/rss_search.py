@@ -6,6 +6,18 @@ Searches and aggregates content from RSS feeds.
 import logging
 from typing import List, Dict, Any, Optional
 
+# Import dataclass models
+try:
+    from ..models import RSSResult
+except ImportError:
+    # Fallback for direct execution
+    import sys
+    import os
+    script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    from models import RSSResult
+
 
 def search_rss_feeds(
     rss_manager,
@@ -64,25 +76,25 @@ def search_rss_feeds(
         
         # Convert to NewsBot result format
         for entry in filtered_entries:
-            result = {
-                'title': entry.get('title', 'Untitled'),
-                'url': entry.get('link', ''),
-                'description': entry.get('description', ''),
-                'published': entry.get('published'),
-                'source': 'rss',
-                'feed_name': entry.get('feed_name', 'Unknown Feed'),
-                'feed_category': entry.get('category'),
-                'priority': entry.get('priority', 'medium'),
-                'keyword_matches': entry.get('keyword_matches', 0),
-                'author': entry.get('author'),
-                'tags': entry.get('tags', [])
-            }
+            result = RSSResult(
+                title=entry.get('title', 'Untitled'),
+                url=entry.get('link', ''),
+                description=entry.get('description', ''),
+                source='rss',
+                published=entry.get('published'),
+                feed_name=entry.get('feed_name', 'Unknown Feed'),
+                feed_category=entry.get('category'),
+                priority=entry.get('priority', 'medium'),
+                keyword_matches=entry.get('keyword_matches', 0),
+                author=entry.get('author'),
+                tags=entry.get('tags', [])
+            )
             
             # Assess source credibility
-            if result['url']:
-                result['credibility'] = assess_credibility_func(result['url'])
+            if result.url:
+                result.credibility = assess_credibility_func(result.url)
             
-            results.append(result)
+            results.append(result.to_dict())
         
         logging.info(f"Found {len(results)} relevant articles from RSS feeds")
         
