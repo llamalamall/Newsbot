@@ -254,8 +254,8 @@ class NewsBot:
             )
             all_results.extend(rss_results)
         
-        # Web search (if enabled and in dual or web mode)
-        if content_source in ['web', 'dual'] and self.config.get('web_search_enabled', True):
+        # Web search (if in dual or web mode)
+        if content_source in ['web', 'dual']:
             # Enhanced search using web context for each topic
             for topic in self.config.get("search_topics", []):
                 topic_results = self._process_web_search_topic(topic)

@@ -28,7 +28,6 @@ class TestNewsBotInitialization:
             "github_topics": ["test"],
             "days_back": 7,
             "max_results_per_topic": 10,
-            "web_search_enabled": False,
             "rss_enabled": False
         }
         config_file = tmp_path / "config.json"
@@ -242,8 +241,6 @@ class TestWebSearch:
             "github_topics": ["test"],
             "days_back": 7,
             "max_results_per_topic": 10,
-            "web_search_enabled": True,
-            "web_search_max_results": 10
         }
         config_file = tmp_path / "config.json"
         config_file.write_text(json.dumps(config_data))
@@ -296,7 +293,6 @@ class TestNewsAggregation:
             "github_topics": ["security"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "web_search_enabled": False,
             "rss_enabled": False,
             "content_source": "dual"
         }
@@ -336,7 +332,6 @@ class TestNewsAggregation:
             "github_topics": ["test"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "web_search_enabled": False,
             "rss_enabled": True,
             "content_source": "rss"
         }
@@ -372,7 +367,6 @@ class TestNewsAggregation:
             "github_topics": ["security"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "web_search_enabled": True,
             "rss_enabled": False,
             "content_source": "web"
         }
@@ -407,7 +401,6 @@ class TestNewsAggregation:
             "github_topics": ["security"],
             "days_back": 7,
             "max_results_per_topic": 5,
-            "web_search_enabled": True,
             "content_source": "web"
         }
         config_file = tmp_path / "config.json"
