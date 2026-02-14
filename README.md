@@ -276,6 +276,26 @@ Newsbot/
 - Check that all dependencies are installed
 - Verify GITHUB_TOKEN environment variable is set correctly
 
+## Future Development
+
+### RSS Feed Migration Strategy
+
+We are planning to migrate from web search to curated RSS feeds for more reliable and targeted content discovery. This will provide:
+- More stable content sources (no scraping fragility)
+- Better quality control (curated sources only)
+- Improved coverage of offensive security + AI topics
+- No rate limiting or API costs
+
+**See the full strategy**: [RSS_FEED_STRATEGY.md](RSS_FEED_STRATEGY.md)
+
+Key highlights:
+- 37+ curated RSS feeds from trusted security sources
+- Phased migration plan with dual-mode operation
+- Comprehensive implementation guide
+- Feed categories: Official advisories, research, tools, AI security, academic
+
+**Track progress**: See [issue template](.github/ISSUE_TEMPLATE/rss-feed-migration.md) for implementation roadmap
+
 ## Contributing
 
 Contributions are welcome! Please:
@@ -283,6 +303,12 @@ Contributions are welcome! Please:
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
+
+### Contributing Feed Suggestions
+We're building a curated list of RSS feeds for offensive security and AI/automation. If you know of high-quality sources, please:
+- Open an issue using the RSS Feed Migration template
+- Suggest feeds with their URL and description
+- Help us improve content quality and coverage
 
 ## License
 
