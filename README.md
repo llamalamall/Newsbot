@@ -41,10 +41,32 @@ Newsbot automatically searches for and aggregates content related to:
 1. Fork or clone this repository
 2. Enable GitHub Actions in your repository settings
    - Note: `GITHUB_TOKEN` is automatically provided by GitHub Actions
-3. The workflow will run:
-   - Daily at 9 AM UTC (configurable in `.github/workflows/newsbot.yml`)
-   - On manual trigger via the Actions tab
-   - On push to main branch (for testing)
+
+#### Workflow Triggers
+
+The Newsbot workflow can be triggered in three ways:
+
+**1. Automatic Daily Schedule**
+- Runs automatically every day at 9 AM UTC
+- Uses the `schedule` trigger with cron expression: `'0 9 * * *'`
+- No manual intervention required
+- Schedule can be customized by editing the cron expression in `.github/workflows/newsbot.yml`
+
+**2. Manual Trigger (On-Demand)**
+- Trigger the workflow manually whenever needed
+- Steps to manually run:
+  1. Navigate to the **Actions** tab in your GitHub repository
+  2. Click on **"Newsbot - Security News Aggregator"** in the left sidebar
+  3. Click the **"Run workflow"** button (top right)
+  4. Select the branch (usually `main`)
+  5. Click **"Run workflow"** to start execution
+- Uses the `workflow_dispatch` trigger
+- Useful for testing or getting immediate updates
+
+**3. Automatic on Push**
+- Runs automatically when code is pushed to the `main` branch
+- Primarily for testing workflow changes
+- Can be disabled by removing the `push` trigger from the workflow file
 
 ### For Local Execution
 
