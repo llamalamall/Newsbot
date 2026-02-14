@@ -10,10 +10,6 @@ on:
   # Click "Run workflow" button in the GitHub Actions UI
   workflow_dispatch:
 
-  # Automatic on push to main branch (primarily for testing)
-  push:
-    branches:
-      - main
 
 jobs:
   aggregate-news:
