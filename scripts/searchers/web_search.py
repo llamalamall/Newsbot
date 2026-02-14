@@ -78,10 +78,9 @@ def perform_web_search(
     config: Dict[str, Any]
 ) -> List[Dict[str, Any]]:
     """Perform a live web search for the given query.
-    
-    This method integrates with web search functionality. It attempts to use
-    the web_search_helper module if available and enabled in configuration.
-    
+
+    This is currently a stub and returns no results.
+
     Args:
         query: Search query string
         assess_credibility_func: Function to assess URL credibility
@@ -90,48 +89,11 @@ def perform_web_search(
     Returns:
         List of search results with title, url, snippet, and credibility
     """
-    results = []
-    
-    # Check if web search is enabled in configuration
-    if not config.get('web_search_enabled', True):
-        logging.info("Web search is disabled in configuration")
-        return results
-    
-    try:
-        # Try to import and use the web search helper
-        from scripts.web_search_helper import WebSearchHelper
-        
-        # Get configuration parameters
-        max_results = config.get('web_search_max_results', 10)
-        timeout = config.get('web_search_timeout', 10)
-        rate_limit = config.get('web_search_rate_limit', 1.0)
-        
-        # Create helper with configuration
-        helper = WebSearchHelper(timeout=timeout, rate_limit_delay=rate_limit)
-        
-        if helper.is_available():
-            search_results = helper.search(query, max_results=max_results)
-            
-            # Process and enrich results with credibility assessment
-            for result in search_results:
-                url = result.get('url', '')
-                result['credibility'] = assess_credibility_func(url)
-                results.append(result)
-                
-            logging.info(f"Web search returned {len(results)} results for: {query}")
-        else:
-            logging.warning("Web search helper not available")
-            
-    except ImportError:
-        logging.debug("Web search helper module not found")
-    except Exception as e:
-        logging.error(f"Error in web search: {str(e)[:100]}")
-    
-    # If no results from web search, log it but don't fail
-    if not results:
-        logging.info(f"No web search results for '{query}', will use LLM-only search")
-    
-    return results
+    logging.info(
+        "Web search is currently stubbed out; no results for query: %s",
+        query
+    )
+    return []
 
 
 def _filter_credible_results(

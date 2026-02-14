@@ -155,15 +155,6 @@ Edit `config.json` to customize:
 
 See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation details.
 
-### Web Search Configuration
-
-- `web_search_enabled`: Toggle to enable or disable web search (default: true)
-- `web_search_max_results`: Maximum results per web search (default: 10)
-- `web_search_timeout`: Request timeout in seconds (default: 10)
-- `web_search_rate_limit`: Delay between requests in seconds (default: 1.0)
-
-The web search uses DuckDuckGo's HTML interface (no API keys required).
-
 ### Example Configuration
 
 ```json
@@ -197,9 +188,7 @@ The web search uses DuckDuckGo's HTML interface (no API keys required).
     "max_age_days": 7,
     "min_keyword_matches": 1,
     "cache_enabled": true
-  },
-  "web_search_enabled": true,
-  "web_search_max_results": 10
+  }
 }
 ```
 

@@ -154,7 +154,6 @@ def test_backwards_compatibility():
         "github_topics": ["test"],
         "days_back": 7,
         "max_results_per_topic": 10,
-        "web_search_enabled": True
     }
     
     # Save to temporary file

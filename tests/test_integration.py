@@ -26,7 +26,6 @@ def test_newsbot_rss_integration():
     print(f"  - Content source: {config.get('content_source', 'not set')}")
     print(f"  - RSS enabled: {config.get('rss_enabled', False)}")
     print(f"  - Number of RSS feeds: {len(config.get('rss_feeds', []))}")
-    print(f"  - Web search enabled: {config.get('web_search_enabled', True)}")
     
     # Test 2: Check RSS settings
     print("\n2. Testing RSS settings...")
