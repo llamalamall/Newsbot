@@ -132,7 +132,8 @@ class NewsBot:
             rss_results = search_rss_feeds(
                 rss_manager=self.rss_manager,
                 assess_credibility_func=assess_source_credibility,
-                config=self.config
+                config=self.config,
+                openai_client=self.openai_client
             )
             all_results.extend(rss_results)
         
