@@ -9,6 +9,7 @@ import sys
 import os
 import json
 from unittest.mock import Mock, MagicMock, patch
+from openai import OpenAI
 
 # Add scripts to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
@@ -466,3 +467,37 @@ class TestLLMAssessmentIntegration:
         assert app_result["score"] == 0.8
         assert cred_result["credible"] is True
         assert cred_result["score"] == 0.85
+
+
+@pytest.mark.integration
+@pytest.mark.requires_token
+@pytest.mark.network
+def test_llm_single_live_call():
+    """Perform a single live LLM call when explicitly enabled.
+
+    Set RUN_LLM_INTEGRATION=1 and GITHUB_TOKEN to run this test.
+    """
+    if os.getenv("RUN_LLM_INTEGRATION") != "1":
+        pytest.skip("RUN_LLM_INTEGRATION not enabled")
+
+    token = os.getenv("GITHUB_TOKEN")
+    if not token:
+        pytest.skip("GITHUB_TOKEN not set")
+
+    client = OpenAI(
+        base_url="https://models.inference.ai.azure.com",
+        api_key=token
+    )
+
+    result = assess_article_applicability(
+        openai_client=client,
+        title="AI-assisted security testing tool",
+        description="A short overview of automating penetration testing with LLMs.",
+        keywords=["AI", "automation", "penetration testing"],
+        model="gpt-4o"
+    )
+
+    assert isinstance(result, dict)
+    assert "applicable" in result
+    assert "score" in result
+    assert 0.0 <= result["score"] <= 1.0
