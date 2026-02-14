@@ -69,7 +69,6 @@ class TestSearchGitHubRepos:
         assert "url" in results[0]
         assert "description" in results[0]
         assert "stars" in results[0]
-        assert "stars" in results[0]
     
     @patch('searchers.github_search.Github')
     @patch('searchers.github_search.Auth')
