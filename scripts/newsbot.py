@@ -39,7 +39,6 @@ Format as JSON array with objects containing: title, description, url, date, key
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
-        logging.basicConfig(level=logging.INFO)
         self.config = self.load_config(config_path)
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
@@ -225,24 +224,27 @@ Format as JSON array with objects containing: title, description, url, date, key
 
 def main():
     """Main entry point."""
-    logging.info("=" * 80)
-    logging.info("Newsbot - Offensive Security AI/Automation News Aggregator")
-    logging.info("=" * 80)
-    logging.info("")
+    # Configure logging at application level
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    
+    print("=" * 80)
+    print("Newsbot - Offensive Security AI/Automation News Aggregator")
+    print("=" * 80)
+    print()
     
     # Check for required GITHUB_TOKEN
     has_github = bool(os.getenv("GITHUB_TOKEN"))
     
     if not has_github:
-        logging.error("Error: GITHUB_TOKEN environment variable not set")
-        logging.info("\nGITHUB_TOKEN is required for:")
-        logging.info("  - GitHub repository searches")
-        logging.info("  - LLM-based searches via GitHub Models")
-        logging.info("\nPlease set it:")
-        logging.info("  export GITHUB_TOKEN=your_token_here")
+        print("Error: GITHUB_TOKEN environment variable not set")
+        print("\nGITHUB_TOKEN is required for:")
+        print("  - GitHub repository searches")
+        print("  - LLM-based searches via GitHub Models")
+        print("\nPlease set it:")
+        print("  export GITHUB_TOKEN=your_token_here")
         sys.exit(1)
     
-    logging.info("")
+    print()
     
     # Initialize bot
     bot = NewsBot()
@@ -250,9 +252,9 @@ def main():
     # Aggregate news
     results = bot.aggregate_news()
     
-    logging.info("")
-    logging.info(f"Total results found: {len(results)}")
-    logging.info("")
+    print()
+    print(f"Total results found: {len(results)}")
+    print()
     
     # Generate timestamp for filenames
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -264,10 +266,10 @@ def main():
     bot.generate_report(markdown_path)
     bot.save_json_results(json_path)
     
-    logging.info("")
-    logging.info("=" * 80)
-    logging.info("Newsbot completed successfully!")
-    logging.info("=" * 80)
+    print()
+    print("=" * 80)
+    print("Newsbot completed successfully!")
+    print("=" * 80)
 
 
 if __name__ == "__main__":
