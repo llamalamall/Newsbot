@@ -40,32 +40,38 @@ class NewsBot:
             return results
         
         try:
-            g = Github(self.github_token)
+            from github import Auth
+            auth = Auth.Token(self.github_token)
+            g = Github(auth=auth)
             days_back = self.config.get("days_back", 7)
             since_date = (datetime.now() - timedelta(days=days_back)).strftime("%Y-%m-%d")
             
             # Search for repositories with relevant topics
             for topic in self.config.get("github_topics", []):
-                query = f"topic:{topic} pushed:>={since_date}"
-                repos = g.search_repositories(query=query, sort="updated", order="desc")
-                
-                for repo in repos[:self.config.get("max_results_per_topic", 10)]:
-                    # Check if repo description contains AI/automation keywords
-                    description = (repo.description or "").lower()
-                    if any(kw in description for kw in ["ai", "llm", "ml", "machine learning", "automation", "automated", "gpt"]):
-                        results.append({
-                            "title": repo.full_name,
-                            "url": repo.html_url,
-                            "description": repo.description,
-                            "stars": repo.stargazers_count,
-                            "updated": repo.updated_at.isoformat(),
-                            "source": "github",
-                            "topic": topic
-                        })
+                try:
+                    query = f"topic:{topic} pushed:>={since_date}"
+                    repos = g.search_repositories(query=query, sort="updated", order="desc")
+                    
+                    for repo in repos[:self.config.get("max_results_per_topic", 10)]:
+                        # Check if repo description contains AI/automation keywords
+                        description = (repo.description or "").lower()
+                        if any(kw in description for kw in ["ai", "llm", "ml", "machine learning", "automation", "automated", "gpt"]):
+                            results.append({
+                                "title": repo.full_name,
+                                "url": repo.html_url,
+                                "description": repo.description,
+                                "stars": repo.stargazers_count,
+                                "updated": repo.updated_at.isoformat(),
+                                "source": "github",
+                                "topic": topic
+                            })
+                except Exception as topic_error:
+                    print(f"Error searching topic '{topic}': {str(topic_error)[:100]}")
+                    continue
             
             print(f"Found {len(results)} relevant GitHub repositories")
         except Exception as e:
-            print(f"Error searching GitHub: {e}")
+            print(f"Error initializing GitHub search: {str(e)[:100]}")
         
         return results
     
@@ -217,16 +223,22 @@ def main():
     print()
     
     # Check for required API keys
-    if not os.getenv("OPENAI_API_KEY"):
+    has_openai = bool(os.getenv("OPENAI_API_KEY"))
+    has_github = bool(os.getenv("GITHUB_TOKEN"))
+    
+    if not has_openai:
         print("Warning: OPENAI_API_KEY environment variable not set")
         print("LLM-based searches will be skipped")
     
-    if not os.getenv("GITHUB_TOKEN"):
+    if not has_github:
         print("Warning: GITHUB_TOKEN environment variable not set")
         print("GitHub repository searches will be skipped")
     
-    if not os.getenv("OPENAI_API_KEY") and not os.getenv("GITHUB_TOKEN"):
+    if not has_openai and not has_github:
         print("\nError: At least one API key (OPENAI_API_KEY or GITHUB_TOKEN) must be set")
+        print("\nPlease set at least one of:")
+        print("  export OPENAI_API_KEY=your_key_here")
+        print("  export GITHUB_TOKEN=your_token_here")
         sys.exit(1)
     
     print()
