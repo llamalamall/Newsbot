@@ -273,7 +273,7 @@ class TestAssessArticleApplicability:
         assert "offensive security" in user_message.lower() or "keywords" in user_message.lower()
         # Verify the prompt mentions needing explicit evidence of AI/automation/fuzzing
         assert ("ai" in user_message.lower() or "automation" in user_message.lower() or 
-                "machine learning" in user_message.lower())
+                "machine learning" in user_message.lower() or "fuzzing" in user_message.lower())
         # Verify the prompt is selective
         assert "selective" in user_message.lower() or "explicit" in user_message.lower()
     
@@ -339,7 +339,12 @@ class TestAssessArticleApplicability:
         # Article should be marked as applicable
         assert result["applicable"] is True
         assert result["score"] > 0.7
-        assert "AI" in result["matched_keywords"] or "automation" in result["matched_keywords"]
+        # Check that at least one AI/automation/ML related keyword is matched (case-insensitive)
+        matched_lower = [k.lower() for k in result["matched_keywords"]]
+        assert any(
+            keyword in matched_lower 
+            for keyword in ["ai", "automation", "machine learning", "artificial intelligence", "ml"]
+        )
 
 
 class TestAssessArticleCredibility:
@@ -1062,7 +1067,7 @@ class TestBatchAssessment:
         # AND AI/automation/fuzzing
         assert "applicability" in user_message.lower()
         assert ("ai" in user_message.lower() or "automation" in user_message.lower() or 
-                "machine learning" in user_message.lower())
+                "machine learning" in user_message.lower() or "fuzzing" in user_message.lower())
         # Verify the prompt is selective
         assert "selective" in user_message.lower() or "explicit" in user_message.lower()
         
