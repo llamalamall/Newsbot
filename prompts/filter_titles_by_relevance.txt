@@ -1,0 +1,11 @@
+You are an expert security researcher. Select which article titles are relevant to: {keywords_str}
+
+Titles:
+{title_list}
+
+Respond ONLY with valid JSON in this exact format:
+{{
+  "relevant_indices": [0, 2, 5]
+}}
+
+Be selective. Only include titles with a clear and strong connection to the topic.
