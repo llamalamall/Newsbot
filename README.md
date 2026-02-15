@@ -20,6 +20,10 @@ Newsbot automatically searches for and aggregates content related to:
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
 - **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
+- **Smart Article Deduplication**: Automatically detects and skips articles that have already been analyzed in previous runs
+  - URL-based identification ensures accurate duplicate detection
+  - Configurable via `skip_analyzed.enabled` setting
+  - Reduces redundant processing and LLM API calls
 - **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o mini) to evaluate article applicability and credibility
   - **Applicability Assessment**: Determines if articles are relevant to AI/automation in offensive security
   - **Credibility Evaluation**: Assesses content quality, identifies clickbait, and flags potential issues
@@ -145,6 +149,15 @@ Edit `config.json` to customize:
 3. **Filtering**: Articles below the threshold scores are automatically filtered out (configurable)
 4. **Transparency**: Each assessment includes a confidence score (0.0-1.0) and explanation in the output
 
+### Article Deduplication Configuration
+
+- `skip_analyzed`: Settings for automatic article deduplication
+  - `enabled`: When `true`, automatically detects and skips articles already analyzed in previous runs (default: `true`)
+  - Articles are identified by URL and compared against all `results_*.json` files in the output directory
+  - Significantly reduces redundant processing and LLM API calls on subsequent runs
+  - Logging clearly reports the number of articles skipped (e.g., "Skipped 5 already analyzed RSS articles")
+  - Can be disabled by setting `enabled` to `false` to re-analyze all articles
+
 **RSS Feed Format:**
 ```json
 {
@@ -204,6 +217,9 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
     "filter_not_credible": true
+  },
+  "skip_analyzed": {
+    "enabled": true
   }
 }
 ```
@@ -301,16 +317,17 @@ Reports now include:
 
 1. **GitHub Search**: Searches for repositories with relevant topics updated in the last N days
 2. **RSS Feed Aggregation**: Fetches and filters articles from configured RSS feeds
-3. **Keyword Filtering**: Initial filtering by configured search keywords
-4. **Domain Credibility Assessment**: Evaluates RSS sources based on domain (high/medium/low)
-5. **LLM Assessment** (if enabled):
+3. **Article Deduplication**: Compares incoming articles with previously analyzed ones and skips duplicates to save processing time and API calls
+4. **Keyword Filtering**: Initial filtering by configured search keywords
+5. **Domain Credibility Assessment**: Evaluates RSS sources based on domain (high/medium/low)
+6. **LLM Assessment** (if enabled):
    - **Applicability**: Analyzes article relevance to AI/automation in offensive security
    - **Credibility**: Evaluates content quality and trustworthiness
-6. **Intelligent Filtering**: Filters articles by LLM scores and thresholds
-7. **Aggregation**: Combines results from GitHub and RSS feeds with assessment data
-8. **Report Generation**: Creates formatted Markdown and JSON outputs with detailed assessments
-9. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
-10. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
+7. **Intelligent Filtering**: Filters articles by LLM scores and thresholds
+8. **Aggregation**: Combines results from GitHub and RSS feeds with assessment data
+9. **Report Generation**: Creates formatted Markdown and JSON outputs with detailed assessments
+10. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
+11. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
 
 ## Project Structure
 
