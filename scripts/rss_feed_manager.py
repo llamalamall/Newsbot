@@ -4,10 +4,12 @@ RSS Feed Manager for Newsbot.
 Handles fetching, parsing, and caching of RSS/Atom feeds.
 """
 
+import json
 import logging
+import os
 import time
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 from urllib.parse import urlparse
 import feedparser
 from dateutil import parser as date_parser
@@ -35,7 +37,8 @@ class RSSFeedManager:
         timeout: int = 10,
         cache_enabled: bool = True,
         cache_ttl_hours: int = 6,
-        rate_limit_delay: float = 0.5
+        rate_limit_delay: float = 0.5,
+        cache_dir: str = "cache"
     ):
         """Initialize the RSS Feed Manager.
         
@@ -44,16 +47,111 @@ class RSSFeedManager:
             cache_enabled: Enable caching of feed results (default: True)
             cache_ttl_hours: Cache TTL in hours (default: 6)
             rate_limit_delay: Delay between requests (default: 0.5 seconds)
+            cache_dir: Directory for persistent cache files (default: "cache")
         """
         self.timeout = timeout
         self.cache_enabled = cache_enabled
         self.cache_ttl_hours = cache_ttl_hours
         self.rate_limit_delay = rate_limit_delay
+        self.cache_dir = cache_dir
         self._cache: Dict[str, Dict[str, Any]] = {}
         self._last_request_time = 0
+        self._seen_articles: Set[str] = set()
+        self._seen_articles_file = os.path.join(cache_dir, "seen_articles.json")
+        
+        # Create cache directory if it doesn't exist
+        if self.cache_enabled and cache_dir:
+            os.makedirs(cache_dir, exist_ok=True)
+            self._load_seen_articles()
         
         # Configure feedparser
         feedparser.USER_AGENT = self.USER_AGENT
+    
+    def _load_seen_articles(self):
+        """Load previously seen articles from persistent storage."""
+        if not os.path.exists(self._seen_articles_file):
+            logging.debug("No existing seen articles cache found")
+            return
+        
+        try:
+            with open(self._seen_articles_file, 'r') as f:
+                data = json.load(f)
+                # Convert list back to set and filter old entries
+                # Keep articles seen within the last 30 days (configurable)
+                cutoff_days = max(30, (self.cache_ttl_hours // 24) * 7)  # At least 30 days
+                cutoff_date = datetime.now() - timedelta(days=cutoff_days)
+                self._seen_articles = set()
+                
+                for entry in data:
+                    # Entry format: {"url": "...", "seen_at": "..."}
+                    if isinstance(entry, dict):
+                        url = entry.get('url')
+                        seen_at_str = entry.get('seen_at')
+                        if url and seen_at_str:
+                            try:
+                                seen_at = datetime.fromisoformat(seen_at_str.replace('Z', '+00:00'))
+                                # Make timezone-naive for comparison
+                                if seen_at.tzinfo:
+                                    seen_at = seen_at.replace(tzinfo=None)
+                                
+                                if seen_at >= cutoff_date:
+                                    self._seen_articles.add(url)
+                                else:
+                                    logging.debug(f"Skipping old seen article from {seen_at}: {url[:50]}...")
+                            except (ValueError, TypeError) as e:
+                                # Skip invalid dates but log them
+                                logging.debug(f"Could not parse date '{seen_at_str}': {str(e)}")
+                                continue
+                    elif isinstance(entry, str):
+                        # Legacy format: just URLs - always keep these
+                        self._seen_articles.add(entry)
+                
+                logging.info(f"Loaded {len(self._seen_articles)} previously seen articles (cutoff: {cutoff_days} days)")
+        except (json.JSONDecodeError, IOError) as e:
+            logging.warning(f"Could not load seen articles cache: {str(e)}")
+            self._seen_articles = set()
+    
+    def _save_seen_articles(self):
+        """Save seen articles to persistent storage."""
+        if not self.cache_enabled or not self.cache_dir:
+            return
+        
+        try:
+            # Save as list of dicts with metadata
+            data = [
+                {
+                    'url': url,
+                    'seen_at': datetime.now().isoformat()
+                }
+                for url in self._seen_articles
+            ]
+            
+            with open(self._seen_articles_file, 'w') as f:
+                json.dump(data, f, indent=2)
+            
+            logging.debug(f"Saved {len(self._seen_articles)} seen articles to cache")
+        except IOError as e:
+            logging.warning(f"Could not save seen articles cache: {str(e)}")
+    
+    def _mark_article_as_seen(self, url: str):
+        """Mark an article URL as seen.
+        
+        Args:
+            url: Article URL to mark as seen
+        """
+        if url and self.cache_enabled:
+            self._seen_articles.add(url)
+    
+    def _is_article_seen(self, url: str) -> bool:
+        """Check if an article has been seen before.
+        
+        Args:
+            url: Article URL to check
+            
+        Returns:
+            True if article was previously seen, False otherwise
+        """
+        return url in self._seen_articles if url else False
     
     def _rate_limit(self):
         """Apply rate limiting to prevent overwhelming feed servers."""
@@ -206,7 +304,17 @@ class RSSFeedManager:
                         'tags': [tag.get('term', '') for tag in entry.get('tags', [])]
                     }
                     
+                    # Skip if article was already seen (deduplication)
+                    article_url = parsed_entry.get('link', '')
+                    if article_url and self._is_article_seen(article_url):
+                        logging.debug(f"Skipping already seen article: {article_url}")
+                        continue
+                    
                     entries.append(parsed_entry)
+                    
+                    # Mark article as seen
+                    if article_url:
+                        self._mark_article_as_seen(article_url)
                     
                 except Exception as e:
                     logging.debug(f"Error parsing entry from {feed_url}: {str(e)}")
@@ -266,6 +374,10 @@ class RSSFeedManager:
                 continue
         
         logging.info(f"Fetched total of {len(all_entries)} entries from {len(feeds)} feeds")
+        
+        # Save seen articles to persistent storage after fetching all feeds
+        self._save_seen_articles()
+        
         return all_entries
     
     def filter_by_date(
@@ -394,10 +506,23 @@ class RSSFeedManager:
             logging.debug(f"Feed health check failed for {feed_url}: {str(e)}")
             return False
     
-    def clear_cache(self):
-        """Clear all cached feed data."""
+    def clear_cache(self, clear_seen_articles: bool = False):
+        """Clear all cached feed data.
+        
+        Args:
+            clear_seen_articles: If True, also clear the persistent seen articles cache
+        """
         self._cache.clear()
         logging.info("Feed cache cleared")
+        
+        if clear_seen_articles:
+            self._seen_articles.clear()
+            if os.path.exists(self._seen_articles_file):
+                try:
+                    os.remove(self._seen_articles_file)
+                    logging.info("Seen articles cache cleared")
+                except OSError as e:
+                    logging.warning(f"Could not remove seen articles file: {str(e)}")
 
 
 def main():

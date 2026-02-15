@@ -42,5 +42,8 @@ Thumbs.db
 *.tmp
 *.log
 
+# Cache directory
+cache/
+
 # Output directory (optional - uncomment to ignore outputs)
 # outputs/
