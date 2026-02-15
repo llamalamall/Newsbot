@@ -715,19 +715,39 @@ def publish_latest_report(output_dir: str = "outputs", docs_dir: str = "docs") -
     reports.sort(key=lambda x: x["timestamp"], reverse=True)
     latest_report = reports[0]
     
-    # Try to find corresponding JSON results file for result count
-    result_count = 0
     json_path = os.path.join(output_dir, f"results_{latest_report['timestamp']}.json")
-    if os.path.exists(json_path):
+    return publish_report_from_path(latest_report["path"], docs_dir, json_path)
+
+
+def publish_report_from_path(
+    report_path: str,
+    docs_dir: str = "docs",
+    results_path: Optional[str] = None
+) -> Optional[str]:
+    """Publish a specific report file to docs with optional results metadata.
+
+    Args:
+        report_path: Path to the report markdown file
+        docs_dir: Target docs directory
+        results_path: Optional path to JSON results for result count
+
+    Returns:
+        Path to published docs file, or None if publishing failed
+    """
+    result_count = 0
+    if results_path is None:
+        report_dir = os.path.dirname(report_path)
+        filename = os.path.basename(report_path)
+        timestamp = filename.replace("report_", "").replace(".md", "")
+        results_path = os.path.join(report_dir, f"results_{timestamp}.json")
+
+    if results_path and os.path.exists(results_path):
         try:
-            with open(json_path, 'r') as f:
+            with open(results_path, 'r') as f:
                 results = json.load(f)
                 result_count = len(results) if isinstance(results, list) else 0
         except (json.JSONDecodeError, IOError) as e:
             logging.warning(f"Could not read results JSON: {e}")
-    
-    # Initialize docs directory
+
     initialize_docs_directory(docs_dir)
-    
-    # Publish the report
-    return publish_report_to_docs(latest_report["path"], docs_dir, result_count)
+    return publish_report_to_docs(report_path, docs_dir, result_count)
