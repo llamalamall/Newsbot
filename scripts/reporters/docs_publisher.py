@@ -313,14 +313,55 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
-- `.nojekyll` - Disables Jekyll processing for cleaner URLs
+- `.nojekyll` - Disables Jekyll processing (allows plain markdown rendering with front matter)
 
 ## Customization
 
 You can customize the look and feel by:
-- Adding a `_config.yml` file for Jekyll configuration
-- Creating custom CSS in a `assets/` directory
 - Modifying the report templates in the publisher script
+- Editing the front matter in individual report files
+- Creating custom CSS in an `assets/` directory (requires custom HTML)
+
+## Verifying GitHub Pages Setup
+
+After configuring GitHub Pages, verify it's working:
+
+1. **Check GitHub Pages is enabled:**
+   - Go to **Settings** > **Pages**
+   - Verify **Source** is set to "Deploy from a branch"
+   - Confirm **Branch** is set to "main" and folder is "/docs"
+   - Look for the green checkmark and site URL
+
+2. **Visit your site:**
+   - Your site will be at `https://<username>.github.io/<repository>/`
+   - It may take a few minutes to deploy initially
+
+3. **Check build status:**
+   - Go to the **Actions** tab
+   - Look for "pages build and deployment" workflow
+   - Ensure it completed successfully (green checkmark)
+
+## Troubleshooting
+
+**Pages not appearing:**
+- Ensure the repository is public (or you have GitHub Pro for private repos)
+- Check that the docs/ folder contains index.md
+- Verify .nojekyll file exists (disables Jekyll processing for plain rendering)
+- Wait 1-2 minutes after pushing changes
+
+**Build failures:**
+- Check the Actions tab for error messages
+- Verify all markdown files have valid syntax
+- Ensure front matter is properly formatted in report files
+
+**Broken links:**
+- Use relative links (e.g., `[link](report.md)` not `[link](/docs/report.md)`)
+- Check that linked files exist in the docs/ folder
+
+**Styling issues:**
+- GitHub Pages uses default GitHub markdown styling with .nojekyll
+- Check that front matter is properly formatted in report files
+- Consider removing .nojekyll to enable Jekyll themes (requires _config.yml)
 """
         with open(readme_path, 'w') as f:
             f.write(readme_content)
