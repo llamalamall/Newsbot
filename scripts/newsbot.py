@@ -201,6 +201,7 @@ Examples:
   %(prog)s                          # Run with default config
   %(prog)s --config my_config.json  # Use custom config file
   %(prog)s --output-dir ./reports   # Save to custom output directory
+  %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
   %(prog)s --quiet                  # Run with minimal output
   %(prog)s --verbose                # Run with detailed logging
         '''

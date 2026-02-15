@@ -270,10 +270,49 @@ Only articles meeting both domain and LLM credibility thresholds are included in
 
 ## Output
 
+### Standard Output Files
+
 Results are saved in the `outputs/` directory:
 
 - `report_YYYYMMDD_HHMMSS.md`: Markdown report with categorized findings
 - `results_YYYYMMDD_HHMMSS.json`: JSON data for programmatic access
+- `rejected_YYYYMMDD_HHMMSS.json`: Articles that were filtered out
+
+### GitHub Pages Documentation
+
+Newsbot can automatically publish reports to a `docs/` folder for GitHub Pages:
+
+**Enable docs publishing:**
+```bash
+python scripts/newsbot.py --publish-docs
+```
+
+This creates:
+- `docs/index.md` - Main landing page with links to all reports
+- `docs/report_YYYYMMDD_HHMMSS.md` - Formatted individual reports
+- `docs/.nojekyll` - Disables Jekyll processing
+- `docs/README.md` - Setup instructions
+
+**Setting up GitHub Pages:**
+
+1. Push your repository with the `docs/` folder to GitHub
+2. Go to **Settings** > **Pages** in your repository
+3. Under **Source**, select **Deploy from a branch**
+4. Select the **main** branch and **/docs** folder
+5. Click **Save**
+
+Your reports will be published at `https://<username>.github.io/<repository>/`
+
+**Features:**
+- 📑 Automatic index generation with newest reports first
+- 🔄 Incremental updates (only new reports are added)
+- 📊 Result counts displayed for each report
+- 🔗 Easy navigation with back-to-index links
+- 🎨 Ready for GitHub Pages with minimal configuration
+
+**In GitHub Actions:**
+
+The workflow automatically publishes to docs/ when enabled (see `.github/workflows/newsbot.yml`).
 
 Example report structure:
 ```markdown
