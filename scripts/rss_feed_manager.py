@@ -77,7 +77,9 @@ class RSSFeedManager:
             with open(self._seen_articles_file, 'r') as f:
                 data = json.load(f)
                 # Convert list back to set and filter old entries
-                # Keep articles seen within the last 30 days (configurable)
+                # Keep articles seen within the last N days, where N is at least 30 days
+                # or 7x the cache TTL (whichever is larger). This ensures we don't re-report
+                # articles too frequently while allowing old entries to expire eventually.
                 cutoff_days = max(30, (self.cache_ttl_hours // 24) * 7)  # At least 30 days
                 cutoff_date = datetime.now() - timedelta(days=cutoff_days)
                 self._seen_articles = set()
@@ -89,6 +91,9 @@ class RSSFeedManager:
                         seen_at_str = entry.get('seen_at')
                         if url and seen_at_str:
                             try:
+                                # Parse ISO format date string
+                                # Replace 'Z' with '+00:00' for compatibility with fromisoformat()
+                                # which doesn't accept 'Z' as timezone indicator prior to Python 3.11
                                 seen_at = datetime.fromisoformat(seen_at_str.replace('Z', '+00:00'))
                                 # Make timezone-naive for comparison
                                 if seen_at.tzinfo:

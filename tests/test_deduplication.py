@@ -201,6 +201,52 @@ class TestDeduplication(unittest.TestCase):
             os.path.exists(cache_file),
             "Cache file should not be created when cache is disabled"
         )
+    
+    def test_dynamic_cutoff_based_on_ttl(self):
+        """Test that cutoff days are calculated based on cache_ttl_hours."""
+        # Create manager with large TTL (336 hours = 14 days)
+        # Cutoff should be 14 * 7 = 98 days
+        manager = RSSFeedManager(
+            cache_enabled=True,
+            cache_ttl_hours=336,  # 14 days
+            cache_dir=self.temp_dir
+        )
+        
+        # Manually create cache file with articles at different ages
+        cache_file = os.path.join(self.temp_dir, 'seen_articles.json')
+        
+        import json
+        # Article seen 40 days ago (should be kept: 40 < 98)
+        kept_date = datetime.now() - timedelta(days=40)
+        # Article seen 100 days ago (should be filtered: 100 > 98)
+        filtered_date = datetime.now() - timedelta(days=100)
+        
+        cache_data = [
+            {'url': 'https://example.com/kept', 'seen_at': kept_date.isoformat()},
+            {'url': 'https://example.com/filtered', 'seen_at': filtered_date.isoformat()}
+        ]
+        
+        with open(cache_file, 'w') as f:
+            json.dump(cache_data, f)
+        
+        # Create new manager to load cache
+        manager2 = RSSFeedManager(
+            cache_enabled=True,
+            cache_ttl_hours=336,  # Same TTL
+            cache_dir=self.temp_dir
+        )
+        
+        # Article within cutoff should be loaded
+        self.assertTrue(
+            manager2._is_article_seen('https://example.com/kept'),
+            "Article within dynamic cutoff should be kept"
+        )
+        
+        # Article beyond cutoff should be filtered
+        self.assertFalse(
+            manager2._is_article_seen('https://example.com/filtered'),
+            "Article beyond dynamic cutoff should be filtered"
+        )
 
 
 if __name__ == '__main__':
