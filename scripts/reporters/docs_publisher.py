@@ -72,6 +72,22 @@ def get_existing_reports(docs_dir: str) -> List[Dict[str, str]]:
     return reports
 
 
+def ensure_index_front_matter(index_content: str) -> str:
+    """Ensure index.md has Jekyll front matter.
+
+    Args:
+        index_content: Current index content.
+
+    Returns:
+        Index content with front matter prepended if missing.
+    """
+    if index_content.lstrip().startswith("---\n"):
+        return index_content
+
+    front_matter = "---\nlayout: default\ntitle: Newsbot - Security News Aggregator\n---\n\n"
+    return front_matter + index_content
+
+
 def update_index(docs_dir: str, new_report_filename: str, new_report_timestamp: str, 
                  result_count: int = 0) -> None:
     """Update the docs/index.md with a new report entry.
@@ -191,6 +207,8 @@ Newsbot is an automated news aggregator that searches for the latest articles, a
         new_entry = f"\n- [{readable_date}]({new_report_filename}){result_text}\n"
         index_content += new_entry
     
+    index_content = ensure_index_front_matter(index_content)
+
     # Write updated index
     with open(index_path, 'w') as f:
         f.write(index_content)
@@ -254,13 +272,6 @@ def initialize_docs_directory(docs_dir: str = "docs") -> None:
     """
     os.makedirs(docs_dir, exist_ok=True)
     
-    # Create .nojekyll to disable Jekyll processing
-    nojekyll_path = os.path.join(docs_dir, ".nojekyll")
-    if not os.path.exists(nojekyll_path):
-        with open(nojekyll_path, 'w') as f:
-            f.write("")
-        logging.info("Created .nojekyll file")
-    
     # Create index.md if it doesn't exist
     index_path = os.path.join(docs_dir, "index.md")
     if not os.path.exists(index_path):
@@ -287,6 +298,7 @@ Newsbot is an automated news aggregator that searches for the latest articles, a
 
 [View on GitHub](https://github.com/llamalamall/Newsbot)
 """
+        index_content = ensure_index_front_matter(index_content)
         with open(index_path, 'w') as f:
             f.write(index_content)
         logging.info("Created docs/index.md")
@@ -627,6 +639,8 @@ Browse all discovered GitHub repositories in a searchable table format.
             index_content += '\n'
         index_content += "\n---\n\n[View on GitHub](https://github.com/llamalamall/Newsbot)\n"
     
+    index_content = ensure_index_front_matter(index_content)
+
     # Write updated index
     with open(index_path, 'w') as f:
         f.write(index_content)
@@ -715,19 +729,39 @@ def publish_latest_report(output_dir: str = "outputs", docs_dir: str = "docs") -
     reports.sort(key=lambda x: x["timestamp"], reverse=True)
     latest_report = reports[0]
     
-    # Try to find corresponding JSON results file for result count
-    result_count = 0
     json_path = os.path.join(output_dir, f"results_{latest_report['timestamp']}.json")
-    if os.path.exists(json_path):
+    return publish_report_from_path(latest_report["path"], docs_dir, json_path)
+
+
+def publish_report_from_path(
+    report_path: str,
+    docs_dir: str = "docs",
+    results_path: Optional[str] = None
+) -> Optional[str]:
+    """Publish a specific report file to docs with optional results metadata.
+
+    Args:
+        report_path: Path to the report markdown file
+        docs_dir: Target docs directory
+        results_path: Optional path to JSON results for result count
+
+    Returns:
+        Path to published docs file, or None if publishing failed
+    """
+    result_count = 0
+    if results_path is None:
+        report_dir = os.path.dirname(report_path)
+        filename = os.path.basename(report_path)
+        timestamp = filename.replace("report_", "").replace(".md", "")
+        results_path = os.path.join(report_dir, f"results_{timestamp}.json")
+
+    if results_path and os.path.exists(results_path):
         try:
-            with open(json_path, 'r') as f:
+            with open(results_path, 'r') as f:
                 results = json.load(f)
                 result_count = len(results) if isinstance(results, list) else 0
         except (json.JSONDecodeError, IOError) as e:
             logging.warning(f"Could not read results JSON: {e}")
-    
-    # Initialize docs directory
+
     initialize_docs_directory(docs_dir)
-    
-    # Publish the report
-    return publish_report_to_docs(latest_report["path"], docs_dir, result_count)
+    return publish_report_to_docs(report_path, docs_dir, result_count)

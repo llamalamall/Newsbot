@@ -115,8 +115,8 @@ Edit `config.json` to customize:
 
 ### Core Settings
 
-- `search_keywords`: Keywords to filter results (used for RSS filtering)
-- `github_topics`: GitHub topics to search
+- `search_keywords_file`: Path to a JSON list of keywords (used for RSS filtering)
+- `github_topics_file`: Path to a JSON list of GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
 - `github_enabled`: Enable/disable GitHub repository search (default: true)
@@ -124,7 +124,7 @@ Edit `config.json` to customize:
 ### RSS Feed Configuration
 
 - `rss_enabled`: Enable/disable RSS feed functionality (default: true)
-- `rss_feeds`: Array of RSS feed configurations (see format below)
+- `rss_feeds_file`: Path to a JSON list of RSS feed configurations (see format below)
 - `rss_settings`: RSS-specific settings
   - `max_age_days`: Maximum age of articles to include (default: 7)
   - `min_keyword_matches`: Minimum keyword matches for relevance (default: 1)
@@ -142,12 +142,20 @@ Edit `config.json` to customize:
   - `credibility_threshold`: Minimum score to consider article credible (default: 0.5)
   - `filter_inapplicable`: Remove articles deemed not applicable (default: true)
   - `filter_not_credible`: Remove articles deemed not credible (default: true)
+  - `batch_size`: Number of articles to assess in a single LLM call (default: 5)
 
 **How LLM Assessment Works:**
-1. **Applicability**: The LLM evaluates if an article is relevant to your configured `search_keywords` and topics related to AI/automation in offensive security
+1. **Applicability**: The LLM evaluates if an article is relevant to your configured `search_keywords_file` keywords and topics related to AI/automation in offensive security
 2. **Credibility**: The LLM assesses article quality by checking for clickbait titles, lack of sources, bias, and other credibility concerns
-3. **Filtering**: Articles below the threshold scores are automatically filtered out (configurable)
-4. **Transparency**: Each assessment includes a confidence score (0.0-1.0) and explanation in the output
+3. **Batching**: Multiple articles are assessed together in a single LLM call for efficiency. The `batch_size` parameter controls how many articles are processed per batch (default: 5)
+4. **Filtering**: Articles below the threshold scores are automatically filtered out (configurable)
+5. **Transparency**: Each assessment includes a confidence score (0.0-1.0) and explanation in the output
+
+**Batch Processing Benefits:**
+- Reduces the number of LLM API calls by processing multiple articles together
+- Maintains individual assessment results for each article
+- Automatically falls back to individual assessment when needed
+- Configurable batch size to balance context window limits and efficiency
 
 ### Article Deduplication Configuration
 
@@ -184,27 +192,13 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
 
 ```json
 {
-  "search_keywords": [
-    "offensive security",
-    "penetration testing",
-    "AI automation"
-  ],
-  "github_topics": [
-    "offensive-security",
-    "penetration-testing"
-  ],
+  "search_keywords_file": "search_keywords.json",
+  "github_topics_file": "github_topics.json",
   "days_back": 7,
   "max_results_per_topic": 10,
   "github_enabled": true,
   "rss_enabled": true,
-  "rss_feeds": [
-    {
-      "name": "CISA Cybersecurity Advisories",
-      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
-      "priority": "high",
-      "category": "official"
-    }
-  ],
+  "rss_feeds_file": "rss_feeds.json",
   "rss_settings": {
     "max_age_days": 7,
     "min_keyword_matches": 1,
@@ -250,7 +244,13 @@ Evaluates RSS feed sources based on their domain:
 
 ### LLM-Based Content Assessment
 
-Uses GitHub Models (GPT-4o mini) to evaluate individual articles:
+Uses GitHub Models (GPT-4o mini) to evaluate articles efficiently through batch processing:
+
+**Batch Processing:**
+- Processes multiple articles in a single LLM call for improved efficiency
+- Default batch size of 5 articles (configurable via `batch_size` in config)
+- Automatically falls back to individual assessment when needed
+- Maintains individual results and scores for each article
 
 **Applicability Assessment:**
 - Analyzes article content against configured search keywords

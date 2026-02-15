@@ -59,7 +59,11 @@ class NewsBot:
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
-        self.config = self.load_config(config_path)
+        try:
+            self.config = self.load_config(config_path)
+        except (FileNotFoundError, json.JSONDecodeError) as exc:
+            logging.error(f"Failed to load configuration: {exc}")
+            raise
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
         
@@ -92,7 +96,58 @@ class NewsBot:
     def load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from JSON file."""
         with open(config_path, 'r') as f:
-            return json.load(f)
+            config = json.load(f)
+
+        config_dir = os.path.dirname(os.path.abspath(config_path))
+        self._load_list_config(config, "search_keywords", "search_keywords_file", config_dir)
+        self._load_list_config(config, "github_topics", "github_topics_file", config_dir)
+        self._load_list_config(config, "rss_feeds", "rss_feeds_file", config_dir)
+
+        return config
+
+    def _load_list_config(
+        self,
+        config: Dict[str, Any],
+        key: str,
+        file_key: str,
+        config_dir: str
+    ) -> None:
+        """Load list-based configuration from a separate JSON file."""
+        file_ref = config.get(file_key)
+        if not file_ref:
+            return
+
+        resolved_path = file_ref
+        if not os.path.isabs(file_ref):
+            resolved_path = os.path.join(config_dir, file_ref)
+
+        try:
+            with open(resolved_path, 'r') as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                logging.error(
+                    f"Config file '{resolved_path}' must contain a JSON list for '{key}'"
+                )
+                if config.get(key) is None:
+                    config[key] = []
+                return
+            config[key] = data
+        except FileNotFoundError:
+            logging.error(f"Config file not found for '{key}': {resolved_path}")
+            if config.get(key) is None:
+                config[key] = []
+        except json.JSONDecodeError as exc:
+            logging.error(
+                f"Invalid JSON in '{resolved_path}' for '{key}': {exc}"
+            )
+            if config.get(key) is None:
+                config[key] = []
+        except Exception as exc:
+            logging.error(
+                f"Unexpected error loading '{resolved_path}' for '{key}': {exc}"
+            )
+            if config.get(key) is None:
+                config[key] = []
     
     # Backward compatibility wrapper methods
     def assess_source_credibility(self, url: str) -> str:
@@ -200,8 +255,9 @@ def parse_arguments() -> argparse.Namespace:
 Examples:
   %(prog)s                          # Run with default config
   %(prog)s --config my_config.json  # Use custom config file
-  %(prog)s --output-dir ./reports   # Save to custom output directory
-  %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
+    %(prog)s --output-dir ./reports   # Save to custom output directory
+    %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
+    %(prog)s --no-publish-docs        # Skip docs publishing
   %(prog)s --quiet                  # Run with minimal output
   %(prog)s --verbose                # Run with detailed logging
         '''
@@ -237,8 +293,9 @@ Examples:
     
     parser.add_argument(
         '--publish-docs',
-        action='store_true',
-        help='publish reports to docs/ folder for GitHub Pages'
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help='publish reports to docs/ folder for GitHub Pages (default: true)'
     )
     
     parser.add_argument(
@@ -355,8 +412,12 @@ def main():
     save_json_results(results, json_path)
     save_json_results(rejected_results, rejected_path)
     
+    publish_docs_setting = bot.config.get("publish_docs", True)
+    if args.publish_docs is not None:
+        publish_docs_setting = args.publish_docs
+
     # Publish to docs if requested
-    if args.publish_docs:
+    if publish_docs_setting:
         if not args.quiet:
             print()
             print("Publishing report to docs/ for GitHub Pages...")

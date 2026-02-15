@@ -1,0 +1,251 @@
+[
+  {
+    "title": "Srskip/shadowgate",
+    "url": "https://github.com/Srskip/shadowgate",
+    "description": "\ud83c\udf10 Enable seamless web traffic management with ShadowGate's robust reverse proxy, featuring GeoIP filtering and rate limiting for enhanced control.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T14:10:35+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "WHAZAZA/AI-cyber-range",
+    "url": "https://github.com/WHAZAZA/AI-cyber-range",
+    "description": "\u2694\ufe0f Build, break, and secure Large Language Models with our automated OWASP Top 10 cyber range for hands-on AI security training and research.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T14:10:18+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "dnlomio/DomainShield",
+    "url": "https://github.com/dnlomio/DomainShield",
+    "description": "\ud83d\udee1\ufe0f Strengthen your domain's security with DomainShield, a tool that automates DNS and email assessments to identify vulnerabilities and generate reports.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T14:08:50+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "treezz24/WP-Audit",
+    "url": "https://github.com/treezz24/WP-Audit",
+    "description": "\ud83d\udee1\ufe0f Analyze WordPress security with WP-Audit, an AI-powered tool that detects vulnerabilities and generates detailed reports for authorized testing.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T14:08:47+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "Srskip/shadowgate",
+    "url": "https://github.com/Srskip/shadowgate",
+    "description": "\ud83c\udf10 Enable seamless web traffic management with ShadowGate's robust reverse proxy, featuring GeoIP filtering and rate limiting for enhanced control.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T14:10:35+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "shrey-x/ai-llm-red-team-handbook",
+    "url": "https://github.com/shrey-x/ai-llm-red-team-handbook",
+    "description": "\ud83d\ude80 Assess AI/LLM security with this comprehensive toolkit for red team evaluations, offering strategic guidance and tactical insights for AI applications.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T14:08:15+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "Moayd307/superpoweredcv",
+    "url": "https://github.com/Moayd307/superpoweredcv",
+    "description": "\ud83d\ude80 Scrape LinkedIn, generate ATS-optimized resumes, and analyze AI interpretations with SuperpoweredCV's powerful tools for effective job applications.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T14:07:19+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "NemiiSV/Valorant-Cosmo",
+    "url": "https://github.com/NemiiSV/Valorant-Cosmo",
+    "description": "Dominate every Valorant match with Cosmo\u2019s fully undetected Wallhack and Aimbot cheat, now updated for 2025. This cheat combines powerful functionality with stealth and stability, giving you the upper hand in both casual and competitive games \u2014 all while avoiding bans and detection.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T14:06:50+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "Poeth01/SecureAI-PolicyGuard",
+    "url": "https://github.com/Poeth01/SecureAI-PolicyGuard",
+    "description": "\ud83d\udee1\ufe0f Protect enterprise data with SecureAI PolicyGuard, an AI-driven platform for automated classification and compliance management.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T14:10:34+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Phinchanbora/llm-evaluation",
+    "url": "https://github.com/Phinchanbora/llm-evaluation",
+    "description": "\ud83c\udfaf Benchmark LLMs effectively with over 10 tests and 108,000 real questions to assess model performance and enhance AI evaluation.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T14:09:57+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Prompt Injection Via Road Signs",
+    "url": "https://www.schneier.com/blog/archives/2026/02/prompt-injection-via-road-signs.html",
+    "description": "<p>Interesting research: &#8220;<a href=\"https://arxiv.org/pdf/2510.00181\">CHAI: Command Hijacking Against Embodied AI</a>.&#8221;</p>\n<blockquote><p><b>Abstract:</b> Embodied Artificial Intelligence (AI) promises to handle edge cases in robotic vehicle systems where data is scarce by using common-sense reasoning grounded in perception and action to generalize beyond training distributions and adapt to novel real-world situations. These capabilities, however, also create new security risks. In this paper, we introduce CHAI (Command Hijacking against embodied AI), a new class of prompt-based attacks that exploit the multimodal language interpretation abilities of Large Visual-Language Models (LVLMs). CHAI embeds deceptive natural language instructions, such as misleading signs, in visual input, systematically searches the token space, builds a dictionary of prompts, and guides an attacker model to generate Visual Attack Prompts. We evaluate CHAI on four LVLM agents; drone emergency landing, autonomous driving, and aerial object tracking, and on a real robotic vehicle. Our experiments show that CHAI consistently outperforms state-of-the-art attacks. By exploiting the semantic and multimodal reasoning strengths of next-generation embodied AI systems, CHAI underscores the urgent need for defenses that extend beyond traditional adversarial robustness...</p></blockquote>",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-11T12:03:22",
+    "feed_name": "Schneier on Security",
+    "feed_category": "research",
+    "priority": "high",
+    "keyword_matches": 0,
+    "author": "Bruce Schneier",
+    "tags": [
+      "Uncategorized",
+      "academic papers",
+      "AI",
+      "cars",
+      "hacking"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.85,
+    "llm_applicability_reason": "Research on prompt injection attacks against embodied AI systems relates to AI automation, LLM security, and automated hacking.",
+    "llm_matched_keywords": [
+      "AI automation",
+      "LLM security",
+      "automated hacking",
+      "threat intelligence"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.9,
+    "llm_credibility_reason": "Published on Schneier on Security with high domain credibility, cites academic research (arXiv), and provides detailed explanation.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Malicious Chrome Extensions Caught Stealing Business Data, Emails, and Browsing History",
+    "url": "https://thehackernews.com/2026/02/malicious-chrome-extensions-caught.html",
+    "description": "Cybersecurity researchers have discovered a malicious Google Chrome extension that's designed to steal data associated with Meta Business Suite and Facebook Business Manager.\nThe extension, named CL Suite by @CLMasters (ID: jkphinfhmfkckkcnifhjiplhfoiefffl), is marketed as a way to scrape Meta Business Suite data, remove verification pop-ups, and generate two-factor authentication (2FA) codes.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-13T11:25:00",
+    "feed_name": "The Hacker News",
+    "feed_category": "news",
+    "priority": "high",
+    "keyword_matches": 0,
+    "author": "info@thehackernews.com (The Hacker News)",
+    "tags": [],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.6,
+    "llm_applicability_reason": "Covers malicious Chrome extensions stealing business data, relevant to network security advisory and threat intelligence.",
+    "llm_matched_keywords": [
+      "network security advisory",
+      "threat intelligence"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.85,
+    "llm_credibility_reason": "High credibility source, technical details provided, no clickbait, but limited depth on mitigation strategies.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "SolarWinds WHD Attacks Highlight Risks of Exposed Apps",
+    "url": "https://www.darkreading.com/vulnerabilities-threats/solarwinds-whd-attacks-exposed-apps",
+    "description": "Organizations that have exposed their instances of Web Help Desk to the public Internet have inadvertently made them prime targets for attackers.",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-10T22:00:53",
+    "feed_name": "Dark Reading",
+    "feed_category": "news",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Rob Wright",
+    "tags": [],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.75,
+    "llm_applicability_reason": "Covers vulnerabilities and attacks on exposed applications, relevant to vulnerability disclosure, network security advisory, and threat intelligence.",
+    "llm_matched_keywords": [
+      "vulnerability disclosure",
+      "network security advisory",
+      "threat intelligence"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.8,
+    "llm_credibility_reason": "Reputable source with straightforward reporting; no clickbait or obvious bias.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Measuring AI Security: Separating Signal from Panic",
+    "url": "https://www.rapid7.com/blog/post/tr-measuring-ai-security-mcp-exposure",
+    "description": "<p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The conversation around AI security is full of anxiety. Every week, new headlines warn of jailbreaks, prompt injection, agents gone rogue, and the rise of LLM-enabled cybercrime. It\u2019s easy to come away with the impression that AI is fundamentally uncontrollable and dangerous, and therefore something we need to lock down before it gets out of hand.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">But as a security practitioner, I wasn\u2019t convinced. Most of these warnings are based on hypothetical examples or carefully engineered demos. They raise important questions, but rarely answer the most basic one: </span><span style=\"font-size: undefined;\"><em>What does the real attack surface of today\u2019s AI systems actually look like?</em></span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">So instead of offering another opinion, I ran the numbers.</span></p><h2 style=\"direction: ltr;\">The method: Focused, real-world measurement</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">To ground the conversation in reality, I focused on MCP, the Model Context Protocol. This framework is widely used to help language models interact with tools, APIs, and external systems. It\u2019s open source, replicated across many environments, and built for practical integration. That makes it an ideal test case for understanding actual exposure.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">No adversarial prompting. No artificial exploits. Just a measurement of what real MCP servers expose. We used SDK import analysis to locate active repositories, filtered out those that wouldn\u2019t run, and examined the tool schemas to understand what each was capable of.</span></p><h2 style=\"direction: ltr;\">What the data tells us</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The MCP servers that met our criteria showed a familiar pattern. They exposed well-understood primitives used throughout modern software systems.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Observed capability classes:</strong></span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Filesystem access</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP requests</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Database queries</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Local script or process execution</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Orchestration and tool chaining</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Read-only API search</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">These are not exotic capabilities unique to AI. They\u2019re already embedded in cloud automation, infrastructure-as-code, and modern DevOps stacks. MCP simply gives them structure.</span></p><h3 style=\"direction: ltr;\"><span style=\"color: rgb(67, 67, 67);\">The frequency of high-severity risk is low</span></h3><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">One of the most unexpected findings was the rarity of arbitrary code execution. Despite warnings in the media, this turned out to be the least common capability among all operational MCP servers analyzed.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">This matters. It suggests that real-world deployments of AI tooling are not as reckless as some narratives claim. The most common issues are the ones we\u2019ve known for years: weak defaults, excessive permissions, and poor input handling. There\u2019s no mystery there (and that\u2019s encouraging).</span></p><h3 style=\"direction: ltr;\"><span style=\"color: rgb(67, 67, 67);\">Where the real risk builds: Composition</span></h3><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The problem arises when those primitives are combined. Individually, most of the MCP servers we studied were low risk. But when orchestration enters the picture, the attack surface expands.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Some real-world examples we observed:</strong></span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP fetch + filesystem write = persistence or content injection</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Database query + orchestration = stealthy exfiltration</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Filesystem write + planning = poisoned output or config hijacking</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP + planning + execution = multi-stage agent attacks</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">These combinations reflect what adversaries already do in non-AI environments. MCP just reduces friction in putting the pieces together.</span></p><h2 style=\"direction: ltr;\">A critical counterpoint: The 'best effort' reality</h2><p style=\"direction: ltr;\">The focus on constraining the model via schema and architecture is essential for '<a href=\"https://www.rapid7.com/blog/post/2024/05/15/ai-trust-risk-and-security-management-why-tackle-them-now/\"><span style=\"font-size: undefined;\">secure by design</span></a>,' yet a critical counterpoint must be considered as the industry evolves: We may not be able to stop many insecure AI applications (e.g., those built on architectures like OpenClaw or Claude Code) from shipping with insecure design choices. Similarly, the insecure design path for AI could force security teams to rely on non-deterministic, 'best effort' prompt injection defenses to prevent data exfiltration and remote code execution, rather than influencing developers toward inherently secure application design.</p><p style=\"direction: ltr;\">While the secure boundary <em>is</em> the schema, and we must influence application developers to adopt secure-by-design principles, the future suggests there will be many cases where this influence fails. This means security leaders must also prepare for a hybrid reality of championing architectural security while also building and operating robust, best effort runtime defenses to manage the fallout from the inevitable wave of insecure AI applications.</p><h2 style=\"direction: ltr;\">A shift in where security happens</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">As we embed AI deeper into operational systems, the control points change. Historically, we validated inputs at the UI layer, enforced roles through IAM, and wrapped logic in application code.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">With AI agents, those controls now live in:</span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The orchestration layer</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Tool composition workflows</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Schema contracts</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Execution sandboxes</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Security needs to follow the shift. That means auditing tool chains, setting strict schema policies, isolating execution contexts, and applying existing practices like </span><a href=\"https://www.rapid7.com/fundamentals/what-is-least-privilege-access-lpa/\"><span style=\"font-size: undefined;\">least privilege</span></a><span style=\"font-size: undefined;\"> and defense in depth to this new architecture.</span></p><h2 style=\"direction: ltr;\">What security teams should do now</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Security and architecture leaders can start applying pressure in the right places today:</span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Map AI tooling to known primitives</strong></span><br /><span style=\"font-size: undefined;\">Don\u2019t treat these systems as unknowns. Most expose capabilities like file handling, HTTP fetches, or basic shell commands - all of which are familiar territory for teams leveraging</span><a href=\"https://www.rapid7.com/fundamentals/what-is-threat-intelligence/\"><span style=\"font-size: undefined;\"> threat intelligence</span></a><span style=\"font-size: undefined;\"> effectively.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Assess schema design before worrying about prompts</strong></span><br /><span style=\"font-size: undefined;\">The schema defines what tools the AI can call and how. Poorly scoped parameters, such as unbounded URLs or file paths, are far more dangerous than clever prompts.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Limit orchestration where possible</strong></span><br /><span style=\"font-size: undefined;\">Composability increases risk. If orchestration is required, monitor it like critical automation infrastructure.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Audit your environment for capability sprawl</strong></span><br /><span style=\"font-size: undefined;\">Look for AI-connected services that may expose multiple sensitive capabilities together. Risk scales when these tools are combined.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Apply existing enterprise controls</strong></span><br /><span style=\"font-size: undefined;\">Network segmentation, credential scoping, logging, and behavioral detections still work. Least privilege access is especially relevant in AI-integrated environments where tool chaining can escalate access unintentionally. AI requires adaptation, not reinvention.</span></p></li></ul><h2 style=\"direction: ltr;\">Understanding the risk of AI without the hype</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">This blog condenses findings from my recent research, where I set out to answer a straightforward question: what are AI systems actually exposing in the real world today? Instead of relying on hypotheticals or fear-driven narratives, I looked at real, runnable Model Context Protocol (MCP) servers and measured their exposed capabilities and architectural design.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">If you're looking for the technical deep dive, including methodology, data sets, and schema-level breakdowns, you can read the original research published on </span><a href=\"https://hackernoon.com/everyone-says-ai-is-insecure-so-i-measured-it\"><span style=\"font-size: undefined;\">HackerNoon</span></a><span style=\"font-size: undefined;\">. You can also explore more of our ongoing threat analysis and security research on the</span><a href=\"https://www.rapid7.com/research/\"><span style=\"font-size: undefined;\"> Rapid7 Research Hub.</span></a></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The bottom line: AI introduces complexity and scale, but the fundamental security principles remain the same. The real challenge is whether security teams can adapt traditional controls to new environments and influence developers toward inherently secure application design, rather than being forced to rely on non-deterministic, 'best effort' defenses like prompt injection mitigation.</span></p>",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-10T18:00:00",
+    "feed_name": "Rapid7 Blog",
+    "feed_category": "research",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Christiaan Beek",
+    "tags": [
+      "Artificial Intelligence",
+      "Research"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.85,
+    "llm_applicability_reason": "The article analyzes real-world AI system exposures and security risks, focusing on AI tooling orchestration, schema design, and automation risks that relate to AI automation in offensive security and threat intelligence. It discusses AI-enabled attack surfaces, orchestration risks, and adapting traditional security controls to AI environments, which aligns with AI automation and threat intelligence in offensive security contexts.",
+    "llm_matched_keywords": [
+      "offensive security",
+      "AI automation",
+      "threat intelligence",
+      "automated hacking",
+      "network security advisory"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.85,
+    "llm_credibility_reason": "The article provides a substantive, well-reasoned analysis of AI security risks based on real-world measurements of MCP servers. It cites original research and links to detailed sources, avoids sensationalism, and comes from a medium-credibility domain known for security expertise. The content reflects quality security research and balanced perspectives.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "ClawSec: Hardening OpenClaw Agents from the Inside Out",
+    "url": "https://www.sentinelone.com/blog/clawsec-hardening-openclaw-agents-from-the-inside-out/",
+    "description": "Learn about how ClawSec, by Prompt Security, secures OpenClaw agents, stopping malicious skills with zero-trust defenses.",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-09T14:52:13",
+    "feed_name": "SentinelOne Blog",
+    "feed_category": "research",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "SentinelOne",
+    "tags": [
+      "Company",
+      "clawdbot",
+      "clawhub",
+      "clawsec",
+      "moltbot",
+      "prompt injections",
+      "supply chain"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.7,
+    "llm_applicability_reason": "Discusses hardening security agents with zero-trust defenses, relevant to product security incident response and automated security tooling.",
+    "llm_matched_keywords": [
+      "product security incident response",
+      "automated hacking",
+      "network security advisory"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.75,
+    "llm_credibility_reason": "Published on a reputable security vendor blog with technical depth; no clickbait or unverified claims detected.",
+    "llm_credibility_flags": []
+  }
+]

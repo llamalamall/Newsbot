@@ -1,232 +1,11 @@
 {
-  "search_keywords": [
-    "offensive security",
-    "penetration testing",
-    "pen testing",
-    "red team",
-    "reverse engineering",
-    "malware analysis",
-    "binary analysis",
-    "CVE reachability",
-    "supply chain attacks",
-    "AI automation",
-    "LLM security",
-    "automated hacking",
-    "PSIRT advisory",
-    "product security incident response",
-    "vulnerability disclosure",
-    "zero-day exploit",
-    "threat intelligence",
-    "network security advisory"
-  ],
-  "github_topics": [
-    "offensive-security",
-    "penetration-testing",
-    "red-team",
-    "reverse-engineering",
-    "malware-analysis",
-    "binary-analysis",
-    "ai-security",
-    "security-automation"
-  ],
+  "search_keywords_file": "search_keywords.json",
+  "github_topics_file": "github_topics.json",
   "days_back": 7,
   "max_results_per_topic": 10,
   "github_enabled": true,
   "rss_enabled": true,
-  "rss_feeds": [
-    {
-      "name": "CISA Cybersecurity Advisories",
-      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
-      "priority": "high",
-      "category": "official"
-    },
-    {
-      "name": "US-CERT Current Activity",
-      "url": "https://www.cisa.gov/uscert/ncas/current-activity.xml",
-      "priority": "high",
-      "category": "official"
-    },
-    {
-      "name": "Google Project Zero",
-      "url": "https://googleprojectzero.blogspot.com/feeds/posts/default",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Trail of Bits Blog",
-      "url": "https://blog.trailofbits.com/feed/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Schneier on Security",
-      "url": "https://www.schneier.com/blog/atom.xml",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Krebs on Security",
-      "url": "https://krebsonsecurity.com/feed/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "The Hacker News",
-      "url": "https://thehackernews.com/feeds/posts/default",
-      "priority": "high",
-      "category": "news"
-    },
-    {
-      "name": "OpenAI Blog",
-      "url": "https://openai.com/blog/rss.xml",
-      "priority": "high",
-      "category": "ai"
-    },
-    {
-      "name": "Google AI Blog",
-      "url": "https://ai.googleblog.com/feeds/posts/default",
-      "priority": "high",
-      "category": "ai"
-    },
-    {
-      "name": "Microsoft Security Blog",
-      "url": "https://www.microsoft.com/en-us/security/blog/feed/",
-      "priority": "high",
-      "category": "ai"
-    },
-    {
-      "name": "PortSwigger Research",
-      "url": "https://portswigger.net/research/rss",
-      "priority": "medium",
-      "category": "tools"
-    },
-    {
-      "name": "BleepingComputer",
-      "url": "https://www.bleepingcomputer.com/feed/",
-      "priority": "medium",
-      "category": "news"
-    },
-    {
-      "name": "Dark Reading",
-      "url": "https://www.darkreading.com/rss.xml",
-      "priority": "medium",
-      "category": "news"
-    },
-    {
-      "name": "arXiv Security & Cryptography",
-      "url": "http://arxiv.org/rss/cs.CR",
-      "priority": "medium",
-      "category": "academic"
-    },
-    {
-      "name": "arXiv Artificial Intelligence",
-      "url": "http://arxiv.org/rss/cs.AI",
-      "priority": "medium",
-      "category": "academic"
-    },
-    {
-      "name": "arXiv Machine Learning",
-      "url": "http://arxiv.org/rss/cs.LG",
-      "priority": "medium",
-      "category": "academic"
-    },
-    {
-      "name": "GitHub Security Blog",
-      "url": "https://github.blog/category/security/feed/",
-      "priority": "medium",
-      "category": "development"
-    },
-    {
-      "name": "Penetration Testing Lab",
-      "url": "https://pentestlab.blog/feed/",
-      "priority": "medium",
-      "category": "redteam"
-    },
-    {
-      "name": "NetSPI Blog",
-      "url": "https://www.netspi.com/blog/feed/",
-      "priority": "medium",
-      "category": "redteam"
-    },
-    {
-      "name": "Malwarebytes Labs",
-      "url": "https://blog.malwarebytes.com/feed/",
-      "priority": "medium",
-      "category": "malware"
-    },
-    {
-      "name": "Cisco PSIRT Security Advisories",
-      "url": "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml",
-      "priority": "high",
-      "category": "official"
-    },
-    {
-      "name": "Cisco Talos Intelligence Blog",
-      "url": "https://blog.talosintelligence.com/rss/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Cisco Security Event Responses",
-      "url": "https://sec.cloudapps.cisco.com/security/center/eventResponses_20.xml",
-      "priority": "high",
-      "category": "official"
-    },
-    {
-      "name": "Mandiant Threat Intelligence (Google Cloud)",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/rss/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "CrowdStrike Blog",
-      "url": "https://www.crowdstrike.com/blog/feed/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Palo Alto Networks Unit 42",
-      "url": "https://www.paloaltonetworks.com/blog/category/threat-research/feed/",
-      "priority": "high",
-      "category": "research"
-    },
-    {
-      "name": "Rapid7 Blog",
-      "url": "https://blog.rapid7.com/rss/",
-      "priority": "medium",
-      "category": "research"
-    },
-    {
-      "name": "Qualys Threat Research Blog",
-      "url": "https://blog.qualys.com/feed",
-      "priority": "medium",
-      "category": "research"
-    },
-    {
-      "name": "SANS Internet Storm Center",
-      "url": "https://isc.sans.edu/rssfeed_full.xml",
-      "priority": "high",
-      "category": "official"
-    },
-    {
-      "name": "MITRE ATT&CK Blog",
-      "url": "https://medium.com/feed/mitre-attack",
-      "priority": "medium",
-      "category": "research"
-    },
-    {
-      "name": "Recorded Future Blog",
-      "url": "https://www.recordedfuture.com/feed",
-      "priority": "medium",
-      "category": "research"
-    },
-    {
-      "name": "SentinelOne Blog",
-      "url": "https://www.sentinelone.com/blog/feed/",
-      "priority": "medium",
-      "category": "research"
-    }
-  ],
+  "rss_feeds_file": "rss_feeds.json",
   "rss_settings": {
     "max_age_days": 7,
     "min_keyword_matches": 1,
@@ -238,13 +17,15 @@
   },
   "llm_assessment": {
     "enabled": true,
-    "model": "gpt-4o-mini",
+    "model": "gpt-4.1-mini",
     "applicability_threshold": 0.6,
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
-    "filter_not_credible": true
+    "filter_not_credible": true,
+    "batch_size": 5
   },
   "skip_analyzed": {
     "enabled": true
-  }
+  },
+  "publish_docs": true
 }
