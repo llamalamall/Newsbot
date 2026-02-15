@@ -15,13 +15,18 @@ CREDIBLE_SOURCES = {
         'blogs.microsoft.com', 'aws.amazon.com', 'engineering.fb.com', 'netflix.github.io',
         'github.blog', 'blog.github.com', 'nist.gov', 'cisa.gov', 'nvd.nist.gov',
         'owasp.org', 'sans.org', 'portswigger.net', 'schneier.com', 'krebsonsecurity.com',
-        'blog.trailofbits.com', 'googleprojectzero.blogspot.com', 'thehackernews.com'
+        'blog.trailofbits.com', 'googleprojectzero.blogspot.com', 'thehackernews.com',
+        'sec.cloudapps.cisco.com', 'blog.talosintelligence.com', 'talosintelligence.com',
+        'cloud.google.com', 'crowdstrike.com', 'unit42.paloaltonetworks.com',
+        'paloaltonetworks.com', 'isc.sans.edu'
     ],
     'medium': [
         'medium.com', 'towardsdatascience.com', 'dev.to', 'hackernoon.com',
         'researchgate.net', 'reddit.com/r/netsec', 'infosecurity-magazine.com',
         'bleepingcomputer.com', 'zdnet.com', 'arstechnica.com', 'wired.com',
-        'techcrunch.com', 'venturebeat.com', 'darkreading.com'
+        'techcrunch.com', 'venturebeat.com', 'darkreading.com',
+        'blog.rapid7.com', 'rapid7.com', 'blog.qualys.com', 'qualys.com',
+        'recordedfuture.com', 'sentinelone.com'
     ]
 }
 
