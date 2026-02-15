@@ -28,6 +28,7 @@ try:
     from .searchers.github_search import search_github_repos
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
+    from .reporters.docs_publisher import publish_report_to_docs, initialize_docs_directory
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -41,6 +42,7 @@ except ImportError:
     from searchers.github_search import search_github_repos
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
+    from reporters.docs_publisher import publish_report_to_docs, initialize_docs_directory
 
 __all__ = ['NewsBot', 'main', 'parse_arguments']
 
@@ -199,6 +201,7 @@ Examples:
   %(prog)s                          # Run with default config
   %(prog)s --config my_config.json  # Use custom config file
   %(prog)s --output-dir ./reports   # Save to custom output directory
+  %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
   %(prog)s --quiet                  # Run with minimal output
   %(prog)s --verbose                # Run with detailed logging
         '''
@@ -230,6 +233,20 @@ Examples:
         '--quiet',
         action='store_true',
         help='suppress non-error output'
+    )
+    
+    parser.add_argument(
+        '--publish-docs',
+        action='store_true',
+        help='publish reports to docs/ folder for GitHub Pages'
+    )
+    
+    parser.add_argument(
+        '--docs-dir',
+        type=str,
+        default='docs',
+        metavar='DIR',
+        help='directory for GitHub Pages documentation (default: docs)'
     )
     
     parser.add_argument(
@@ -337,6 +354,25 @@ def main():
     generate_report(results, markdown_path)
     save_json_results(results, json_path)
     save_json_results(rejected_results, rejected_path)
+    
+    # Publish to docs if requested
+    if args.publish_docs:
+        if not args.quiet:
+            print()
+            print("Publishing report to docs/ for GitHub Pages...")
+        
+        try:
+            initialize_docs_directory(args.docs_dir)
+            docs_path = publish_report_to_docs(markdown_path, args.docs_dir, len(results))
+            
+            if docs_path and not args.quiet:
+                print(f"Report published to: {docs_path}")
+                print(f"Updated index at: {os.path.join(args.docs_dir, 'index.md')}")
+        except Exception as e:
+            logging.error(f"Failed to publish to docs: {e}")
+            if args.verbose:
+                import traceback
+                traceback.print_exc()
     
     if not args.quiet:
         print()
