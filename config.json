@@ -242,7 +242,8 @@
     "applicability_threshold": 0.6,
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
-    "filter_not_credible": true
+    "filter_not_credible": true,
+    "batch_size": 5
   },
   "skip_analyzed": {
     "enabled": true

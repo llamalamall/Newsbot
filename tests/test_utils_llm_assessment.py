@@ -14,7 +14,11 @@ from openai import OpenAI
 # Add scripts to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
 
-from utils.llm_assessment import assess_article_applicability, assess_article_credibility
+from utils.llm_assessment import (
+    assess_article_applicability,
+    assess_article_credibility,
+    assess_articles_batch
+)
 
 
 class TestAssessArticleApplicability:
@@ -501,3 +505,353 @@ def test_llm_single_live_call():
     assert "applicable" in result
     assert "score" in result
     assert 0.0 <= result["score"] <= 1.0
+
+
+class TestBatchAssessment:
+    """Test batch assessment functionality."""
+    
+    def test_batch_assessment_with_no_client(self):
+        """Test that batch function returns default values when client is None."""
+        articles = [
+            {"title": "Test 1", "description": "Description 1"},
+            {"title": "Test 2", "description": "Description 2"}
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=None,
+            articles=articles,
+            keywords=["security", "AI"]
+        )
+        
+        assert len(results) == 2
+        for result in results:
+            assert result["applicable"] is True
+            assert result["applicability_score"] == 0.5
+            assert "unavailable" in result["applicability_reason"].lower()
+            assert result["credible"] is True
+            assert result["credibility_score"] == 0.5
+    
+    def test_batch_assessment_empty_list(self):
+        """Test that batch function handles empty list."""
+        mock_client = Mock()
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=[],
+            keywords=["security"]
+        )
+        
+        assert results == []
+        # Should not make any API calls
+        mock_client.chat.completions.create.assert_not_called()
+    
+    def test_batch_assessment_single_article_uses_individual_assessment(self):
+        """Test that single article batch uses individual assessment functions."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Mock response for individual assessment
+        applicability_response = {
+            "applicable": True,
+            "score": 0.85,
+            "reason": "Relevant",
+            "matched_keywords": ["AI"]
+        }
+        credibility_response = {
+            "credible": True,
+            "score": 0.9,
+            "reason": "Credible",
+            "flags": []
+        }
+        
+        # Set up to return different responses for applicability and credibility
+        mock_message.content = json.dumps(applicability_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        
+        # First call returns applicability, second returns credibility
+        mock_client.chat.completions.create.side_effect = [
+            mock_response,
+            Mock(choices=[Mock(message=Mock(content=json.dumps(credibility_response)))])
+        ]
+        
+        articles = [{"title": "Test", "description": "Test desc", "url": "http://test.com"}]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["AI", "security"]
+        )
+        
+        assert len(results) == 1
+        assert results[0]["applicable"] is True
+        assert results[0]["applicability_score"] == 0.85
+        assert results[0]["credible"] is True
+        assert results[0]["credibility_score"] == 0.9
+        # Should make 2 calls (one for applicability, one for credibility)
+        assert mock_client.chat.completions.create.call_count == 2
+    
+    def test_batch_assessment_multiple_articles(self):
+        """Test batch assessment with multiple articles."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Create batch response with 3 articles
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.85,
+                "applicability_reason": "AI security article",
+                "matched_keywords": ["AI", "security"],
+                "credible": True,
+                "credibility_score": 0.9,
+                "credibility_reason": "High quality",
+                "flags": []
+            },
+            {
+                "applicable": False,
+                "applicability_score": 0.3,
+                "applicability_reason": "Not related",
+                "matched_keywords": [],
+                "credible": True,
+                "credibility_score": 0.7,
+                "credibility_reason": "Decent source",
+                "flags": []
+            },
+            {
+                "applicable": True,
+                "applicability_score": 0.75,
+                "applicability_reason": "Automation topic",
+                "matched_keywords": ["automation"],
+                "credible": False,
+                "credibility_score": 0.4,
+                "credibility_reason": "Clickbait",
+                "flags": ["clickbait_title"]
+            }
+        ]
+        
+        mock_message.content = json.dumps(batch_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        articles = [
+            {"title": "AI Security", "description": "Article about AI in security", "url": "http://test1.com"},
+            {"title": "Cloud Computing", "description": "General cloud article", "url": "http://test2.com"},
+            {"title": "Automation", "description": "Clickbait article", "url": "http://test3.com"}
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["AI", "security", "automation"]
+        )
+        
+        assert len(results) == 3
+        assert results[0]["applicable"] is True
+        assert results[0]["applicability_score"] == 0.85
+        assert results[1]["applicable"] is False
+        assert results[1]["applicability_score"] == 0.3
+        assert results[2]["applicable"] is True
+        assert results[2]["credible"] is False
+        assert "clickbait_title" in results[2]["flags"]
+        # Should make only 1 call for batch
+        assert mock_client.chat.completions.create.call_count == 1
+    
+    def test_batch_assessment_with_markdown_json(self):
+        """Test batch assessment handles markdown-wrapped JSON."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.8,
+                "applicability_reason": "Relevant",
+                "matched_keywords": ["security"],
+                "credible": True,
+                "credibility_score": 0.85,
+                "credibility_reason": "Good quality",
+                "flags": []
+            }
+        ]
+        
+        # Wrap in markdown code block
+        mock_message.content = f"```json\n{json.dumps(batch_response)}\n```"
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        articles = [{"title": "Test", "description": "Test"}]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["security"],
+            batch_size=5
+        )
+        
+        # Should fall back to individual assessment since batch size is 1
+        assert len(results) == 1
+    
+    def test_batch_assessment_handles_mismatched_count(self):
+        """Test batch assessment falls back when response count doesn't match."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Return only 2 results for 3 articles (mismatch)
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.8,
+                "applicability_reason": "Relevant",
+                "matched_keywords": ["security"],
+                "credible": True,
+                "credibility_score": 0.85,
+                "credibility_reason": "Good",
+                "flags": []
+            },
+            {
+                "applicable": False,
+                "applicability_score": 0.3,
+                "applicability_reason": "Not relevant",
+                "matched_keywords": [],
+                "credible": True,
+                "credibility_score": 0.7,
+                "credibility_reason": "OK",
+                "flags": []
+            }
+        ]
+        
+        # First call returns mismatched batch, subsequent calls return individual assessments
+        individual_app = {"applicable": True, "score": 0.5, "reason": "Fallback", "matched_keywords": []}
+        individual_cred = {"credible": True, "score": 0.5, "reason": "Fallback", "flags": []}
+        
+        mock_client.chat.completions.create.side_effect = [
+            Mock(choices=[Mock(message=Mock(content=json.dumps(batch_response)))]),
+            # Fallback individual assessments for 3 articles (6 calls total)
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))])
+        ]
+        
+        articles = [
+            {"title": "Test 1", "description": "Desc 1"},
+            {"title": "Test 2", "description": "Desc 2"},
+            {"title": "Test 3", "description": "Desc 3"}
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["security"],
+            batch_size=5
+        )
+        
+        # Should get results via fallback
+        assert len(results) == 3
+        for result in results:
+            assert result["applicable"] is True
+            assert result["applicability_score"] == 0.5
+    
+    def test_batch_assessment_respects_batch_size(self):
+        """Test that batch assessment splits articles according to batch_size."""
+        mock_client = Mock()
+        
+        # Create response for a batch
+        batch_response_1 = [
+            {
+                "applicable": True,
+                "applicability_score": 0.8,
+                "applicability_reason": "Relevant",
+                "matched_keywords": ["AI"],
+                "credible": True,
+                "credibility_score": 0.85,
+                "credibility_reason": "Good",
+                "flags": []
+            },
+            {
+                "applicable": True,
+                "applicability_score": 0.75,
+                "applicability_reason": "Relevant",
+                "matched_keywords": ["security"],
+                "credible": True,
+                "credibility_score": 0.8,
+                "credibility_reason": "Good",
+                "flags": []
+            }
+        ]
+        
+        # For single article (batch of 1), it uses individual assessment
+        individual_app = {"applicable": False, "score": 0.3, "reason": "Not relevant", "matched_keywords": []}
+        individual_cred = {"credible": True, "score": 0.7, "reason": "OK", "flags": []}
+        
+        mock_client.chat.completions.create.side_effect = [
+            Mock(choices=[Mock(message=Mock(content=json.dumps(batch_response_1)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))])
+        ]
+        
+        articles = [
+            {"title": "Test 1", "description": "Desc 1"},
+            {"title": "Test 2", "description": "Desc 2"},
+            {"title": "Test 3", "description": "Desc 3"}
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["AI", "security"],
+            batch_size=2  # Force split: batch of 2, then individual for the 3rd
+        )
+        
+        assert len(results) == 3
+        # Should make 3 calls: 1 for batch of 2, 2 for individual (applicability + credibility)
+        assert mock_client.chat.completions.create.call_count == 3
+        assert results[0]["applicable"] is True
+        assert results[1]["applicable"] is True
+        assert results[2]["applicable"] is False
+    
+    def test_batch_assessment_handles_json_parse_error(self):
+        """Test batch assessment falls back on JSON parse error."""
+        mock_client = Mock()
+        
+        # First call returns invalid JSON, then fallback individual calls
+        individual_app = {"applicable": True, "score": 0.5, "reason": "Fallback", "matched_keywords": []}
+        individual_cred = {"credible": True, "score": 0.5, "reason": "Fallback", "flags": []}
+        
+        mock_client.chat.completions.create.side_effect = [
+            Mock(choices=[Mock(message=Mock(content="Not valid JSON"))]),
+            # Fallback calls
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_app)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(individual_cred)))])
+        ]
+        
+        articles = [
+            {"title": "Test 1", "description": "Desc 1"},
+            {"title": "Test 2", "description": "Desc 2"}
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["security"]
+        )
+        
+        # Should get results via fallback
+        assert len(results) == 2
+        for result in results:
+            assert result["applicable"] is True

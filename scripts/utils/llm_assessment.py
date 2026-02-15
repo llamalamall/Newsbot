@@ -434,3 +434,319 @@ Be selective. Only include titles with a clear and strong connection to the topi
         _handle_rate_limit(e)
         logging.error(f"Error in LLM title filtering: {str(e)}")
         return []
+
+
+def assess_articles_batch(
+    openai_client: OpenAI,
+    articles: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str = "gpt-4o-mini",
+    batch_size: int = 5
+) -> List[Dict[str, Any]]:
+    """Assess applicability and credibility of multiple articles in batches.
+    
+    This function processes multiple articles together in a single LLM call when they
+    fit within the context window. This is more efficient than individual calls.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        articles: List of article dictionaries with keys:
+            - title: str
+            - description: str
+            - url: str (optional, for credibility assessment)
+            - source_name: str (optional, for credibility assessment)
+            - domain_credibility: str (optional, for credibility assessment)
+            - content: str (optional, full article content)
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use (default: gpt-4o-mini)
+        batch_size: Maximum number of articles to assess in one call (default: 5)
+        
+    Returns:
+        List of dictionaries, one per article, containing:
+            - applicable: bool (whether article is relevant)
+            - applicability_score: float (0.0-1.0 confidence score)
+            - applicability_reason: str (explanation)
+            - matched_keywords: List[str] (keywords that were relevant)
+            - credible: bool (whether article appears credible)
+            - credibility_score: float (0.0-1.0 confidence score)
+            - credibility_reason: str (explanation)
+            - flags: List[str] (credibility concerns)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM batch assessment")
+        return [
+            {
+                "applicable": True,
+                "applicability_score": 0.5,
+                "applicability_reason": "LLM assessment unavailable",
+                "matched_keywords": [],
+                "credible": True,
+                "credibility_score": 0.5,
+                "credibility_reason": "LLM assessment unavailable",
+                "flags": []
+            }
+            for _ in articles
+        ]
+    
+    if not articles:
+        return []
+    
+    # Process articles in batches
+    all_results = []
+    for i in range(0, len(articles), batch_size):
+        batch = articles[i:i + batch_size]
+        
+        # If batch has only one article, use single-article assessment for compatibility
+        if len(batch) == 1:
+            article = batch[0]
+            app_result = assess_article_applicability(
+                openai_client=openai_client,
+                title=article.get("title", ""),
+                description=article.get("description", ""),
+                keywords=keywords,
+                content=article.get("content"),
+                model=model
+            )
+            cred_result = assess_article_credibility(
+                openai_client=openai_client,
+                title=article.get("title", ""),
+                description=article.get("description", ""),
+                url=article.get("url", ""),
+                source_name=article.get("source_name", "Unknown"),
+                domain_credibility=article.get("domain_credibility", "unknown"),
+                content=article.get("content"),
+                model=model
+            )
+            all_results.append({
+                "applicable": app_result["applicable"],
+                "applicability_score": app_result["score"],
+                "applicability_reason": app_result["reason"],
+                "matched_keywords": app_result["matched_keywords"],
+                "credible": cred_result["credible"],
+                "credibility_score": cred_result["score"],
+                "credibility_reason": cred_result["reason"],
+                "flags": cred_result["flags"]
+            })
+            continue
+        
+        # Process batch of multiple articles
+        batch_results = _assess_batch_internal(
+            openai_client=openai_client,
+            articles=batch,
+            keywords=keywords,
+            model=model
+        )
+        all_results.extend(batch_results)
+    
+    return all_results
+
+
+def _assess_batch_internal(
+    openai_client: OpenAI,
+    articles: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str = "gpt-4o-mini"
+) -> List[Dict[str, Any]]:
+    """Internal function to assess a batch of articles with a single LLM call.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        articles: List of article dictionaries (should be 2 or more)
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        
+    Returns:
+        List of assessment results, one per article
+    """
+    try:
+        keywords_str = ", ".join(keywords)
+        
+        # Build the batch prompt
+        articles_text = []
+        for idx, article in enumerate(articles):
+            title = article.get("title", "Untitled")
+            description = article.get("description", "")
+            url = article.get("url", "")
+            source_name = article.get("source_name", "Unknown")
+            domain_credibility = article.get("domain_credibility", "unknown")
+            content = article.get("content", "")
+            
+            article_text = f"""Article {idx}:
+Title: {title}
+Description: {description}
+URL: {url}
+Source: {source_name}
+Domain Credibility: {domain_credibility}"""
+            
+            if content and len(content) > 0:
+                # Limit content to avoid token limits (roughly 2000 chars per article in batch)
+                article_text += f"\nContent Preview: {content[:2000]}"
+            
+            articles_text.append(article_text)
+        
+        combined_articles = "\n\n---\n\n".join(articles_text)
+        
+        prompt = f"""You are an expert security researcher analyzing articles for relevance and credibility.
+
+Evaluate each of the following {len(articles)} articles for:
+1. **Applicability**: Is it relevant to these topics: {keywords_str}
+   - Consider relevance to AI/ML in security testing or offensive operations
+   - Automation of penetration testing or red team activities
+   - Machine learning for vulnerability detection or exploit development
+   - Security tools using AI/automation
+   
+2. **Credibility**: Is the content trustworthy and high-quality?
+   - Check for clickbait or sensationalized titles
+   - Assess content quality and depth
+   - Consider if sources are cited
+   - Evaluate based on domain credibility rating
+   - Identify potential bias or unverified claims
+
+Articles:
+{combined_articles}
+
+Respond ONLY with a valid JSON array containing exactly {len(articles)} objects in this exact format:
+[
+  {{
+    "applicable": true or false,
+    "applicability_score": 0.0 to 1.0,
+    "applicability_reason": "brief explanation",
+    "matched_keywords": ["keyword1", "keyword2"],
+    "credible": true or false,
+    "credibility_score": 0.0 to 1.0,
+    "credibility_reason": "brief explanation",
+    "flags": ["flag1", "flag2"]
+  }},
+  ...
+]
+
+Be selective with applicability - only mark as applicable if there's a clear, strong connection.
+For credibility, common flags: "clickbait_title", "low_quality_content", "no_sources", "potential_bias", "unverified_claims"."""
+
+        logging.debug(
+            "Running LLM batch assessment",
+            extra={
+                "model": model,
+                "batch_size": len(articles),
+                "keyword_count": len(keywords)
+            }
+        )
+        
+        # Call the LLM
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "You are a security research analyst. Respond only with valid JSON arrays."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=2000  # Allow more tokens for batch responses
+        )
+        increment_llm_call_count()
+        
+        logging.debug(
+            "Received LLM batch response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        results = json.loads(result_text)
+        
+        # Validate the results
+        if not isinstance(results, list):
+            raise ValueError("LLM response is not a JSON array")
+        
+        if len(results) != len(articles):
+            logging.warning(
+                f"LLM returned {len(results)} results for {len(articles)} articles, falling back to individual assessment"
+            )
+            # Fallback to individual assessment
+            return _fallback_individual_assessment(openai_client, articles, keywords, model)
+        
+        # Validate each result structure
+        for idx, result in enumerate(results):
+            required_keys = [
+                "applicable", "applicability_score", "applicability_reason", "matched_keywords",
+                "credible", "credibility_score", "credibility_reason", "flags"
+            ]
+            if not all(key in result for key in required_keys):
+                logging.warning(f"Result {idx} missing required fields, falling back to individual assessment")
+                return _fallback_individual_assessment(openai_client, articles, keywords, model)
+        
+        logging.debug(f"LLM batch assessment completed for {len(results)} articles")
+        return results
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM batch response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        # Fallback to individual assessment
+        return _fallback_individual_assessment(openai_client, articles, keywords, model)
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM batch assessment: {str(e)}")
+        # Fallback to individual assessment
+        return _fallback_individual_assessment(openai_client, articles, keywords, model)
+
+
+def _fallback_individual_assessment(
+    openai_client: OpenAI,
+    articles: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str = "gpt-4o-mini"
+) -> List[Dict[str, Any]]:
+    """Fallback to individual article assessment when batch processing fails.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        articles: List of article dictionaries
+        keywords: List of keywords from config
+        model: LLM model to use
+        
+    Returns:
+        List of assessment results, one per article
+    """
+    logging.info(f"Falling back to individual assessment for {len(articles)} articles")
+    results = []
+    
+    for article in articles:
+        app_result = assess_article_applicability(
+            openai_client=openai_client,
+            title=article.get("title", ""),
+            description=article.get("description", ""),
+            keywords=keywords,
+            content=article.get("content"),
+            model=model
+        )
+        cred_result = assess_article_credibility(
+            openai_client=openai_client,
+            title=article.get("title", ""),
+            description=article.get("description", ""),
+            url=article.get("url", ""),
+            source_name=article.get("source_name", "Unknown"),
+            domain_credibility=article.get("domain_credibility", "unknown"),
+            content=article.get("content"),
+            model=model
+        )
+        results.append({
+            "applicable": app_result["applicable"],
+            "applicability_score": app_result["score"],
+            "applicability_reason": app_result["reason"],
+            "matched_keywords": app_result["matched_keywords"],
+            "credible": cred_result["credible"],
+            "credibility_score": cred_result["score"],
+            "credibility_reason": cred_result["reason"],
+            "flags": cred_result["flags"]
+        })
+    
+    return results

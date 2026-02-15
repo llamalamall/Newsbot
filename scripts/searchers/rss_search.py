@@ -12,6 +12,7 @@ try:
     from ..utils.llm_assessment import (
         assess_article_applicability,
         assess_article_credibility,
+        assess_articles_batch,
         filter_titles_by_relevance,
         get_llm_call_count,
         reset_llm_call_count
@@ -27,6 +28,7 @@ except ImportError:
     from utils.llm_assessment import (
         assess_article_applicability,
         assess_article_credibility,
+        assess_articles_batch,
         filter_titles_by_relevance,
         get_llm_call_count,
         reset_llm_call_count
@@ -85,6 +87,7 @@ def search_rss_feeds(
         credibility_threshold = llm_settings.get('credibility_threshold', 0.5)
         filter_inapplicable = llm_settings.get('filter_inapplicable', True)
         filter_not_credible = llm_settings.get('filter_not_credible', True)
+        batch_size = llm_settings.get('batch_size', 5)  # Default batch size of 5 articles
         
         # Fetch all feeds
         all_entries = rss_manager.fetch_all_feeds(feeds)
@@ -122,7 +125,8 @@ def search_rss_feeds(
         
         logging.info(f"Processing {len(filtered_entries)} articles after keyword filtering...")
         
-        # Convert to NewsBot result format and apply LLM assessment if enabled
+        # Create initial results with domain credibility assessment
+        initial_results = []
         for entry in filtered_entries:
             # Assess source credibility first (domain-based)
             url = entry.get('link', '')
@@ -143,39 +147,43 @@ def search_rss_feeds(
                 author=entry.get('author'),
                 tags=entry.get('tags', [])
             )
-            
-            # Apply LLM assessment if enabled and client is available
-            if llm_enabled and openai_client:
-                try:
-                    # Assess applicability
-                    applicability_result = assess_article_applicability(
-                        openai_client=openai_client,
-                        title=result.title,
-                        description=result.description,
-                        keywords=keywords,
-                        model=llm_model
-                    )
-                    
-                    result.llm_applicable = applicability_result.get('applicable', True)
-                    result.llm_applicability_score = applicability_result.get('score', 0.5)
-                    result.llm_applicability_reason = applicability_result.get('reason', '')
-                    result.llm_matched_keywords = applicability_result.get('matched_keywords', [])
-                    
-                    # Assess credibility with LLM
-                    credibility_result = assess_article_credibility(
-                        openai_client=openai_client,
-                        title=result.title,
-                        description=result.description,
-                        url=result.url,
-                        source_name=result.feed_name,
-                        domain_credibility=result.credibility or 'unknown',
-                        model=llm_model
-                    )
-                    
-                    result.llm_credible = credibility_result.get('credible', True)
-                    result.llm_credibility_score = credibility_result.get('score', 0.5)
-                    result.llm_credibility_reason = credibility_result.get('reason', '')
-                    result.llm_credibility_flags = credibility_result.get('flags', [])
+            initial_results.append(result)
+        
+        # Apply LLM assessment if enabled and client is available
+        if llm_enabled and openai_client:
+            try:
+                # Prepare articles for batch assessment
+                articles_for_assessment = [
+                    {
+                        "title": result.title,
+                        "description": result.description,
+                        "url": result.url,
+                        "source_name": result.feed_name,
+                        "domain_credibility": result.credibility or 'unknown'
+                    }
+                    for result in initial_results
+                ]
+                
+                # Perform batch assessment
+                logging.info(f"Running batch LLM assessment for {len(articles_for_assessment)} articles (batch_size={batch_size})...")
+                batch_assessments = assess_articles_batch(
+                    openai_client=openai_client,
+                    articles=articles_for_assessment,
+                    keywords=keywords,
+                    model=llm_model,
+                    batch_size=batch_size
+                )
+                
+                # Apply assessments to results
+                for result, assessment in zip(initial_results, batch_assessments):
+                    result.llm_applicable = assessment.get('applicable', True)
+                    result.llm_applicability_score = assessment.get('applicability_score', 0.5)
+                    result.llm_applicability_reason = assessment.get('applicability_reason', '')
+                    result.llm_matched_keywords = assessment.get('matched_keywords', [])
+                    result.llm_credible = assessment.get('credible', True)
+                    result.llm_credibility_score = assessment.get('credibility_score', 0.5)
+                    result.llm_credibility_reason = assessment.get('credibility_reason', '')
+                    result.llm_credibility_flags = assessment.get('flags', [])
                     
                     # Apply filtering based on LLM assessment
                     # Filter if applicability score is below threshold
@@ -200,11 +208,17 @@ def search_rss_feeds(
                             rejected_results.append(rejected)
                         continue
                     
-                except Exception as e:
-                    logging.warning(f"LLM assessment failed for '{result.title[:50]}...': {str(e)}")
-                    # Continue with the article even if LLM assessment fails
-            
-            results.append(result.to_dict())
+                    results.append(result.to_dict())
+                    
+            except Exception as e:
+                logging.warning(f"Batch LLM assessment failed: {str(e)}, articles added without LLM filtering")
+                # Add all articles without LLM filtering if batch assessment fails
+                for result in initial_results:
+                    results.append(result.to_dict())
+        else:
+            # No LLM assessment - add all articles
+            for result in initial_results:
+                results.append(result.to_dict())
         
         logging.info(f"Found {len(results)} relevant articles from RSS feeds after LLM filtering")
         
