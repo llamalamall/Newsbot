@@ -50,6 +50,7 @@ class RSSFeedManager:
         self.cache_ttl_hours = cache_ttl_hours
         self.rate_limit_delay = rate_limit_delay
         self._cache: Dict[str, Dict[str, Any]] = {}
+        self._llm_assessment_cache: Dict[str, Dict[str, Any]] = {}
         self._last_request_time = 0
         
         # Configure feedparser
@@ -398,6 +399,60 @@ class RSSFeedManager:
         """Clear all cached feed data."""
         self._cache.clear()
         logging.info("Feed cache cleared")
+    
+    def get_llm_assessment_cache(self, article_url: str) -> Optional[Dict[str, Any]]:
+        """Get cached LLM assessment results for an article.
+        
+        Args:
+            article_url: URL of the article
+            
+        Returns:
+            Cached assessment data or None if not cached or expired
+        """
+        if not self.cache_enabled or article_url not in self._llm_assessment_cache:
+            return None
+        
+        cached_data = self._llm_assessment_cache[article_url]
+        cache_time = cached_data.get('cached_at')
+        
+        if not cache_time:
+            return None
+        
+        cache_age = datetime.now() - cache_time
+        max_age = timedelta(hours=self.cache_ttl_hours)
+        
+        if cache_age < max_age:
+            logging.debug(f"Using cached LLM assessment for {article_url}")
+            return cached_data.get('assessment')
+        else:
+            # Cache expired, remove it
+            del self._llm_assessment_cache[article_url]
+            return None
+    
+    def set_llm_assessment_cache(
+        self,
+        article_url: str,
+        assessment: Dict[str, Any]
+    ) -> None:
+        """Cache LLM assessment results for an article.
+        
+        Args:
+            article_url: URL of the article
+            assessment: Assessment data to cache (applicability and credibility results)
+        """
+        if not self.cache_enabled:
+            return
+        
+        self._llm_assessment_cache[article_url] = {
+            'assessment': assessment,
+            'cached_at': datetime.now()
+        }
+        logging.debug(f"Cached LLM assessment for {article_url}")
+    
+    def clear_llm_assessment_cache(self):
+        """Clear all cached LLM assessment data."""
+        self._llm_assessment_cache.clear()
+        logging.info("LLM assessment cache cleared")
 
 
 def main():

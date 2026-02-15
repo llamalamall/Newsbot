@@ -96,6 +96,43 @@ def test_rss_manager():
     is_valid_after = manager._is_cache_valid('test_url')
     print(f"  - After clear: {is_valid_after}")
     
+    # Test LLM assessment cache
+    print("\n5. Testing LLM assessment cache...")
+    test_url = "https://example.com/test-article"
+    test_assessment = {
+        'applicability': {
+            'applicable': True,
+            'score': 0.85,
+            'reason': 'Test reason',
+            'matched_keywords': ['AI', 'security']
+        },
+        'credibility': {
+            'credible': True,
+            'score': 0.9,
+            'reason': 'Credible source',
+            'flags': []
+        }
+    }
+    
+    # Set cache
+    manager.set_llm_assessment_cache(test_url, test_assessment)
+    print(f"✓ LLM assessment cache set successfully")
+    
+    # Get from cache
+    cached = manager.get_llm_assessment_cache(test_url)
+    print(f"  - Retrieved from cache: {cached is not None}")
+    print(f"  - Applicability score: {cached['applicability']['score']}")
+    print(f"  - Credibility score: {cached['credibility']['score']}")
+    
+    # Test non-existent URL
+    not_cached = manager.get_llm_assessment_cache("https://example.com/not-cached")
+    print(f"  - Non-existent URL returns None: {not_cached is None}")
+    
+    # Clear LLM cache
+    manager.clear_llm_assessment_cache()
+    cleared = manager.get_llm_assessment_cache(test_url)
+    print(f"  - After clear, cache is None: {cleared is None}")
+    
     print("\n" + "=" * 60)
     print("All tests passed! ✓")
     print("\nNote: Network-based tests (actual feed fetching) are skipped")

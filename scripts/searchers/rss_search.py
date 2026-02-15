@@ -145,30 +145,47 @@ def search_rss_feeds(
             # Apply LLM assessment if enabled and client is available
             if llm_enabled and openai_client:
                 try:
-                    # Assess applicability
-                    applicability_result = assess_article_applicability(
-                        openai_client=openai_client,
-                        title=result.title,
-                        description=result.description,
-                        keywords=keywords,
-                        model=llm_model
-                    )
+                    # Check if we have cached LLM assessment results
+                    cached_assessment = rss_manager.get_llm_assessment_cache(url) if url else None
+                    
+                    if cached_assessment:
+                        # Use cached results
+                        logging.debug(f"Using cached LLM assessment for: {result.title[:50]}...")
+                        applicability_result = cached_assessment.get('applicability', {})
+                        credibility_result = cached_assessment.get('credibility', {})
+                    else:
+                        # Perform fresh LLM assessment
+                        # Assess applicability
+                        applicability_result = assess_article_applicability(
+                            openai_client=openai_client,
+                            title=result.title,
+                            description=result.description,
+                            keywords=keywords,
+                            model=llm_model
+                        )
+                        
+                        # Assess credibility with LLM
+                        credibility_result = assess_article_credibility(
+                            openai_client=openai_client,
+                            title=result.title,
+                            description=result.description,
+                            url=result.url,
+                            source_name=result.feed_name,
+                            domain_credibility=result.credibility or 'unknown',
+                            model=llm_model
+                        )
+                        
+                        # Cache the results for future runs
+                        if url:
+                            rss_manager.set_llm_assessment_cache(url, {
+                                'applicability': applicability_result,
+                                'credibility': credibility_result
+                            })
                     
                     result.llm_applicable = applicability_result.get('applicable', True)
                     result.llm_applicability_score = applicability_result.get('score', 0.5)
                     result.llm_applicability_reason = applicability_result.get('reason', '')
                     result.llm_matched_keywords = applicability_result.get('matched_keywords', [])
-                    
-                    # Assess credibility with LLM
-                    credibility_result = assess_article_credibility(
-                        openai_client=openai_client,
-                        title=result.title,
-                        description=result.description,
-                        url=result.url,
-                        source_name=result.feed_name,
-                        domain_credibility=result.credibility or 'unknown',
-                        model=llm_model
-                    )
                     
                     result.llm_credible = credibility_result.get('credible', True)
                     result.llm_credibility_score = credibility_result.get('score', 0.5)
