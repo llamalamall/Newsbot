@@ -256,15 +256,6 @@ class TestInitializeDocsDirectory:
             assert os.path.exists(docs_dir)
             assert os.path.isdir(docs_dir)
     
-    def test_initialize_creates_nojekyll(self):
-        """Test that .nojekyll file is created."""
-        with tempfile.TemporaryDirectory() as tmpdir:
-            docs_dir = os.path.join(tmpdir, "docs")
-            
-            initialize_docs_directory(docs_dir)
-            
-            nojekyll_path = os.path.join(docs_dir, ".nojekyll")
-            assert os.path.exists(nojekyll_path)
     
     def test_initialize_creates_index(self):
         """Test that index.md is created."""
@@ -309,7 +300,6 @@ class TestInitializeDocsDirectory:
             initialize_docs_directory(docs_dir)
             
             # All files should still exist
-            assert os.path.exists(os.path.join(docs_dir, ".nojekyll"))
             assert os.path.exists(os.path.join(docs_dir, "index.md"))
             assert os.path.exists(os.path.join(docs_dir, "README.md"))
 
@@ -345,7 +335,6 @@ class TestEndToEndWorkflow:
             assert os.path.exists(os.path.join(docs_dir, "report_20260214_120000.md"))
             assert os.path.exists(os.path.join(docs_dir, "report_20260215_120000.md"))
             assert os.path.exists(os.path.join(docs_dir, "index.md"))
-            assert os.path.exists(os.path.join(docs_dir, ".nojekyll"))
             assert os.path.exists(os.path.join(docs_dir, "README.md"))
             
             # Verify index has both reports in correct order

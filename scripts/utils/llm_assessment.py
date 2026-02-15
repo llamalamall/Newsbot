@@ -20,11 +20,53 @@ being used for offensive security purposes.
 
 import logging
 import json
+import os
 from typing import Dict, Any, Optional, List
 from openai import OpenAI, RateLimitError
+from prompt_engine.prompt_engine import PromptEngine
 
 
 _LLM_CALL_COUNT = 0
+
+# Path to prompts directory
+_PROMPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "prompts")
+
+# Cache for loaded prompt engines
+_PROMPT_ENGINE_CACHE = {}
+
+
+def _load_prompt(prompt_name: str) -> str:
+    """Load a prompt from the prompts directory using prompt-engine-py.
+    
+    Prompt engines are cached after first load for performance.
+    
+    Args:
+        prompt_name: Name of the prompt file (without .yaml extension)
+        
+    Returns:
+        The prompt description text content
+        
+    Raises:
+        FileNotFoundError: If the prompt file doesn't exist
+    """
+    if prompt_name in _PROMPT_ENGINE_CACHE:
+        return _PROMPT_ENGINE_CACHE[prompt_name].description
+    
+    prompt_path = os.path.join(_PROMPTS_DIR, f"{prompt_name}.yaml")
+    
+    if not os.path.exists(prompt_path):
+        raise FileNotFoundError(f"Prompt file not found: {prompt_path}")
+    
+    # Load the YAML configuration
+    with open(prompt_path, 'r', encoding='utf-8') as f:
+        yaml_content = f.read()
+    
+    # Create and initialize the prompt engine
+    engine = PromptEngine()
+    engine.load_yaml(yaml_content)
+    
+    _PROMPT_ENGINE_CACHE[prompt_name] = engine
+    return engine.description
 
 # Batch processing token budget constants
 # These values help ensure batch requests fit within model context windows
@@ -122,40 +164,12 @@ def assess_article_applicability(
             # Limit content to avoid token limits (roughly 3000 chars = ~750 tokens)
             article_text += f"\n\nContent Preview: {content[:3000]}"
         
-        prompt = f"""You are an expert security researcher analyzing articles for relevance to AI and automation in offensive security.
-
-Evaluate if the following article is relevant to these topics: {keywords_str}
-
-Article:
-{article_text}
-
-Respond ONLY with a valid JSON object in this exact format:
-{{
-  "applicable": true or false,
-  "score": 0.0 to 1.0,
-  "reason": "brief explanation",
-  "matched_keywords": ["keyword1", "keyword2"]
-}}
-
-**CRITICAL REQUIREMENTS - Article must meet BOTH criteria:**
-1. Contains keywords related to offensive security (penetration testing, red team, vulnerability, exploit, etc.)
-2. Explicitly describes the USE of AI, automation, or fuzzing within the article's content
-
-Consider the article applicable ONLY if it relates to:
-- AI/ML in security testing or offensive operations
-- Automation of penetration testing or red team activities  
-- Machine learning for vulnerability detection or exploit development
-- Automated malware analysis or reverse engineering
-- Fuzzing techniques (automated or AI-powered)
-- Security tools using AI/automation
-- Research on adversarial AI or security
-
-**REJECT articles that:**
-- Only mention offensive security without describing AI/automation/fuzzing usage
-- Only mention AI/automation without offensive security context
-- Discuss manual security techniques without automation
-
-Be highly selective - only mark as applicable if there's explicit textual evidence of AI/automation/fuzzing being used for offensive security purposes."""
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_article_applicability")
+        prompt = prompt_template.format(keywords_str=keywords_str, article_text=article_text)
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_article_applicability_system")
 
         logging.debug(
             "Running LLM applicability assessment",
@@ -172,7 +186,7 @@ Be highly selective - only mark as applicable if there's explicit textual eviden
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a security research analyst. Respond only with valid JSON."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,  # Lower temperature for more consistent results
@@ -278,40 +292,17 @@ def assess_article_credibility(
             # Limit content to avoid token limits
             article_text += f"\n\nContent Preview: {content[:3000]}"
         
-        prompt = f"""You are an expert at evaluating the credibility and quality of security news articles.
-
-Analyze this article for credibility and trustworthiness:
-
-Source: {source_name}
-URL Domain Credibility: {domain_credibility}
-URL: {url}
-
-Article:
-{article_text}
-
-Respond ONLY with a valid JSON object in this exact format:
-{{
-  "credible": true or false,
-  "score": 0.0 to 1.0,
-  "reason": "brief explanation",
-  "flags": ["flag1", "flag2"]
-}}
-
-Evaluate based on:
-- Is the content substantive or superficial?
-- Are there signs of misinformation or bias?
-- Does it cite sources or provide evidence?
-- Is it from a known credible source? (consider domain_credibility)
-- Does it appear to be quality security research/news?
-
-Common flags to check for:
-- "clickbait_title" - Sensationalized or misleading title
-- "low_quality_content" - Superficial or poorly written
-- "no_sources" - Lacks citations or evidence
-- "potential_bias" - Shows strong bias or agenda
-- "unverified_claims" - Makes claims without proof
-
-Only mark as not credible if there are serious quality or trustworthiness issues."""
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_article_credibility")
+        prompt = prompt_template.format(
+            source_name=source_name,
+            domain_credibility=domain_credibility,
+            url=url,
+            article_text=article_text
+        )
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_article_credibility_system")
 
         logging.debug(
             "Running LLM credibility assessment",
@@ -329,7 +320,7 @@ Only mark as not credible if there are serious quality or trustworthiness issues
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a credibility analyst. Respond only with valid JSON."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
@@ -414,17 +405,12 @@ def filter_titles_by_relevance(
         keywords_str = ", ".join(keywords) if keywords else "AI/automation in offensive security"
         title_list = "\n".join([f"{idx}: {title}" for idx, title in enumerate(titles)])
 
-        prompt = f"""You are an expert security researcher. Select which article titles are relevant to: {keywords_str}
-
-Titles:
-{title_list}
-
-Respond ONLY with valid JSON in this exact format:
-{{
-  \"relevant_indices\": [0, 2, 5]
-}}
-
-Be selective. Only include titles with a clear and strong connection to the topic."""
+        # Load prompt template from file
+        prompt_template = _load_prompt("filter_titles_by_relevance")
+        prompt = prompt_template.format(keywords_str=keywords_str, title_list=title_list)
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("filter_titles_by_relevance_system")
 
         logging.debug(
             "Running LLM title filtering",
@@ -438,7 +424,7 @@ Be selective. Only include titles with a clear and strong connection to the topi
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a security research analyst. Respond only with valid JSON."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
@@ -641,56 +627,16 @@ Domain Credibility: {domain_credibility}"""
         
         combined_articles = "\n\n---\n\n".join(articles_text)
         
-        prompt = f"""You are an expert security researcher analyzing articles for relevance and credibility.
-
-Evaluate each of the following {len(articles)} articles for:
-
-1. **Applicability**: Is it relevant to these topics: {keywords_str}
-   
-   **CRITICAL REQUIREMENTS - Article must meet BOTH criteria:**
-   - Contains keywords related to offensive security (penetration testing, red team, vulnerability, exploit, etc.)
-   - Explicitly describes the USE of AI, automation, or fuzzing within the article's content
-   
-   Consider relevance ONLY to:
-   - AI/ML in security testing or offensive operations
-   - Automation of penetration testing or red team activities
-   - Machine learning for vulnerability detection or exploit development
-   - Automated malware analysis or reverse engineering
-   - Fuzzing techniques (automated or AI-powered)
-   - Security tools using AI/automation
-   
-   **REJECT articles that:**
-   - Only mention offensive security without describing AI/automation/fuzzing usage
-   - Only mention AI/automation without offensive security context
-   - Discuss manual security techniques without automation
-   
-2. **Credibility**: Is the content trustworthy and high-quality?
-   - Check for clickbait or sensationalized titles
-   - Assess content quality and depth
-   - Consider if sources are cited
-   - Evaluate based on domain credibility rating
-   - Identify potential bias or unverified claims
-
-Articles:
-{combined_articles}
-
-Respond ONLY with a valid JSON array containing exactly {len(articles)} objects in this exact format:
-[
-  {{
-    "applicable": true or false,
-    "applicability_score": 0.0 to 1.0,
-    "applicability_reason": "brief explanation",
-    "matched_keywords": ["keyword1", "keyword2"],
-    "credible": true or false,
-    "credibility_score": 0.0 to 1.0,
-    "credibility_reason": "brief explanation",
-    "flags": ["flag1", "flag2"]
-  }},
-  ...
-]
-
-Be highly selective with applicability - only mark as applicable if there's explicit textual evidence of AI/automation/fuzzing being used for offensive security.
-For credibility, common flags: "clickbait_title", "low_quality_content", "no_sources", "potential_bias", "unverified_claims"."""
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_batch_internal")
+        prompt = prompt_template.format(
+            num_articles=len(articles),
+            keywords_str=keywords_str,
+            combined_articles=combined_articles
+        )
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_batch_internal_system")
 
         logging.debug(
             "Running LLM batch assessment",
@@ -707,7 +653,7 @@ For credibility, common flags: "clickbait_title", "low_quality_content", "no_sou
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a security research analyst. Respond only with valid JSON arrays."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
