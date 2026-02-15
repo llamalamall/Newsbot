@@ -370,6 +370,318 @@ After configuring GitHub Pages, verify it's working:
     logging.info(f"Docs directory initialized at: {docs_dir}")
 
 
+def publish_repositories_page(github_items: List[Dict[str, Any]], docs_dir: str = "docs") -> Optional[str]:
+    """Publish a dedicated page for GitHub repositories in table format.
+    
+    Args:
+        github_items: List of GitHub repository items
+        docs_dir: Target docs directory
+        
+    Returns:
+        Path to the published repositories page, or None if failed
+    """
+    from .markdown_reporter import generate_repositories_page
+    
+    # Generate the repositories page content
+    page_content = generate_repositories_page(github_items)
+    
+    # Add front matter
+    formatted_content = "---\nlayout: default\ntitle: GitHub Repositories\n---\n\n"
+    formatted_content += "[← Back to Index](index.md)\n\n"
+    formatted_content += page_content
+    formatted_content += "\n\n---\n\n[← Back to Index](index.md)\n"
+    
+    # Write to docs directory
+    repos_path = os.path.join(docs_dir, "repositories.md")
+    try:
+        with open(repos_path, 'w') as f:
+            f.write(formatted_content)
+        logging.info(f"Published repositories page to: {repos_path}")
+        return repos_path
+    except IOError as e:
+        logging.error(f"Failed to publish repositories page: {e}")
+        return None
+
+
+def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str, 
+                              docs_dir: str = "docs") -> List[str]:
+    """Publish individual pages for each RSS article.
+    
+    Args:
+        rss_items: List of RSS feed items
+        timestamp: Timestamp for this batch of articles (YYYYMMDD_HHMMSS format)
+        docs_dir: Target docs directory
+        
+    Returns:
+        List of paths to published article pages
+    """
+    from .markdown_reporter import generate_rss_article_page
+    
+    if not rss_items:
+        return []
+    
+    # Create articles subdirectory
+    articles_dir = os.path.join(docs_dir, "articles")
+    os.makedirs(articles_dir, exist_ok=True)
+    
+    # Sort articles by priority and keyword matches
+    rss_items.sort(
+        key=lambda x: (
+            0 if x.get('priority') == 'high' else 1,
+            -x.get('keyword_matches', 0)
+        )
+    )
+    
+    published_paths = []
+    total_articles = len(rss_items)
+    
+    for idx, article in enumerate(rss_items, 1):
+        # Generate filename
+        article_filename = f"article_{timestamp}_{idx:03d}.md"
+        article_path = os.path.join(articles_dir, article_filename)
+        
+        # Generate page content
+        page_content = generate_rss_article_page(article)
+        
+        # Add front matter and navigation
+        try:
+            dt = datetime.strptime(timestamp, "%Y%m%d_%H%M%S")
+            readable_date = dt.strftime("%B %d, %Y")
+        except ValueError:
+            readable_date = timestamp
+        
+        article_title = article.get('title', 'Untitled Article')[:50]  # Truncate for title
+        formatted_content = f"---\nlayout: default\ntitle: {article_title}\n---\n\n"
+        formatted_content += "[← Back to Index](../index.md)\n\n"
+        formatted_content += page_content
+        formatted_content += "\n---\n\n"
+        
+        # Add navigation to other articles
+        if idx > 1:
+            prev_filename = f"article_{timestamp}_{idx-1:03d}.md"
+            formatted_content += f"[← Previous Article]({prev_filename}) | "
+        formatted_content += "[Back to Index](../index.md)"
+        if idx < total_articles:
+            next_filename = f"article_{timestamp}_{idx+1:03d}.md"
+            formatted_content += f" | [Next Article →]({next_filename})"
+        formatted_content += "\n"
+        
+        # Write to file
+        try:
+            with open(article_path, 'w') as f:
+                f.write(formatted_content)
+            published_paths.append(article_path)
+            logging.info(f"Published article page: {article_filename}")
+        except IOError as e:
+            logging.error(f"Failed to publish article page {article_filename}: {e}")
+    
+    return published_paths
+
+
+def update_index_with_structured_content(docs_dir: str, timestamp: str, 
+                                        github_count: int, rss_count: int,
+                                        article_files: List[str] = None) -> None:
+    """Update index.md with structured links to repositories and articles.
+    
+    Args:
+        docs_dir: Path to the docs directory
+        timestamp: Timestamp of the report (YYYYMMDD_HHMMSS format)
+        github_count: Number of GitHub repositories
+        rss_count: Number of RSS articles
+        article_files: List of article filenames (without path)
+    """
+    index_path = os.path.join(docs_dir, "index.md")
+    
+    # Parse timestamp for readable date
+    try:
+        dt = datetime.strptime(timestamp, "%Y%m%d_%H%M%S")
+        readable_date = dt.strftime("%B %d, %Y at %H:%M UTC")
+        date_only = dt.strftime("%B %d, %Y")
+    except ValueError:
+        readable_date = timestamp
+        date_only = timestamp
+    
+    # Read existing index if it exists
+    if os.path.exists(index_path):
+        with open(index_path, 'r') as f:
+            index_content = f.read()
+    else:
+        # Create new index with header
+        index_content = """# Newsbot - Security News Aggregator
+
+Welcome to the Newsbot documentation. This page provides access to all generated security news reports.
+
+## About Newsbot
+
+Newsbot is an automated news aggregator that searches for the latest articles, announcements, repositories, and blog posts related to AI and automation in offensive security.
+
+### Features
+- **GitHub Repository Search**: Finds recently updated repositories with relevant topics
+- **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
+- **Smart Article Deduplication**: Automatically detects and skips already analyzed articles
+- **LLM-Powered Assessment**: Uses AI to evaluate article applicability and credibility
+- **Automated Daily Updates**: Runs via GitHub Actions
+
+## Content
+
+### [GitHub Repositories](repositories.md)
+Browse all discovered GitHub repositories in a searchable table format.
+
+## Latest Articles
+
+"""
+    
+    # Ensure the repositories link exists
+    if "## Content" not in index_content:
+        # Add content section before latest articles
+        if "## Latest Articles" in index_content or "## Latest Reports" in index_content:
+            parts = index_content.split("## Latest", 1)
+            header_section = parts[0]
+            remaining = "## Latest" + parts[1] if len(parts) > 1 else ""
+            
+            index_content = header_section + """## Content
+
+### [GitHub Repositories](repositories.md)
+Browse all discovered GitHub repositories in a searchable table format.
+
+""" + remaining
+    
+    # Update or add articles section
+    if article_files and rss_count > 0:
+        # Find where to insert new articles
+        if "## Latest Articles" in index_content:
+            parts = index_content.split("## Latest Articles", 1)
+            header = parts[0] + "## Latest Articles\n\n"
+            remaining = parts[1] if len(parts) > 1 else ""
+            
+            # Remove placeholder if it exists
+            if "*No articles yet" in remaining:
+                remaining_parts = remaining.split("*No articles yet", 1)
+                if len(remaining_parts) > 1:
+                    footer_start = remaining_parts[1].find("\n---")
+                    if footer_start >= 0:
+                        remaining = remaining_parts[1][footer_start:]
+                    else:
+                        remaining = ""
+            
+            # Parse existing article entries
+            lines = remaining.split('\n')
+            entries = []
+            footer = []
+            in_footer = False
+            
+            for line in lines:
+                if line.strip().startswith('---'):
+                    in_footer = True
+                
+                if in_footer:
+                    footer.append(line)
+                elif line.strip().startswith('###') or line.strip().startswith('-'):
+                    entries.append(line)
+            
+            # Create new entry for this batch
+            new_entry = f"### {date_only}\n\n"
+            new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
+            
+            # Add links to individual articles
+            for article_file in article_files:
+                # Extract article number
+                article_num = article_file.split('_')[-1].replace('.md', '')
+                new_entry += f"- [Article {int(article_num)}](articles/{article_file})\n"
+            new_entry += "\n"
+            
+            # Combine with existing entries
+            all_entries = new_entry + '\n'.join(entries)
+            footer_text = '\n'.join(footer) if footer else ""
+            
+            index_content = header + all_entries + footer_text
+        else:
+            # Add articles section before footer
+            if "---" in index_content:
+                parts = index_content.rsplit("---", 1)
+                main_content = parts[0]
+                footer = "---" + parts[1]
+                
+                new_section = "## Latest Articles\n\n"
+                new_section += f"### {date_only}\n\n"
+                new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
+                for article_file in article_files:
+                    article_num = article_file.split('_')[-1].replace('.md', '')
+                    new_section += f"- [Article {int(article_num)}](articles/{article_file})\n"
+                new_section += "\n"
+                
+                index_content = main_content + new_section + footer
+            else:
+                # Just append
+                new_section = "\n## Latest Articles\n\n"
+                new_section += f"### {date_only}\n\n"
+                new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
+                for article_file in article_files:
+                    article_num = article_file.split('_')[-1].replace('.md', '')
+                    new_section += f"- [Article {int(article_num)}](articles/{article_file})\n"
+                index_content += new_section
+    
+    # Ensure footer exists
+    if "[View on GitHub]" not in index_content:
+        if not index_content.endswith('\n'):
+            index_content += '\n'
+        index_content += "\n---\n\n[View on GitHub](https://github.com/llamalamall/Newsbot)\n"
+    
+    # Write updated index
+    with open(index_path, 'w') as f:
+        f.write(index_content)
+    
+    logging.info(f"Updated docs/index.md with structured content")
+
+
+def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
+                           docs_dir: str = "docs") -> Dict[str, Any]:
+    """Publish documentation in the new structured format.
+    
+    Args:
+        results: List of all results (GitHub repos and RSS articles)
+        timestamp: Timestamp for this batch (YYYYMMDD_HHMMSS format)
+        docs_dir: Target docs directory
+        
+    Returns:
+        Dictionary with paths to published files
+    """
+    # Initialize docs directory
+    initialize_docs_directory(docs_dir)
+    
+    # Separate GitHub repos and RSS articles
+    github_items = [r for r in results if r.get("source") == "github"]
+    rss_items = [r for r in results if r.get("source") == "rss"]
+    
+    published_files = {
+        "repositories": None,
+        "articles": [],
+        "index": os.path.join(docs_dir, "index.md")
+    }
+    
+    # Publish repositories page
+    if github_items:
+        repos_path = publish_repositories_page(github_items, docs_dir)
+        published_files["repositories"] = repos_path
+    
+    # Publish individual article pages
+    article_filenames = []
+    if rss_items:
+        article_paths = publish_rss_article_pages(rss_items, timestamp, docs_dir)
+        published_files["articles"] = article_paths
+        # Extract just the filenames for index
+        article_filenames = [os.path.basename(p) for p in article_paths]
+    
+    # Update index with structured content
+    update_index_with_structured_content(
+        docs_dir, timestamp, 
+        len(github_items), len(rss_items),
+        article_filenames
+    )
+    
+    return published_files
+
+
 def publish_latest_report(output_dir: str = "outputs", docs_dir: str = "docs") -> Optional[str]:
     """Find and publish the most recent report from outputs to docs.
     
