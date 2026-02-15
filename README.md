@@ -290,8 +290,7 @@ python scripts/newsbot.py --publish-docs
 This creates:
 - `docs/index.md` - Main landing page with links to all reports
 - `docs/report_YYYYMMDD_HHMMSS.md` - Formatted individual reports
-- `docs/.nojekyll` - Disables Jekyll processing
-- `docs/_config.yml` - Jekyll configuration for GitHub Pages
+- `docs/.nojekyll` - Disables Jekyll processing for plain markdown rendering
 - `docs/README.md` - Setup instructions
 
 **Setting up GitHub Pages:**

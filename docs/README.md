@@ -17,15 +17,16 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
-- `.nojekyll` - Prevents GitHub's automatic Jekyll processing (allows custom _config.yml)
-- `_config.yml` - Custom Jekyll configuration for theme, plugins, and site settings
+- `.nojekyll` - Disables Jekyll processing (allows plain markdown rendering with front matter)
 
 ## Customization
 
 You can customize the look and feel by:
-- Editing `_config.yml` for Jekyll configuration (theme, title, description)
-- Creating custom CSS in a `assets/` directory
 - Modifying the report templates in the publisher script
+- Editing the front matter in individual report files
+- Creating custom CSS in an `assets/` directory (requires custom HTML)
+
+**Note:** To enable Jekyll themes, remove the `.nojekyll` file and add a `_config.yml` file with your theme configuration.
 
 ## Verifying GitHub Pages Setup
 
@@ -51,19 +52,19 @@ After configuring GitHub Pages, verify it's working:
 **Pages not appearing:**
 - Ensure the repository is public (or you have GitHub Pro for private repos)
 - Check that the docs/ folder contains index.md
-- Verify .nojekyll file exists (prevents automatic Jekyll, enables custom config)
+- Verify .nojekyll file exists (disables Jekyll processing for plain rendering)
 - Wait 1-2 minutes after pushing changes
 
 **Build failures:**
 - Check the Actions tab for error messages
-- Ensure _config.yml syntax is valid YAML
 - Verify all markdown files have valid syntax
+- Ensure front matter is properly formatted in report files
 
 **Broken links:**
 - Use relative links (e.g., `[link](report.md)` not `[link](/docs/report.md)`)
 - Check that linked files exist in the docs/ folder
 
 **Styling issues:**
-- Verify _config.yml theme setting
+- GitHub Pages uses default GitHub markdown styling with .nojekyll
 - Check that front matter is properly formatted in report files
-- Consider adding custom CSS in assets/ directory
+- Consider removing .nojekyll to enable Jekyll themes (requires _config.yml)
