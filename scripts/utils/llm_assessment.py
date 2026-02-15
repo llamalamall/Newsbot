@@ -88,6 +88,21 @@ def _handle_rate_limit(error: Exception) -> None:
     """
     status_code = getattr(error, "status_code", None) or getattr(error, "status", None)
     if isinstance(error, RateLimitError) or status_code == 429:
+        retry_after = None
+        response = getattr(error, "response", None)
+        if response is not None:
+            retry_after = getattr(getattr(response, "headers", None), "get", lambda *_: None)("retry-after")
+        if retry_after is None:
+            retry_after = getattr(error, "headers", {}).get("retry-after")
+
+        try:
+            retry_after_value = float(retry_after) if retry_after is not None else None
+        except (TypeError, ValueError):
+            retry_after_value = None
+
+        if retry_after_value is not None and retry_after_value > 1000:
+            logging.error("Daily LLM usage has been exceeded.")
+
         logging.error("LLM request rate-limited (HTTP 429). Exiting.")
         raise SystemExit(1)
 
