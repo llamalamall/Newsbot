@@ -8,10 +8,15 @@ report path with optional results metadata.
 import argparse
 import logging
 import os
+import shutil
 import sys
 from typing import Optional
 
-from reporters.docs_publisher import publish_latest_report, publish_report_from_path
+from reporters.docs_publisher import (
+    initialize_docs_directory,
+    publish_latest_report,
+    publish_report_from_path,
+)
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -30,6 +35,7 @@ Examples:
   %(prog)s --output-dir outputs --docs-dir docs
   %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md
   %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md --results-path outputs/results_YYYYMMDD_HHMMSS.json
+    %(prog)s --latest --clean
 """,
     )
 
@@ -72,6 +78,12 @@ Examples:
     )
 
     parser.add_argument(
+        "--clean",
+        action="store_true",
+        help="remove existing docs articles and repositories, then rebuild index.md",
+    )
+
+    parser.add_argument(
         "--verbose",
         action="store_true",
         help="enable verbose logging output",
@@ -91,6 +103,31 @@ def configure_logging(verbose: bool) -> None:
     logging.basicConfig(level=log_level, format=log_format, force=True)
 
 
+def clean_docs(docs_dir: str) -> None:
+    """Remove generated docs content and rebuild the index.
+
+    Args:
+        docs_dir: Target docs directory.
+    """
+    articles_dir = os.path.join(docs_dir, "articles")
+    repositories_path = os.path.join(docs_dir, "repositories.md")
+    index_path = os.path.join(docs_dir, "index.md")
+
+    if os.path.isdir(articles_dir):
+        shutil.rmtree(articles_dir)
+        logging.info("Removed articles directory: %s", articles_dir)
+
+    if os.path.isfile(repositories_path):
+        os.remove(repositories_path)
+        logging.info("Removed repositories file: %s", repositories_path)
+
+    if os.path.isfile(index_path):
+        os.remove(index_path)
+        logging.info("Removed index file: %s", index_path)
+
+    initialize_docs_directory(docs_dir)
+
+
 def main() -> int:
     """Run the docs publishing helper.
 
@@ -99,6 +136,9 @@ def main() -> int:
     """
     args = parse_arguments()
     configure_logging(args.verbose)
+
+    if args.clean:
+        clean_docs(args.docs_dir)
 
     published_path: Optional[str]
     if args.latest:

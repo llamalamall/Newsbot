@@ -1,0 +1,338 @@
+[
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:08+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:34:53+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Sylphoraz/SharpAllowedToAct-Modify",
+    "url": "https://github.com/Sylphoraz/SharpAllowedToAct-Modify",
+    "description": "Computer object takeover through Resource-Based Constrained Delegation msDS-AllowedToActOnBehalfOfOtherIdentity",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:34:45+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "KhonneyMann/nightops-drop",
+    "url": "https://github.com/KhonneyMann/nightops-drop",
+    "description": "\ud83d\ude80 Streamline payload delivery and enhance red team operations with NightOps Drop, a next-gen platform for effective security testing.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:33:31+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:08+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "elmahdy1986/RedTiger-Tools",
+    "url": "https://github.com/elmahdy1986/RedTiger-Tools",
+    "description": "\ud83d\udee0\ufe0f Streamline your development workflow with RedTiger-Tools, a powerful suite for enhancing productivity and collaboration in coding projects.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:42:33+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "melolixodocaralho/mercury-framework",
+    "url": "https://github.com/melolixodocaralho/mercury-framework",
+    "description": "\ud83d\udee1\ufe0f Explore Mercury Framework, a safe educational tool for security researchers and pentesters, featuring modular CLI and harmless simulation components.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:40:34+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "v2lurpin/portscan-vulnerabilidades",
+    "url": "https://github.com/v2lurpin/portscan-vulnerabilidades",
+    "description": "\ud83d\udee1\ufe0f Scan networks for vulnerabilities with a powerful Python tool, featuring GUI and CLI modes for fast, efficient reconnaissance and risk assessment.",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-15T17:44:23+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "three2hot/cyber-agent",
+    "url": "https://github.com/three2hot/cyber-agent",
+    "description": "\ud83e\udd16 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient and effective security assessments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:30+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:08+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "kobepaw/goop-shield-community",
+    "url": "https://github.com/kobepaw/goop-shield-community",
+    "description": "Runtime defense for AI agents. 24 inline defenses, 3 output scanners, MCP server, framework adapters.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T17:39:51+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW",
+    "url": "https://github.com/mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW",
+    "description": "Unofficial web tool and API for accessing Kenya Power (KPLC) prepaid token purchase history. Features a Public REST API for developers.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3,
+    "updated": "2026-02-15T17:42:58+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "NebiyuSeyoum/exploring-the-true-nature-of-variable",
+    "url": "https://github.com/NebiyuSeyoum/exploring-the-true-nature-of-variable",
+    "description": "\ud83e\udde9 Explore type independence in programming variables and discover how a single container type can represent various data forms and enhance memory usage.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T16:53:36+00:00",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:08+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Suleymkr/maais-runtime",
+    "url": "https://github.com/Suleymkr/maais-runtime",
+    "description": "\ud83d\udee1\ufe0f Enforce enterprise-grade security for autonomous AI agents with MAAIS-Runtime, ensuring real-time protection for your agentic AI systems.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:41:46+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "QuantDevJay/OnChainRiskLab",
+    "url": "https://github.com/QuantDevJay/OnChainRiskLab",
+    "description": "Real-Time On-Chain Risk Signals & Algorithmic Trading Workflows for Digital Asset Traders | Multi-Timeframe \u2022 PAYG  Credit Tokens \u2022 Sub-Second Latency",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:37:56+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Nox-HQ/nox",
+    "url": "https://github.com/Nox-HQ/nox",
+    "description": "Language-agnostic security scanner with first-class AI application security. Produces SARIF, SBOM, and AI inventory artifacts.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:36:30+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "foodman1227/awesome-ai-tools",
+    "url": "https://github.com/foodman1227/awesome-ai-tools",
+    "description": "\ud83e\udd16 Explore essential AI tools for building, automating, and monetizing projects across content, video, e-commerce, and more.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T17:36:08+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Yasas9029/ai-design-engineering-cc-plugins",
+    "url": "https://github.com/Yasas9029/ai-design-engineering-cc-plugins",
+    "description": "\ud83d\udee0\ufe0f Build resilient agentic applications with AI-driven personas that guide you from concept to production in Claude Code.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T17:35:21+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Trusera/ai-bom",
+    "url": "https://github.com/Trusera/ai-bom",
+    "description": "AI Bill of Materials \u2014 discover every AI agent, model, and API in your infrastructure",
+    "source": "github",
+    "credibility": null,
+    "stars": 31,
+    "updated": "2026-02-15T17:34:47+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "yud1takata/security-ops-blueprint",
+    "url": "https://github.com/yud1takata/security-ops-blueprint",
+    "description": "\ud83d\udee1\ufe0f Develop a vendor-neutral security operations framework for identity, segmentation, telemetry, and validation, tailored for scalability and automation.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:44:14+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "three2hot/cyber-agent",
+    "url": "https://github.com/three2hot/cyber-agent",
+    "description": "\ud83e\udd16 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient and effective security assessments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:43:30+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Ajithkumar8/Dependency-Confusion-Hunter",
+    "url": "https://github.com/Ajithkumar8/Dependency-Confusion-Hunter",
+    "description": "\ud83d\udd0d Scan for dependency confusion vulnerabilities in your projects to enhance security and protect against potential threats with ease.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T17:35:38+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "TypicalShot/zenmap",
+    "url": "https://github.com/TypicalShot/zenmap",
+    "description": "\ud83d\uddc2\ufe0f Memory-map large files efficiently with this cross-platform Zig library, featuring zero-copy access and simple API for seamless data handling.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T17:32:58+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "zricethezav/h1domains",
+    "url": "https://github.com/zricethezav/h1domains",
+    "description": "HackerOne \"in scope\" domains",
+    "source": "github",
+    "credibility": null,
+    "stars": 502,
+    "updated": "2026-02-15T17:13:42+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Booz Allen Announces General Availability of Vellox Reverser to Automate Malware Defense",
+    "url": "https://www.darkreading.com/endpoint-security/booz-allen-announces-general-availability-vellox-reverser",
+    "description": "The AI-powered product delivers expert-grade malware analysis and reverse engineering in minutes.",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-12T21:23:06",
+    "feed_name": "Dark Reading",
+    "feed_category": "news",
+    "priority": "medium",
+    "keyword_matches": 2,
+    "author": "",
+    "tags": [],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.9,
+    "llm_applicability_reason": "Article explicitly describes AI-powered malware analysis and reverse engineering, relevant to automated offensive security techniques.",
+    "llm_matched_keywords": [
+      "malware analysis",
+      "reverse engineering",
+      "AI-powered",
+      "automation"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.85,
+    "llm_credibility_reason": "Published on Dark Reading, a reputable security news source; content is detailed and focused without sensationalism; no obvious bias or unverified claims.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Hand over the keys for Shannon\u2019s shenanigans",
+    "url": "https://blog.talosintelligence.com/hand-over-the-keys-for-shannons-shenanigans/",
+    "description": "In this week\u2019s newsletter, Amy examines the rise of Shannon, an autonomous AI penetration testing tool, and what it means for security teams and risk management.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-12T19:00:22",
+    "feed_name": "Cisco Talos Intelligence Blog",
+    "feed_category": "research",
+    "priority": "high",
+    "keyword_matches": 1,
+    "author": "Amy Ciminnisi",
+    "tags": [
+      "Threat Source newsletter"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.95,
+    "llm_applicability_reason": "Article explicitly discusses an autonomous AI penetration testing tool, directly relating to offensive security and AI automation.",
+    "llm_matched_keywords": [
+      "AI penetration testing",
+      "autonomous",
+      "red team",
+      "automation"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.9,
+    "llm_credibility_reason": "Published by Cisco Talos Intelligence Blog, a highly credible source; content is detailed and technical without sensationalism.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Measuring AI Security: Separating Signal from Panic",
+    "url": "https://www.rapid7.com/blog/post/tr-measuring-ai-security-mcp-exposure",
+    "description": "<p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The conversation around AI security is full of anxiety. Every week, new headlines warn of jailbreaks, prompt injection, agents gone rogue, and the rise of LLM-enabled cybercrime. It\u2019s easy to come away with the impression that AI is fundamentally uncontrollable and dangerous, and therefore something we need to lock down before it gets out of hand.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">But as a security practitioner, I wasn\u2019t convinced. Most of these warnings are based on hypothetical examples or carefully engineered demos. They raise important questions, but rarely answer the most basic one: </span><span style=\"font-size: undefined;\"><em>What does the real attack surface of today\u2019s AI systems actually look like?</em></span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">So instead of offering another opinion, I ran the numbers.</span></p><h2 style=\"direction: ltr;\">The method: Focused, real-world measurement</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">To ground the conversation in reality, I focused on MCP, the Model Context Protocol. This framework is widely used to help language models interact with tools, APIs, and external systems. It\u2019s open source, replicated across many environments, and built for practical integration. That makes it an ideal test case for understanding actual exposure.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">No adversarial prompting. No artificial exploits. Just a measurement of what real MCP servers expose. We used SDK import analysis to locate active repositories, filtered out those that wouldn\u2019t run, and examined the tool schemas to understand what each was capable of.</span></p><h2 style=\"direction: ltr;\">What the data tells us</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The MCP servers that met our criteria showed a familiar pattern. They exposed well-understood primitives used throughout modern software systems.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Observed capability classes:</strong></span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Filesystem access</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP requests</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Database queries</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Local script or process execution</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Orchestration and tool chaining</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Read-only API search</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">These are not exotic capabilities unique to AI. They\u2019re already embedded in cloud automation, infrastructure-as-code, and modern DevOps stacks. MCP simply gives them structure.</span></p><h3 style=\"direction: ltr;\"><span style=\"color: rgb(67, 67, 67);\">The frequency of high-severity risk is low</span></h3><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">One of the most unexpected findings was the rarity of arbitrary code execution. Despite warnings in the media, this turned out to be the least common capability among all operational MCP servers analyzed.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">This matters. It suggests that real-world deployments of AI tooling are not as reckless as some narratives claim. The most common issues are the ones we\u2019ve known for years: weak defaults, excessive permissions, and poor input handling. There\u2019s no mystery there (and that\u2019s encouraging).</span></p><h3 style=\"direction: ltr;\"><span style=\"color: rgb(67, 67, 67);\">Where the real risk builds: Composition</span></h3><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The problem arises when those primitives are combined. Individually, most of the MCP servers we studied were low risk. But when orchestration enters the picture, the attack surface expands.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Some real-world examples we observed:</strong></span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP fetch + filesystem write = persistence or content injection</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Database query + orchestration = stealthy exfiltration</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Filesystem write + planning = poisoned output or config hijacking</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">HTTP + planning + execution = multi-stage agent attacks</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">These combinations reflect what adversaries already do in non-AI environments. MCP just reduces friction in putting the pieces together.</span></p><h2 style=\"direction: ltr;\">A critical counterpoint: The 'best effort' reality</h2><p style=\"direction: ltr;\">The focus on constraining the model via schema and architecture is essential for '<a href=\"https://www.rapid7.com/blog/post/2024/05/15/ai-trust-risk-and-security-management-why-tackle-them-now/\"><span style=\"font-size: undefined;\">secure by design</span></a>,' yet a critical counterpoint must be considered as the industry evolves: We may not be able to stop many insecure AI applications (e.g., those built on architectures like OpenClaw or Claude Code) from shipping with insecure design choices. Similarly, the insecure design path for AI could force security teams to rely on non-deterministic, 'best effort' prompt injection defenses to prevent data exfiltration and remote code execution, rather than influencing developers toward inherently secure application design.</p><p style=\"direction: ltr;\">While the secure boundary <em>is</em> the schema, and we must influence application developers to adopt secure-by-design principles, the future suggests there will be many cases where this influence fails. This means security leaders must also prepare for a hybrid reality of championing architectural security while also building and operating robust, best effort runtime defenses to manage the fallout from the inevitable wave of insecure AI applications.</p><h2 style=\"direction: ltr;\">A shift in where security happens</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">As we embed AI deeper into operational systems, the control points change. Historically, we validated inputs at the UI layer, enforced roles through IAM, and wrapped logic in application code.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">With AI agents, those controls now live in:</span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The orchestration layer</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Tool composition workflows</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Schema contracts</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Execution sandboxes</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Security needs to follow the shift. That means auditing tool chains, setting strict schema policies, isolating execution contexts, and applying existing practices like </span><a href=\"https://www.rapid7.com/fundamentals/what-is-least-privilege-access-lpa/\"><span style=\"font-size: undefined;\">least privilege</span></a><span style=\"font-size: undefined;\"> and defense in depth to this new architecture.</span></p><h2 style=\"direction: ltr;\">What security teams should do now</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Security and architecture leaders can start applying pressure in the right places today:</span></p><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Map AI tooling to known primitives</strong></span><br /><span style=\"font-size: undefined;\">Don\u2019t treat these systems as unknowns. Most expose capabilities like file handling, HTTP fetches, or basic shell commands - all of which are familiar territory for teams leveraging</span><a href=\"https://www.rapid7.com/fundamentals/what-is-threat-intelligence/\"><span style=\"font-size: undefined;\"> threat intelligence</span></a><span style=\"font-size: undefined;\"> effectively.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Assess schema design before worrying about prompts</strong></span><br /><span style=\"font-size: undefined;\">The schema defines what tools the AI can call and how. Poorly scoped parameters, such as unbounded URLs or file paths, are far more dangerous than clever prompts.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Limit orchestration where possible</strong></span><br /><span style=\"font-size: undefined;\">Composability increases risk. If orchestration is required, monitor it like critical automation infrastructure.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Audit your environment for capability sprawl</strong></span><br /><span style=\"font-size: undefined;\">Look for AI-connected services that may expose multiple sensitive capabilities together. Risk scales when these tools are combined.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\"><strong>Apply existing enterprise controls</strong></span><br /><span style=\"font-size: undefined;\">Network segmentation, credential scoping, logging, and behavioral detections still work. Least privilege access is especially relevant in AI-integrated environments where tool chaining can escalate access unintentionally. AI requires adaptation, not reinvention.</span></p></li></ul><h2 style=\"direction: ltr;\">Understanding the risk of AI without the hype</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">This blog condenses findings from my recent research, where I set out to answer a straightforward question: what are AI systems actually exposing in the real world today? Instead of relying on hypotheticals or fear-driven narratives, I looked at real, runnable Model Context Protocol (MCP) servers and measured their exposed capabilities and architectural design.</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">If you're looking for the technical deep dive, including methodology, data sets, and schema-level breakdowns, you can read the original research published on </span><a href=\"https://hackernoon.com/everyone-says-ai-is-insecure-so-i-measured-it\"><span style=\"font-size: undefined;\">HackerNoon</span></a><span style=\"font-size: undefined;\">. You can also explore more of our ongoing threat analysis and security research on the</span><a href=\"https://www.rapid7.com/research/\"><span style=\"font-size: undefined;\"> Rapid7 Research Hub.</span></a></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">The bottom line: AI introduces complexity and scale, but the fundamental security principles remain the same. The real challenge is whether security teams can adapt traditional controls to new environments and influence developers toward inherently secure application design, rather than being forced to rely on non-deterministic, 'best effort' defenses like prompt injection mitigation.</span></p>",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-10T18:00:00",
+    "feed_name": "Rapid7 Blog",
+    "feed_category": "research",
+    "priority": "medium",
+    "keyword_matches": 1,
+    "author": "Christiaan Beek",
+    "tags": [
+      "Artificial Intelligence",
+      "Research"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.85,
+    "llm_applicability_reason": "Article analyzes AI security risks with focus on AI tooling, orchestration, and automation in security contexts, relevant to AI automation in security.",
+    "llm_matched_keywords": [
+      "AI security",
+      "automation",
+      "orchestration",
+      "threat intelligence"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.85,
+    "llm_credibility_reason": "Published by Rapid7 Blog, a reputable security research source; content is thorough, data-driven, and cites original research.",
+    "llm_credibility_flags": []
+  }
+]
