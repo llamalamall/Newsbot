@@ -9,3 +9,4 @@ pytest>=7.4.0  # Testing framework
 pytest-mock>=3.11.1  # Mocking support for pytest
 regex>=2026.1.15  # Advanced regular expressions
 prompt-engine-py>=0.0.2  # Prompt management for LLMs
+PyYAML>=6.0.1  # prompt_engine dependency for YAML parsing
