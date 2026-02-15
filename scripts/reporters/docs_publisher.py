@@ -532,7 +532,9 @@ def publish_rss_article_pages(
                 "path": article_path,
                 "title": article.get("title", "Untitled Article"),
                 "url": article.get("url", ""),
-                "published": article.get("published")
+                "published": article.get("published"),
+                "llm_applicability_score": article.get("llm_applicability_score", 0),
+                "llm_credibility_score": article.get("llm_credibility_score", 0)
             })
             logging.info(f"Published article page: {article_filename}")
         except IOError as e:
@@ -646,17 +648,37 @@ Browse all discovered GitHub repositories in a searchable table format.
                 elif line.strip().startswith('###') or line.strip().startswith('-'):
                     entries.append(line)
             
-            # Create new entry for this batch
+            # Create new entry for this batch with table format
             new_entry = f"### {date_only}\n\n"
             new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
             
-            # Add links to individual articles
+            # Add table header
+            new_entry += "| Source | Applicability | Credibility | Title |\n"
+            new_entry += "|--------|--------------|-------------|-------|\n"
+            
+            # Add table rows for individual articles
             for entry in sort_articles_by_published(article_entries):
                 article_file = entry.get("filename", "")
                 if not article_file:
                     continue
-                link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                new_entry += f"- [{link_title}](articles/{article_file})\n"
+                
+                # Extract domain from URL
+                url = entry.get("url", "")
+                domain = urlparse(url).netloc if url else "unknown"
+                
+                # Get scores
+                applicability = entry.get("llm_applicability_score", 0)
+                credibility = entry.get("llm_credibility_score", 0)
+                
+                # Get full title (no truncation)
+                title = entry.get("title", "Untitled Article")
+                # Escape pipe characters in title for table formatting
+                title = title.replace('|', '\\|')
+                
+                # Create title link
+                title_link = f"[{title}](articles/{article_file})"
+                
+                new_entry += f"| {domain} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
             new_entry += "\n"
             
             # Combine with existing entries
@@ -674,12 +696,34 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
+                
+                # Add table header
+                new_section += "| Source | Applicability | Credibility | Title |\n"
+                new_section += "|--------|--------------|-------------|-------|\n"
+                
+                # Add table rows for individual articles
                 for entry in sort_articles_by_published(article_entries):
                     article_file = entry.get("filename", "")
                     if not article_file:
                         continue
-                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                    new_section += f"- [{link_title}](articles/{article_file})\n"
+                    
+                    # Extract domain from URL
+                    url = entry.get("url", "")
+                    domain = urlparse(url).netloc if url else "unknown"
+                    
+                    # Get scores
+                    applicability = entry.get("llm_applicability_score", 0)
+                    credibility = entry.get("llm_credibility_score", 0)
+                    
+                    # Get full title (no truncation)
+                    title = entry.get("title", "Untitled Article")
+                    # Escape pipe characters in title for table formatting
+                    title = title.replace('|', '\\|')
+                    
+                    # Create title link
+                    title_link = f"[{title}](articles/{article_file})"
+                    
+                    new_section += f"| {domain} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
                 new_section += "\n"
                 
                 index_content = main_content + new_section + footer
@@ -688,12 +732,34 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "\n## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
+                
+                # Add table header
+                new_section += "| Source | Applicability | Credibility | Title |\n"
+                new_section += "|--------|--------------|-------------|-------|\n"
+                
+                # Add table rows for individual articles
                 for entry in sort_articles_by_published(article_entries):
                     article_file = entry.get("filename", "")
                     if not article_file:
                         continue
-                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                    new_section += f"- [{link_title}](articles/{article_file})\n"
+                    
+                    # Extract domain from URL
+                    url = entry.get("url", "")
+                    domain = urlparse(url).netloc if url else "unknown"
+                    
+                    # Get scores
+                    applicability = entry.get("llm_applicability_score", 0)
+                    credibility = entry.get("llm_credibility_score", 0)
+                    
+                    # Get full title (no truncation)
+                    title = entry.get("title", "Untitled Article")
+                    # Escape pipe characters in title for table formatting
+                    title = title.replace('|', '\\|')
+                    
+                    # Create title link
+                    title_link = f"[{title}](articles/{article_file})"
+                    
+                    new_section += f"| {domain} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
                 index_content += new_section
     
     # Ensure footer exists

@@ -475,13 +475,27 @@ class TestStructuredPublishing:
             # Create initial index
             index_path = os.path.join(docs_dir, "index.md")
             
-            article_files = [
-                "article_20260215_120000_001.md",
-                "article_20260215_120000_002.md"
+            article_entries = [
+                {
+                    "filename": "article_20260215_120000_001.md",
+                    "title": "Test Article 1",
+                    "url": "https://example.com/article1",
+                    "published": "2026-02-15T10:00:00Z",
+                    "llm_applicability_score": 0.85,
+                    "llm_credibility_score": 0.75
+                },
+                {
+                    "filename": "article_20260215_120000_002.md",
+                    "title": "Test Article 2",
+                    "url": "https://test.org/article2",
+                    "published": "2026-02-15T09:00:00Z",
+                    "llm_applicability_score": 0.90,
+                    "llm_credibility_score": 0.80
+                }
             ]
             
             update_index_with_structured_content(
-                docs_dir, "20260215_120000", 5, 2, article_files
+                docs_dir, "20260215_120000", 5, 2, article_entries
             )
             
             assert os.path.exists(index_path)
@@ -496,8 +510,20 @@ class TestStructuredPublishing:
             assert "## Latest Articles" in content
             assert "February 15, 2026" in content
             assert "2 articles published" in content
-            assert "[Article 1](articles/article_20260215_120000_001.md)" in content
-            assert "[Article 2](articles/article_20260215_120000_002.md)" in content
+            
+            # Check for table format
+            assert "| Source | Applicability | Credibility | Title |" in content
+            assert "|--------|--------------|-------------|-------|" in content
+            
+            # Check for article entries in table
+            assert "example.com" in content
+            assert "test.org" in content
+            assert "0.85" in content
+            assert "0.90" in content
+            assert "0.75" in content
+            assert "0.80" in content
+            assert "[Test Article 1](articles/article_20260215_120000_001.md)" in content
+            assert "[Test Article 2](articles/article_20260215_120000_002.md)" in content
     
     def test_publish_structured_docs(self):
         """Test complete structured documentation publishing."""
