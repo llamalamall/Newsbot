@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Helper script to publish Newsbot reports to docs.
+"""Helper script to publish Newsbot reports to docs using structured publishing.
 
-Supports publishing the latest report from an outputs directory or a specific
-report path with optional results metadata.
+Publishes reports using the structured documentation format with separate
+repositories and articles pages.
 """
 
 import argparse
+import json
 import logging
 import os
 import shutil
@@ -14,8 +15,7 @@ from typing import Optional
 
 from reporters.docs_publisher import (
     initialize_docs_directory,
-    publish_latest_report,
-    publish_report_from_path,
+    publish_structured_docs,
 )
 
 
@@ -27,15 +27,14 @@ def parse_arguments() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(
         prog="publish_docs",
-        description="Publish Newsbot reports to the docs/ directory.",
+        description="Publish Newsbot reports to docs/ using structured format.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   %(prog)s --latest
   %(prog)s --output-dir outputs --docs-dir docs
-  %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md
-  %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md --results-path outputs/results_YYYYMMDD_HHMMSS.json
-    %(prog)s --latest --clean
+  %(prog)s --results-path outputs/results_YYYYMMDD_HHMMSS.json
+  %(prog)s --latest --clean
 """,
     )
 
@@ -43,24 +42,17 @@ Examples:
     mode_group.add_argument(
         "--latest",
         action="store_true",
-        help="publish the latest report from the output directory",
+        help="publish the latest results from the output directory",
     )
     mode_group.add_argument(
         "--all",
         action="store_true",
-        help="publish all reports from the output directory",
+        help="publish all results from the output directory",
     )
     mode_group.add_argument(
-        "--report-path",
-        type=str,
-        help="publish a specific report markdown file",
-    )
-
-    parser.add_argument(
         "--results-path",
         type=str,
-        default=None,
-        help="optional results JSON file for result count",
+        help="publish a specific results JSON file",
     )
 
     parser.add_argument(
@@ -128,6 +120,77 @@ def clean_docs(docs_dir: str) -> None:
     initialize_docs_directory(docs_dir)
 
 
+def publish_results_file(results_path: str, docs_dir: str) -> Optional[str]:
+    """Publish a results JSON file using structured publishing.
+
+    Args:
+        results_path: Path to the results JSON file
+        docs_dir: Target docs directory
+
+    Returns:
+        Path to the published index file, or None if publishing failed
+    """
+    if not os.path.exists(results_path):
+        logging.error("Results file not found: %s", results_path)
+        return None
+
+    # Extract timestamp from filename
+    filename = os.path.basename(results_path)
+    timestamp = filename.replace("results_", "").replace(".json", "")
+
+    try:
+        with open(results_path, 'r') as f:
+            results = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        logging.error("Could not read results JSON: %s", e)
+        return None
+
+    if not isinstance(results, list):
+        logging.error("Results JSON is not a list")
+        return None
+
+    initialize_docs_directory(docs_dir)
+    published_files = publish_structured_docs(results, timestamp, docs_dir)
+    
+    logging.info("Published %d repositories", len([r for r in results if r.get("source") == "github"]))
+    logging.info("Published %d articles", len([r for r in results if r.get("source") == "rss"]))
+    
+    return published_files.get("index")
+
+
+def find_latest_results(output_dir: str) -> Optional[str]:
+    """Find the most recent results JSON file in the output directory.
+
+    Args:
+        output_dir: Directory containing output files
+
+    Returns:
+        Path to the latest results file, or None if not found
+    """
+    if not os.path.exists(output_dir):
+        logging.error("Output directory not found: %s", output_dir)
+        return None
+
+    # Find all results files
+    results_files = []
+    for filename in os.listdir(output_dir):
+        if filename.startswith("results_") and filename.endswith(".json"):
+            timestamp = filename.replace("results_", "").replace(".json", "")
+            results_files.append({
+                "filename": filename,
+                "timestamp": timestamp,
+                "path": os.path.join(output_dir, filename)
+            })
+
+    if not results_files:
+        logging.error("No results files found in: %s", output_dir)
+        return None
+
+    # Sort by timestamp and get the latest
+    results_files.sort(key=lambda x: x["timestamp"], reverse=True)
+    return results_files[0]["path"]
+
+
 def main() -> int:
     """Run the docs publishing helper.
 
@@ -140,46 +203,46 @@ def main() -> int:
     if args.clean:
         clean_docs(args.docs_dir)
 
-    published_path: Optional[str]
+    published_path: Optional[str] = None
+    
     if args.latest:
-        published_path = publish_latest_report(args.output_dir, args.docs_dir)
+        # Find and publish latest results
+        latest_results = find_latest_results(args.output_dir)
+        if not latest_results:
+            return 1
+        published_path = publish_results_file(latest_results, args.docs_dir)
+        
     elif args.all:
-        published_path = None
+        # Publish all results files
         if not os.path.exists(args.output_dir):
             logging.error("Output directory not found: %s", args.output_dir)
             return 1
 
-        report_files = []
+        results_files = []
         for filename in os.listdir(args.output_dir):
-            if filename.startswith("report_") and filename.endswith(".md"):
-                report_files.append(os.path.join(args.output_dir, filename))
+            if filename.startswith("results_") and filename.endswith(".json"):
+                results_files.append(os.path.join(args.output_dir, filename))
 
-        if not report_files:
-            logging.error("No report files found in: %s", args.output_dir)
+        if not results_files:
+            logging.error("No results files found in: %s", args.output_dir)
             return 1
 
-        report_files.sort()
-        for report_path in report_files:
-            published_path = publish_report_from_path(
-                report_path,
-                docs_dir=args.docs_dir,
-                results_path=None,
-            )
+        results_files.sort()
+        for results_path in results_files:
+            published_path = publish_results_file(results_path, args.docs_dir)
             if not published_path:
-                logging.error("Failed to publish report: %s", report_path)
+                logging.error("Failed to publish results: %s", results_path)
                 return 1
+                
     else:
-        published_path = publish_report_from_path(
-            args.report_path,
-            docs_dir=args.docs_dir,
-            results_path=args.results_path,
-        )
+        # Publish specific results file
+        published_path = publish_results_file(args.results_path, args.docs_dir)
 
     if not published_path:
-        logging.error("No report was published.")
+        logging.error("No results were published.")
         return 1
 
-    logging.info("Published docs report: %s", published_path)
+    logging.info("Published docs index: %s", published_path)
     return 0
 
 

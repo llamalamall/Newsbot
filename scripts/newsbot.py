@@ -28,7 +28,7 @@ try:
     from .searchers.github_search import search_github_repos
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
-    from .reporters.docs_publisher import publish_report_to_docs, initialize_docs_directory, publish_structured_docs
+    from .reporters.docs_publisher import initialize_docs_directory, publish_structured_docs
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -42,7 +42,7 @@ except ImportError:
     from searchers.github_search import search_github_repos
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
-    from reporters.docs_publisher import publish_report_to_docs, initialize_docs_directory, publish_structured_docs
+    from reporters.docs_publisher import initialize_docs_directory, publish_structured_docs
 
 __all__ = ['NewsBot', 'main', 'parse_arguments']
 
@@ -426,7 +426,7 @@ def main():
             # Extract timestamp from markdown filename
             timestamp = os.path.basename(markdown_path).replace("report_", "").replace(".md", "")
             
-            # Use new structured publishing
+            # Use structured publishing
             published_files = publish_structured_docs(results, timestamp, args.docs_dir)
             
             if not args.quiet:
@@ -435,10 +435,6 @@ def main():
                 if published_files.get("articles"):
                     print(f"✓ Published {len(published_files['articles'])} article page(s)")
                 print(f"✓ Updated index at: {published_files['index']}")
-                
-                # Also publish the traditional full report for backward compatibility
-                publish_report_to_docs(markdown_path, args.docs_dir, len(results))
-                print(f"✓ Published full report: {os.path.join(args.docs_dir, os.path.basename(markdown_path))}")
         except Exception as e:
             logging.error(f"Failed to publish to docs: {e}")
             if args.verbose:
