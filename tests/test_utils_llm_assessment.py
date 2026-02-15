@@ -237,6 +237,109 @@ class TestAssessArticleApplicability:
         # Content should be truncated
         assert long_content[:3000] in user_message
         assert len(user_message) < len(long_content) + 1000  # Much shorter than original
+    
+    def test_applicability_prompt_requires_ai_automation_fuzzing(self):
+        """Test that the prompt explicitly requires AI/automation/fuzzing evidence."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        json_response = {
+            "applicable": True,
+            "score": 0.8,
+            "reason": "Test reason",
+            "matched_keywords": ["AI"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_article_applicability(
+            openai_client=mock_client,
+            title="Test Article",
+            description="Test description",
+            keywords=["offensive security", "AI", "automation"],
+            model=LLM_MODEL
+        )
+        
+        # Verify the API was called
+        call_args = mock_client.chat.completions.create.call_args
+        user_message = call_args[1]['messages'][1]['content']
+        
+        # Verify the prompt contains instructions about requiring both offensive security
+        # AND AI/automation/fuzzing
+        assert "offensive security" in user_message.lower() or "keywords" in user_message.lower()
+        # Verify the prompt mentions needing explicit evidence of AI/automation/fuzzing
+        assert ("ai" in user_message.lower() or "automation" in user_message.lower() or 
+                "machine learning" in user_message.lower())
+        # Verify the prompt is selective
+        assert "selective" in user_message.lower() or "explicit" in user_message.lower()
+    
+    def test_applicability_rejects_offensive_security_only(self):
+        """Test that articles with only offensive security keywords are rejected."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Simulate LLM correctly rejecting article without AI/automation/fuzzing
+        json_response = {
+            "applicable": False,
+            "score": 0.3,
+            "reason": "Article discusses offensive security but lacks explicit AI/automation/fuzzing usage",
+            "matched_keywords": ["offensive security"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_article_applicability(
+            openai_client=mock_client,
+            title="Manual Penetration Testing Techniques",
+            description="Traditional manual penetration testing methodologies without AI",
+            keywords=["offensive security", "penetration testing", "AI", "automation"],
+            model=LLM_MODEL
+        )
+        
+        # Article should be marked as not applicable
+        assert result["applicable"] is False
+        assert result["score"] < 0.5
+    
+    def test_applicability_accepts_offensive_security_with_ai_automation(self):
+        """Test that articles with both offensive security AND AI/automation/fuzzing are accepted."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Simulate LLM correctly accepting article with both requirements
+        json_response = {
+            "applicable": True,
+            "score": 0.9,
+            "reason": "Article discusses offensive security with explicit AI automation usage",
+            "matched_keywords": ["offensive security", "AI", "automation"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_article_applicability(
+            openai_client=mock_client,
+            title="AI-Powered Penetration Testing Framework",
+            description="New framework using machine learning to automate vulnerability detection",
+            keywords=["offensive security", "penetration testing", "AI", "automation"],
+            content="This framework leverages artificial intelligence to automatically identify and exploit vulnerabilities...",
+            model=LLM_MODEL
+        )
+        
+        # Article should be marked as applicable
+        assert result["applicable"] is True
+        assert result["score"] > 0.7
+        assert "AI" in result["matched_keywords"] or "automation" in result["matched_keywords"]
 
 
 class TestAssessArticleCredibility:
@@ -890,3 +993,80 @@ class TestBatchAssessment:
         assert len(results) == 2
         for result in results:
             assert result["applicable"] is True
+    
+    def test_batch_assessment_prompt_requires_ai_automation_fuzzing(self):
+        """Test that batch assessment prompt requires AI/automation/fuzzing evidence."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Create batch response
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.85,
+                "applicability_reason": "AI-powered security tool",
+                "matched_keywords": ["AI", "offensive security"],
+                "credible": True,
+                "credibility_score": 0.8,
+                "credibility_reason": "Well-sourced",
+                "flags": []
+            },
+            {
+                "applicable": False,
+                "applicability_score": 0.25,
+                "applicability_reason": "Offensive security but no AI/automation/fuzzing",
+                "matched_keywords": ["offensive security"],
+                "credible": True,
+                "credibility_score": 0.7,
+                "credibility_reason": "Good source",
+                "flags": []
+            }
+        ]
+        
+        mock_message.content = json.dumps(batch_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        articles = [
+            {
+                "title": "AI-Powered Pentesting",
+                "description": "Tool using machine learning for automated vulnerability scanning",
+                "url": "http://example.com/1",
+                "source_name": "Security Blog",
+                "domain_credibility": "high"
+            },
+            {
+                "title": "Manual Pentesting Guide", 
+                "description": "Traditional manual techniques for security testing",
+                "url": "http://example.com/2",
+                "source_name": "Security Blog",
+                "domain_credibility": "high"
+            }
+        ]
+        
+        results = assess_articles_batch(
+            openai_client=mock_client,
+            articles=articles,
+            keywords=["offensive security", "AI", "automation"],
+            model=LLM_MODEL
+        )
+        
+        # Verify the API was called
+        call_args = mock_client.chat.completions.create.call_args
+        user_message = call_args[1]['messages'][1]['content']
+        
+        # Verify the prompt contains instructions about requiring both offensive security
+        # AND AI/automation/fuzzing
+        assert "applicability" in user_message.lower()
+        assert ("ai" in user_message.lower() or "automation" in user_message.lower() or 
+                "machine learning" in user_message.lower())
+        # Verify the prompt is selective
+        assert "selective" in user_message.lower() or "explicit" in user_message.lower()
+        
+        # First article has both requirements - should be applicable
+        assert results[0]["applicable"] is True
+        # Second article has only offensive security - should not be applicable
+        assert results[1]["applicable"] is False

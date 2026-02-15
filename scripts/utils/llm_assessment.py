@@ -1,6 +1,21 @@
 """
 LLM-based article assessment utilities.
 Provides functionality to assess article applicability and credibility using GitHub Models LLM.
+
+APPLICABILITY ASSESSMENT LOGIC:
+Articles must satisfy BOTH requirements to be considered applicable:
+1. Contains keywords related to offensive security (penetration testing, red team, 
+   vulnerability research, exploit development, malware analysis, etc.)
+2. Explicitly describes the USE of AI, automation, or fuzzing within the article content
+
+This dual requirement ensures that:
+- Articles about traditional/manual security techniques (without AI/automation) are rejected
+- Articles about AI/automation in non-security contexts are rejected
+- Only articles that combine offensive security with AI/automation/fuzzing are surfaced
+
+The prompts enforce this by instructing the LLM to be "highly selective" and only mark
+articles as applicable when there is "explicit textual evidence" of AI/automation/fuzzing
+being used for offensive security purposes.
 """
 
 import logging
@@ -64,7 +79,11 @@ def assess_article_applicability(
     """Assess whether an article is applicable/relevant using LLM.
     
     Uses the provided keywords to determine if the article matches the
-    project's focus areas (AI/automation in offensive security).
+    project's focus areas (AI/automation/fuzzing in offensive security).
+    
+    Articles must meet BOTH criteria to be considered applicable:
+    1. Contain keywords related to offensive security
+    2. Explicitly describe the USE of AI, automation, or fuzzing
     
     Args:
         openai_client: OpenAI client configured for GitHub Models
@@ -118,15 +137,25 @@ Respond ONLY with a valid JSON object in this exact format:
   "matched_keywords": ["keyword1", "keyword2"]
 }}
 
-Consider the article applicable if it relates to:
+**CRITICAL REQUIREMENTS - Article must meet BOTH criteria:**
+1. Contains keywords related to offensive security (penetration testing, red team, vulnerability, exploit, etc.)
+2. Explicitly describes the USE of AI, automation, or fuzzing within the article's content
+
+Consider the article applicable ONLY if it relates to:
 - AI/ML in security testing or offensive operations
-- Automation of penetration testing or red team activities
+- Automation of penetration testing or red team activities  
 - Machine learning for vulnerability detection or exploit development
 - Automated malware analysis or reverse engineering
+- Fuzzing techniques (automated or AI-powered)
 - Security tools using AI/automation
 - Research on adversarial AI or security
 
-Be selective - only mark as applicable if there's a clear, strong connection to the specified topics."""
+**REJECT articles that:**
+- Only mention offensive security without describing AI/automation/fuzzing usage
+- Only mention AI/automation without offensive security context
+- Discuss manual security techniques without automation
+
+Be highly selective - only mark as applicable if there's explicit textual evidence of AI/automation/fuzzing being used for offensive security purposes."""
 
         logging.debug(
             "Running LLM applicability assessment",
@@ -465,6 +494,10 @@ def assess_articles_batch(
     This function processes multiple articles together in a single LLM call when they
     fit within the context window. This is more efficient than individual calls.
     
+    Articles must meet BOTH criteria to be considered applicable:
+    1. Contain keywords related to offensive security
+    2. Explicitly describe the USE of AI, automation, or fuzzing
+    
     Args:
         openai_client: OpenAI client configured for GitHub Models
         articles: List of article dictionaries with keys:
@@ -611,11 +644,25 @@ Domain Credibility: {domain_credibility}"""
         prompt = f"""You are an expert security researcher analyzing articles for relevance and credibility.
 
 Evaluate each of the following {len(articles)} articles for:
+
 1. **Applicability**: Is it relevant to these topics: {keywords_str}
-   - Consider relevance to AI/ML in security testing or offensive operations
+   
+   **CRITICAL REQUIREMENTS - Article must meet BOTH criteria:**
+   - Contains keywords related to offensive security (penetration testing, red team, vulnerability, exploit, etc.)
+   - Explicitly describes the USE of AI, automation, or fuzzing within the article's content
+   
+   Consider relevance ONLY to:
+   - AI/ML in security testing or offensive operations
    - Automation of penetration testing or red team activities
    - Machine learning for vulnerability detection or exploit development
+   - Automated malware analysis or reverse engineering
+   - Fuzzing techniques (automated or AI-powered)
    - Security tools using AI/automation
+   
+   **REJECT articles that:**
+   - Only mention offensive security without describing AI/automation/fuzzing usage
+   - Only mention AI/automation without offensive security context
+   - Discuss manual security techniques without automation
    
 2. **Credibility**: Is the content trustworthy and high-quality?
    - Check for clickbait or sensationalized titles
@@ -642,7 +689,7 @@ Respond ONLY with a valid JSON array containing exactly {len(articles)} objects 
   ...
 ]
 
-Be selective with applicability - only mark as applicable if there's a clear, strong connection.
+Be highly selective with applicability - only mark as applicable if there's explicit textual evidence of AI/automation/fuzzing being used for offensive security.
 For credibility, common flags: "clickbait_title", "low_quality_content", "no_sources", "potential_bias", "unverified_claims"."""
 
         logging.debug(
