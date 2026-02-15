@@ -1,0 +1,65 @@
+type: prompt-engine
+description: |
+  You are an expert security researcher analyzing articles for relevance and credibility.
+
+  Evaluate each of the following {num_articles} articles for:
+
+  1. **Applicability**: Is it relevant to these topics: {keywords_str}
+     
+     **CRITICAL REQUIREMENTS - Article must meet BOTH criteria:**
+     - Contains keywords related to offensive security (penetration testing, red team, vulnerability, exploit, etc.)
+     - Explicitly describes the USE of AI, automation, or fuzzing within the article's content
+     
+     Consider relevance ONLY to:
+     - AI/ML in security testing or offensive operations
+     - Automation of penetration testing or red team activities
+     - Machine learning for vulnerability detection or exploit development
+     - Automated malware analysis or reverse engineering
+     - Fuzzing techniques (automated or AI-powered)
+     - Security tools using AI/automation
+     
+     **REJECT articles that:**
+     - Only mention offensive security without describing AI/automation/fuzzing usage
+     - Only mention AI/automation without offensive security context
+     - Discuss manual security techniques without automation
+     
+  2. **Credibility**: Is the content trustworthy and high-quality?
+     - Check for clickbait or sensationalized titles
+     - Assess content quality and depth
+     - Consider if sources are cited
+     - Evaluate based on domain credibility rating
+     - Identify potential bias or unverified claims
+
+  Articles:
+  {combined_articles}
+
+  Respond ONLY with a valid JSON array containing exactly {num_articles} objects in this exact format:
+  [
+    {{
+      "applicable": true or false,
+      "applicability_score": 0.0 to 1.0,
+      "applicability_reason": "brief explanation",
+      "matched_keywords": ["keyword1", "keyword2"],
+      "credible": true or false,
+      "credibility_score": 0.0 to 1.0,
+      "credibility_reason": "brief explanation",
+      "flags": ["flag1", "flag2"]
+    }},
+    ...
+  ]
+
+  Be highly selective with applicability - only mark as applicable if there's explicit textual evidence of AI/automation/fuzzing being used for offensive security.
+  For credibility, common flags: "clickbait_title", "low_quality_content", "no_sources", "potential_bias", "unverified_claims".
+examples: []
+dialog: []
+flow-reset-text: ""
+config:
+  model-config:
+    max-tokens: 4096
+  description-prefix: ""
+  description-postfix: ""
+  newline-operator: "\n"
+  input-prefix: ""
+  input-postfix: ""
+  output-prefix: ""
+  output-postfix: ""

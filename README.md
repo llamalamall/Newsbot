@@ -431,16 +431,16 @@ Newsbot/
 │   ├── searchers/               # Search provider modules
 │   └── utils/
 │       └── llm_assessment.py    # LLM prompt handling
-├── prompts/                     # LLM prompts (GitHub Models best practices)
+├── prompts/                     # LLM prompts (prompt-engine-py)
 │   ├── README.md                # Prompt documentation
-│   ├── assess_article_applicability.txt
-│   ├── assess_article_applicability_system.txt
-│   ├── assess_article_credibility.txt
-│   ├── assess_article_credibility_system.txt
-│   ├── filter_titles_by_relevance.txt
-│   ├── filter_titles_by_relevance_system.txt
-│   ├── assess_batch_internal.txt
-│   └── assess_batch_internal_system.txt
+│   ├── assess_article_applicability.yaml
+│   ├── assess_article_applicability_system.yaml
+│   ├── assess_article_credibility.yaml
+│   ├── assess_article_credibility_system.yaml
+│   ├── filter_titles_by_relevance.yaml
+│   ├── filter_titles_by_relevance_system.yaml
+│   ├── assess_batch_internal.yaml
+│   └── assess_batch_internal_system.yaml
 ├── tests/                       # Test suite
 │   ├── test_newsbot.py          # Newsbot functionality tests
 │   ├── test_rss_manager.py      # RSS manager tests
@@ -458,8 +458,9 @@ Newsbot/
 
 - **newsbot.py**: Main application that orchestrates GitHub searches and RSS feed aggregation
 - **searchers/**: Search providers for GitHub and RSS feeds
-- **prompts/**: LLM prompts stored as separate files following [GitHub Models best practices](https://docs.github.com/en/github-models/use-github-models/storing-prompts-in-github-repositories)
-  - All LLM prompts are extracted from source code into dedicated files
+- **prompts/**: LLM prompts managed by [prompt-engine-py](https://github.com/microsoft/prompt-engine-py), following [GitHub Models best practices](https://docs.github.com/en/github-models/use-github-models/storing-prompts-in-github-repositories)
+  - All LLM prompts are extracted from source code into YAML files
+  - Uses Microsoft's `prompt-engine-py` package for prompt management
   - Each prompt has a clear, descriptive filename
   - System and user prompts are stored separately
   - Version controlled for tracking changes over time

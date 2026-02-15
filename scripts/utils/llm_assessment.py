@@ -23,6 +23,7 @@ import json
 import os
 from typing import Dict, Any, Optional, List
 from openai import OpenAI, RateLimitError
+from prompt_engine.prompt_engine import PromptEngine
 
 
 _LLM_CALL_COUNT = 0
@@ -30,37 +31,42 @@ _LLM_CALL_COUNT = 0
 # Path to prompts directory
 _PROMPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "prompts")
 
-# Cache for loaded prompts
-_PROMPT_CACHE = {}
+# Cache for loaded prompt engines
+_PROMPT_ENGINE_CACHE = {}
 
 
 def _load_prompt(prompt_name: str) -> str:
-    """Load a prompt from the prompts directory.
+    """Load a prompt from the prompts directory using prompt-engine-py.
     
-    Prompts are cached after first load for performance.
+    Prompt engines are cached after first load for performance.
     
     Args:
-        prompt_name: Name of the prompt file (without .txt extension)
+        prompt_name: Name of the prompt file (without .yaml extension)
         
     Returns:
-        The prompt text content
+        The prompt description text content
         
     Raises:
         FileNotFoundError: If the prompt file doesn't exist
     """
-    if prompt_name in _PROMPT_CACHE:
-        return _PROMPT_CACHE[prompt_name]
+    if prompt_name in _PROMPT_ENGINE_CACHE:
+        return _PROMPT_ENGINE_CACHE[prompt_name].description
     
-    prompt_path = os.path.join(_PROMPTS_DIR, f"{prompt_name}.txt")
+    prompt_path = os.path.join(_PROMPTS_DIR, f"{prompt_name}.yaml")
     
     if not os.path.exists(prompt_path):
         raise FileNotFoundError(f"Prompt file not found: {prompt_path}")
     
+    # Load the YAML configuration
     with open(prompt_path, 'r', encoding='utf-8') as f:
-        prompt_text = f.read()
+        yaml_content = f.read()
     
-    _PROMPT_CACHE[prompt_name] = prompt_text
-    return prompt_text
+    # Create and initialize the prompt engine
+    engine = PromptEngine()
+    engine.load_yaml(yaml_content)
+    
+    _PROMPT_ENGINE_CACHE[prompt_name] = engine
+    return engine.description
 
 # Batch processing token budget constants
 # These values help ensure batch requests fit within model context windows
