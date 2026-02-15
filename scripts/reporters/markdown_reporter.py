@@ -191,6 +191,132 @@ def generate_report(results: List[Dict[str, Any]], output_path: str = None) -> s
     return report
 
 
+def generate_repositories_page(github_items: List[Dict[str, Any]]) -> str:
+    """Generate a markdown page with GitHub repositories in table format.
+    
+    Args:
+        github_items: List of GitHub repository items
+        
+    Returns:
+        Markdown page content as string
+    """
+    if not github_items:
+        return "# GitHub Repositories\n\n*No repositories found.*\n"
+    
+    page = "# GitHub Repositories\n\n"
+    page += f"*{len(github_items)} repositories found*\n\n"
+    
+    # Create markdown table
+    page += "| Repository | Description | Stars | Last Updated | Topics |\n"
+    page += "|------------|-------------|-------|--------------|--------|\n"
+    
+    # Sort by stars (descending)
+    github_items.sort(key=lambda x: x.get("stars", 0), reverse=True)
+    
+    for item in github_items:
+        repo_name = item.get('title', 'N/A')
+        repo_url = item.get('url', '#')
+        repo_link = f"[{repo_name}]({repo_url})"
+        
+        description = item.get('description', 'N/A')
+        # Truncate long descriptions for table
+        if len(description) > 100:
+            description = description[:100] + "..."
+        # Escape pipe characters in description
+        description = description.replace('|', '\\|')
+        
+        stars = item.get('stars', 'N/A')
+        updated = item.get('updated', 'N/A')
+        # Format updated date if it's a datetime string
+        if isinstance(updated, str) and 'T' in updated:
+            try:
+                dt = datetime.fromisoformat(updated.replace('Z', '+00:00'))
+                updated = dt.strftime('%Y-%m-%d')
+            except (ValueError, AttributeError):
+                pass
+        
+        topic = item.get('topic', 'N/A')
+        
+        page += f"| {repo_link} | {description} | {stars} | {updated} | {topic} |\n"
+    
+    return page
+
+
+def generate_rss_article_page(article: Dict[str, Any], article_number: int = 1, 
+                              total_articles: int = 1) -> str:
+    """Generate a markdown page for a single RSS article.
+    
+    Args:
+        article: RSS article item
+        article_number: Article number in sequence (for navigation)
+        total_articles: Total number of articles (for navigation)
+        
+    Returns:
+        Markdown page content as string
+    """
+    page = f"# {article.get('title', 'Untitled Article')}\n\n"
+    
+    # Article metadata
+    if article.get("published"):
+        page += f"*Published: {article['published']}*\n\n"
+    
+    page += "---\n\n"
+    
+    # Article description/content
+    if article.get("description"):
+        desc = article['description']
+        # Clean HTML from description if present
+        if '<' in desc and '>' in desc and BeautifulSoup:
+            desc = BeautifulSoup(desc, 'html.parser').get_text()
+        page += f"{desc}\n\n"
+    
+    # Article link
+    if article.get("url"):
+        page += f"**Read full article:** [{article.get('url')}]({article.get('url')})\n\n"
+    
+    page += "---\n\n"
+    
+    # Source information
+    page += "## Source Information\n\n"
+    page += f"**Feed:** {article.get('feed_name', 'Unknown Feed')}"
+    if article.get('feed_category'):
+        page += f" ({article['feed_category']})"
+    page += "\n\n"
+    
+    if article.get("credibility"):
+        page += f"**Domain Credibility:** {article['credibility'].title()}\n\n"
+    
+    # LLM Assessment Information
+    if article.get("llm_applicable") is not None:
+        page += "## Relevance Assessment\n\n"
+        llm_score = article.get("llm_applicability_score", 0)
+        page += f"**LLM Applicability:** {'✓ Relevant' if article.get('llm_applicable') else '✗ Not Relevant'} (score: {llm_score:.2f})\n\n"
+        
+        if article.get("llm_matched_keywords"):
+            matched = ", ".join(article['llm_matched_keywords'])
+            page += f"**Matched topics:** {matched}\n\n"
+        
+        if article.get("llm_applicability_reason"):
+            page += f"**Reasoning:** {article['llm_applicability_reason']}\n\n"
+    
+    if article.get("llm_credible") is not None:
+        page += "## Credibility Assessment\n\n"
+        llm_cred_score = article.get("llm_credibility_score", 0)
+        page += f"**LLM Credibility:** {'✓ Credible' if article.get('llm_credible') else '✗ Questionable'} (score: {llm_cred_score:.2f})\n\n"
+        
+        if article.get("llm_credibility_flags"):
+            flags = ", ".join(article['llm_credibility_flags'])
+            page += f"**Flags:** {flags}\n\n"
+        
+        if article.get("llm_credibility_reason"):
+            page += f"**Reasoning:** {article['llm_credibility_reason']}\n\n"
+    
+    if article.get("keyword_matches", 0) > 0:
+        page += f"*Keyword matches: {article['keyword_matches']}*\n\n"
+    
+    return page
+
+
 def save_json_results(results: List[Dict[str, Any]], output_path: str):
     """Save results as JSON.
     
