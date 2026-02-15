@@ -1,0 +1,292 @@
+[
+  {
+    "title": "SanhitaVichare/temp-os",
+    "url": "https://github.com/SanhitaVichare/temp-os",
+    "description": "\ud83d\ude80 Simplify Fedora installations with temp-os, an experimental template for rebasing to the latest atomic images seamlessly.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T01:33:05+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "DmitrL-dev/AISecurity",
+    "url": "https://github.com/DmitrL-dev/AISecurity",
+    "description": "AI Security Platform: Defense (227 engines) + Offense (87K+ payloads) | \ud83c\udf93 Academy: 159 lessons + 8 labs | RLM-Toolkit | OWASP LLM/ASI Top 10 | Red Team toolkit for AI",
+    "source": "github",
+    "credibility": null,
+    "stars": 80,
+    "updated": "2026-02-15T01:28:36+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Pa7ch3s/Unveil",
+    "url": "https://github.com/Pa7ch3s/Unveil",
+    "description": "Kill-Chain Completion Engine (maps real-world exploit chains, persistence, and lateral movement from packaged artifacts.)",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T01:25:01+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "zlulalala/TAutoPentest",
+    "url": "https://github.com/zlulalala/TAutoPentest",
+    "description": "\ud83d\udd0d Automate security assessments with TAuto Pentest, an AI-driven tool that combines Nmap scanning for thorough penetration testing and analysis.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T01:33:02+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-15T01:30:12+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "DmitrL-dev/AISecurity",
+    "url": "https://github.com/DmitrL-dev/AISecurity",
+    "description": "AI Security Platform: Defense (227 engines) + Offense (87K+ payloads) | \ud83c\udf93 Academy: 159 lessons + 8 labs | RLM-Toolkit | OWASP LLM/ASI Top 10 | Red Team toolkit for AI",
+    "source": "github",
+    "credibility": null,
+    "stars": 80,
+    "updated": "2026-02-15T01:28:36+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "belohilly/xssrecon",
+    "url": "https://github.com/belohilly/xssrecon",
+    "description": "\ud83d\udee1\ufe0f Discover reflected XSS vulnerabilities with XSSRecon, an automated tool for testing URL parameters and assessing input handling in web applications.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3,
+    "updated": "2026-02-15T01:26:42+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "pedro00715/C3_CRT_Python",
+    "url": "https://github.com/pedro00715/C3_CRT_Python",
+    "description": "\ud83d\udd0d Streamline coding tasks with C3_CRT_Python, a powerful tool designed to enhance your Python development experience and boost productivity.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:29:54+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "KevinC-ux/WatchGuard",
+    "url": "https://github.com/KevinC-ux/WatchGuard",
+    "description": "\ud83d\ude80 Track server and domain renewals effortlessly with WatchGuard's FastAPI panel and Telegram bot for timely reminders and updates.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T01:26:19+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-15T01:30:12+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "pedro00715/C3_CRT_Python",
+    "url": "https://github.com/pedro00715/C3_CRT_Python",
+    "description": "\ud83d\udd0d Streamline coding tasks with C3_CRT_Python, a powerful tool designed to enhance your Python development experience and boost productivity.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:29:54+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "Pa7ch3s/Unveil",
+    "url": "https://github.com/Pa7ch3s/Unveil",
+    "description": "Kill-Chain Completion Engine (maps real-world exploit chains, persistence, and lateral movement from packaged artifacts.)",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T01:25:01+00:00",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "than0024/ida-reach",
+    "url": "https://github.com/than0024/ida-reach",
+    "description": "\ud83d\udd0d Automate binary call chain analysis with IDA Pro scripts and streamline your workflow using PowerShell for efficient batch processing.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-14T23:55:50+00:00",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "fhjlfer098/Malware-Analysis",
+    "url": "https://github.com/fhjlfer098/Malware-Analysis",
+    "description": "\ud83e\udda0 Analyze and investigate a multi-stage malware campaign, focusing on AsyncRAT and effective incident response techniques for real-world scenarios.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-14T23:44:33+00:00",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "DmitrL-dev/AISecurity",
+    "url": "https://github.com/DmitrL-dev/AISecurity",
+    "description": "AI Security Platform: Defense (227 engines) + Offense (87K+ payloads) | \ud83c\udf93 Academy: 159 lessons + 8 labs | RLM-Toolkit | OWASP LLM/ASI Top 10 | Red Team toolkit for AI",
+    "source": "github",
+    "credibility": null,
+    "stars": 80,
+    "updated": "2026-02-15T01:28:36+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "jenishsoftx6/ai-compliance-risk-insights",
+    "url": "https://github.com/jenishsoftx6/ai-compliance-risk-insights",
+    "description": "\ud83d\udee1\ufe0f Detect fraud, assess loan default risk, and streamline compliance summaries through AI-driven insights for effective risk management in finance.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:24:30+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "JohannFreddyLoayzaHuana/awesome-ai-coding-tools",
+    "url": "https://github.com/JohannFreddyLoayzaHuana/awesome-ai-coding-tools",
+    "description": "\ud83d\udca1 Discover AI coding tools that enhance your workflow, from code editors to completion engines, and boost your software development efficiency.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T01:24:07+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Shaurya1456/AI-Vulverability-Scanner",
+    "url": "https://github.com/Shaurya1456/AI-Vulverability-Scanner",
+    "description": "\ud83d\udd0e Automate vulnerability scanning and remediation using AI to enhance your network security effortlessly.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:23:00+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "ParraX123/meta-ai-bug-bounty",
+    "url": "https://github.com/ParraX123/meta-ai-bug-bounty",
+    "description": "\ud83d\udee1\ufe0f Discover and analyze critical vulnerabilities in Meta AI's Instagram Group Chat, ensuring robust security through comprehensive testing and reporting.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T01:22:47+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Yosuraki/claude4-audit-recon",
+    "url": "https://github.com/Yosuraki/claude4-audit-recon",
+    "description": "\ud83d\udc19 Ethical red-team audit of Claude 4 with clear introspection and policy visibility. Includes JSON data and Python tooling; Mermaid diagrams map model behavior.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:16:14+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "roynaldo1234/meta-ai-bug-bounty",
+    "url": "https://github.com/roynaldo1234/meta-ai-bug-bounty",
+    "description": "Meta AI Bug Bounty focuses on vulnerabilities in Instagram's Group Chat feature, revealing critical security risks. Join us in improving AI safety and explore our findings on GitHub! \ud83d\udc19\u2728",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:14:00+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "paolovella/vellaveto",
+    "url": "https://github.com/paolovella/vellaveto",
+    "description": "Vellaveto \u2014 Runtime security engine for AI agent tool calls. MCP firewall with policy enforcement, tamper-evident audit, and compliance.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T01:10:59+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "url": "https://github.com/Vortalitys/PrivHunterAI-detects-access-vulnerabilities",
+    "description": "A tool that detects unauthorized access vulnerabilities through passive proxies, leveraging mainstream AI systems such as Kimi, DeepSeek, GPT, and others.",
+    "source": "github",
+    "credibility": null,
+    "stars": 11,
+    "updated": "2026-02-15T01:06:38+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "GhostkillerMMIX/enterprise-soc-blueprint",
+    "url": "https://github.com/GhostkillerMMIX/enterprise-soc-blueprint",
+    "description": "\ud83d\udd0d Build a robust Security Operations Center (SOC) with this comprehensive blueprint, featuring Splunk SIEM, automation, and enterprise-level security monitoring.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T01:32:45+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "ValiantKaka/Phishing-Email-Analysis",
+    "url": "https://github.com/ValiantKaka/Phishing-Email-Analysis",
+    "description": "\ud83d\udee1\ufe0f Analyze phishing emails to safeguard healthcare organizations with detailed reports and actionable insights on threats and vulnerabilities.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T01:27:45+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "mikehubers/Awesome-AI-For-Security",
+    "url": "https://github.com/mikehubers/Awesome-AI-For-Security",
+    "description": "\ud83d\udee1\ufe0f Discover essential tools and resources that leverage AI for enhancing cybersecurity, focusing on modern technologies and their applications in security operations.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3,
+    "updated": "2026-02-15T01:22:01+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "juancarlospaco/nim_packages_security_audit",
+    "url": "https://github.com/juancarlospaco/nim_packages_security_audit",
+    "description": "Fully Automated Nim Packages Security Audit",
+    "source": "github",
+    "credibility": null,
+    "stars": 11,
+    "updated": "2026-02-15T01:05:45+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "zricethezav/h1domains",
+    "url": "https://github.com/zricethezav/h1domains",
+    "description": "HackerOne \"in scope\" domains",
+    "source": "github",
+    "credibility": null,
+    "stars": 501,
+    "updated": "2026-02-15T00:39:34+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "anubis01sk/splunk-detection-engineer-agent",
+    "url": "https://github.com/anubis01sk/splunk-detection-engineer-agent",
+    "description": "\ud83e\udd16 Generate accurate Splunk SPL queries from natural language using AI, validated against live data for effective security analytics.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-14T23:54:04+00:00",
+    "topic": "security-automation"
+  }
+]
