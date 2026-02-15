@@ -6,16 +6,19 @@ report path with optional results metadata.
 """
 
 import argparse
+import json
 import logging
 import os
 import shutil
 import sys
-from typing import Optional
+from pathlib import Path
+from typing import List, Optional
 
 from reporters.docs_publisher import (
     initialize_docs_directory,
     publish_latest_report,
     publish_report_from_path,
+    publish_structured_docs,
 )
 
 
@@ -128,6 +131,34 @@ def clean_docs(docs_dir: str) -> None:
     initialize_docs_directory(docs_dir)
 
 
+def load_combined_json_files(output_dir: str, prefix: str) -> List[dict]:
+    """Load and concatenate JSON lists matching a prefix from the output directory.
+
+    Args:
+        output_dir: Directory containing output JSON files.
+        prefix: File prefix to match (e.g., "results" or "rejected").
+
+    Returns:
+        Concatenated list of JSON items.
+    """
+    combined: List[dict] = []
+    output_path = Path(output_dir)
+    json_files = sorted(output_path.glob(f"{prefix}_*.json"))
+
+    for json_file in json_files:
+        try:
+            with json_file.open("r") as handle:
+                payload = json.load(handle)
+            if isinstance(payload, list):
+                combined.extend(payload)
+            else:
+                logging.warning("Skipping %s: expected list", json_file.name)
+        except (json.JSONDecodeError, OSError) as exc:
+            logging.warning("Skipping %s: %s", json_file.name, exc)
+
+    return combined
+
+
 def main() -> int:
     """Run the docs publishing helper.
 
@@ -159,15 +190,33 @@ def main() -> int:
             return 1
 
         report_files.sort()
-        for report_path in report_files:
-            published_path = publish_report_from_path(
-                report_path,
-                docs_dir=args.docs_dir,
-                results_path=None,
-            )
-            if not published_path:
-                logging.error("Failed to publish report: %s", report_path)
-                return 1
+        latest_report = report_files[-1]
+        latest_timestamp = (
+            os.path.basename(latest_report)
+            .replace("report_", "")
+            .replace(".md", "")
+        )
+
+        combined_results = load_combined_json_files(args.output_dir, "results")
+        combined_rejected = load_combined_json_files(args.output_dir, "rejected")
+
+        if not combined_results:
+            logging.error("No results JSON files found in: %s", args.output_dir)
+            return 1
+
+        logging.info(
+            "Loaded %s results and %s rejected items from %s",
+            len(combined_results),
+            len(combined_rejected),
+            args.output_dir,
+        )
+
+        published_files = publish_structured_docs(
+            combined_results,
+            latest_timestamp,
+            args.docs_dir,
+        )
+        published_path = published_files.get("index")
     else:
         published_path = publish_report_from_path(
             args.report_path,
