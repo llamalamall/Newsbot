@@ -16,8 +16,6 @@ from typing import List, Optional
 
 from reporters.docs_publisher import (
     initialize_docs_directory,
-    publish_latest_report,
-    publish_report_from_path,
     publish_structured_docs,
 )
 
@@ -34,36 +32,17 @@ def parse_arguments() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s --latest
+  %(prog)s --all
   %(prog)s --output-dir outputs --docs-dir docs
-  %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md
-  %(prog)s --report-path outputs/report_YYYYMMDD_HHMMSS.md --results-path outputs/results_YYYYMMDD_HHMMSS.json
-    %(prog)s --latest --clean
+  %(prog)s --all --clean
 """,
     )
 
-    mode_group = parser.add_mutually_exclusive_group(required=True)
-    mode_group.add_argument(
-        "--latest",
-        action="store_true",
-        help="publish the latest report from the output directory",
-    )
-    mode_group.add_argument(
+    parser.add_argument(
         "--all",
         action="store_true",
-        help="publish all reports from the output directory",
-    )
-    mode_group.add_argument(
-        "--report-path",
-        type=str,
-        help="publish a specific report markdown file",
-    )
-
-    parser.add_argument(
-        "--results-path",
-        type=str,
-        default=None,
-        help="optional results JSON file for result count",
+        default=True,
+        help="publish all reports from the output directory (default mode)",
     )
 
     parser.add_argument(
@@ -171,58 +150,48 @@ def main() -> int:
     if args.clean:
         clean_docs(args.docs_dir)
 
-    published_path: Optional[str]
-    if args.latest:
-        published_path = publish_latest_report(args.output_dir, args.docs_dir)
-    elif args.all:
-        published_path = None
-        if not os.path.exists(args.output_dir):
-            logging.error("Output directory not found: %s", args.output_dir)
-            return 1
+    # Publish all reports using structured docs format
+    if not os.path.exists(args.output_dir):
+        logging.error("Output directory not found: %s", args.output_dir)
+        return 1
 
-        report_files = []
-        for filename in os.listdir(args.output_dir):
-            if filename.startswith("report_") and filename.endswith(".md"):
-                report_files.append(os.path.join(args.output_dir, filename))
+    report_files = []
+    for filename in os.listdir(args.output_dir):
+        if filename.startswith("report_") and filename.endswith(".md"):
+            report_files.append(os.path.join(args.output_dir, filename))
 
-        if not report_files:
-            logging.error("No report files found in: %s", args.output_dir)
-            return 1
+    if not report_files:
+        logging.error("No report files found in: %s", args.output_dir)
+        return 1
 
-        report_files.sort()
-        latest_report = report_files[-1]
-        latest_timestamp = (
-            os.path.basename(latest_report)
-            .replace("report_", "")
-            .replace(".md", "")
-        )
+    report_files.sort()
+    latest_report = report_files[-1]
+    latest_timestamp = (
+        os.path.basename(latest_report)
+        .replace("report_", "")
+        .replace(".md", "")
+    )
 
-        combined_results = load_combined_json_files(args.output_dir, "results")
-        combined_rejected = load_combined_json_files(args.output_dir, "rejected")
+    combined_results = load_combined_json_files(args.output_dir, "results")
+    combined_rejected = load_combined_json_files(args.output_dir, "rejected")
 
-        if not combined_results:
-            logging.error("No results JSON files found in: %s", args.output_dir)
-            return 1
+    if not combined_results:
+        logging.error("No results JSON files found in: %s", args.output_dir)
+        return 1
 
-        logging.info(
-            "Loaded %s results and %s rejected items from %s",
-            len(combined_results),
-            len(combined_rejected),
-            args.output_dir,
-        )
+    logging.info(
+        "Loaded %s results and %s rejected items from %s",
+        len(combined_results),
+        len(combined_rejected),
+        args.output_dir,
+    )
 
-        published_files = publish_structured_docs(
-            combined_results,
-            latest_timestamp,
-            args.docs_dir,
-        )
-        published_path = published_files.get("index")
-    else:
-        published_path = publish_report_from_path(
-            args.report_path,
-            docs_dir=args.docs_dir,
-            results_path=args.results_path,
-        )
+    published_files = publish_structured_docs(
+        combined_results,
+        latest_timestamp,
+        args.docs_dir,
+    )
+    published_path = published_files.get("index")
 
     if not published_path:
         logging.error("No report was published.")
