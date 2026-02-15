@@ -88,6 +88,10 @@ def search_rss_feeds(
         filter_inapplicable = llm_settings.get('filter_inapplicable', True)
         filter_not_credible = llm_settings.get('filter_not_credible', True)
         batch_size = llm_settings.get('batch_size', 5)  # Default batch size of 5 articles
+
+        if llm_enabled and openai_client and not llm_model:
+            logging.error("LLM model not configured; disable LLM assessment or set llm_assessment.model")
+            llm_enabled = False
         
         # Fetch all feeds
         all_entries = rss_manager.fetch_all_feeds(feeds)

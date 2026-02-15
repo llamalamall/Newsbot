@@ -59,7 +59,7 @@ def assess_article_applicability(
     description: str,
     keywords: List[str],
     content: Optional[str] = None,
-    model: str = "gpt-4o-mini"
+    model: str
 ) -> Dict[str, Any]:
     """Assess whether an article is applicable/relevant using LLM.
     
@@ -72,7 +72,7 @@ def assess_article_applicability(
         description: Article description/summary
         keywords: List of keywords from config to guide assessment
         content: Optional full article content
-        model: LLM model to use (default: gpt-4o-mini)
+        model: LLM model to use
         
     Returns:
         Dictionary with:
@@ -89,6 +89,9 @@ def assess_article_applicability(
             "reason": "LLM assessment unavailable",
             "matched_keywords": []
         }
+
+    if not model:
+        raise ValueError("LLM model must be provided for applicability assessment")
 
     try:
         # Build the prompt with keywords
@@ -203,7 +206,7 @@ def assess_article_credibility(
     source_name: str,
     domain_credibility: str,
     content: Optional[str] = None,
-    model: str = "gpt-4o-mini"
+    model: str
 ) -> Dict[str, Any]:
     """Assess the credibility of an article using LLM.
     
@@ -218,7 +221,7 @@ def assess_article_credibility(
         source_name: Name of the feed/source
         domain_credibility: Pre-assessed domain credibility ('high', 'medium', 'low')
         content: Optional full article content
-        model: LLM model to use (default: gpt-4o-mini)
+        model: LLM model to use
         
     Returns:
         Dictionary with:
@@ -235,6 +238,9 @@ def assess_article_credibility(
             "reason": "LLM assessment unavailable",
             "flags": []
         }
+
+    if not model:
+        raise ValueError("LLM model must be provided for credibility assessment")
 
     try:
         # Include content if available
@@ -352,7 +358,7 @@ def filter_titles_by_relevance(
     openai_client: OpenAI,
     titles: List[str],
     keywords: List[str],
-    model: str = "gpt-4o-mini"
+    model: str
 ) -> List[int]:
     """Filter article titles for relevance using the LLM.
 
@@ -360,7 +366,7 @@ def filter_titles_by_relevance(
         openai_client: OpenAI client configured for GitHub Models
         titles: List of article titles
         keywords: List of keywords from config to guide relevance
-        model: LLM model to use (default: gpt-4o-mini)
+        model: LLM model to use
 
     Returns:
         List of indices for titles deemed relevant
@@ -371,6 +377,9 @@ def filter_titles_by_relevance(
 
     if not titles:
         return []
+
+    if not model:
+        raise ValueError("LLM model must be provided for title filtering")
 
     try:
         keywords_str = ", ".join(keywords) if keywords else "AI/automation in offensive security"
@@ -448,7 +457,7 @@ def assess_articles_batch(
     openai_client: OpenAI,
     articles: List[Dict[str, Any]],
     keywords: List[str],
-    model: str = "gpt-4o-mini",
+    model: str,
     batch_size: int = 5
 ) -> List[Dict[str, Any]]:
     """Assess applicability and credibility of multiple articles in batches.
@@ -466,7 +475,7 @@ def assess_articles_batch(
             - domain_credibility: str (optional, for credibility assessment)
             - content: str (optional, full article content)
         keywords: List of keywords from config to guide assessment
-        model: LLM model to use (default: gpt-4o-mini)
+        model: LLM model to use
         batch_size: Maximum number of articles to assess in one call (default: 5)
         
     Returns:
@@ -499,6 +508,9 @@ def assess_articles_batch(
     if not articles:
         return []
     
+    if not model:
+        raise ValueError("LLM model must be provided for batch assessment")
+
     # Process articles in batches
     all_results = []
     for i in range(0, len(articles), batch_size):
@@ -553,7 +565,7 @@ def _assess_batch_internal(
     openai_client: OpenAI,
     articles: List[Dict[str, Any]],
     keywords: List[str],
-    model: str = "gpt-4o-mini"
+    model: str
 ) -> List[Dict[str, Any]]:
     """Internal function to assess a batch of articles with a single LLM call.
     
@@ -715,7 +727,7 @@ def _fallback_individual_assessment(
     openai_client: OpenAI,
     articles: List[Dict[str, Any]],
     keywords: List[str],
-    model: str = "gpt-4o-mini"
+    model: str
 ) -> List[Dict[str, Any]]:
     """Fallback to individual article assessment when batch processing fails.
     

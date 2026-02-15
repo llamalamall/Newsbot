@@ -11,8 +11,19 @@ import json
 from unittest.mock import Mock, MagicMock, patch
 from openai import OpenAI
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.join(REPO_ROOT, 'scripts')
+CONFIG_PATH = os.path.join(REPO_ROOT, 'config.json')
+
 # Add scripts to path
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
+sys.path.insert(0, SCRIPTS_DIR)
+
+with open(CONFIG_PATH, 'r') as config_file:
+    _CONFIG = json.load(config_file)
+
+LLM_MODEL = _CONFIG.get("llm_assessment", {}).get("model")
+if not LLM_MODEL:
+    raise RuntimeError("llm_assessment.model is required in config.json for tests")
 
 from utils.llm_assessment import (
     assess_article_applicability,
@@ -30,7 +41,8 @@ class TestAssessArticleApplicability:
             openai_client=None,
             title="Test Article",
             description="Test description",
-            keywords=["security", "AI"]
+            keywords=["security", "AI"],
+            model=LLM_MODEL
         )
         
         assert isinstance(result, dict)
@@ -66,7 +78,8 @@ class TestAssessArticleApplicability:
             openai_client=mock_client,
             title="AI-Powered Penetration Testing Tools",
             description="New tools using machine learning for automated security testing",
-            keywords=["AI", "penetration testing", "automation"]
+            keywords=["AI", "penetration testing", "automation"],
+            model=LLM_MODEL
         )
         
         assert result["applicable"] is True
@@ -98,7 +111,8 @@ class TestAssessArticleApplicability:
             openai_client=mock_client,
             title="Cloud Computing Trends",
             description="Overview of cloud infrastructure",
-            keywords=["offensive security", "penetration testing"]
+            keywords=["offensive security", "penetration testing"],
+            model=LLM_MODEL
         )
         
         assert result["applicable"] is False
@@ -128,7 +142,8 @@ class TestAssessArticleApplicability:
             title="LLM Security Research",
             description="Research on vulnerabilities in large language models",
             keywords=["LLM security", "AI", "automation"],
-            content="Detailed content about LLM vulnerabilities and exploitation techniques..."
+            content="Detailed content about LLM vulnerabilities and exploitation techniques...",
+            model=LLM_MODEL
         )
         
         assert result["applicable"] is True
@@ -158,7 +173,8 @@ class TestAssessArticleApplicability:
             openai_client=mock_client,
             title="Test Article",
             description="Test description",
-            keywords=["security"]
+            keywords=["security"],
+            model=LLM_MODEL
         )
         
         # Should return default values on error
@@ -175,7 +191,8 @@ class TestAssessArticleApplicability:
             openai_client=mock_client,
             title="Test Article",
             description="Test description",
-            keywords=["security"]
+            keywords=["security"],
+            model=LLM_MODEL
         )
         
         # Should return default values on error
@@ -209,7 +226,8 @@ class TestAssessArticleApplicability:
             title="Test",
             description="Test",
             keywords=["security"],
-            content=long_content
+            content=long_content,
+            model=LLM_MODEL
         )
         
         # Verify the API was called
@@ -232,7 +250,8 @@ class TestAssessArticleCredibility:
             description="Test description",
             url="https://example.com/article",
             source_name="Test Source",
-            domain_credibility="high"
+            domain_credibility="high",
+            model=LLM_MODEL
         )
         
         assert isinstance(result, dict)
@@ -268,7 +287,8 @@ class TestAssessArticleCredibility:
             description="Peer-reviewed research with detailed methodology",
             url="https://arxiv.org/abs/2024.12345",
             source_name="arXiv",
-            domain_credibility="high"
+            domain_credibility="high",
+            model=LLM_MODEL
         )
         
         assert result["credible"] is True
@@ -300,7 +320,8 @@ class TestAssessArticleCredibility:
             description="Amazing trick revealed",
             url="https://example.com/clickbait",
             source_name="Unknown Blog",
-            domain_credibility="low"
+            domain_credibility="low",
+            model=LLM_MODEL
         )
         
         assert result["credible"] is False
@@ -332,7 +353,8 @@ class TestAssessArticleCredibility:
             description="Official security announcement",
             url="https://cisa.gov/advisory",
             source_name="CISA",
-            domain_credibility="high"
+            domain_credibility="high",
+            model=LLM_MODEL
         )
         
         # Verify the API was called with domain credibility
@@ -359,7 +381,8 @@ class TestAssessArticleCredibility:
             description="Test",
             url="https://example.com",
             source_name="Test",
-            domain_credibility="medium"
+            domain_credibility="medium",
+            model=LLM_MODEL
         )
         
         assert result["credible"] is True
@@ -377,7 +400,8 @@ class TestAssessArticleCredibility:
             description="Test",
             url="https://example.com",
             source_name="Test",
-            domain_credibility="medium"
+            domain_credibility="medium",
+            model=LLM_MODEL
         )
         
         assert result["credible"] is True
@@ -408,7 +432,8 @@ class TestAssessArticleCredibility:
             description="Test",
             url="https://example.com",
             source_name="Test",
-            domain_credibility="high"
+            domain_credibility="high",
+            model=LLM_MODEL
         )
         
         assert result["credible"] is True
@@ -451,7 +476,8 @@ class TestLLMAssessmentIntegration:
             openai_client=mock_client,
             title="AI Security Article",
             description="Article about AI security",
-            keywords=["AI", "security"]
+            keywords=["AI", "security"],
+            model=LLM_MODEL
         )
         
         # Update mock for second call
@@ -463,7 +489,8 @@ class TestLLMAssessmentIntegration:
             description="Article about AI security",
             url="https://example.com",
             source_name="Tech Blog",
-            domain_credibility="medium"
+            domain_credibility="medium",
+            model=LLM_MODEL
         )
         
         # Both should succeed
@@ -498,7 +525,7 @@ def test_llm_single_live_call():
         title="AI-assisted security testing tool",
         description="A short overview of automating penetration testing with LLMs.",
         keywords=["AI", "automation", "penetration testing"],
-        model="gpt-4o-mini"
+        model=LLM_MODEL
     )
 
     assert isinstance(result, dict)
@@ -520,7 +547,8 @@ class TestBatchAssessment:
         results = assess_articles_batch(
             openai_client=None,
             articles=articles,
-            keywords=["security", "AI"]
+            keywords=["security", "AI"],
+            model=LLM_MODEL
         )
         
         assert len(results) == 2
@@ -538,7 +566,8 @@ class TestBatchAssessment:
         results = assess_articles_batch(
             openai_client=mock_client,
             articles=[],
-            keywords=["security"]
+            keywords=["security"],
+            model=LLM_MODEL
         )
         
         assert results == []
@@ -582,7 +611,8 @@ class TestBatchAssessment:
         results = assess_articles_batch(
             openai_client=mock_client,
             articles=articles,
-            keywords=["AI", "security"]
+            keywords=["AI", "security"],
+            model=LLM_MODEL
         )
         
         assert len(results) == 1
@@ -648,7 +678,8 @@ class TestBatchAssessment:
         results = assess_articles_batch(
             openai_client=mock_client,
             articles=articles,
-            keywords=["AI", "security", "automation"]
+            keywords=["AI", "security", "automation"],
+            model=LLM_MODEL
         )
         
         assert len(results) == 3
@@ -694,6 +725,7 @@ class TestBatchAssessment:
             openai_client=mock_client,
             articles=articles,
             keywords=["security"],
+            model=LLM_MODEL,
             batch_size=5
         )
         
@@ -756,6 +788,7 @@ class TestBatchAssessment:
             openai_client=mock_client,
             articles=articles,
             keywords=["security"],
+            model=LLM_MODEL,
             batch_size=5
         )
         
@@ -813,6 +846,7 @@ class TestBatchAssessment:
             openai_client=mock_client,
             articles=articles,
             keywords=["AI", "security"],
+            model=LLM_MODEL,
             batch_size=2  # Force split: batch of 2, then individual for the 3rd
         )
         
@@ -848,7 +882,8 @@ class TestBatchAssessment:
         results = assess_articles_batch(
             openai_client=mock_client,
             articles=articles,
-            keywords=["security"]
+            keywords=["security"],
+            model=LLM_MODEL
         )
         
         # Should get results via fallback
