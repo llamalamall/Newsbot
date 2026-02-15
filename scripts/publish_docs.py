@@ -16,7 +16,7 @@ from typing import List, Optional
 
 from reporters.docs_publisher import (
     initialize_docs_directory,
-    publish_structured_docs,
+    publish_structured_docs
 )
 
 
