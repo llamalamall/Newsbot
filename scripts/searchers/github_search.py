@@ -21,11 +21,23 @@ except ImportError:
     from models import GitHubResult
 
 
+AI_KEYWORDS = [
+    "ai",
+    "llm",
+    "ml",
+    "machine learning",
+    "automation",
+    "automated",
+    "gpt"
+]
+
+
 def search_github_repos(
     github_token: Optional[str],
     github_topics: List[str],
     days_back: int = 7,
-    max_results_per_topic: int = 10
+    max_results_per_topic: int = 10,
+    rejected_results: Optional[List[Dict[str, Any]]] = None
 ) -> List[Dict[str, Any]]:
     """Search GitHub for relevant repositories.
     
@@ -34,12 +46,13 @@ def search_github_repos(
         github_topics: List of topics to search for
         days_back: Number of days to look back for updates
         max_results_per_topic: Maximum results per topic
+        rejected_results: Optional list to append filtered-out repositories
         
     Returns:
         List of repository dictionaries with metadata
     """
     logging.info("Searching GitHub repositories...")
-    results = []
+    results: List[Dict[str, Any]] = []
     
     if not github_token:
         logging.warning("GITHUB_TOKEN not set, skipping GitHub search")
@@ -59,7 +72,7 @@ def search_github_repos(
                 for repo in repos[:max_results_per_topic]:
                     # Check if repo description contains AI/automation keywords
                     description = (repo.description or "").lower()
-                    if any(kw in description for kw in ["ai", "llm", "ml", "machine learning", "automation", "automated", "gpt"]):
+                    if any(kw in description for kw in AI_KEYWORDS):
                         result = GitHubResult(
                             title=repo.full_name,
                             url=repo.html_url,
@@ -70,6 +83,19 @@ def search_github_repos(
                             topic=topic
                         )
                         results.append(result.to_dict())
+                    elif rejected_results is not None:
+                        rejected = GitHubResult(
+                            title=repo.full_name,
+                            url=repo.html_url,
+                            description=repo.description or "",
+                            source="github",
+                            stars=repo.stargazers_count,
+                            updated=repo.updated_at.isoformat(),
+                            topic=topic
+                        ).to_dict()
+                        rejected["rejection_type"] = "relevance"
+                        rejected["rejection_reason"] = "missing_ai_keywords"
+                        rejected_results.append(rejected)
             except Exception as topic_error:
                 logging.error(f"Error searching topic '{topic}': {str(topic_error)[:100]}")
                 continue

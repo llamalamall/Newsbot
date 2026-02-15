@@ -165,5 +165,8 @@
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
     "filter_not_credible": true
+  },
+  "skip_analyzed": {
+    "enabled": true
   }
 }
