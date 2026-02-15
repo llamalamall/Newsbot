@@ -1,0 +1,251 @@
+[
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:24:53+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "3stythe/ai-novel-generator",
+    "url": "https://github.com/3stythe/ai-novel-generator",
+    "description": "\ud83e\udd16 Generate coherent long-form novels quickly and cost-effectively using AI, maintaining plot consistency and character integrity.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:28:34+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "Halim45/PoCs",
+    "url": "https://github.com/Halim45/PoCs",
+    "description": "\ud83d\udd0d Explore proof of concept exploits for software vulnerabilities I've discovered and responsibly disclosed, aimed at educational use.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:28:00+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "v2lurpin/portscan-vulnerabilidades",
+    "url": "https://github.com/v2lurpin/portscan-vulnerabilidades",
+    "description": "\ud83d\udee1\ufe0f Scan networks for vulnerabilities with a powerful Python tool, featuring GUI and CLI modes for fast, efficient reconnaissance and risk assessment.",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-15T09:25:32+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "three2hot/cyber-agent",
+    "url": "https://github.com/three2hot/cyber-agent",
+    "description": "\ud83e\udd16 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient and effective security assessments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:25:08+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:24:53+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "Muzammil-Malik/esp8266-weather-clock-opensource",
+    "url": "https://github.com/Muzammil-Malik/esp8266-weather-clock-opensource",
+    "description": "\ud83c\udf26\ufe0f Build a weather clock using ESP8266, reverse-engineering an affordable AliExpress model to enhance your home automation projects with reliable data.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:28:22+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "imamardiyanto/ts-testdoc",
+    "url": "https://github.com/imamardiyanto/ts-testdoc",
+    "description": "\ud83d\udcdc Extract and run JSDoc example blocks as tests to ensure your documentation remains accurate and functional.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:27:18+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "parroalex01/Dumper-FiveM-And-Custom-Launcher",
+    "url": "https://github.com/parroalex01/Dumper-FiveM-And-Custom-Launcher",
+    "description": "\ud83c\udfae Dump resources and bypass anti-cheat for FiveM with a custom launcher; ideal for accessing models and LUA scripts seamlessly.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:27:18+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "Olivaire/sleep-duck-eye-Detect-SleepMask",
+    "url": "https://github.com/Olivaire/sleep-duck-eye-Detect-SleepMask",
+    "description": "Sleepy-Duck is an open source project created for automated security testing on application level.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:26:59+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "3stythe/ai-novel-generator",
+    "url": "https://github.com/3stythe/ai-novel-generator",
+    "description": "\ud83e\udd16 Generate coherent long-form novels quickly and cost-effectively using AI, maintaining plot consistency and character integrity.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:28:34+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Laserman652/AIPhishingDetector",
+    "url": "https://github.com/Laserman652/AIPhishingDetector",
+    "description": "\ud83d\udd0d Analyze email text to detect phishing, suspicious, or legitimate messages with an efficient machine learning tool for informed decision-making.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:26:48+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Nox-HQ/nox",
+    "url": "https://github.com/Nox-HQ/nox",
+    "description": "Language-agnostic security scanner with first-class AI application security. Produces SARIF, SBOM, and AI inventory artifacts.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:25:17+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "vukssan/KamelionStack-OSE",
+    "url": "https://github.com/vukssan/KamelionStack-OSE",
+    "description": "\ud83d\udd0d Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver comprehensive analysis in one command.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:24:53+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Rul1an/assay",
+    "url": "https://github.com/Rul1an/assay",
+    "description": "Policy-as-Code for AI Agents. Deterministic testing, runtime enforcement, and verifiable evidence for MCP.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:24:02+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Suleymkr/maais-runtime",
+    "url": "https://github.com/Suleymkr/maais-runtime",
+    "description": "\ud83d\udee1\ufe0f Enforce enterprise-grade security for autonomous AI agents with MAAIS-Runtime, ensuring real-time protection for your agentic AI systems.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:23:02+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "foodman1227/awesome-ai-tools",
+    "url": "https://github.com/foodman1227/awesome-ai-tools",
+    "description": "\ud83e\udd16 Explore essential AI tools for building, automating, and monetizing projects across content, video, e-commerce, and more.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:18:18+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Yasas9029/ai-design-engineering-cc-plugins",
+    "url": "https://github.com/Yasas9029/ai-design-engineering-cc-plugins",
+    "description": "\ud83d\udee0\ufe0f Build resilient agentic applications with AI-driven personas that guide you from concept to production in Claude Code.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T09:17:26+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "yud1takata/security-ops-blueprint",
+    "url": "https://github.com/yud1takata/security-ops-blueprint",
+    "description": "\ud83d\udee1\ufe0f Develop a vendor-neutral security operations framework for identity, segmentation, telemetry, and validation, tailored for scalability and automation.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:25:51+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "three2hot/cyber-agent",
+    "url": "https://github.com/three2hot/cyber-agent",
+    "description": "\ud83e\udd16 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient and effective security assessments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:25:08+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Ajithkumar8/Dependency-Confusion-Hunter",
+    "url": "https://github.com/Ajithkumar8/Dependency-Confusion-Hunter",
+    "description": "\ud83d\udd0d Scan for dependency confusion vulnerabilities in your projects to enhance security and protect against potential threats with ease.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T09:18:20+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "TypicalShot/zenmap",
+    "url": "https://github.com/TypicalShot/zenmap",
+    "description": "\ud83d\uddc2\ufe0f Memory-map large files efficiently with this cross-platform Zig library, featuring zero-copy access and simple API for seamless data handling.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T09:15:16+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "CVE-2026-1731: Critical Unauthenticated Remote Code Execution in BeyondTrust Remote Support (RS) and Privileged Remote Access (PRA)",
+    "url": "https://www.rapid7.com/blog/post/etr-cve-2026-1731-critical-unauthenticated-remote-code-execution-rce-beyondtrust-remote-support-rs-privileged-remote-access-pra",
+    "description": "<h2 style=\"direction: ltr;\">Overview</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">On February 6, 2026, BeyondTrust </span><a href=\"https://www.beyondtrust.com/trust-center/security-advisories/bt26-02\"><span style=\"font-size: undefined;\">released</span></a><span style=\"font-size: undefined;\"> security advisory BT26-02, disclosing a critical pre-authentication Remote Code Execution (RCE) vulnerability affecting its </span><a href=\"https://www.beyondtrust.com/products/remote-support\"><span style=\"font-size: undefined;\">Remote Support (RS)</span></a><span style=\"font-size: undefined;\"> and </span><a href=\"https://www.beyondtrust.com/products/privileged-remote-access\"><span style=\"font-size: undefined;\">Privileged Remote Access (PRA)</span></a><span style=\"font-size: undefined;\"> products. Assigned </span><a href=\"https://nvd.nist.gov/vuln/detail/CVE-2026-1731\"><span style=\"font-size: undefined;\">CVE-2026-1731</span></a><span style=\"font-size: undefined;\"> and a near-maximum CVSSv4 score of 9.9, the flaw allows unauthenticated, remote attackers to execute arbitrary operating system commands in the context of the site user by sending specially crafted requests. The vulnerability affects Remote Support (RS) versions 25.3.1 and prior, as well as Privileged Remote Access (PRA) versions 24.3.4 and prior.\u00a0</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">While BeyondTrust automatically patched SaaS instances on February 2, 2026, self-hosted customers remain at risk until manual updates are applied. The issue was </span><a href=\"https://www.hacktron.ai/blog/cve-2026-1731-beyondtrust-remote-support-rce\"><span style=\"font-size: undefined;\">discovered</span></a><span style=\"font-size: undefined;\"> by researchers at Hacktron AI using AI-enabled variant analysis; they identified approximately 8,500 on-premises instances exposed to the internet that could be susceptible to this straightforward exploitation vector.\u00a0</span></p><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">While BeyondTrust has not reported active exploitation of CVE-2026-1731 in the wild, the platform\u2019s immense footprint makes it a high-priority target for sophisticated adversaries. BeyondTrust provides identity security services to more than 20,000 customers across over 100 countries, including 75% of the Fortune 100. This ubiquity has attracted state-sponsored actors in the past; notably, the Chinese hacking group \"Silk Typhoon\" weaponized previous zero-day flaws (CVE-2024-12356 and CVE-2024-12686) to breach the U.S. Treasury Department and access sensitive data related to sanctions, triggering emergency directives from CISA. Rapid7 research later </span><a href=\"https://www.rapid7.com/blog/post/2025/02/13/cve-2025-1094-postgresql-psql-sql-injection-fixed/\"><span style=\"font-size: undefined;\">revealed</span></a><span style=\"font-size: undefined;\"> that the exploitation of CVE-2024-12356 actually required chaining it with a critical, then-unknown SQL injection vulnerability in an underlying PostgreSQL tool (CVE-2025-1094). Given this history of targeted attacks against such a widely used platform, these tools remain a critical attack vector that demands immediate defensive action.</span></p><h2 style=\"direction: ltr;\">Mitigation guidance</h2><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">A vendor-provided patch is available to remediate CVE-2026-1731 in on-premise deployments.</span></p><h4><span style=\"font-size: undefined;\">BeyondTrust Remote Support (RS):</span></h4><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Versions </span><span style=\"font-size: undefined;\"><span>25.3.1</span></span><span style=\"font-size: undefined;\"> and prior are affected by CVE-2026-1731.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">CVE-2026-1731 is fixed in </span><span style=\"font-size: undefined;\"><span>25.3.2</span></span><span style=\"font-size: undefined;\"> and later.</span></p></li></ul><h4><span style=\"font-size: undefined;\">BeyondTrust Privileged Remote Access (PRA):</span></h4><ul><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Versions </span><span style=\"font-size: undefined;\"><span>24.3.4</span></span><span style=\"font-size: undefined;\"> and prior are affected by CVE-2026-1731.</span></p></li><li style=\"direction: ltr;\"><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">CVE-2026-1731 is fixed in </span><span style=\"font-size: undefined;\"><span>25.1.1</span></span><span style=\"font-size: undefined;\"> and later.</span></p></li></ul><p style=\"direction: ltr;\"><span style=\"font-size: undefined;\">Please read the vendor </span><a href=\"https://www.beyondtrust.com/trust-center/security-advisories/bt26-02\"><span style=\"font-size: undefined;\">advisory</span></a><span style=\"font-size: undefined;\"> for the latest guidance.</span></p><h2 style=\"direction: ltr;\">Rapid7 customers</h2><h3 style=\"direction: ltr;\"><span style=\"color: rgb(67, 67, 67);\">Exposure Command, InsightVM, and Nexpose</span></h3><p style=\"direction: ltr;\">Exposure Command, InsightVM and Nexpose customers can assess exposure to CVE-2026-1731 on Remote Support and Privileged Remote Access using authenticated checks available in the Feb 9 content release.</p><h2 style=\"direction: ltr;\">Updates</h2><ul><li><span style=\"font-size: undefined;\"><strong>February 11, 2026:</strong></span><span style=\"font-size: undefined;\"> Updated Rapid7 customers section to confirm checks were available on February 9.</span></li></ul>",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-09T19:15:00",
+    "feed_name": "Rapid7 Blog",
+    "feed_category": "research",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Rapid7",
+    "tags": [
+      "Emerging Threats",
+      "Emergent Threat Response"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.8,
+    "llm_applicability_reason": "The article discusses a critical vulnerability discovered using AI-enabled variant analysis, which connects to the use of AI in security testing and offensive operations.",
+    "llm_matched_keywords": [
+      "AI automation",
+      "vulnerability disclosure",
+      "CVE reachability"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.85,
+    "llm_credibility_reason": "The article provides substantive information about a critical security vulnerability, cites multiple sources including vendor advisories and research findings, and is published on a known security-focused blog. It does not exhibit signs of misinformation or bias.",
+    "llm_credibility_flags": []
+  }
+]
