@@ -69,6 +69,34 @@ def extract_domain_from_url(url: str) -> str:
     return domain if domain else "unknown"
 
 
+def format_date_only(value: Optional[str]) -> str:
+    """Format a timestamp-like string as YYYY-MM-DD.
+
+    Args:
+        value: Timestamp string (ISO or RFC 2822), or None.
+
+    Returns:
+        Date string in YYYY-MM-DD format, or "N/A" if unavailable.
+    """
+    if not value:
+        return "N/A"
+
+    if isinstance(value, str):
+        if "T" in value:
+            try:
+                dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                return dt.strftime("%Y-%m-%d")
+            except ValueError:
+                pass
+        try:
+            dt = parsedate_to_datetime(value)
+            return dt.strftime("%Y-%m-%d")
+        except (TypeError, ValueError):
+            return value.split(" ")[0]
+
+    return str(value)
+
+
 def generate_article_table_rows(article_entries: List[Dict[str, Any]]) -> str:
     """Generate Markdown table rows for articles.
     
@@ -98,8 +126,11 @@ def generate_article_table_rows(article_entries: List[Dict[str, Any]]) -> str:
         
         # Create title link
         title_link = f"[{title}](articles/{article_file})"
-        
-        rows += f"| {domain} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
+
+        updated_raw = entry.get("updated") or entry.get("published")
+        updated_date = format_date_only(updated_raw)
+
+        rows += f"| {domain} | {updated_date} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
     
     return rows
 
@@ -351,6 +382,7 @@ def publish_rss_article_pages(
                 "title": article.get("title", "Untitled Article"),
                 "url": article.get("url", ""),
                 "published": article.get("published"),
+                "updated": article.get("updated") or article.get("published"),
                 "llm_applicability_score": article.get("llm_applicability_score", 0),
                 "llm_credibility_score": article.get("llm_credibility_score", 0)
             })
@@ -471,8 +503,8 @@ Browse all discovered GitHub repositories in a searchable table format.
             new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
             
             # Add table header
-            new_entry += "| Source | Applicability | Credibility | Title |\n"
-            new_entry += "|--------|--------------|-------------|-------|\n"
+            new_entry += "| Source | Updated | Applicability | Credibility | Title |\n"
+            new_entry += "|--------|---------|--------------|-------------|-------|\n"
             
             # Add table rows
             new_entry += generate_article_table_rows(article_entries)
@@ -495,8 +527,8 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
                 
                 # Add table header
-                new_section += "| Source | Applicability | Credibility | Title |\n"
-                new_section += "|--------|--------------|-------------|-------|\n"
+                new_section += "| Source | Updated | Applicability | Credibility | Title |\n"
+                new_section += "|--------|---------|--------------|-------------|-------|\n"
                 
                 # Add table rows
                 new_section += generate_article_table_rows(article_entries)
@@ -510,8 +542,8 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
                 
                 # Add table header
-                new_section += "| Source | Applicability | Credibility | Title |\n"
-                new_section += "|--------|--------------|-------------|-------|\n"
+                new_section += "| Source | Updated | Applicability | Credibility | Title |\n"
+                new_section += "|--------|---------|--------------|-------------|-------|\n"
                 
                 # Add table rows
                 new_section += generate_article_table_rows(article_entries)
