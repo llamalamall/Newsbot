@@ -165,7 +165,8 @@ def search_rss_feeds(
                 ]
                 
                 # Perform batch assessment
-                logging.info(f"Running batch LLM assessment for {len(articles_for_assessment)} articles (batch_size={batch_size})...")
+                num_batches = (len(articles_for_assessment) + batch_size - 1) // batch_size
+                logging.info(f"Running batch LLM assessment for {len(articles_for_assessment)} articles in {num_batches} batch(es) (batch_size={batch_size})...")
                 batch_assessments = assess_articles_batch(
                     openai_client=openai_client,
                     articles=articles_for_assessment,

@@ -579,8 +579,12 @@ Source: {source_name}
 Domain Credibility: {domain_credibility}"""
             
             if content and len(content) > 0:
-                # Limit content to avoid token limits (roughly 2000 chars per article in batch)
-                article_text += f"\nContent Preview: {content[:2000]}"
+                # Limit content to avoid token limits
+                # Use smaller previews for batch processing to fit multiple articles
+                # Approximately 500 chars (~125 tokens) per article allows for 5 articles
+                # with metadata and prompt overhead to fit comfortably in context
+                content_limit = max(500, 2500 // len(articles))  # Scale down for larger batches
+                article_text += f"\nContent Preview: {content[:content_limit]}"
             
             articles_text.append(article_text)
         
@@ -633,6 +637,9 @@ For credibility, common flags: "clickbait_title", "low_quality_content", "no_sou
         )
         
         # Call the LLM
+        # Scale max_tokens based on batch size to ensure adequate response capacity
+        # Each article assessment typically requires ~250-300 tokens for the JSON response
+        max_response_tokens = min(4000, 300 * len(articles) + 500)  # 500 for overhead
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
@@ -640,7 +647,7 @@ For credibility, common flags: "clickbait_title", "low_quality_content", "no_sou
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
-            max_tokens=2000  # Allow more tokens for batch responses
+            max_tokens=max_response_tokens
         )
         increment_llm_call_count()
         
