@@ -10,6 +10,28 @@ import json
 # Add scripts to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
 
+
+def load_list_config(config, key, file_key, base_dir):
+    """Load a list-based config from a file or inline config."""
+    file_ref = config.get(file_key)
+    if not file_ref:
+        return config.get(key, [])
+
+    resolved_path = file_ref
+    if not os.path.isabs(file_ref):
+        resolved_path = os.path.join(base_dir, file_ref)
+
+    try:
+        with open(resolved_path, 'r') as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            return data
+        print(f"⚠ {resolved_path} is not a JSON list; using empty list")
+    except Exception as exc:
+        print(f"⚠ Could not load {resolved_path}: {exc}")
+
+    return []
+
 def test_newsbot_rss_integration():
     """Test that NewsBot properly initializes with RSS configuration."""
     print("Testing NewsBot RSS Integration...")
@@ -21,11 +43,13 @@ def test_newsbot_rss_integration():
     
     with open(config_path, 'r') as f:
         config = json.load(f)
+    base_dir = os.path.dirname(config_path)
     
     print("✓ Configuration loaded successfully")
     print(f"  - Content source: {config.get('content_source', 'not set')}")
     print(f"  - RSS enabled: {config.get('rss_enabled', False)}")
-    print(f"  - Number of RSS feeds: {len(config.get('rss_feeds', []))}")
+    rss_feeds = load_list_config(config, 'rss_feeds', 'rss_feeds_file', base_dir)
+    print(f"  - Number of RSS feeds: {len(rss_feeds)}")
     
     # Test 2: Check RSS settings
     print("\n2. Testing RSS settings...")
@@ -40,7 +64,7 @@ def test_newsbot_rss_integration():
     
     # Test 3: Check RSS feeds
     print("\n3. Testing RSS feed configuration...")
-    rss_feeds = config.get('rss_feeds', [])
+    rss_feeds = load_list_config(config, 'rss_feeds', 'rss_feeds_file', base_dir)
     print(f"✓ Found {len(rss_feeds)} RSS feeds configured")
     
     # Show feed categories

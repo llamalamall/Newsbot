@@ -59,7 +59,11 @@ class NewsBot:
     
     def __init__(self, config_path: str = "config.json"):
         """Initialize the NewsBot with configuration."""
-        self.config = self.load_config(config_path)
+        try:
+            self.config = self.load_config(config_path)
+        except (FileNotFoundError, json.JSONDecodeError) as exc:
+            logging.error(f"Failed to load configuration: {exc}")
+            raise
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.results = []
         
@@ -92,7 +96,58 @@ class NewsBot:
     def load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from JSON file."""
         with open(config_path, 'r') as f:
-            return json.load(f)
+            config = json.load(f)
+
+        config_dir = os.path.dirname(os.path.abspath(config_path))
+        self._load_list_config(config, "search_keywords", "search_keywords_file", config_dir)
+        self._load_list_config(config, "github_topics", "github_topics_file", config_dir)
+        self._load_list_config(config, "rss_feeds", "rss_feeds_file", config_dir)
+
+        return config
+
+    def _load_list_config(
+        self,
+        config: Dict[str, Any],
+        key: str,
+        file_key: str,
+        config_dir: str
+    ) -> None:
+        """Load list-based configuration from a separate JSON file."""
+        file_ref = config.get(file_key)
+        if not file_ref:
+            return
+
+        resolved_path = file_ref
+        if not os.path.isabs(file_ref):
+            resolved_path = os.path.join(config_dir, file_ref)
+
+        try:
+            with open(resolved_path, 'r') as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                logging.error(
+                    f"Config file '{resolved_path}' must contain a JSON list for '{key}'"
+                )
+                if config.get(key) is None:
+                    config[key] = []
+                return
+            config[key] = data
+        except FileNotFoundError:
+            logging.error(f"Config file not found for '{key}': {resolved_path}")
+            if config.get(key) is None:
+                config[key] = []
+        except json.JSONDecodeError as exc:
+            logging.error(
+                f"Invalid JSON in '{resolved_path}' for '{key}': {exc}"
+            )
+            if config.get(key) is None:
+                config[key] = []
+        except Exception as exc:
+            logging.error(
+                f"Unexpected error loading '{resolved_path}' for '{key}': {exc}"
+            )
+            if config.get(key) is None:
+                config[key] = []
     
     # Backward compatibility wrapper methods
     def assess_source_credibility(self, url: str) -> str:
