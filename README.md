@@ -287,11 +287,37 @@ Newsbot can automatically publish reports to a `docs/` folder for GitHub Pages:
 python scripts/newsbot.py --publish-docs
 ```
 
-This creates:
-- `docs/index.md` - Main landing page with links to all reports
-- `docs/report_YYYYMMDD_HHMMSS.md` - Formatted individual reports
+This creates a structured documentation site with:
+
+**Main Pages:**
+- `docs/index.md` - Main landing page with navigation to all content
+- `docs/repositories.md` - Searchable table of all discovered GitHub repositories
+- `docs/articles/` - Directory containing individual RSS article pages
+- `docs/report_YYYYMMDD_HHMMSS.md` - Legacy full reports (maintained for backward compatibility)
 - `docs/.nojekyll` - Disables Jekyll processing for plain markdown rendering
 - `docs/README.md` - Setup instructions
+
+**Structured Content:**
+
+1. **GitHub Repositories Page**: All repositories are consolidated into a single table (`repositories.md`) showing:
+   - Repository name and link
+   - Description (truncated if long)
+   - Star count
+   - Last updated date
+   - Primary topic
+   - Sorted by stars (descending)
+
+2. **Individual Article Pages**: Each RSS feed article gets its own page (`articles/article_YYYYMMDD_HHMMSS_NNN.md`) with:
+   - Full article title and description
+   - Publication date
+   - Source feed information
+   - LLM applicability and credibility assessments
+   - Navigation links to previous/next articles and back to index
+
+3. **Index Page**: Serves as the central hub with:
+   - Link to repositories page
+   - Chronological listing of articles by publication date
+   - Links to legacy full report files
 
 **Setting up GitHub Pages:**
 
@@ -309,44 +335,56 @@ After setup, verify everything is working:
 - ✅ Check for a green checkmark in Settings > Pages
 - ✅ Visit the provided URL to see your reports
 - ✅ Go to Actions tab and check "pages build and deployment" workflow succeeded
-- ✅ Verify index page shows the latest reports
+- ✅ Verify index page shows links to repositories and articles
 
 Your reports will be published at `https://<username>.github.io/<repository>/`
 
 **Features:**
-- 📑 Automatic index generation with newest reports first
-- 🔄 Incremental updates (only new reports are added)
-- 📊 Result counts displayed for each report
-- 🔗 Easy navigation with back-to-index links
+- 📊 Dedicated table view for GitHub repositories
+- 📄 Individual pages for each RSS article
+- 📑 Automatic index generation organized by content type
+- 🔄 Incremental updates (only new content is added)
+- 🔗 Easy navigation between articles and back to index
 - 🎨 Ready for GitHub Pages with minimal configuration
+- 📋 Backward compatible with legacy full report format
 
 **In GitHub Actions:**
 
 The workflow automatically publishes to docs/ when enabled (see `.github/workflows/newsbot.yml`).
 
-Example report structure:
+Example repository page:
 ```markdown
-# Offensive Security AI/Automation News
+# GitHub Repositories
 
-## Summary
-Found X relevant items.
+| Repository | Description | Stars | Last Updated | Topics |
+|------------|-------------|-------|--------------|--------|
+| [user/repo](url) | Description... | 123 | 2024-01-15 | security |
+```
 
-## GitHub Repositories (N)
-### [owner/repo-name](url)
-Description...
-- Stars: 123
-- Updated: 2024-01-15
-- Topic: offensive-security
+Example article page structure:
+```markdown
+# Article Title
 
-## RSS Feed Articles (N)
-### Article Title
-Description and summary...
-**Link:** https://example.com/article
-**Source:** Security Blog (research)
+*Published: 2024-01-15*
+
+---
+
+Article description and content...
+
+**Read full article:** [URL](URL)
+
+---
+
+## Source Information
+**Feed:** Security Blog (research)
 **Domain Credibility:** High
+
+## Relevance Assessment
 **LLM Applicability:** ✓ Relevant (score: 0.85)
-*Matched topics: AI automation, penetration testing*
-*Article discusses AI-powered security testing tools with practical applications*
+**Matched topics:** AI automation, penetration testing
+**Reasoning:** Article discusses AI-powered security testing tools...
+
+## Credibility Assessment
 **LLM Credibility:** ✓ Credible (score: 0.90)
 *Well-researched article with citations and technical details*
 **Published:** 2024-01-15
