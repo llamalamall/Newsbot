@@ -441,7 +441,7 @@ def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str,
         article_path = os.path.join(articles_dir, article_filename)
         
         # Generate page content
-        page_content = generate_rss_article_page(article, idx, total_articles)
+        page_content = generate_rss_article_page(article)
         
         # Add front matter and navigation
         try:

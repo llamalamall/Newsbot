@@ -242,14 +242,11 @@ def generate_repositories_page(github_items: List[Dict[str, Any]]) -> str:
     return page
 
 
-def generate_rss_article_page(article: Dict[str, Any], article_number: int = 1, 
-                              total_articles: int = 1) -> str:
+def generate_rss_article_page(article: Dict[str, Any]) -> str:
     """Generate a markdown page for a single RSS article.
     
     Args:
         article: RSS article item
-        article_number: Article number in sequence (for navigation)
-        total_articles: Total number of articles (for navigation)
         
     Returns:
         Markdown page content as string
