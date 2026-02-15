@@ -325,7 +325,6 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
-- `.nojekyll` - Disables Jekyll processing (allows plain markdown rendering with front matter)
 
 ## Customization
 
@@ -358,7 +357,6 @@ After configuring GitHub Pages, verify it's working:
 **Pages not appearing:**
 - Ensure the repository is public (or you have GitHub Pro for private repos)
 - Check that the docs/ folder contains index.md
-- Verify .nojekyll file exists (disables Jekyll processing for plain rendering)
 - Wait 1-2 minutes after pushing changes
 
 **Build failures:**
@@ -371,9 +369,8 @@ After configuring GitHub Pages, verify it's working:
 - Check that linked files exist in the docs/ folder
 
 **Styling issues:**
-- GitHub Pages uses default GitHub markdown styling with .nojekyll
-- Check that front matter is properly formatted in report files
-- Consider removing .nojekyll to enable Jekyll themes (requires _config.yml)
+ - GitHub Pages uses default GitHub markdown styling
+ - Check that front matter is properly formatted in report files
 """
         with open(readme_path, 'w') as f:
             f.write(readme_content)
@@ -612,7 +609,7 @@ Browse all discovered GitHub repositories in a searchable table format.
             if "---" in index_content:
                 parts = index_content.rsplit("---", 1)
                 main_content = parts[0]
-                footer = "---" + parts[1]
+                footer = "\n\n---" + parts[1]
                 
                 new_section = "## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
@@ -738,30 +735,44 @@ def publish_report_from_path(
     docs_dir: str = "docs",
     results_path: Optional[str] = None
 ) -> Optional[str]:
-    """Publish a specific report file to docs with optional results metadata.
+    """Publish a specific report file to docs with structured content.
 
     Args:
         report_path: Path to the report markdown file
         docs_dir: Target docs directory
-        results_path: Optional path to JSON results for result count
+        results_path: Optional path to JSON results for structured publishing
 
     Returns:
-        Path to published docs file, or None if publishing failed
+        Path to the published index file, or None if publishing failed
     """
-    result_count = 0
+    if not os.path.exists(report_path):
+        logging.error(f"Report file not found: {report_path}")
+        return None
+
     if results_path is None:
         report_dir = os.path.dirname(report_path)
         filename = os.path.basename(report_path)
         timestamp = filename.replace("report_", "").replace(".md", "")
         results_path = os.path.join(report_dir, f"results_{timestamp}.json")
+    else:
+        filename = os.path.basename(report_path)
+        timestamp = filename.replace("report_", "").replace(".md", "")
 
-    if results_path and os.path.exists(results_path):
-        try:
-            with open(results_path, 'r') as f:
-                results = json.load(f)
-                result_count = len(results) if isinstance(results, list) else 0
-        except (json.JSONDecodeError, IOError) as e:
-            logging.warning(f"Could not read results JSON: {e}")
+    if not results_path or not os.path.exists(results_path):
+        logging.error(f"Results JSON not found: {results_path}")
+        return None
+
+    try:
+        with open(results_path, 'r') as f:
+            results = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        logging.warning(f"Could not read results JSON: {e}")
+        return None
+
+    if not isinstance(results, list):
+        logging.warning("Results JSON is not a list; skipping structured publish")
+        return None
 
     initialize_docs_directory(docs_dir)
-    return publish_report_to_docs(report_path, docs_dir, result_count)
+    published_files = publish_structured_docs(results, timestamp, docs_dir)
+    return published_files.get("index")
