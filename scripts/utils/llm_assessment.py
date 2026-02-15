@@ -12,6 +12,21 @@ from openai import OpenAI, RateLimitError
 _LLM_CALL_COUNT = 0
 
 
+def _handle_rate_limit(error: Exception) -> None:
+    """Handle rate limit errors by checking status code and exiting if rate-limited.
+    
+    Args:
+        error: Exception that may be a rate limit error
+        
+    Raises:
+        SystemExit: If the error is a rate limit error (HTTP 429)
+    """
+    status_code = getattr(error, "status_code", None) or getattr(error, "status", None)
+    if isinstance(error, RateLimitError) or status_code == 429:
+        logging.error("LLM request rate-limited (HTTP 429). Exiting.")
+        raise SystemExit(1)
+
+
 def reset_llm_call_count() -> None:
     """Reset the running LLM call counter."""
     global _LLM_CALL_COUNT
@@ -67,12 +82,6 @@ def assess_article_applicability(
             "matched_keywords": []
         }
 
-    def handle_rate_limit(error: Exception) -> None:
-        status_code = getattr(error, "status_code", None) or getattr(error, "status", None)
-        if isinstance(error, RateLimitError) or status_code == 429:
-            logging.error("LLM request rate-limited (HTTP 429). Exiting.")
-            raise SystemExit(1)
-    
     try:
         # Build the prompt with keywords
         keywords_str = ", ".join(keywords)
@@ -156,7 +165,7 @@ Be selective - only mark as applicable if there's a clear, strong connection to 
         return result
         
     except RateLimitError as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         raise
     except json.JSONDecodeError as e:
         logging.error(f"Failed to parse LLM response as JSON: {e}")
@@ -168,7 +177,7 @@ Be selective - only mark as applicable if there's a clear, strong connection to 
             "matched_keywords": []
         }
     except Exception as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         logging.error(f"Error in LLM applicability assessment: {str(e)}")
         return {
             "applicable": True,  # Default to including on error
@@ -219,12 +228,6 @@ def assess_article_credibility(
             "flags": []
         }
 
-    def handle_rate_limit(error: Exception) -> None:
-        status_code = getattr(error, "status_code", None) or getattr(error, "status", None)
-        if isinstance(error, RateLimitError) or status_code == 429:
-            logging.error("LLM request rate-limited (HTTP 429). Exiting.")
-            raise SystemExit(1)
-    
     try:
         # Include content if available
         article_text = f"Title: {title}\n\nDescription: {description}"
@@ -315,7 +318,7 @@ Only mark as not credible if there are serious quality or trustworthiness issues
         return result
         
     except RateLimitError as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         raise
     except json.JSONDecodeError as e:
         logging.error(f"Failed to parse LLM credibility response as JSON: {e}")
@@ -327,7 +330,7 @@ Only mark as not credible if there are serious quality or trustworthiness issues
             "flags": []
         }
     except Exception as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         logging.error(f"Error in LLM credibility assessment: {str(e)}")
         return {
             "credible": True,  # Default to including on error
@@ -360,12 +363,6 @@ def filter_titles_by_relevance(
 
     if not titles:
         return []
-
-    def handle_rate_limit(error: Exception) -> None:
-        status_code = getattr(error, "status_code", None) or getattr(error, "status", None)
-        if isinstance(error, RateLimitError) or status_code == 429:
-            logging.error("LLM request rate-limited (HTTP 429). Exiting.")
-            raise SystemExit(1)
 
     try:
         keywords_str = ", ".join(keywords) if keywords else "AI/automation in offensive security"
@@ -427,13 +424,13 @@ Be selective. Only include titles with a clear and strong connection to the topi
         return valid_indices
 
     except RateLimitError as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         raise
     except json.JSONDecodeError as e:
         logging.error(f"Failed to parse LLM title filter response as JSON: {e}")
         logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
         return []
     except Exception as e:
-        handle_rate_limit(e)
+        _handle_rate_limit(e)
         logging.error(f"Error in LLM title filtering: {str(e)}")
         return []
