@@ -101,8 +101,7 @@ def format_article_link_title(title: str, url: str, max_length: int = 80) -> str
     Returns:
         Formatted link text.
     """
-    domain = urlparse(url).netloc if url else ""
-    domain = domain or "unknown-source"
+    domain = extract_domain_from_url(url)
     title_text = (title or "Untitled").strip()
     combined = f"{domain} - {title_text}" if title_text else domain
 
@@ -110,6 +109,56 @@ def format_article_link_title(title: str, url: str, max_length: int = 80) -> str
         combined = combined[: max_length - 3].rstrip() + "..."
 
     return combined
+
+
+def extract_domain_from_url(url: str) -> str:
+    """Extract domain from URL.
+    
+    Args:
+        url: Article URL.
+        
+    Returns:
+        Domain string or "unknown" if URL is empty/invalid.
+    """
+    if not url:
+        return "unknown"
+    domain = urlparse(url).netloc
+    return domain if domain else "unknown"
+
+
+def generate_article_table_rows(article_entries: List[Dict[str, Any]]) -> str:
+    """Generate Markdown table rows for articles.
+    
+    Args:
+        article_entries: List of article metadata dictionaries.
+        
+    Returns:
+        Markdown table rows as a string.
+    """
+    rows = ""
+    for entry in sort_articles_by_published(article_entries):
+        article_file = entry.get("filename", "")
+        if not article_file:
+            continue
+        
+        # Extract domain from URL
+        domain = extract_domain_from_url(entry.get("url", ""))
+        
+        # Get scores
+        applicability = entry.get("llm_applicability_score", 0)
+        credibility = entry.get("llm_credibility_score", 0)
+        
+        # Get full title (no truncation)
+        title = entry.get("title", "Untitled Article")
+        # Escape pipe characters in title for table formatting
+        title = title.replace('|', '\\|')
+        
+        # Create title link
+        title_link = f"[{title}](articles/{article_file})"
+        
+        rows += f"| {domain} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
+    
+    return rows
 
 
 def sort_articles_by_published(entries: List[Dict[str, str]]) -> List[Dict[str, str]]:
@@ -532,7 +581,9 @@ def publish_rss_article_pages(
                 "path": article_path,
                 "title": article.get("title", "Untitled Article"),
                 "url": article.get("url", ""),
-                "published": article.get("published")
+                "published": article.get("published"),
+                "llm_applicability_score": article.get("llm_applicability_score", 0),
+                "llm_credibility_score": article.get("llm_credibility_score", 0)
             })
             logging.info(f"Published article page: {article_filename}")
         except IOError as e:
@@ -646,17 +697,16 @@ Browse all discovered GitHub repositories in a searchable table format.
                 elif line.strip().startswith('###') or line.strip().startswith('-'):
                     entries.append(line)
             
-            # Create new entry for this batch
+            # Create new entry for this batch with table format
             new_entry = f"### {date_only}\n\n"
             new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
             
-            # Add links to individual articles
-            for entry in sort_articles_by_published(article_entries):
-                article_file = entry.get("filename", "")
-                if not article_file:
-                    continue
-                link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                new_entry += f"- [{link_title}](articles/{article_file})\n"
+            # Add table header
+            new_entry += "| Source | Applicability | Credibility | Title |\n"
+            new_entry += "|--------|--------------|-------------|-------|\n"
+            
+            # Add table rows
+            new_entry += generate_article_table_rows(article_entries)
             new_entry += "\n"
             
             # Combine with existing entries
@@ -674,12 +724,13 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for entry in sort_articles_by_published(article_entries):
-                    article_file = entry.get("filename", "")
-                    if not article_file:
-                        continue
-                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                    new_section += f"- [{link_title}](articles/{article_file})\n"
+                
+                # Add table header
+                new_section += "| Source | Applicability | Credibility | Title |\n"
+                new_section += "|--------|--------------|-------------|-------|\n"
+                
+                # Add table rows
+                new_section += generate_article_table_rows(article_entries)
                 new_section += "\n"
                 
                 index_content = main_content + new_section + footer
@@ -688,12 +739,13 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "\n## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for entry in sort_articles_by_published(article_entries):
-                    article_file = entry.get("filename", "")
-                    if not article_file:
-                        continue
-                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
-                    new_section += f"- [{link_title}](articles/{article_file})\n"
+                
+                # Add table header
+                new_section += "| Source | Applicability | Credibility | Title |\n"
+                new_section += "|--------|--------------|-------------|-------|\n"
+                
+                # Add table rows
+                new_section += generate_article_table_rows(article_entries)
                 index_content += new_section
     
     # Ensure footer exists
