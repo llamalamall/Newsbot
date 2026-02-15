@@ -78,6 +78,7 @@ def search_rss_feeds(
         rss_settings = config.get('rss_settings', {})
         max_age_days = rss_settings.get('max_age_days', config.get('days_back', 7))
         min_keyword_matches = rss_settings.get('min_keyword_matches', 1)
+        fallback_to_keyword_filtering = rss_settings.get('fallback_to_keyword_filtering', False)
         
         # Get LLM assessment settings
         llm_settings = config.get('llm_assessment', {})
@@ -112,14 +113,16 @@ def search_rss_feeds(
             )
             if relevant_indices:
                 filtered_entries = [recent_entries[idx] for idx in relevant_indices]
-            else:
+            elif fallback_to_keyword_filtering and keywords:
                 logging.info("LLM title filtering returned no results; applying keyword filtering")
-                if keywords:
-                    filtered_entries = rss_manager.filter_by_keywords(
-                        recent_entries,
-                        keywords,
-                        min_keyword_matches
-                    )
+                filtered_entries = rss_manager.filter_by_keywords(
+                    recent_entries,
+                    keywords,
+                    min_keyword_matches
+                )
+            else:
+                logging.info("LLM title filtering returned no results; keyword fallback disabled")
+                filtered_entries = []
         elif keywords:
             filtered_entries = rss_manager.filter_by_keywords(
                 recent_entries,
