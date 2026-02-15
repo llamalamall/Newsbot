@@ -414,11 +414,6 @@ optional_front_matter:
 # Exclude files from processing
 exclude:
   - README.md
-  - .nojekyll
-
-# Include dotfiles
-include:
-  - .nojekyll
 """
         with open(config_path, 'w') as f:
             f.write(config_content)

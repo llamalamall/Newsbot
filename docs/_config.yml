@@ -41,8 +41,3 @@ optional_front_matter:
 # Exclude files from processing
 exclude:
   - README.md
-  - .nojekyll
-
-# Include dotfiles
-include:
-  - .nojekyll
