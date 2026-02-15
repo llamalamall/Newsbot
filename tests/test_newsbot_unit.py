@@ -311,6 +311,95 @@ class TestNewsAggregation:
         
         # Results should be empty or minimal
         assert isinstance(results, list)
+    
+    @patch('newsbot.search_rss_feeds')
+    @patch('newsbot.search_github_repos')
+    @patch('newsbot.load_analyzed_articles')
+    @patch('newsbot.filter_analyzed_articles')
+    def test_aggregate_news_with_deduplication(self, mock_filter, mock_load, mock_github, mock_rss, tmp_path):
+        """Test that aggregate_news filters out already analyzed articles."""
+        config_data = {
+            "github_topics": ["test"],
+            "days_back": 7,
+            "max_results_per_topic": 5,
+            "rss_enabled": True,
+            "skip_analyzed": {
+                "enabled": True
+            }
+        }
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps(config_data))
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('newsbot.OpenAI'):
+                bot = NewsBot(config_path=str(config_file))
+        
+        # Mock the analyzed articles set
+        mock_load.return_value = {'https://example.com/old1', 'https://example.com/old2'}
+        
+        # Mock GitHub results
+        github_results = [
+            {"title": "New Repo", "url": "https://github.com/new/repo", "source": "github"},
+            {"title": "Old Repo", "url": "https://example.com/old1", "source": "github"}
+        ]
+        mock_github.return_value = github_results
+        
+        # Mock RSS results
+        rss_results = [
+            {"title": "New Article", "url": "https://example.com/new", "source": "rss"},
+            {"title": "Old Article", "url": "https://example.com/old2", "source": "rss"}
+        ]
+        mock_rss.return_value = rss_results
+        
+        # Mock filter to return filtered results
+        mock_filter.side_effect = [
+            ([{"title": "New Repo", "url": "https://github.com/new/repo", "source": "github"}], 1),
+            ([{"title": "New Article", "url": "https://example.com/new", "source": "rss"}], 1)
+        ]
+        
+        output_dir = tmp_path / "outputs"
+        results = bot.aggregate_news(output_dir=str(output_dir))
+        
+        # Verify load_analyzed_articles was called
+        mock_load.assert_called_once_with(str(output_dir))
+        
+        # Verify filter_analyzed_articles was called for both GitHub and RSS
+        assert mock_filter.call_count == 2
+        
+        # Verify results only contain new articles
+        assert len(results) == 2
+    
+    @patch('newsbot.search_rss_feeds')
+    @patch('newsbot.search_github_repos')
+    def test_aggregate_news_with_deduplication_disabled(self, mock_github, mock_rss, tmp_path):
+        """Test that deduplication can be disabled via config."""
+        config_data = {
+            "github_topics": ["test"],
+            "days_back": 7,
+            "max_results_per_topic": 5,
+            "rss_enabled": False,
+            "skip_analyzed": {
+                "enabled": False
+            }
+        }
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps(config_data))
+        
+        with patch.dict(os.environ, {"GITHUB_TOKEN": "test_token"}):
+            with patch('newsbot.OpenAI'):
+                bot = NewsBot(config_path=str(config_file))
+        
+        github_results = [
+            {"title": "Repo 1", "url": "https://github.com/test/1", "source": "github"},
+            {"title": "Repo 2", "url": "https://github.com/test/2", "source": "github"}
+        ]
+        mock_github.return_value = github_results
+        
+        output_dir = tmp_path / "outputs"
+        results = bot.aggregate_news(output_dir=str(output_dir))
+        
+        # All results should be included when deduplication is disabled
+        assert len(results) == 2
 
 
 class TestConstants:

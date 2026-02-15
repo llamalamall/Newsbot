@@ -24,6 +24,7 @@ from openai import OpenAI
 try:
     from .utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from .utils.content_extractor import extract_article_content
+    from .utils.article_cache import load_analyzed_articles, filter_analyzed_articles
     from .searchers.github_search import search_github_repos
     from .searchers.rss_search import search_rss_feeds
     from .reporters.markdown_reporter import generate_report, save_json_results
@@ -36,6 +37,7 @@ except ImportError:
         sys.path.insert(0, script_dir)
     from utils.credibility import assess_source_credibility, CREDIBLE_SOURCES
     from utils.content_extractor import extract_article_content
+    from utils.article_cache import load_analyzed_articles, filter_analyzed_articles
     from searchers.github_search import search_github_repos
     from searchers.rss_search import search_rss_feeds
     from reporters.markdown_reporter import generate_report, save_json_results
@@ -113,10 +115,27 @@ class NewsBot:
         """
         return extract_article_content(url)
 
-    def aggregate_news(self) -> List[Dict[str, Any]]:
-        """Aggregate news from GitHub and RSS feeds."""
+    def aggregate_news(self, output_dir: str = "outputs") -> List[Dict[str, Any]]:
+        """Aggregate news from GitHub and RSS feeds.
+        
+        Args:
+            output_dir: Directory containing previous output files for deduplication
+            
+        Returns:
+            List of aggregated news items
+        """
         logging.info("Aggregating news from multiple sources...")
         all_results = []
+        
+        # Load previously analyzed articles if skip_analyzed is enabled
+        analyzed_ids = set()
+        skip_analyzed_enabled = self.config.get("skip_analyzed", {}).get("enabled", True)
+        
+        if skip_analyzed_enabled:
+            logging.info("Article deduplication is enabled")
+            analyzed_ids = load_analyzed_articles(output_dir)
+        else:
+            logging.info("Article deduplication is disabled")
         
         # Search GitHub repositories (if enabled)
         if self.config.get("github_enabled", True):
@@ -126,6 +145,13 @@ class NewsBot:
                 days_back=self.config.get("days_back", 7),
                 max_results_per_topic=self.config.get("max_results_per_topic", 10)
             )
+            
+            # Filter GitHub results if deduplication is enabled
+            if skip_analyzed_enabled and analyzed_ids:
+                github_results, skipped = filter_analyzed_articles(github_results, analyzed_ids)
+                if skipped > 0:
+                    logging.info(f"Skipped {skipped} already analyzed GitHub repositories")
+            
             all_results.extend(github_results)
         else:
             logging.info("GitHub search disabled by configuration")
@@ -138,6 +164,13 @@ class NewsBot:
                 config=self.config,
                 openai_client=self.openai_client
             )
+            
+            # Filter RSS results if deduplication is enabled
+            if skip_analyzed_enabled and analyzed_ids:
+                rss_results, skipped = filter_analyzed_articles(rss_results, analyzed_ids)
+                if skipped > 0:
+                    logging.info(f"Skipped {skipped} already analyzed RSS articles")
+            
             all_results.extend(rss_results)
         
         self.results = all_results
@@ -272,8 +305,8 @@ def main():
         logging.error(f"Invalid JSON in configuration file: {e}")
         sys.exit(1)
     
-    # Aggregate news
-    results = bot.aggregate_news()
+    # Aggregate news (passing output_dir for deduplication)
+    results = bot.aggregate_news(output_dir=args.output_dir)
     
     if not args.quiet:
         print()
