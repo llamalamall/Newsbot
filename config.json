@@ -11,7 +11,13 @@
     "supply chain attacks",
     "AI automation",
     "LLM security",
-    "automated hacking"
+    "automated hacking",
+    "PSIRT advisory",
+    "product security incident response",
+    "vulnerability disclosure",
+    "zero-day exploit",
+    "threat intelligence",
+    "network security advisory"
   ],
   "github_topics": [
     "offensive-security",
@@ -147,6 +153,78 @@
       "url": "https://blog.malwarebytes.com/feed/",
       "priority": "medium",
       "category": "malware"
+    },
+    {
+      "name": "Cisco PSIRT Security Advisories",
+      "url": "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml",
+      "priority": "high",
+      "category": "official"
+    },
+    {
+      "name": "Cisco Talos Intelligence Blog",
+      "url": "https://blog.talosintelligence.com/rss/",
+      "priority": "high",
+      "category": "research"
+    },
+    {
+      "name": "Cisco Security Event Responses",
+      "url": "https://sec.cloudapps.cisco.com/security/center/eventResponses_20.xml",
+      "priority": "high",
+      "category": "official"
+    },
+    {
+      "name": "Mandiant Threat Intelligence (Google Cloud)",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/rss/",
+      "priority": "high",
+      "category": "research"
+    },
+    {
+      "name": "CrowdStrike Blog",
+      "url": "https://www.crowdstrike.com/blog/feed/",
+      "priority": "high",
+      "category": "research"
+    },
+    {
+      "name": "Palo Alto Networks Unit 42",
+      "url": "https://www.paloaltonetworks.com/blog/category/threat-research/feed/",
+      "priority": "high",
+      "category": "research"
+    },
+    {
+      "name": "Rapid7 Blog",
+      "url": "https://blog.rapid7.com/rss/",
+      "priority": "medium",
+      "category": "research"
+    },
+    {
+      "name": "Qualys Threat Research Blog",
+      "url": "https://blog.qualys.com/feed",
+      "priority": "medium",
+      "category": "research"
+    },
+    {
+      "name": "SANS Internet Storm Center",
+      "url": "https://isc.sans.edu/rssfeed_full.xml",
+      "priority": "high",
+      "category": "official"
+    },
+    {
+      "name": "MITRE ATT&CK Blog",
+      "url": "https://medium.com/feed/mitre-attack",
+      "priority": "medium",
+      "category": "research"
+    },
+    {
+      "name": "Recorded Future Blog",
+      "url": "https://www.recordedfuture.com/feed",
+      "priority": "medium",
+      "category": "research"
+    },
+    {
+      "name": "SentinelOne Blog",
+      "url": "https://www.sentinelone.com/blog/feed/",
+      "priority": "medium",
+      "category": "research"
     }
   ],
   "rss_settings": {
