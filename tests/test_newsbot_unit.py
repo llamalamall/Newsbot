@@ -8,7 +8,7 @@ import pytest
 import json
 import os
 import sys
-from unittest.mock import Mock, MagicMock, patch, mock_open
+from unittest.mock import Mock, MagicMock, patch, mock_open, call
 from datetime import datetime
 
 # Add scripts to path
@@ -468,8 +468,11 @@ class TestMainFunction:
         assert mock_report.called
         assert mock_save.called
         
-        # Verify output directory was created
-        mock_makedirs.assert_called_once()
+        # Verify output and docs directories were created
+        mock_makedirs.assert_has_calls(
+            [call('outputs', exist_ok=True), call('docs', exist_ok=True)]
+        )
+        assert mock_makedirs.call_count == 2
     
     @patch('newsbot.NewsBot')
     @patch('newsbot.generate_report')
@@ -502,8 +505,11 @@ class TestMainFunction:
             with patch('sys.argv', ['newsbot', '--output-dir', 'custom_output']):
                 main()
         
-        # Verify output directory was created with custom path
-        mock_makedirs.assert_called_once_with('custom_output', exist_ok=True)
+        # Verify output and docs directories were created with custom path
+        mock_makedirs.assert_has_calls(
+            [call('custom_output', exist_ok=True), call('docs', exist_ok=True)]
+        )
+        assert mock_makedirs.call_count == 2
     
     @patch('newsbot.NewsBot')
     @patch('newsbot.generate_report')
