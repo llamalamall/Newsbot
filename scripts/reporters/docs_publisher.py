@@ -314,17 +314,115 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
 - `.nojekyll` - Disables Jekyll processing for cleaner URLs
+- `_config.yml` - Jekyll configuration for GitHub Pages
 
 ## Customization
 
 You can customize the look and feel by:
-- Adding a `_config.yml` file for Jekyll configuration
+- Editing `_config.yml` for Jekyll configuration (theme, title, description)
 - Creating custom CSS in a `assets/` directory
 - Modifying the report templates in the publisher script
+
+## Verifying GitHub Pages Setup
+
+After configuring GitHub Pages, verify it's working:
+
+1. **Check GitHub Pages is enabled:**
+   - Go to **Settings** > **Pages**
+   - Verify **Source** is set to "Deploy from a branch"
+   - Confirm **Branch** is set to "main" and folder is "/docs"
+   - Look for the green checkmark and site URL
+
+2. **Visit your site:**
+   - Your site will be at `https://<username>.github.io/<repository>/`
+   - It may take a few minutes to deploy initially
+
+3. **Check build status:**
+   - Go to the **Actions** tab
+   - Look for "pages build and deployment" workflow
+   - Ensure it completed successfully (green checkmark)
+
+## Troubleshooting
+
+**Pages not appearing:**
+- Ensure the repository is public (or you have GitHub Pro for private repos)
+- Check that the docs/ folder contains index.md
+- Verify .nojekyll file exists (disables default Jekyll processing)
+- Wait 1-2 minutes after pushing changes
+
+**Build failures:**
+- Check the Actions tab for error messages
+- Ensure _config.yml syntax is valid YAML
+- Verify all markdown files have valid syntax
+
+**Broken links:**
+- Use relative links (e.g., `[link](report.md)` not `[link](/docs/report.md)`)
+- Check that linked files exist in the docs/ folder
+
+**Styling issues:**
+- Verify _config.yml theme setting
+- Check that front matter is properly formatted in report files
+- Consider adding custom CSS in assets/ directory
 """
         with open(readme_path, 'w') as f:
             f.write(readme_content)
         logging.info("Created docs/README.md")
+    
+    # Create _config.yml for Jekyll configuration
+    config_path = os.path.join(docs_dir, "_config.yml")
+    if not os.path.exists(config_path):
+        config_content = """# Jekyll configuration for GitHub Pages
+# This file configures how GitHub Pages renders the documentation
+
+# Site settings
+title: Newsbot - Security News Aggregator
+description: Automated news aggregation for AI and automation in offensive security
+baseurl: ""
+url: "https://llamalamall.github.io"
+
+# GitHub metadata
+github:
+  repository_url: https://github.com/llamalamall/Newsbot
+  is_project_page: true
+
+# Theme (using GitHub Pages default)
+# You can change this to: jekyll-theme-cayman, jekyll-theme-minimal, etc.
+theme: jekyll-theme-slate
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
+# Plugins
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+
+# Enable relative links
+relative_links:
+  enabled: true
+  collections: false
+
+# Make all markdown files render without front matter
+optional_front_matter:
+  enabled: true
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .nojekyll
+
+# Include dotfiles
+include:
+  - .nojekyll
+"""
+        with open(config_path, 'w') as f:
+            f.write(config_content)
+        logging.info("Created docs/_config.yml")
     
     logging.info(f"Docs directory initialized at: {docs_dir}")
 

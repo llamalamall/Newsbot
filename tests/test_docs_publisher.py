@@ -299,6 +299,23 @@ class TestInitializeDocsDirectory:
             assert "# Newsbot Documentation" in content
             assert "Setup GitHub Pages" in content
     
+    def test_initialize_creates_config(self):
+        """Test that _config.yml is created."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            docs_dir = os.path.join(tmpdir, "docs")
+            
+            initialize_docs_directory(docs_dir)
+            
+            config_path = os.path.join(docs_dir, "_config.yml")
+            assert os.path.exists(config_path)
+            
+            with open(config_path, 'r') as f:
+                content = f.read()
+            
+            assert "title: Newsbot - Security News Aggregator" in content
+            assert "theme: jekyll-theme-slate" in content
+            assert "markdown: kramdown" in content
+    
     def test_initialize_idempotent(self):
         """Test that initialization is idempotent (can be run multiple times)."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -312,6 +329,7 @@ class TestInitializeDocsDirectory:
             assert os.path.exists(os.path.join(docs_dir, ".nojekyll"))
             assert os.path.exists(os.path.join(docs_dir, "index.md"))
             assert os.path.exists(os.path.join(docs_dir, "README.md"))
+            assert os.path.exists(os.path.join(docs_dir, "_config.yml"))
 
 
 class TestEndToEndWorkflow:

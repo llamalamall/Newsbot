@@ -291,6 +291,7 @@ This creates:
 - `docs/index.md` - Main landing page with links to all reports
 - `docs/report_YYYYMMDD_HHMMSS.md` - Formatted individual reports
 - `docs/.nojekyll` - Disables Jekyll processing
+- `docs/_config.yml` - Jekyll configuration for GitHub Pages
 - `docs/README.md` - Setup instructions
 
 **Setting up GitHub Pages:**
@@ -300,6 +301,16 @@ This creates:
 3. Under **Source**, select **Deploy from a branch**
 4. Select the **main** branch and **/docs** folder
 5. Click **Save**
+6. Wait 1-2 minutes for the initial deployment
+7. Visit your site at `https://<username>.github.io/<repository>/`
+
+**Verifying GitHub Pages:**
+
+After setup, verify everything is working:
+- ✅ Check for a green checkmark in Settings > Pages
+- ✅ Visit the provided URL to see your reports
+- ✅ Go to Actions tab and check "pages build and deployment" workflow succeeded
+- ✅ Verify index page shows the latest reports
 
 Your reports will be published at `https://<username>.github.io/<repository>/`
 
