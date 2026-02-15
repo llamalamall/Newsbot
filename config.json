@@ -162,7 +162,7 @@
     "enabled": true,
     "model": "gpt-4o-mini",
     "applicability_threshold": 0.6,
-    "credibility_threshold": 0.01,
+    "credibility_threshold": 0.5,
     "filter_inapplicable": true,
     "filter_not_credible": true
   }
