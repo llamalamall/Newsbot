@@ -1,0 +1,82 @@
+[
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "source": "github",
+    "credibility": null,
+    "stars": 8,
+    "updated": "2026-02-15T20:00:13+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "SamruddhiS7/zasm",
+    "url": "https://github.com/SamruddhiS7/zasm",
+    "description": "\ud83d\udd27 Build and run deterministic code with zasm, a virtual ISA and cross-compilation toolchain supporting arm64, x86_64, WASM, and RISC-V RV64I.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T20:03:28+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "yutangru1114/hwidtool",
+    "url": "https://github.com/yutangru1114/hwidtool",
+    "description": "\ud83d\udee0\ufe0f Manage hardware identifiers securely with this Rust-based tool, ensuring privacy for gamers and developers while maintaining clean code practices.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T20:03:17+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "timgerstel/suspicious_IPs",
+    "url": "https://github.com/timgerstel/suspicious_IPs",
+    "description": "Suspicious IP addresses collected from my SSH honeypot running on a cloud VPS. Honeypot randomly accepts 1% of auth reqests and sends a fake Linux shell to the client. Repo updates every 30 minutes (unless there is no new activity). ",
+    "source": "github",
+    "credibility": null,
+    "stars": 8,
+    "updated": "2026-02-15T20:00:13+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "Laserman652/AIPhishingDetector",
+    "url": "https://github.com/Laserman652/AIPhishingDetector",
+    "description": "\ud83d\udd0d Analyze email text to detect phishing, suspicious, or legitimate messages with an efficient machine learning tool for informed decision-making.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T20:03:52+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Defend-AI-Tech-Inc/agent-discover-scanner",
+    "url": "https://github.com/Defend-AI-Tech-Inc/agent-discover-scanner",
+    "description": "Multi-layer AI agent detection: Static code analysis, network monitoring, and Kubernetes runtime visibility with eBPF. ",
+    "source": "github",
+    "credibility": null,
+    "stars": 6,
+    "updated": "2026-02-15T19:56:16+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "raven-dev-ops/Bug_Bounty_AI_Hunter",
+    "url": "https://github.com/raven-dev-ops/Bug_Bounty_AI_Hunter",
+    "description": "Docs-first hub for AI bug bounty workflows with schemas, checklists, pipeline scripts, and component integration.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T19:52:09+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Quocton1/kali-linux-teaching-course-live",
+    "url": "https://github.com/Quocton1/kali-linux-teaching-course-live",
+    "description": "\ud83d\udc09 Teach Kali Linux through hands-on training, covering penetration testing and ethical hacking for students and aspiring security professionals.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T19:26:58+00:00",
+    "topic": "security-automation"
+  }
+]
