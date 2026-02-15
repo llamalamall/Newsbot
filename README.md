@@ -25,7 +25,10 @@ Newsbot automatically searches for and aggregates content related to:
   - Configurable via `skip_analyzed.enabled` setting
   - Reduces redundant processing and LLM API calls
 - **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o mini) to evaluate article applicability and credibility
-  - **Applicability Assessment**: Determines if articles are relevant to AI/automation in offensive security
+  - **Applicability Assessment**: Determines if articles are relevant to AI/automation/fuzzing in offensive security
+    - **Dual Requirement Filtering**: Articles must BOTH contain offensive security keywords AND explicitly describe the use of AI, automation, or fuzzing
+    - Rejects articles that only mention offensive security without AI/automation/fuzzing usage
+    - Rejects articles that only mention AI/automation without offensive security context
   - **Credibility Evaluation**: Assesses content quality, identifies clickbait, and flags potential issues
   - **Keyword-Based Analysis**: Leverages configured search keywords for contextual evaluation
   - **Transparent Scoring**: Provides confidence scores and explanations for each assessment
