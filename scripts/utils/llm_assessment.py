@@ -11,6 +11,14 @@ from openai import OpenAI, RateLimitError
 
 _LLM_CALL_COUNT = 0
 
+# Batch processing token budget constants
+# These values help ensure batch requests fit within model context windows
+MAX_RESPONSE_TOKENS = 4000  # Maximum tokens allocated for LLM response
+TOKENS_PER_ARTICLE = 300    # Estimated tokens needed for one article's assessment JSON
+TOKEN_OVERHEAD = 500        # Extra tokens for prompt structure and formatting
+MIN_CONTENT_PREVIEW = 500   # Minimum chars for content preview (even in large batches)
+MAX_CONTENT_PREVIEW = 1000  # Maximum chars for content preview per article
+
 
 def _handle_rate_limit(error: Exception) -> None:
     """Handle rate limit errors by checking status code and exiting if rate-limited.
@@ -579,11 +587,9 @@ Source: {source_name}
 Domain Credibility: {domain_credibility}"""
             
             if content and len(content) > 0:
-                # Limit content to avoid token limits
-                # Use smaller previews for batch processing to fit multiple articles
-                # Approximately 500 chars (~125 tokens) per article allows for 5 articles
-                # with metadata and prompt overhead to fit comfortably in context
-                content_limit = max(500, 2500 // len(articles))  # Scale down for larger batches
+                # Scale content preview based on batch size to fit within context window
+                # Maintains readability while allowing more articles per batch
+                content_limit = max(MIN_CONTENT_PREVIEW, min(MAX_CONTENT_PREVIEW, 2500 // len(articles)))
                 article_text += f"\nContent Preview: {content[:content_limit]}"
             
             articles_text.append(article_text)
@@ -638,8 +644,7 @@ For credibility, common flags: "clickbait_title", "low_quality_content", "no_sou
         
         # Call the LLM
         # Scale max_tokens based on batch size to ensure adequate response capacity
-        # Each article assessment typically requires ~250-300 tokens for the JSON response
-        max_response_tokens = min(4000, 300 * len(articles) + 500)  # 500 for overhead
+        max_response_tokens = min(MAX_RESPONSE_TOKENS, TOKENS_PER_ARTICLE * len(articles) + TOKEN_OVERHEAD)
         response = openai_client.chat.completions.create(
             model=model,
             messages=[
