@@ -58,8 +58,8 @@ def assess_article_applicability(
     title: str,
     description: str,
     keywords: List[str],
-    content: Optional[str] = None,
-    model: str
+    model: str,
+    content: Optional[str] = None
 ) -> Dict[str, Any]:
     """Assess whether an article is applicable/relevant using LLM.
     
@@ -71,8 +71,8 @@ def assess_article_applicability(
         title: Article title
         description: Article description/summary
         keywords: List of keywords from config to guide assessment
-        content: Optional full article content
         model: LLM model to use
+        content: Optional full article content
         
     Returns:
         Dictionary with:
@@ -205,8 +205,8 @@ def assess_article_credibility(
     url: str,
     source_name: str,
     domain_credibility: str,
-    content: Optional[str] = None,
-    model: str
+    model: str,
+    content: Optional[str] = None
 ) -> Dict[str, Any]:
     """Assess the credibility of an article using LLM.
     
@@ -220,8 +220,8 @@ def assess_article_credibility(
         url: Article URL
         source_name: Name of the feed/source
         domain_credibility: Pre-assessed domain credibility ('high', 'medium', 'low')
-        content: Optional full article content
         model: LLM model to use
+        content: Optional full article content
         
     Returns:
         Dictionary with:
