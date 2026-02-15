@@ -225,8 +225,7 @@ class TestStructuredPublishing:
             
             # Check for articles section
             assert "## Latest Articles" in content
-            assert "February 15, 2026" in content
-            assert "2 articles published" in content
+            assert "2 articles total" in content
             
             # Check for table format
             assert "| Source | Updated | Applicability | Credibility | Title |" in content

@@ -402,15 +402,6 @@ def update_index_with_structured_content(
     """
     index_path = os.path.join(docs_dir, "index.md")
     
-    # Parse timestamp for readable date
-    try:
-        dt = datetime.strptime(timestamp, "%Y%m%d_%H%M%S")
-        readable_date = dt.strftime("%B %d, %Y at %H:%M UTC")
-        date_only = dt.strftime("%B %d, %Y")
-    except ValueError:
-        readable_date = timestamp
-        date_only = timestamp
-    
     # Read existing index if it exists
     if os.path.exists(index_path):
         with open(index_path, 'r') as f:
@@ -471,89 +462,27 @@ View all articles that were evaluated but rejected from publication due to relev
                 "View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.\n"
             )
     
-    # Update or add articles section
+    # Update or add articles section as a single merged table
     if article_entries and rss_count > 0:
-        # Find where to insert new articles
+        articles_section = "## Latest Articles\n\n"
+        articles_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} total*\n\n"
+        articles_section += "| Source | Updated | Applicability | Credibility | Title |\n"
+        articles_section += "|--------|---------|--------------|-------------|-------|\n"
+        articles_section += generate_article_table_rows(article_entries)
+
         if "## Latest Articles" in index_content:
-            parts = index_content.split("## Latest Articles", 1)
-            header = parts[0] + "## Latest Articles\n\n"
-            remaining = parts[1] if len(parts) > 1 else ""
-            
-            # Remove placeholder if it exists
-            if "*No articles yet" in remaining:
-                remaining_parts = remaining.split("*No articles yet", 1)
-                if len(remaining_parts) > 1:
-                    footer_start = remaining_parts[1].find("\n---")
-                    if footer_start >= 0:
-                        remaining = remaining_parts[1][footer_start:]
-                    else:
-                        remaining = ""
-            
-            # Parse existing article entries
-            lines = remaining.split('\n')
-            entries = []
-            footer = []
-            in_footer = False
-            
-            for line in lines:
-                if line.strip().startswith('---'):
-                    in_footer = True
-                
-                if in_footer:
-                    footer.append(line)
-                elif line.strip().startswith('###') or line.strip().startswith('-'):
-                    entries.append(line)
-            
-            # Create new entry for this batch with table format
-            new_entry = f"### {date_only}\n\n"
-            new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-            
-            # Add table header
-            new_entry += "| Source | Updated | Applicability | Credibility | Title |\n"
-            new_entry += "|--------|---------|--------------|-------------|-------|\n"
-            
-            # Add table rows
-            new_entry += generate_article_table_rows(article_entries)
-            new_entry += "\n"
-            
-            # Combine with existing entries
-            all_entries = new_entry + '\n'.join(entries)
-            footer_text = '\n'.join(footer) if footer else ""
-            
-            index_content = header + all_entries + footer_text
+            before, after = index_content.split("## Latest Articles", 1)
+            next_header_idx = after.find("\n## ")
+            footer_idx = after.find("\n---")
+            cut_points = [idx for idx in [next_header_idx, footer_idx] if idx != -1]
+            cut = min(cut_points) if cut_points else len(after)
+            trailing = after[cut:] if cut < len(after) else ""
+            index_content = before + articles_section + trailing
+        elif "\n---" in index_content:
+            main_content, footer = index_content.rsplit("\n---", 1)
+            index_content = main_content.rstrip() + "\n\n" + articles_section + "\n---" + footer
         else:
-            # Add articles section before footer
-            if "---" in index_content:
-                parts = index_content.rsplit("---", 1)
-                main_content = parts[0]
-                footer = "\n\n---" + parts[1]
-                
-                new_section = "## Latest Articles\n\n"
-                new_section += f"### {date_only}\n\n"
-                new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                
-                # Add table header
-                new_section += "| Source | Updated | Applicability | Credibility | Title |\n"
-                new_section += "|--------|---------|--------------|-------------|-------|\n"
-                
-                # Add table rows
-                new_section += generate_article_table_rows(article_entries)
-                new_section += "\n"
-                
-                index_content = main_content + new_section + footer
-            else:
-                # Just append
-                new_section = "\n## Latest Articles\n\n"
-                new_section += f"### {date_only}\n\n"
-                new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                
-                # Add table header
-                new_section += "| Source | Updated | Applicability | Credibility | Title |\n"
-                new_section += "|--------|---------|--------------|-------------|-------|\n"
-                
-                # Add table rows
-                new_section += generate_article_table_rows(article_entries)
-                index_content += new_section
+            index_content = index_content.rstrip() + "\n\n" + articles_section
     
     # Ensure footer exists
     if "[View on GitHub]" not in index_content:
