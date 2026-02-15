@@ -20,7 +20,7 @@ Newsbot automatically searches for and aggregates content related to:
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
 - **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
-- **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o) to evaluate article applicability and credibility
+- **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o mini) to evaluate article applicability and credibility
   - **Applicability Assessment**: Determines if articles are relevant to AI/automation in offensive security
   - **Credibility Evaluation**: Assesses content quality, identifies clickbait, and flags potential issues
   - **Keyword-Based Analysis**: Leverages configured search keywords for contextual evaluation
@@ -133,7 +133,7 @@ Edit `config.json` to customize:
 
 - `llm_assessment`: Settings for LLM-based article evaluation
   - `enabled`: Enable/disable LLM assessment (default: true)
-  - `model`: LLM model to use (default: "gpt-4o")
+  - `model`: LLM model to use (default: "gpt-4o-mini")
   - `applicability_threshold`: Minimum score to consider article applicable (default: 0.6)
   - `credibility_threshold`: Minimum score to consider article credible (default: 0.5)
   - `filter_inapplicable`: Remove articles deemed not applicable (default: true)
@@ -199,7 +199,7 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
   },
   "llm_assessment": {
     "enabled": true,
-    "model": "gpt-4o",
+    "model": "gpt-4o-mini",
     "applicability_threshold": 0.6,
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
@@ -234,7 +234,7 @@ Evaluates RSS feed sources based on their domain:
 
 ### LLM-Based Content Assessment
 
-Uses GitHub Models (GPT-4o) to evaluate individual articles:
+Uses GitHub Models (GPT-4o mini) to evaluate individual articles:
 
 **Applicability Assessment:**
 - Analyzes article content against configured search keywords

@@ -78,7 +78,7 @@ def search_rss_feeds(
         # Get LLM assessment settings
         llm_settings = config.get('llm_assessment', {})
         llm_enabled = llm_settings.get('enabled', False)
-        llm_model = llm_settings.get('model', 'gpt-4o')
+        llm_model = llm_settings.get('model', 'gpt-4o-mini')
         applicability_threshold = llm_settings.get('applicability_threshold', 0.6)
         credibility_threshold = llm_settings.get('credibility_threshold', 0.5)
         filter_inapplicable = llm_settings.get('filter_inapplicable', True)

@@ -36,7 +36,7 @@ def assess_article_applicability(
     description: str,
     keywords: List[str],
     content: Optional[str] = None,
-    model: str = "gpt-4o"
+    model: str = "gpt-4o-mini"
 ) -> Dict[str, Any]:
     """Assess whether an article is applicable/relevant using LLM.
     
@@ -49,7 +49,7 @@ def assess_article_applicability(
         description: Article description/summary
         keywords: List of keywords from config to guide assessment
         content: Optional full article content
-        model: LLM model to use (default: gpt-4o)
+        model: LLM model to use (default: gpt-4o-mini)
         
     Returns:
         Dictionary with:
@@ -186,7 +186,7 @@ def assess_article_credibility(
     source_name: str,
     domain_credibility: str,
     content: Optional[str] = None,
-    model: str = "gpt-4o"
+    model: str = "gpt-4o-mini"
 ) -> Dict[str, Any]:
     """Assess the credibility of an article using LLM.
     
@@ -201,7 +201,7 @@ def assess_article_credibility(
         source_name: Name of the feed/source
         domain_credibility: Pre-assessed domain credibility ('high', 'medium', 'low')
         content: Optional full article content
-        model: LLM model to use (default: gpt-4o)
+        model: LLM model to use (default: gpt-4o-mini)
         
     Returns:
         Dictionary with:
@@ -341,7 +341,7 @@ def filter_titles_by_relevance(
     openai_client: OpenAI,
     titles: List[str],
     keywords: List[str],
-    model: str = "gpt-4o"
+    model: str = "gpt-4o-mini"
 ) -> List[int]:
     """Filter article titles for relevance using the LLM.
 
@@ -349,7 +349,7 @@ def filter_titles_by_relevance(
         openai_client: OpenAI client configured for GitHub Models
         titles: List of article titles
         keywords: List of keywords from config to guide relevance
-        model: LLM model to use (default: gpt-4o)
+        model: LLM model to use (default: gpt-4o-mini)
 
     Returns:
         List of indices for titles deemed relevant

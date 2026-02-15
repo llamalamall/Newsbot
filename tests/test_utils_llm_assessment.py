@@ -494,7 +494,7 @@ def test_llm_single_live_call():
         title="AI-assisted security testing tool",
         description="A short overview of automating penetration testing with LLMs.",
         keywords=["AI", "automation", "penetration testing"],
-        model="gpt-4o"
+        model="gpt-4o-mini"
     )
 
     assert isinstance(result, dict)
