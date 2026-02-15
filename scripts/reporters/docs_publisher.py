@@ -377,7 +377,7 @@ After configuring GitHub Pages, verify it's working:
 # Site settings
 title: Newsbot - Security News Aggregator
 description: Automated news aggregation for AI and automation in offensive security
-baseurl: ""
+baseurl: "/Newsbot"
 url: "https://llamalamall.github.io"
 
 # GitHub metadata
