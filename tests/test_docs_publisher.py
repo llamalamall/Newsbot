@@ -13,7 +13,11 @@ import pytest
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 from reporters.docs_publisher import (
-    initialize_docs_directory
+    initialize_docs_directory,
+    publish_repositories_page,
+    publish_rss_article_pages,
+    update_index_with_structured_content,
+    publish_structured_docs
 )
 
 
@@ -69,7 +73,6 @@ class TestStructuredPublishing:
     
     def test_publish_repositories_page(self):
         """Test publishing repositories page with table format."""
-        from reporters.docs_publisher import publish_repositories_page
         
         with tempfile.TemporaryDirectory() as tmpdir:
             docs_dir = tmpdir
@@ -115,7 +118,6 @@ class TestStructuredPublishing:
     
     def test_publish_rss_article_pages(self):
         """Test publishing individual RSS article pages."""
-        from reporters.docs_publisher import publish_rss_article_pages
         
         with tempfile.TemporaryDirectory() as tmpdir:
             docs_dir = tmpdir
@@ -168,7 +170,6 @@ class TestStructuredPublishing:
     
     def test_update_index_with_structured_content(self):
         """Test updating index with structured content links."""
-        from reporters.docs_publisher import update_index_with_structured_content
         
         with tempfile.TemporaryDirectory() as tmpdir:
             docs_dir = tmpdir
@@ -228,7 +229,6 @@ class TestStructuredPublishing:
     
     def test_publish_structured_docs(self):
         """Test complete structured documentation publishing."""
-        from reporters.docs_publisher import publish_structured_docs
         
         with tempfile.TemporaryDirectory() as tmpdir:
             docs_dir = tmpdir
