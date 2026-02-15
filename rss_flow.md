@@ -10,7 +10,7 @@ flowchart TD
     E --> F[Check cache valid?]
     F -->|Yes| G[Reuse cached entries]
     F -->|No| H[Rate limit delay]
-    H --> I[feedparser.parse(feed_url)]
+    H --> I[feedparser parse feed_url]
     I --> J[Extract feed metadata]
     J --> K[Parse entries: title/link/summary/date/tags]
     K --> L[Cache entries with timestamp]
