@@ -1,0 +1,202 @@
+[
+  {
+    "title": "KhonneyMann/nightops-drop",
+    "url": "https://github.com/KhonneyMann/nightops-drop",
+    "description": "\ud83d\ude80 Streamline payload delivery and enhance red team operations with NightOps Drop, a next-gen platform for effective security testing.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:10:45+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "doublegate/CyberChef-MCP",
+    "url": "https://github.com/doublegate/CyberChef-MCP",
+    "description": "[CyberChef-MCP] Model Context Protocol Server for CyberChef ... exposing GCHQ's \"Cyber Swiss Army Knife\" as 463+ executable AI agent tools spanning encryption, encoding, compression, and forensic data analysis",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-15T12:06:08+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "Sylphoraz/SharpAllowedToAct-Modify",
+    "url": "https://github.com/Sylphoraz/SharpAllowedToAct-Modify",
+    "description": "Computer object takeover through Resource-Based Constrained Delegation msDS-AllowedToActOnBehalfOfOtherIdentity",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T11:59:41+00:00",
+    "topic": "offensive-security"
+  },
+  {
+    "title": "abhxhekrathore5/AI-Vibe-Check",
+    "url": "https://github.com/abhxhekrathore5/AI-Vibe-Check",
+    "description": "\ud83e\udd16 Track developer mood swings with AI-generated insights. Get updates every 8 hours for a fun take on the tech community's emotional state.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:15:39+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "lurito3/NetShark",
+    "url": "https://github.com/lurito3/NetShark",
+    "description": "\ud83d\udd12 Streamline your security assessments with NetShark, a multi-purpose command-line scanner for fast and efficient vulnerability analysis across platforms.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:15:13+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "ecko554-554/capsaicin",
+    "url": "https://github.com/ecko554-554/capsaicin",
+    "description": "\ud83c\udf36\ufe0f Detect web vulnerabilities with Capsaicin, the intelligent web fuzzer and WAF hunter designed for Red Team operations.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:14:21+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "dang009/stuckinthematrix-base",
+    "url": "https://github.com/dang009/stuckinthematrix-base",
+    "description": "\ud83d\udd79\ufe0f Learn game hacking and offensive security skills through interactive simulations and practical training in a gamified environment.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:16:07+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "SantiagoRM9/ace-tool",
+    "url": "https://github.com/SantiagoRM9/ace-tool",
+    "description": "\ud83d\udd0d Enhance codebase indexing and semantic search with ace-tool for efficient AI prompt optimization.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:15:29+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "viniciussantos2004/strata",
+    "url": "https://github.com/viniciussantos2004/strata",
+    "description": "\ud83d\udcca Manage your AI initiatives effectively with Strata, offering portfolio views, pipeline tracking, cost monitoring, and compliance documentation in one dashboard.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:14:23+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "TatAP10/ClawCloud-Run",
+    "url": "https://github.com/TatAP10/ClawCloud-Run",
+    "description": "\ud83d\udd12 Automate ClawCloud login to keep your account active with device and 2FA verification. Simple setup and reliable cookie updates ensure seamless access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:11:50+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "kidkaitou121212/Roblox-Executor-Injector-2025",
+    "url": "https://github.com/kidkaitou121212/Roblox-Executor-Injector-2025",
+    "description": "\ud83c\udf1f Execute Lua scripts effortlessly in Roblox with Nebula Injector, featuring advanced Hyper-V Bypass for minimal detection and seamless gameplay in 2025.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:11:36+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "gaga84700/police",
+    "url": "https://github.com/gaga84700/police",
+    "description": "\ud83d\ude93 Search surveillance footage offline using AI. Analyze videos with natural language queries for enhanced privacy and security.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:12:05+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "RealRGJ/cyber-training-resources",
+    "url": "https://github.com/RealRGJ/cyber-training-resources",
+    "description": "\ud83d\udee1\ufe0f Explore hands-on cyber training resources for SOC analysts, DFIR responders, and security researchers to enhance skills and knowledge effectively.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-15T12:09:38+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "NebiyuSeyoum/exploring-the-true-nature-of-variable",
+    "url": "https://github.com/NebiyuSeyoum/exploring-the-true-nature-of-variable",
+    "description": "\ud83e\udde9 Explore type independence in programming variables and discover how a single container type can represent various data forms and enhance memory usage.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T11:36:13+00:00",
+    "topic": "binary-analysis"
+  },
+  {
+    "title": "owusuarko/ReconFusionAi",
+    "url": "https://github.com/owusuarko/ReconFusionAi",
+    "description": "\ud83d\udd0d Detect exposed secrets and vulnerabilities across web apps with ReconFusionAI's advanced scanning and AI-powered contextual analysis.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:08:56+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "LaurenceGab/ai-monitoring-layer",
+    "url": "https://github.com/LaurenceGab/ai-monitoring-layer",
+    "description": "\ud83e\udde0 Monitor web app performance and detect anomalies with AI-driven insights, capturing key events and generating detailed incident reports.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:08:28+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Wasi69/Australian-AI-Security",
+    "url": "https://github.com/Wasi69/Australian-AI-Security",
+    "description": "\ud83d\udcda Consolidate Australian AI security standards and frameworks into a single resource for easy navigation and community access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:07:32+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "loaiasd/redspecter-ai-usage-watchdog",
+    "url": "https://github.com/loaiasd/redspecter-ai-usage-watchdog",
+    "description": "\ud83d\udd0d Monitor AI usage on Linux endpoints with a privacy-first approach, ensuring security without content capture in your environment.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T12:07:23+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Quocton1/kali-linux-teaching-course-live",
+    "url": "https://github.com/Quocton1/kali-linux-teaching-course-live",
+    "description": "\ud83d\udc09 Teach Kali Linux through hands-on training, covering penetration testing and ethical hacking for students and aspiring security professionals.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T11:51:36+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Invertebrate-cankerweed632/awesome-devsecops",
+    "url": "https://github.com/Invertebrate-cankerweed632/awesome-devsecops",
+    "description": "\ud83d\udd12 Discover essential DevSecOps tools and practices to seamlessly integrate security into your software development lifecycle.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-15T11:45:57+00:00",
+    "topic": "security-automation"
+  }
+]
