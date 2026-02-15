@@ -4,11 +4,12 @@ Searches and aggregates content from RSS feeds with optional LLM assessment.
 """
 
 import logging
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 
 # Import dataclass models
 try:
     from ..models import RSSResult
+    from ..utils.article_cache import generate_article_id
     from ..utils.llm_assessment import (
         assess_article_applicability,
         assess_article_credibility,
@@ -25,6 +26,7 @@ except ImportError:
     if script_dir not in sys.path:
         sys.path.insert(0, script_dir)
     from models import RSSResult
+    from utils.article_cache import generate_article_id
     from utils.llm_assessment import (
         assess_article_applicability,
         assess_article_credibility,
@@ -40,7 +42,8 @@ def search_rss_feeds(
     assess_credibility_func,
     config: Dict[str, Any],
     openai_client=None,
-    rejected_results: Optional[List[Dict[str, Any]]] = None
+    rejected_results: Optional[List[Dict[str, Any]]] = None,
+    analyzed_ids: Optional[Set[str]] = None
 ) -> List[Dict[str, Any]]:
     """Search and aggregate content from RSS feeds.
     
@@ -53,6 +56,7 @@ def search_rss_feeds(
         config: Configuration dictionary
         openai_client: Optional OpenAI client for LLM assessment
         rejected_results: Optional list to append filtered-out articles
+        analyzed_ids: Optional set of previously analyzed article IDs to skip
         
     Returns:
         List of relevant RSS feed entries
@@ -99,6 +103,24 @@ def search_rss_feeds(
         
         # Filter by date
         recent_entries = rss_manager.filter_by_date(all_entries, max_age_days)
+
+        # Skip entries already analyzed (reduces unnecessary LLM calls)
+        if analyzed_ids:
+            filtered_recent = []
+            skipped_count = 0
+            for entry in recent_entries:
+                article_id = generate_article_id({
+                    "url": entry.get("link", ""),
+                    "title": entry.get("title", "")
+                })
+                if article_id and article_id in analyzed_ids:
+                    skipped_count += 1
+                else:
+                    filtered_recent.append(entry)
+
+            if skipped_count > 0:
+                logging.info(f"Skipped {skipped_count} previously analyzed RSS article(s) before LLM filtering")
+            recent_entries = filtered_recent
         
         # Filter by keywords (fallback if LLM returns no results)
         keywords = config.get('search_keywords', [])

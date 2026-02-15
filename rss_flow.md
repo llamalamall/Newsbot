@@ -18,7 +18,8 @@ flowchart TD
     L --> M
 
     M --> N[Filter by date: max_age_days]
-    N --> O{LLM title filter enabled?}
+    N --> N1[Skip already analyzed entries in output_dir]
+    N1 --> O{LLM title filter enabled?}
     O -->|Yes| P[filter_titles_by_relevance]
     P --> Q{Any relevant titles?}
     Q -->|Yes| R[Keep relevant entries]

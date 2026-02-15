@@ -225,7 +225,8 @@ class NewsBot:
                 assess_credibility_func=assess_source_credibility,
                 config=self.config,
                 openai_client=self.openai_client,
-                rejected_results=rejected_results
+                rejected_results=rejected_results,
+                analyzed_ids=analyzed_ids if skip_analyzed_enabled else None
             )
             
             # Filter RSS results if deduplication is enabled
