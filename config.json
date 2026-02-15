@@ -17,7 +17,7 @@
   },
   "llm_assessment": {
     "enabled": true,
-    "model": "gpt-4.1-mini",
+    "model": "gpt-4o-mini",
     "applicability_threshold": 0.6,
     "credibility_threshold": 0.5,
     "filter_inapplicable": true,
