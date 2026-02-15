@@ -7,30 +7,18 @@ title: GitHub Repositories
 
 # GitHub Repositories
 
-*20 repositories found*
+*8 repositories found*
 
 | Repository | Description | Stars | Last Updated | Topics |
 |------------|-------------|-------|--------------|--------|
-| [doublegate/CyberChef-MCP](https://github.com/doublegate/CyberChef-MCP) | [CyberChef-MCP] Model Context Protocol Server for CyberChef ... exposing GCHQ's "Cyber Swiss Army Kn... | 2 | 2026-02-15 | offensive-security |
-| [lurito3/NetShark](https://github.com/lurito3/NetShark) | 🔒 Streamline your security assessments with NetShark, a multi-purpose command-line scanner for fast ... | 1 | 2026-02-15 | penetration-testing |
-| [ecko554-554/capsaicin](https://github.com/ecko554-554/capsaicin) | 🌶️ Detect web vulnerabilities with Capsaicin, the intelligent web fuzzer and WAF hunter designed for... | 1 | 2026-02-15 | red-team |
-| [SantiagoRM9/ace-tool](https://github.com/SantiagoRM9/ace-tool) | 🔍 Enhance codebase indexing and semantic search with ace-tool for efficient AI prompt optimization. | 1 | 2026-02-15 | reverse-engineering |
-| [kidkaitou121212/Roblox-Executor-Injector-2025](https://github.com/kidkaitou121212/Roblox-Executor-Injector-2025) | 🌟 Execute Lua scripts effortlessly in Roblox with Nebula Injector, featuring advanced Hyper-V Bypass... | 1 | 2026-02-15 | reverse-engineering |
-| [gaga84700/police](https://github.com/gaga84700/police) | 🚓 Search surveillance footage offline using AI. Analyze videos with natural language queries for enh... | 1 | 2026-02-15 | malware-analysis |
-| [RealRGJ/cyber-training-resources](https://github.com/RealRGJ/cyber-training-resources) | 🛡️ Explore hands-on cyber training resources for SOC analysts, DFIR responders, and security researc... | 1 | 2026-02-15 | malware-analysis |
-| [KhonneyMann/nightops-drop](https://github.com/KhonneyMann/nightops-drop) | 🚀 Streamline payload delivery and enhance red team operations with NightOps Drop, a next-gen platfor... | 0 | 2026-02-15 | offensive-security |
-| [Sylphoraz/SharpAllowedToAct-Modify](https://github.com/Sylphoraz/SharpAllowedToAct-Modify) | Computer object takeover through Resource-Based Constrained Delegation msDS-AllowedToActOnBehalfOfOt... | 0 | 2026-02-15 | offensive-security |
-| [abhxhekrathore5/AI-Vibe-Check](https://github.com/abhxhekrathore5/AI-Vibe-Check) | 🤖 Track developer mood swings with AI-generated insights. Get updates every 8 hours for a fun take o... | 0 | 2026-02-15 | penetration-testing |
-| [dang009/stuckinthematrix-base](https://github.com/dang009/stuckinthematrix-base) | 🕹️ Learn game hacking and offensive security skills through interactive simulations and practical tr... | 0 | 2026-02-15 | reverse-engineering |
-| [viniciussantos2004/strata](https://github.com/viniciussantos2004/strata) | 📊 Manage your AI initiatives effectively with Strata, offering portfolio views, pipeline tracking, c... | 0 | 2026-02-15 | reverse-engineering |
-| [TatAP10/ClawCloud-Run](https://github.com/TatAP10/ClawCloud-Run) | 🔒 Automate ClawCloud login to keep your account active with device and 2FA verification. Simple setu... | 0 | 2026-02-15 | reverse-engineering |
-| [NebiyuSeyoum/exploring-the-true-nature-of-variable](https://github.com/NebiyuSeyoum/exploring-the-true-nature-of-variable) | 🧩 Explore type independence in programming variables and discover how a single container type can re... | 0 | 2026-02-15 | binary-analysis |
-| [owusuarko/ReconFusionAi](https://github.com/owusuarko/ReconFusionAi) | 🔍 Detect exposed secrets and vulnerabilities across web apps with ReconFusionAI's advanced scanning ... | 0 | 2026-02-15 | ai-security |
-| [LaurenceGab/ai-monitoring-layer](https://github.com/LaurenceGab/ai-monitoring-layer) | 🧠 Monitor web app performance and detect anomalies with AI-driven insights, capturing key events and... | 0 | 2026-02-15 | ai-security |
-| [Wasi69/Australian-AI-Security](https://github.com/Wasi69/Australian-AI-Security) | 📚 Consolidate Australian AI security standards and frameworks into a single resource for easy naviga... | 0 | 2026-02-15 | ai-security |
-| [loaiasd/redspecter-ai-usage-watchdog](https://github.com/loaiasd/redspecter-ai-usage-watchdog) | 🔍 Monitor AI usage on Linux endpoints with a privacy-first approach, ensuring security without conte... | 0 | 2026-02-15 | ai-security |
-| [Quocton1/kali-linux-teaching-course-live](https://github.com/Quocton1/kali-linux-teaching-course-live) | 🐉 Teach Kali Linux through hands-on training, covering penetration testing and ethical hacking for s... | 0 | 2026-02-15 | security-automation |
-| [Invertebrate-cankerweed632/awesome-devsecops](https://github.com/Invertebrate-cankerweed632/awesome-devsecops) | 🔒 Discover essential DevSecOps tools and practices to seamlessly integrate security into your softwa... | 0 | 2026-02-15 | security-automation |
+| [xu-xiang/inkeep-mcp](https://github.com/xu-xiang/inkeep-mcp) | 🔓 Unlock the "Ask AI" capability from ANY Inkeep-powered documentation site (Langfuse, Render, etc.)... | 3 | 2026-02-15 | reverse-engineering |
+| [HenriqueMoreira-f/droid-factory-template](https://github.com/HenriqueMoreira-f/droid-factory-template) | 🤖 Supercharge your AI development with a comprehensive template featuring 112 droids, custom command... | 2 | 2026-02-15 | reverse-engineering |
+| [Fishin09/GodzillaNodeJsPayload](https://github.com/Fishin09/GodzillaNodeJsPayload) | 🦖 Build and integrate Node.js payloads, encryptors, and plugins for the Godzilla platform with this ... | 1 | 2026-02-15 | penetration-testing |
+| [Nagaraju9550/CloudSEK-CTF-Writeup-2025](https://github.com/Nagaraju9550/CloudSEK-CTF-Writeup-2025) | 🔍 Explore real-world security challenges through detailed writeups on web exploitation, OSINT, and m... | 1 | 2026-02-15 | penetration-testing |
+| [Selvanous/waybackurls](https://github.com/Selvanous/waybackurls) | 🌐 Fetch historical URLs from the Wayback Machine easily with this Node.js package, available as both... | 1 | 2026-02-15 | penetration-testing |
+| [jesusmiguelito/DungeonRampageCheat](https://github.com/jesusmiguelito/DungeonRampageCheat) | 🛠️ Enhance your Dungeon Rampage gameplay with this real-time memory manipulation tool, designed for ... | 1 | 2026-02-15 | reverse-engineering |
+| [Wyllkirby/SimPhish](https://github.com/Wyllkirby/SimPhish) | 🐟 Enhance employee security awareness with SimPhish, a phishing email simulation tool designed for e... | 0 | 2026-02-15 | penetration-testing |
+| [david3c2004/CLR-Unhook](https://github.com/david3c2004/CLR-Unhook) | 🛡️ Bypass EDR/AV hooks in .NET CLR by restoring the original `nLoadImage` function for seamless asse... | 0 | 2026-02-15 | red-team |
 
 
 ---

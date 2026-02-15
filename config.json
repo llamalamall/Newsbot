@@ -26,5 +26,6 @@
   },
   "skip_analyzed": {
     "enabled": true
-  }
+  },
+  "publish_docs": true
 }

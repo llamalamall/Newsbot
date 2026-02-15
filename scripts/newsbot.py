@@ -255,8 +255,9 @@ def parse_arguments() -> argparse.Namespace:
 Examples:
   %(prog)s                          # Run with default config
   %(prog)s --config my_config.json  # Use custom config file
-  %(prog)s --output-dir ./reports   # Save to custom output directory
-  %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
+    %(prog)s --output-dir ./reports   # Save to custom output directory
+    %(prog)s --publish-docs           # Publish reports to docs/ for GitHub Pages
+    %(prog)s --no-publish-docs        # Skip docs publishing
   %(prog)s --quiet                  # Run with minimal output
   %(prog)s --verbose                # Run with detailed logging
         '''
@@ -292,8 +293,9 @@ Examples:
     
     parser.add_argument(
         '--publish-docs',
-        action='store_true',
-        help='publish reports to docs/ folder for GitHub Pages'
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help='publish reports to docs/ folder for GitHub Pages (default: true)'
     )
     
     parser.add_argument(
@@ -410,8 +412,12 @@ def main():
     save_json_results(results, json_path)
     save_json_results(rejected_results, rejected_path)
     
+    publish_docs_setting = bot.config.get("publish_docs", True)
+    if args.publish_docs is not None:
+        publish_docs_setting = args.publish_docs
+
     # Publish to docs if requested
-    if args.publish_docs:
+    if publish_docs_setting:
         if not args.quiet:
             print()
             print("Publishing report to docs/ for GitHub Pages...")
