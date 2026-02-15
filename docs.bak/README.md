@@ -2,6 +2,41 @@
 
 This directory contains formatted reports for GitHub Pages.
 
+## Documentation Structure
+
+The documentation is organized into the following components:
+
+### Main Pages
+- **`index.md`** - Main landing page with navigation to all content
+- **`repositories.md`** - Table listing of all discovered GitHub repositories
+- **`articles/`** - Directory containing individual RSS article pages
+
+### Report Files (Legacy)
+- **`report_YYYYMMDD_HHMMSS.md`** - Individual full report files (maintained for backward compatibility)
+
+## New Structured Format
+
+Starting with the latest version, Newsbot documentation is organized as follows:
+
+1. **GitHub Repositories**: All discovered repositories are consolidated into a single `repositories.md` page with a searchable table format showing:
+   - Repository name and link
+   - Description
+   - Star count
+   - Last updated date
+   - Primary topic
+
+2. **RSS Articles**: Each RSS feed article gets its own dedicated page under `articles/`, named as `article_YYYYMMDD_HHMMSS_NNN.md`. Each article page includes:
+   - Full article title and description
+   - Publication date
+   - Source feed information
+   - LLM applicability and credibility assessments
+   - Navigation links to previous/next articles
+
+3. **Index Page**: The `index.md` serves as the central hub with:
+   - Link to the repositories page
+   - Chronological listing of all article pages organized by date
+   - Links to legacy full report files
+
 ## Setup GitHub Pages
 
 To publish these reports as a website:
@@ -15,8 +50,10 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 ## Files
 
-- `index.md` - Main landing page with links to all reports
-- `report_YYYYMMDD_HHMMSS.md` - Individual report files
+- `index.md` - Main landing page with links to all content
+- `repositories.md` - Table of all GitHub repositories
+- `articles/article_*.md` - Individual RSS article pages
+- `report_YYYYMMDD_HHMMSS.md` - Legacy full report files
 - `.nojekyll` - Disables Jekyll processing (allows plain markdown rendering with front matter)
 
 ## Customization
