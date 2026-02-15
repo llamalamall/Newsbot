@@ -17,7 +17,8 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
-- `.nojekyll` - Disables Jekyll processing for cleaner URLs
+- `.nojekyll` - Prevents GitHub's automatic Jekyll processing (allows custom _config.yml)
+- `_config.yml` - Custom Jekyll configuration for theme, plugins, and site settings
 
 ## Customization
 
@@ -50,7 +51,7 @@ After configuring GitHub Pages, verify it's working:
 **Pages not appearing:**
 - Ensure the repository is public (or you have GitHub Pro for private repos)
 - Check that the docs/ folder contains index.md
-- Verify .nojekyll file exists (disables default Jekyll processing)
+- Verify .nojekyll file exists (prevents automatic Jekyll, enables custom config)
 - Wait 1-2 minutes after pushing changes
 
 **Build failures:**
