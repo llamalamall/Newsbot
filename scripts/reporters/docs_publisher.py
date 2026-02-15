@@ -10,6 +10,8 @@ import shutil
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
+from urllib.parse import urlparse
+from email.utils import parsedate_to_datetime
 
 
 def format_report_for_docs(report_content: str, timestamp: str, metadata: Optional[Dict[str, Any]] = None) -> str:
@@ -86,6 +88,49 @@ def ensure_index_front_matter(index_content: str) -> str:
 
     front_matter = "---\nlayout: default\ntitle: Newsbot - Security News Aggregator\n---\n\n"
     return front_matter + index_content
+
+
+def format_article_link_title(title: str, url: str, max_length: int = 80) -> str:
+    """Format article link text with domain and title preview.
+
+    Args:
+        title: Article title.
+        url: Article URL.
+        max_length: Maximum length before truncation.
+
+    Returns:
+        Formatted link text.
+    """
+    domain = urlparse(url).netloc if url else ""
+    domain = domain or "unknown-source"
+    title_text = (title or "Untitled").strip()
+    combined = f"{domain} - {title_text}" if title_text else domain
+
+    if max_length > 3 and len(combined) > max_length:
+        combined = combined[: max_length - 3].rstrip() + "..."
+
+    return combined
+
+
+def sort_articles_by_published(entries: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """Sort article entries in reverse chronological order.
+
+    Args:
+        entries: List of article metadata dictionaries.
+
+    Returns:
+        Sorted list of article metadata dictionaries.
+    """
+    def sort_key(entry: Dict[str, str]) -> datetime:
+        published = entry.get("published")
+        if not published:
+            return datetime.min
+        try:
+            return parsedate_to_datetime(published)
+        except (TypeError, ValueError):
+            return datetime.min
+
+    return sorted(entries, key=sort_key, reverse=True)
 
 
 def update_index(docs_dir: str, new_report_filename: str, new_report_timestamp: str, 
@@ -325,7 +370,6 @@ GitHub will automatically publish the site at `https://<username>.github.io/<rep
 
 - `index.md` - Main landing page with links to all reports
 - `report_YYYYMMDD_HHMMSS.md` - Individual report files
-- `.nojekyll` - Disables Jekyll processing (allows plain markdown rendering with front matter)
 
 ## Customization
 
@@ -358,7 +402,6 @@ After configuring GitHub Pages, verify it's working:
 **Pages not appearing:**
 - Ensure the repository is public (or you have GitHub Pro for private repos)
 - Check that the docs/ folder contains index.md
-- Verify .nojekyll file exists (disables Jekyll processing for plain rendering)
 - Wait 1-2 minutes after pushing changes
 
 **Build failures:**
@@ -371,9 +414,8 @@ After configuring GitHub Pages, verify it's working:
 - Check that linked files exist in the docs/ folder
 
 **Styling issues:**
-- GitHub Pages uses default GitHub markdown styling with .nojekyll
-- Check that front matter is properly formatted in report files
-- Consider removing .nojekyll to enable Jekyll themes (requires _config.yml)
+ - GitHub Pages uses default GitHub markdown styling
+ - Check that front matter is properly formatted in report files
 """
         with open(readme_path, 'w') as f:
             f.write(readme_content)
@@ -415,8 +457,11 @@ def publish_repositories_page(github_items: List[Dict[str, Any]], docs_dir: str 
         return None
 
 
-def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str, 
-                              docs_dir: str = "docs") -> List[str]:
+def publish_rss_article_pages(
+    rss_items: List[Dict[str, Any]],
+    timestamp: str,
+    docs_dir: str = "docs"
+) -> List[Dict[str, str]]:
     """Publish individual pages for each RSS article.
     
     Args:
@@ -425,7 +470,7 @@ def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str,
         docs_dir: Target docs directory
         
     Returns:
-        List of paths to published article pages
+        List of published article metadata dictionaries
     """
     from .markdown_reporter import generate_rss_article_page
     
@@ -444,7 +489,7 @@ def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str,
         )
     )
     
-    published_paths = []
+    published_entries = []
     total_articles = len(rss_items)
     
     for idx, article in enumerate(rss_items, 1):
@@ -482,17 +527,27 @@ def publish_rss_article_pages(rss_items: List[Dict[str, Any]], timestamp: str,
         try:
             with open(article_path, 'w') as f:
                 f.write(formatted_content)
-            published_paths.append(article_path)
+            published_entries.append({
+                "filename": article_filename,
+                "path": article_path,
+                "title": article.get("title", "Untitled Article"),
+                "url": article.get("url", ""),
+                "published": article.get("published")
+            })
             logging.info(f"Published article page: {article_filename}")
         except IOError as e:
             logging.error(f"Failed to publish article page {article_filename}: {e}")
     
-    return published_paths
+    return published_entries
 
 
-def update_index_with_structured_content(docs_dir: str, timestamp: str, 
-                                        github_count: int, rss_count: int,
-                                        article_files: List[str] = None) -> None:
+def update_index_with_structured_content(
+    docs_dir: str,
+    timestamp: str,
+    github_count: int,
+    rss_count: int,
+    article_entries: Optional[List[Dict[str, str]]] = None
+) -> None:
     """Update index.md with structured links to repositories and articles.
     
     Args:
@@ -500,7 +555,7 @@ def update_index_with_structured_content(docs_dir: str, timestamp: str,
         timestamp: Timestamp of the report (YYYYMMDD_HHMMSS format)
         github_count: Number of GitHub repositories
         rss_count: Number of RSS articles
-        article_files: List of article filenames (without path)
+        article_entries: List of article metadata dictionaries
     """
     index_path = os.path.join(docs_dir, "index.md")
     
@@ -559,7 +614,7 @@ Browse all discovered GitHub repositories in a searchable table format.
 """ + remaining
     
     # Update or add articles section
-    if article_files and rss_count > 0:
+    if article_entries and rss_count > 0:
         # Find where to insert new articles
         if "## Latest Articles" in index_content:
             parts = index_content.split("## Latest Articles", 1)
@@ -596,10 +651,12 @@ Browse all discovered GitHub repositories in a searchable table format.
             new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
             
             # Add links to individual articles
-            for article_file in article_files:
-                # Extract article number
-                article_num = article_file.split('_')[-1].replace('.md', '')
-                new_entry += f"- [Article {int(article_num)}](articles/{article_file})\n"
+            for entry in sort_articles_by_published(article_entries):
+                article_file = entry.get("filename", "")
+                if not article_file:
+                    continue
+                link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
+                new_entry += f"- [{link_title}](articles/{article_file})\n"
             new_entry += "\n"
             
             # Combine with existing entries
@@ -612,14 +669,17 @@ Browse all discovered GitHub repositories in a searchable table format.
             if "---" in index_content:
                 parts = index_content.rsplit("---", 1)
                 main_content = parts[0]
-                footer = "---" + parts[1]
+                footer = "\n\n---" + parts[1]
                 
                 new_section = "## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for article_file in article_files:
-                    article_num = article_file.split('_')[-1].replace('.md', '')
-                    new_section += f"- [Article {int(article_num)}](articles/{article_file})\n"
+                for entry in sort_articles_by_published(article_entries):
+                    article_file = entry.get("filename", "")
+                    if not article_file:
+                        continue
+                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
+                    new_section += f"- [{link_title}](articles/{article_file})\n"
                 new_section += "\n"
                 
                 index_content = main_content + new_section + footer
@@ -628,9 +688,12 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "\n## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for article_file in article_files:
-                    article_num = article_file.split('_')[-1].replace('.md', '')
-                    new_section += f"- [Article {int(article_num)}](articles/{article_file})\n"
+                for entry in sort_articles_by_published(article_entries):
+                    article_file = entry.get("filename", "")
+                    if not article_file:
+                        continue
+                    link_title = format_article_link_title(entry.get("title", ""), entry.get("url", ""))
+                    new_section += f"- [{link_title}](articles/{article_file})\n"
                 index_content += new_section
     
     # Ensure footer exists
@@ -679,18 +742,16 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
         published_files["repositories"] = repos_path
     
     # Publish individual article pages
-    article_filenames = []
+    article_entries: List[Dict[str, str]] = []
     if rss_items:
-        article_paths = publish_rss_article_pages(rss_items, timestamp, docs_dir)
-        published_files["articles"] = article_paths
-        # Extract just the filenames for index
-        article_filenames = [os.path.basename(p) for p in article_paths]
+        article_entries = publish_rss_article_pages(rss_items, timestamp, docs_dir)
+        published_files["articles"] = [entry["path"] for entry in article_entries]
     
     # Update index with structured content
     update_index_with_structured_content(
         docs_dir, timestamp, 
         len(github_items), len(rss_items),
-        article_filenames
+        article_entries
     )
     
     return published_files
@@ -738,30 +799,44 @@ def publish_report_from_path(
     docs_dir: str = "docs",
     results_path: Optional[str] = None
 ) -> Optional[str]:
-    """Publish a specific report file to docs with optional results metadata.
+    """Publish a specific report file to docs with structured content.
 
     Args:
         report_path: Path to the report markdown file
         docs_dir: Target docs directory
-        results_path: Optional path to JSON results for result count
+        results_path: Optional path to JSON results for structured publishing
 
     Returns:
-        Path to published docs file, or None if publishing failed
+        Path to the published index file, or None if publishing failed
     """
-    result_count = 0
+    if not os.path.exists(report_path):
+        logging.error(f"Report file not found: {report_path}")
+        return None
+
     if results_path is None:
         report_dir = os.path.dirname(report_path)
         filename = os.path.basename(report_path)
         timestamp = filename.replace("report_", "").replace(".md", "")
         results_path = os.path.join(report_dir, f"results_{timestamp}.json")
+    else:
+        filename = os.path.basename(report_path)
+        timestamp = filename.replace("report_", "").replace(".md", "")
 
-    if results_path and os.path.exists(results_path):
-        try:
-            with open(results_path, 'r') as f:
-                results = json.load(f)
-                result_count = len(results) if isinstance(results, list) else 0
-        except (json.JSONDecodeError, IOError) as e:
-            logging.warning(f"Could not read results JSON: {e}")
+    if not results_path or not os.path.exists(results_path):
+        logging.error(f"Results JSON not found: {results_path}")
+        return None
+
+    try:
+        with open(results_path, 'r') as f:
+            results = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        logging.warning(f"Could not read results JSON: {e}")
+        return None
+
+    if not isinstance(results, list):
+        logging.warning("Results JSON is not a list; skipping structured publish")
+        return None
 
     initialize_docs_directory(docs_dir)
-    return publish_report_to_docs(report_path, docs_dir, result_count)
+    published_files = publish_structured_docs(results, timestamp, docs_dir)
+    return published_files.get("index")
