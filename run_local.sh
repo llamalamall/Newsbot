@@ -49,7 +49,7 @@ fi
 # Run the newsbot
 echo "Running Newsbot..."
 echo
-python3 scripts/newsbot.py
+python3 scripts/newsbot.py "$@"
 
 echo
 echo "============================================"

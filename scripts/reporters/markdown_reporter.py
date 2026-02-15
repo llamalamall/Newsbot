@@ -101,7 +101,30 @@ def _generate_rss_section(rss_items: List[Dict[str, Any]]) -> str:
         section += "\n\n"
         
         if item.get("credibility"):
-            section += f"**Credibility:** {item['credibility'].title()}\n\n"
+            section += f"**Domain Credibility:** {item['credibility'].title()}\n\n"
+        
+        # LLM Assessment Information
+        if item.get("llm_applicable") is not None:
+            llm_score = item.get("llm_applicability_score", 0)
+            section += f"**LLM Applicability:** {'✓ Relevant' if item.get('llm_applicable') else '✗ Not Relevant'} (score: {llm_score:.2f})\n\n"
+            
+            if item.get("llm_matched_keywords"):
+                matched = ", ".join(item['llm_matched_keywords'])
+                section += f"*Matched topics: {matched}*\n\n"
+            
+            if item.get("llm_applicability_reason"):
+                section += f"*{item['llm_applicability_reason']}*\n\n"
+        
+        if item.get("llm_credible") is not None:
+            llm_cred_score = item.get("llm_credibility_score", 0)
+            section += f"**LLM Credibility:** {'✓ Credible' if item.get('llm_credible') else '✗ Questionable'} (score: {llm_cred_score:.2f})\n\n"
+            
+            if item.get("llm_credibility_flags"):
+                flags = ", ".join(item['llm_credibility_flags'])
+                section += f"*Flags: {flags}*\n\n"
+            
+            if item.get("llm_credibility_reason"):
+                section += f"*{item['llm_credibility_reason']}*\n\n"
         
         if item.get("published"):
             section += f"*Published: {item['published']}*\n\n"
@@ -122,9 +145,9 @@ def _generate_report_footer(has_rss_items: bool) -> str:
         Markdown footer string
     """
     footer = "\n---\n\n"
-    footer += "*Note: Results are filtered for credibility and relevance. "
+    footer += "*Note: Results are filtered for credibility and relevance using both domain-based assessment and LLM analysis. "
     if has_rss_items:
-        footer += "RSS feed articles are from curated, high-quality sources.*\n"
+        footer += "RSS feed articles are from curated sources and evaluated for applicability and quality.*\n"
     else:
         footer += "All sources are assessed for reliability.*\n"
     return footer

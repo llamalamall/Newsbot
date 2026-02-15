@@ -6,7 +6,7 @@ Newsbot is an automated news aggregator that uses LLMs and GitHub Actions to sea
 
 **Key Features:**
 - GitHub repository search with topic filtering
-- LLM-powered content search and summarization using GitHub Models (GPT-4o)
+- LLM-powered content search and summarization using GitHub Models (GPT-4o mini)
 - Automated daily execution via GitHub Actions
 - Local execution support with helper scripts
 - Multiple output formats (Markdown reports and JSON data)
@@ -24,7 +24,7 @@ Newsbot is an automated news aggregator that uses LLMs and GitHub Actions to sea
   - `python-dotenv` - Environment variable management
   - `PyGithub` - GitHub API interactions
 - **CI/CD:** GitHub Actions
-- **LLM Provider:** GitHub Models (GPT-4o via Azure AI)
+- **LLM Provider:** GitHub Models (GPT-4o mini via Azure AI)
 
 ## Coding Standards
 

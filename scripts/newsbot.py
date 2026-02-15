@@ -118,21 +118,25 @@ class NewsBot:
         logging.info("Aggregating news from multiple sources...")
         all_results = []
         
-        # Search GitHub repositories (always enabled)
-        github_results = search_github_repos(
-            github_token=self.github_token,
-            github_topics=self.config.get("github_topics", []),
-            days_back=self.config.get("days_back", 7),
-            max_results_per_topic=self.config.get("max_results_per_topic", 10)
-        )
-        all_results.extend(github_results)
+        # Search GitHub repositories (if enabled)
+        if self.config.get("github_enabled", True):
+            github_results = search_github_repos(
+                github_token=self.github_token,
+                github_topics=self.config.get("github_topics", []),
+                days_back=self.config.get("days_back", 7),
+                max_results_per_topic=self.config.get("max_results_per_topic", 10)
+            )
+            all_results.extend(github_results)
+        else:
+            logging.info("GitHub search disabled by configuration")
         
         # RSS feed search (if enabled)
         if self.config.get('rss_enabled', False):
             rss_results = search_rss_feeds(
                 rss_manager=self.rss_manager,
                 assess_credibility_func=assess_source_credibility,
-                config=self.config
+                config=self.config,
+                openai_client=self.openai_client
             )
             all_results.extend(rss_results)
         
@@ -215,14 +219,31 @@ def main():
     
     logging.basicConfig(level=log_level, format=log_format, force=True)
     
-    # Check for required GITHUB_TOKEN
+    # Check for required GITHUB_TOKEN (based on config if available)
     has_github = bool(os.getenv("GITHUB_TOKEN"))
+    requires_token = False
+    requires_reasons = []
+    if os.path.exists(args.config):
+        try:
+            with open(args.config, 'r') as config_file:
+                config = json.load(config_file)
+            github_enabled = config.get("github_enabled", True)
+            rss_enabled = config.get("rss_enabled", False)
+            llm_enabled = config.get("llm_assessment", {}).get("enabled", False)
+            requires_token = github_enabled or (rss_enabled and llm_enabled)
+            if github_enabled:
+                requires_reasons.append("  - GitHub repository searches")
+            if rss_enabled and llm_enabled:
+                requires_reasons.append("  - LLM-based RSS assessment via GitHub Models")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            logging.error(f"Invalid configuration file: {e}")
+            sys.exit(1)
     
-    if not has_github:
+    if requires_token and not has_github:
         print("Error: GITHUB_TOKEN environment variable not set", file=sys.stderr)
         print("\nGITHUB_TOKEN is required for:", file=sys.stderr)
-        print("  - GitHub repository searches", file=sys.stderr)
-        print("  - LLM-based searches via GitHub Models", file=sys.stderr)
+        for reason in requires_reasons:
+            print(reason, file=sys.stderr)
         print("\nPlease set it:", file=sys.stderr)
         print("  export GITHUB_TOKEN=your_token_here", file=sys.stderr)
         sys.exit(1)

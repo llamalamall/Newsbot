@@ -25,6 +25,7 @@
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
+  "github_enabled": true,
   "rss_enabled": true,
   "rss_feeds": [
     {
@@ -156,5 +157,13 @@
     "request_timeout": 10,
     "max_feeds_parallel": 5,
     "rate_limit_delay": 0.5
+  },
+  "llm_assessment": {
+    "enabled": true,
+    "model": "gpt-4o-mini",
+    "applicability_threshold": 0.6,
+    "credibility_threshold": 0.5,
+    "filter_inapplicable": true,
+    "filter_not_credible": true
   }
 }

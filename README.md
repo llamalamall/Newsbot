@@ -20,7 +20,12 @@ Newsbot automatically searches for and aggregates content related to:
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
 - **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
-- **Source Credibility Assessment**: Automatically vets RSS sources for reliability (used for RSS feeds)
+- **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o mini) to evaluate article applicability and credibility
+  - **Applicability Assessment**: Determines if articles are relevant to AI/automation in offensive security
+  - **Credibility Evaluation**: Assesses content quality, identifies clickbait, and flags potential issues
+  - **Keyword-Based Analysis**: Leverages configured search keywords for contextual evaluation
+  - **Transparent Scoring**: Provides confidence scores and explanations for each assessment
+- **Source Credibility Assessment**: Automatically vets RSS sources for reliability using domain-based analysis
 - **Intelligent Filtering**: Prioritizes high-credibility sources and filters low-quality content
 - **Automated Scheduling**: Runs daily via GitHub Actions
 - **Local Execution**: Helper script for running locally
@@ -110,6 +115,7 @@ Edit `config.json` to customize:
 - `github_topics`: GitHub topics to search
 - `days_back`: How many days back to search (default: 7)
 - `max_results_per_topic`: Maximum results per topic (default: 10)
+- `github_enabled`: Enable/disable GitHub repository search (default: true)
 
 ### RSS Feed Configuration
 
@@ -122,6 +128,22 @@ Edit `config.json` to customize:
   - `cache_ttl_hours`: Cache time-to-live in hours (default: 6)
   - `request_timeout`: Request timeout in seconds (default: 10)
   - `rate_limit_delay`: Delay between feed requests in seconds (default: 0.5)
+
+### LLM Assessment Configuration
+
+- `llm_assessment`: Settings for LLM-based article evaluation
+  - `enabled`: Enable/disable LLM assessment (default: true)
+  - `model`: LLM model to use (default: "gpt-4o-mini")
+  - `applicability_threshold`: Minimum score to consider article applicable (default: 0.6)
+  - `credibility_threshold`: Minimum score to consider article credible (default: 0.5)
+  - `filter_inapplicable`: Remove articles deemed not applicable (default: true)
+  - `filter_not_credible`: Remove articles deemed not credible (default: true)
+
+**How LLM Assessment Works:**
+1. **Applicability**: The LLM evaluates if an article is relevant to your configured `search_keywords` and topics related to AI/automation in offensive security
+2. **Credibility**: The LLM assesses article quality by checking for clickbait titles, lack of sources, bias, and other credibility concerns
+3. **Filtering**: Articles below the threshold scores are automatically filtered out (configurable)
+4. **Transparency**: Each assessment includes a confidence score (0.0-1.0) and explanation in the output
 
 **RSS Feed Format:**
 ```json
@@ -160,6 +182,7 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
   ],
   "days_back": 7,
   "max_results_per_topic": 10,
+  "github_enabled": true,
   "rss_enabled": true,
   "rss_feeds": [
     {
@@ -173,31 +196,61 @@ See `RSS_FEED_STRATEGY.md` for 37+ recommended feeds and complete implementation
     "max_age_days": 7,
     "min_keyword_matches": 1,
     "cache_enabled": true
+  },
+  "llm_assessment": {
+    "enabled": true,
+    "model": "gpt-4o-mini",
+    "applicability_threshold": 0.6,
+    "credibility_threshold": 0.5,
+    "filter_inapplicable": true,
+    "filter_not_credible": true
   }
 }
 ```
 
 ## Source Credibility Assessment
 
-Newsbot automatically assesses the credibility of RSS feed sources to ensure high-quality results:
+Newsbot uses a two-tier approach to assess article quality and relevance:
 
-### High Credibility Sources
+### Domain-Based Credibility Assessment
+
+Evaluates RSS feed sources based on their domain:
+
+**High Credibility Sources:**
 - Official security organizations (NIST, CISA, OWASP)
 - Major tech companies (Google, Microsoft, AWS, GitHub)
 - Respected security firms (Trail of Bits, Google Project Zero)
 - Academic sources (arXiv, research publications)
 - Well-known security blogs (Schneier, Krebs on Security)
 
-### Medium Credibility Sources
+**Medium Credibility Sources:**
 - Established tech news sites (Ars Technica, TechCrunch)
 - Developer platforms (Medium, Dev.to)
 - Industry publications
 
-### Low Credibility Sources
+**Low Credibility Sources:**
 - Unrecognized domains
 - Sites not on the credibility lists
 
-Only high and medium credibility sources are included in the final reports. Low-credibility sources are filtered out to maintain quality.
+### LLM-Based Content Assessment
+
+Uses GitHub Models (GPT-4o mini) to evaluate individual articles:
+
+**Applicability Assessment:**
+- Analyzes article content against configured search keywords
+- Determines relevance to AI/automation in offensive security
+- Provides confidence score (0.0-1.0) and explanation
+- Lists matched keywords/topics
+
+**Credibility Evaluation:**
+- Checks for clickbait or sensationalized titles
+- Assesses content quality and depth
+- Identifies missing citations or sources
+- Flags potential bias or unverified claims
+- Considers domain credibility rating
+- Provides confidence score and detailed reasoning
+
+Only articles meeting both domain and LLM credibility thresholds are included in reports.
 
 ## Output
 
@@ -224,29 +277,40 @@ Description...
 ### Article Title
 Description and summary...
 **Link:** https://example.com/article
-**Feed:** Security Blog
-**Category:** research
-**Priority:** high
+**Source:** Security Blog (research)
+**Domain Credibility:** High
+**LLM Applicability:** ✓ Relevant (score: 0.85)
+*Matched topics: AI automation, penetration testing*
+*Article discusses AI-powered security testing tools with practical applications*
+**LLM Credibility:** ✓ Credible (score: 0.90)
+*Well-researched article with citations and technical details*
 **Published:** 2024-01-15
 ```
 
 Reports now include:
+- **LLM assessment results** with applicability and credibility scores
+- **Transparent explanations** for why articles were included or filtered
+- **Matched keywords** showing relevance to configured topics
+- **Credibility flags** identifying any concerns (clickbait, bias, etc.)
 - Source credibility ratings for RSS feed content
 - Direct citations to original articles
 - Publication dates when available
 - Clear categorization of results by source type (GitHub, RSS)
-- Filtering of low-credibility sources
 
 ## Workflow
 
 1. **GitHub Search**: Searches for repositories with relevant topics updated in the last N days
 2. **RSS Feed Aggregation**: Fetches and filters articles from configured RSS feeds
-3. **Source Credibility Vetting**: Assesses the credibility of RSS sources (high/medium/low)
-4. **Intelligent Filtering**: Filters by keywords and publication date
-5. **Aggregation**: Combines results from GitHub and RSS feeds with credibility ratings
-6. **Report Generation**: Creates formatted Markdown and JSON outputs with source citations
-7. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
-8. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
+3. **Keyword Filtering**: Initial filtering by configured search keywords
+4. **Domain Credibility Assessment**: Evaluates RSS sources based on domain (high/medium/low)
+5. **LLM Assessment** (if enabled):
+   - **Applicability**: Analyzes article relevance to AI/automation in offensive security
+   - **Credibility**: Evaluates content quality and trustworthiness
+6. **Intelligent Filtering**: Filters articles by LLM scores and thresholds
+7. **Aggregation**: Combines results from GitHub and RSS feeds with assessment data
+8. **Report Generation**: Creates formatted Markdown and JSON outputs with detailed assessments
+9. **Artifact Storage**: Uploads results as GitHub Actions artifacts (when running in Actions)
+10. **Git Commit**: Commits results to the repository (optional, in GitHub Actions)
 
 ## Project Structure
 
