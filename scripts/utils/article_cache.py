@@ -46,10 +46,9 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
         logging.debug(f"Output directory does not exist: {output_dir}")
         return analyzed_ids
     
-    # Find all results JSON files
+    # Find all results JSON files (only results, not rejected)
     output_path = Path(output_dir)
     json_files = list(output_path.glob('results_*.json'))
-    json_files.extend(list(output_path.glob('rejected_*.json')))
     
     if not json_files:
         logging.debug(f"No previous results found in {output_dir}")
@@ -68,8 +67,10 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
             
             for article in results:
                 article_id = generate_article_id(article)
-                if article_id:
+                if article_id:  # Only add non-empty IDs
                     analyzed_ids.add(article_id)
+                else:
+                    logging.debug(f"Skipping article with no URL or title in {json_file.name}")
                     
         except json.JSONDecodeError as e:
             logging.warning(f"Failed to parse {json_file.name}: {e}")
@@ -77,7 +78,6 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
             logging.warning(f"Error reading {json_file.name}: {e}")
     
     logging.info(f"Loaded {len(analyzed_ids)} previously analyzed articles")
-    logging.debug(f"{analyzed_ids}")
     return analyzed_ids
 
 
@@ -109,9 +109,6 @@ def filter_analyzed_articles(
             skipped_count += 1
             logging.debug(f"Skipping already analyzed article: {article.get('title', 'Untitled')}")
         else:
-            logging.debug(f"{analyzed_ids}")
-            logging.debug(f"{article_id}")
-            exit()
             new_articles.append(article)
     
     if skipped_count > 0:
