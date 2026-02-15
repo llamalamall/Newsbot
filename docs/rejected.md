@@ -33,11 +33,13 @@ Articles can be rejected as not relevant if they:
 
 ## Rejected Articles Table
 
-Total rejected articles: **403**
+Total rejected articles: **463**
 
 | Title | Topic | Rejection Type | Rejection Reason |
 |-------|-------|----------------|------------------|
 | [AbdumajidRashidov/mycop](https://github.com/AbdumajidRashidov/mycop) | ai-security | relevance | missing_ai_keywords |
+| [AbdumajidRashidov/mycop](https://github.com/AbdumajidRashidov/mycop) | ai-security | relevance | missing_ai_keywords |
+| [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [andyaziz/claude-code-ultimate-guide](https://github.com/andyaziz/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
@@ -49,10 +51,13 @@ Total rejected articles: **403**
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
+| [HyperDbg/HyperDbg](https://github.com/HyperDbg/HyperDbg) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
+| [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
+| [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
@@ -60,9 +65,12 @@ Total rejected articles: **403**
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
+| [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
+| [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
+| [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [ZamaNy1284/kernagent](https://github.com/ZamaNy1284/kernagent) | binary-analysis | relevance | missing_ai_keywords |
@@ -78,19 +86,26 @@ Total rejected articles: **403**
 | [krauzermaster1/GTI](https://github.com/krauzermaster1/GTI) | binary-analysis | relevance | missing_ai_keywords |
 | [lief-project/LIEF](https://github.com/lief-project/LIEF) | binary-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
+| [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
+| [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
 | [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
 | [Ajoloid/cybersecurity-interview-boilerplate](https://github.com/Ajoloid/cybersecurity-interview-boilerplate) | malware-analysis | relevance | missing_ai_keywords |
 | [Badasone/Cyberlivre](https://github.com/Badasone/Cyberlivre) | malware-analysis | relevance | missing_ai_keywords |
 | [Ball0UT/SirkeiraStealer](https://github.com/Ball0UT/SirkeiraStealer) | malware-analysis | relevance | missing_ai_keywords |
 | [Cryakl/Ultimate-RAT-Collection](https://github.com/Cryakl/Ultimate-RAT-Collection) | malware-analysis | relevance | missing_ai_keywords |
+| [Donaldduck8/malware-analysis-bucket](https://github.com/Donaldduck8/malware-analysis-bucket) | malware-analysis | relevance | missing_ai_keywords |
+| [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [GYINDEXCODED/SheepCrypter](https://github.com/GYINDEXCODED/SheepCrypter) | malware-analysis | relevance | missing_ai_keywords |
 | [GYINDEXCODED/SheepCrypter](https://github.com/GYINDEXCODED/SheepCrypter) | malware-analysis | relevance | missing_ai_keywords |
+| [HyperDbg/HyperDbg](https://github.com/HyperDbg/HyperDbg) | malware-analysis | relevance | missing_ai_keywords |
 | [JameZUK/PeMCP](https://github.com/JameZUK/PeMCP) | malware-analysis | relevance | missing_ai_keywords |
 | [JameZUK/PeMCP](https://github.com/JameZUK/PeMCP) | malware-analysis | relevance | missing_ai_keywords |
+| [JameZUK/PeMCP](https://github.com/JameZUK/PeMCP) | malware-analysis | relevance | missing_ai_keywords |
+| [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
@@ -104,6 +119,7 @@ Total rejected articles: **403**
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | malware-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | malware-analysis | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
+| [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
 | [awab208/CyberSecurity-Journey](https://github.com/awab208/CyberSecurity-Journey) | malware-analysis | relevance | missing_ai_keywords |
 | [awab208/CyberSecurity-Journey](https://github.com/awab208/CyberSecurity-Journey) | malware-analysis | relevance | missing_ai_keywords |
 | [beyazit991/EDR-GhostLocker](https://github.com/beyazit991/EDR-GhostLocker) | malware-analysis | relevance | missing_ai_keywords |
@@ -113,6 +129,7 @@ Total rejected articles: **403**
 | [fuwagura/malware-hash-scanner](https://github.com/fuwagura/malware-hash-scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [fuwagura/malware-hash-scanner](https://github.com/fuwagura/malware-hash-scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [gofokili/EDR-Freeze](https://github.com/gofokili/EDR-Freeze) | malware-analysis | relevance | missing_ai_keywords |
+| [hugsy/gef](https://github.com/hugsy/gef) | malware-analysis | relevance | missing_ai_keywords |
 | [ibaneez/VirusTotalJsonDownloader](https://github.com/ibaneez/VirusTotalJsonDownloader) | malware-analysis | relevance | missing_ai_keywords |
 | [mtysedke/security-incident-artifact-analyzer](https://github.com/mtysedke/security-incident-artifact-analyzer) | malware-analysis | relevance | missing_ai_keywords |
 | [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | malware-analysis | relevance | missing_ai_keywords |
@@ -121,10 +138,13 @@ Total rejected articles: **403**
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
+| [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
+| [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
+| [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
 | [KvzinNcpx7/CVE-2025-9074_DAEMON_KILLER](https://github.com/KvzinNcpx7/CVE-2025-9074_DAEMON_KILLER) | offensive-security | relevance | missing_ai_keywords |
 | [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | offensive-security | relevance | missing_ai_keywords |
@@ -135,15 +155,21 @@ Total rejected articles: **403**
 | [Trapsta1467/sherluck](https://github.com/Trapsta1467/sherluck) | offensive-security | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
+| [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
 | [Wanssss1/BOFs](https://github.com/Wanssss1/BOFs) | offensive-security | relevance | missing_ai_keywords |
 | [Wanssss1/BOFs](https://github.com/Wanssss1/BOFs) | offensive-security | relevance | missing_ai_keywords |
 | [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
 | [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
+| [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
+| [Znorlux/uvleak](https://github.com/Znorlux/uvleak) | offensive-security | relevance | missing_ai_keywords |
+| [dereeqw/web-mitm-lab](https://github.com/dereeqw/web-mitm-lab) | offensive-security | relevance | missing_ai_keywords |
 | [nikamhritik/awesome-battery-data](https://github.com/nikamhritik/awesome-battery-data) | offensive-security | relevance | missing_ai_keywords |
 | [Asder10/React2Shell](https://github.com/Asder10/React2Shell) | penetration-testing | relevance | missing_ai_keywords |
 | [Chrimak/AD-Privilege-Escalation-Finder](https://github.com/Chrimak/AD-Privilege-Escalation-Finder) | penetration-testing | relevance | missing_ai_keywords |
+| [Chrimak/AD-Privilege-Escalation-Finder](https://github.com/Chrimak/AD-Privilege-Escalation-Finder) | penetration-testing | relevance | missing_ai_keywords |
 | [Eabnfccblls/awesome-cybersecurity-tools](https://github.com/Eabnfccblls/awesome-cybersecurity-tools) | penetration-testing | relevance | missing_ai_keywords |
 | [Feros0/commentcrusader-burp](https://github.com/Feros0/commentcrusader-burp) | penetration-testing | relevance | missing_ai_keywords |
+| [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | penetration-testing | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | penetration-testing | relevance | missing_ai_keywords |
 | [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | penetration-testing | relevance | missing_ai_keywords |
 | [MitaTuppeu/NeonFlux](https://github.com/MitaTuppeu/NeonFlux) | penetration-testing | relevance | missing_ai_keywords |
@@ -154,15 +180,22 @@ Total rejected articles: **403**
 | [Oluwanifemithe/ctf-writeups](https://github.com/Oluwanifemithe/ctf-writeups) | penetration-testing | relevance | missing_ai_keywords |
 | [Tibisihkr/dismap-identification-tool](https://github.com/Tibisihkr/dismap-identification-tool) | penetration-testing | relevance | missing_ai_keywords |
 | [Tibisihkr/dismap-identification-tool](https://github.com/Tibisihkr/dismap-identification-tool) | penetration-testing | relevance | missing_ai_keywords |
+| [Tibisihkr/dismap-identification-tool](https://github.com/Tibisihkr/dismap-identification-tool) | penetration-testing | relevance | missing_ai_keywords |
+| [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | penetration-testing | relevance | missing_ai_keywords |
+| [Trivexion/FscanOutput-Beautify](https://github.com/Trivexion/FscanOutput-Beautify) | penetration-testing | relevance | missing_ai_keywords |
 | [YuriPeixoto25/portpilot](https://github.com/YuriPeixoto25/portpilot) | penetration-testing | relevance | missing_ai_keywords |
 | [carsalgut/reverse-skills](https://github.com/carsalgut/reverse-skills) | penetration-testing | relevance | missing_ai_keywords |
+| [dereeqw/web-mitm-lab](https://github.com/dereeqw/web-mitm-lab) | penetration-testing | relevance | missing_ai_keywords |
 | [fromgabyaaye/UniPwn](https://github.com/fromgabyaaye/UniPwn) | penetration-testing | relevance | missing_ai_keywords |
 | [ilkerkaya97/BlueVector](https://github.com/ilkerkaya97/BlueVector) | penetration-testing | relevance | missing_ai_keywords |
 | [lamy421/netwo-bust](https://github.com/lamy421/netwo-bust) | penetration-testing | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
+| [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
+| [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | penetration-testing | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | penetration-testing | relevance | missing_ai_keywords |
 | [pedrocruz2202/mongobleed-scanner](https://github.com/pedrocruz2202/mongobleed-scanner) | penetration-testing | relevance | missing_ai_keywords |
 | [pedrocruz2202/mongobleed-scanner](https://github.com/pedrocruz2202/mongobleed-scanner) | penetration-testing | relevance | missing_ai_keywords |
+| [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/resolvers](https://github.com/rix4uni/resolvers) | penetration-testing | relevance | missing_ai_keywords |
 | [sadeeqkhan123/try](https://github.com/sadeeqkhan123/try) | penetration-testing | relevance | missing_ai_keywords |
@@ -175,22 +208,29 @@ Total rejected articles: **403**
 | [zebadee2kk/RedGuard-Suite](https://github.com/zebadee2kk/RedGuard-Suite) | penetration-testing | relevance | missing_ai_keywords |
 | [Ahirshath/nmap-cheatsheet-tr](https://github.com/Ahirshath/nmap-cheatsheet-tr) | red-team | relevance | missing_ai_keywords |
 | [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
+| [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
 | [Michael1-dav/red-teaming](https://github.com/Michael1-dav/red-teaming) | red-team | relevance | missing_ai_keywords |
+| [Nerowmist/nullsec-flipper-suite](https://github.com/Nerowmist/nullsec-flipper-suite) | red-team | relevance | missing_ai_keywords |
 | [NishanthGSuryavamshi/thinksec](https://github.com/NishanthGSuryavamshi/thinksec) | red-team | relevance | missing_ai_keywords |
 | [Rahulkanth/sliver-tor-bridge](https://github.com/Rahulkanth/sliver-tor-bridge) | red-team | relevance | missing_ai_keywords |
+| [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | red-team | relevance | missing_ai_keywords |
 | [Wanssss1/BOFs](https://github.com/Wanssss1/BOFs) | red-team | relevance | missing_ai_keywords |
 | [ZayaCrypt/memtap](https://github.com/ZayaCrypt/memtap) | red-team | relevance | missing_ai_keywords |
 | [ZayaCrypt/memtap](https://github.com/ZayaCrypt/memtap) | red-team | relevance | missing_ai_keywords |
 | [chrisgallenx/Interactive-MITRE-Tree](https://github.com/chrisgallenx/Interactive-MITRE-Tree) | red-team | relevance | missing_ai_keywords |
 | [chrismmt/mcp-adversarial-suite](https://github.com/chrismmt/mcp-adversarial-suite) | red-team | relevance | missing_ai_keywords |
 | [chrismmt/mcp-adversarial-suite](https://github.com/chrismmt/mcp-adversarial-suite) | red-team | relevance | missing_ai_keywords |
+| [dereeqw/web-mitm-lab](https://github.com/dereeqw/web-mitm-lab) | red-team | relevance | missing_ai_keywords |
 | [huymini/pencall](https://github.com/huymini/pencall) | red-team | relevance | missing_ai_keywords |
+| [luq12-growagarden/Adversarial-Detection-Engineering-Framework](https://github.com/luq12-growagarden/Adversarial-Detection-Engineering-Framework) | red-team | relevance | missing_ai_keywords |
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
+| [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
 | [nupurgurnule/GoldMAC](https://github.com/nupurgurnule/GoldMAC) | red-team | relevance | missing_ai_keywords |
 | [nupurgurnule/GoldMAC](https://github.com/nupurgurnule/GoldMAC) | red-team | relevance | missing_ai_keywords |
+| [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [pedrocruz2202/mongobleed-scanner](https://github.com/pedrocruz2202/mongobleed-scanner) | red-team | relevance | missing_ai_keywords |
@@ -205,9 +245,11 @@ Total rejected articles: **403**
 | [AhmedHossam151/AspyrArchiveTool](https://github.com/AhmedHossam151/AspyrArchiveTool) | reverse-engineering | relevance | missing_ai_keywords |
 | [Chrimakan/WinRAR-Password-Cracker-Tool](https://github.com/Chrimakan/WinRAR-Password-Cracker-Tool) | reverse-engineering | relevance | missing_ai_keywords |
 | [Chrimakan/WinRAR-Password-Cracker-Tool](https://github.com/Chrimakan/WinRAR-Password-Cracker-Tool) | reverse-engineering | relevance | missing_ai_keywords |
+| [Chrimakan/WinRAR-Password-Cracker-Tool](https://github.com/Chrimakan/WinRAR-Password-Cracker-Tool) | reverse-engineering | relevance | missing_ai_keywords |
 | [GeoloeG-IsT/agents-reverse-engineer](https://github.com/GeoloeG-IsT/agents-reverse-engineer) | reverse-engineering | relevance | missing_ai_keywords |
 | [Hdhdhrhrb/wcw-cyberring-pav-decryptor](https://github.com/Hdhdhrhrb/wcw-cyberring-pav-decryptor) | reverse-engineering | relevance | missing_ai_keywords |
 | [Iswenzz/IW3SR](https://github.com/Iswenzz/IW3SR) | reverse-engineering | relevance | missing_ai_keywords |
+| [Laeteth/advanced-anti-sandbox-Virtual-Machine](https://github.com/Laeteth/advanced-anti-sandbox-Virtual-Machine) | reverse-engineering | relevance | missing_ai_keywords |
 | [Matteo907-boop/zyrox](https://github.com/Matteo907-boop/zyrox) | reverse-engineering | relevance | missing_ai_keywords |
 | [Matteo907-boop/zyrox](https://github.com/Matteo907-boop/zyrox) | reverse-engineering | relevance | missing_ai_keywords |
 | [Michelplayer/android-re-ctfs](https://github.com/Michelplayer/android-re-ctfs) | reverse-engineering | relevance | missing_ai_keywords |
@@ -215,8 +257,12 @@ Total rejected articles: **403**
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | reverse-engineering | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | reverse-engineering | relevance | missing_ai_keywords |
 | [S2E/s2e](https://github.com/S2E/s2e) | reverse-engineering | relevance | missing_ai_keywords |
+| [SAT-R/sa2](https://github.com/SAT-R/sa2) | reverse-engineering | relevance | missing_ai_keywords |
 | [TECHNO-SOUQ/AspyrArchiveTool](https://github.com/TECHNO-SOUQ/AspyrArchiveTool) | reverse-engineering | relevance | missing_ai_keywords |
 | [TECHNO-SOUQ/AspyrArchiveTool](https://github.com/TECHNO-SOUQ/AspyrArchiveTool) | reverse-engineering | relevance | missing_ai_keywords |
+| [Terralyp/SunloginLP-Eanalysis-tool](https://github.com/Terralyp/SunloginLP-Eanalysis-tool) | reverse-engineering | relevance | missing_ai_keywords |
+| [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | reverse-engineering | relevance | missing_ai_keywords |
+| [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | reverse-engineering | relevance | missing_ai_keywords |
 | [ak-sports/qiling](https://github.com/ak-sports/qiling) | reverse-engineering | relevance | missing_ai_keywords |
 | [ak-sports/qiling](https://github.com/ak-sports/qiling) | reverse-engineering | relevance | missing_ai_keywords |
 | [alilooop/AssetRetrieval3D](https://github.com/alilooop/AssetRetrieval3D) | reverse-engineering | relevance | missing_ai_keywords |
@@ -232,6 +278,7 @@ Total rejected articles: **403**
 | [sstokic-tgm/JFTSE](https://github.com/sstokic-tgm/JFTSE) | reverse-engineering | relevance | missing_ai_keywords |
 | [wowemulation-dev/warcraft-rs](https://github.com/wowemulation-dev/warcraft-rs) | reverse-engineering | relevance | missing_ai_keywords |
 | [wowemulation-dev/warcraft-rs](https://github.com/wowemulation-dev/warcraft-rs) | reverse-engineering | relevance | missing_ai_keywords |
+| [zonfacter/bms-rs485-service-suite](https://github.com/zonfacter/bms-rs485-service-suite) | reverse-engineering | relevance | missing_ai_keywords |
 | [Gberegbe/infrastructure-security-automation](https://github.com/Gberegbe/infrastructure-security-automation) | security-automation | relevance | missing_ai_keywords |
 | [Gberegbe/infrastructure-security-automation](https://github.com/Gberegbe/infrastructure-security-automation) | security-automation | relevance | missing_ai_keywords |
 | [Gervis123212/azure-sentinel-honeypot](https://github.com/Gervis123212/azure-sentinel-honeypot) | security-automation | relevance | missing_ai_keywords |
@@ -247,9 +294,13 @@ Total rejected articles: **403**
 | [Vulnogram/Vulnogram](https://github.com/Vulnogram/Vulnogram) | security-automation | relevance | missing_ai_keywords |
 | [WhyN0tTh0/enterprise-attack-simulator](https://github.com/WhyN0tTh0/enterprise-attack-simulator) | security-automation | relevance | missing_ai_keywords |
 | [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
+| [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
+| [konstruktoid/hardening](https://github.com/konstruktoid/hardening) | security-automation | relevance | missing_ai_keywords |
 | [kynaan5353/cargo-recon](https://github.com/kynaan5353/cargo-recon) | security-automation | relevance | missing_ai_keywords |
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | security-automation | relevance | missing_ai_keywords |
 | [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
+| [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
+| [securego/gosec](https://github.com/securego/gosec) | security-automation | relevance | missing_ai_keywords |
 | [securego/gosec](https://github.com/securego/gosec) | security-automation | relevance | missing_ai_keywords |
 | ['Reynolds' Bundles BYOVD With Ransomware Payload](https://www.darkreading.com/threat-intelligence/black-basta-bundles-byovd-ransomware-payload) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | ['Reynolds' Bundles BYOVD With Ransomware Payload](https://www.darkreading.com/threat-intelligence/black-basta-bundles-byovd-ransomware-payload) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -297,6 +348,7 @@ Total rejected articles: **403**
 | [CISA flags critical Microsoft SCCM flaw as exploited in attacks](https://www.bleepingcomputer.com/news/security/cisa-flags-microsoft-configmgr-rce-flaw-as-exploited-in-attacks/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [CTM360: Lumma Stealer and Ninja Browser malware campaign abusing Google Groups](https://www.bleepingcomputer.com/news/security/ctm360-lumma-stealer-and-ninja-browser-malware-campaign-abusing-google-groups/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [CTM360: Lumma Stealer and Ninja Browser malware campaign abusing Google Groups](https://www.bleepingcomputer.com/news/security/ctm360-lumma-stealer-and-ninja-browser-malware-campaign-abusing-google-groups/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Carding-as-a-Service: The Underground Market of Stolen Cards](https://www.rapid7.com/blog/post/tr-carding-as-a-service-stolen-credit-cards-fraud) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [China-Linked UNC3886 Targets Singapore Telecom Sector in Cyber Espionage Campaign](https://thehackernews.com/2026/02/china-linked-unc3886-targets-singapore.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [China-Linked UNC3886 Targets Singapore Telecom Sector in Cyber Espionage Campaign](https://thehackernews.com/2026/02/china-linked-unc3886-targets-singapore.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Cisco TelePresence Collaboration Endpoint Software and RoomOS Software Denial of Service Vulnerability](https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-tce-roomos-dos-9V9jrC2q?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20TelePresence%20Collaboration%20Endpoint%20Software%20and%20RoomOS%20Software%20Denial%20of%20Service%20Vulnerability%26vs_k=1) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -333,6 +385,7 @@ Total rejected articles: **403**
 | [Fragmentation Defined 2025's Threat Landscape. Here's What It Means for 2026](https://www.recordedfuture.com/blog/fragmentation-in-2025-what-it-means-for-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Fragmentation Defined 2025's Threat Landscape. Here's What It Means for 2026](https://www.recordedfuture.com/blog/fragmentation-in-2025-what-it-means-for-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Fragmentation Defined 2025's Threat Landscape. Here's What It Means for 2026](https://www.recordedfuture.com/blog/fragmentation-in-2025-what-it-means-for-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [From Ransomware to Residency: Inside the Rise of the Digital Parasite](https://thehackernews.com/2026/02/from-ransomware-to-residency-inside.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Google Links China, Iran, Russia, North Korea to Coordinated Defense Sector Cyber Operations](https://thehackernews.com/2026/02/google-links-china-iran-russia-north.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Google Links China, Iran, Russia, North Korea to Coordinated Defense Sector Cyber Operations](https://thehackernews.com/2026/02/google-links-china-iran-russia-north.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Google Links China, Iran, Russia, North Korea to Coordinated Defense Sector Cyber Operations](https://thehackernews.com/2026/02/google-links-china-iran-russia-north.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -354,10 +407,12 @@ Total rejected articles: **403**
 | [Introducing Lockdown Mode and Elevated Risk labels in ChatGPT](https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Ivanti EPMM Zero-Day Bugs Spark Exploit Frenzy — Again](https://www.darkreading.com/endpoint-security/ivanti-epmm-zero-day-bugs-exploit) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Ivanti EPMM Zero-Day Bugs Spark Exploit Frenzy — Again](https://www.darkreading.com/endpoint-security/ivanti-epmm-zero-day-bugs-exploit) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Kimwolf Botnet Swamps Anonymity Network I2P](https://krebsonsecurity.com/2026/02/kimwolf-botnet-swamps-anonymity-network-i2p/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Lazarus Campaign Plants Malicious Packages in npm and PyPI Ecosystems](https://thehackernews.com/2026/02/lazarus-campaign-plants-malicious.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Lazarus Campaign Plants Malicious Packages in npm and PyPI Ecosystems](https://thehackernews.com/2026/02/lazarus-campaign-plants-malicious.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Malicious Chrome Extensions Caught Stealing Business Data, Emails, and Browsing History](https://thehackernews.com/2026/02/malicious-chrome-extensions-caught.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Malicious Chrome Extensions Caught Stealing Business Data, Emails, and Browsing History](https://thehackernews.com/2026/02/malicious-chrome-extensions-caught.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Malwarebytes earns PCMag Best Tech Brand spot, scores 100% with MRG Effitas](https://www.malwarebytes.com/blog/product/2026/02/malwarebytes-earns-pcmag-best-tech-brand-spot-scores-100-with-mrg-effitas) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Manipulating AI memory for profit: The rise of AI Recommendation Poisoning](https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Manipulating AI memory for profit: The rise of AI Recommendation Poisoning](https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Metasploit Wrap-Up 02/13/2026](https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-02-13-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -398,6 +453,7 @@ Total rejected articles: **403**
 | [Pastebin comments push ClickFix JavaScript attack to hijack crypto swaps](https://www.bleepingcomputer.com/news/security/pastebin-comments-push-clickfix-javascript-attack-to-hijack-crypto-swaps/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Patch Tuesday - February 2026](https://www.rapid7.com/blog/post/em-patch-tuesday-february-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Patch Tuesday, February 2026 Edition](https://krebsonsecurity.com/2026/02/patch-tuesday-february-2026-edition/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Poland Energy Sector Cyber Incident Highlights OT and ICS Security Gaps](https://www.cisa.gov/news-events/alerts/2026/02/10/poland-energy-sector-cyber-incident-highlights-ot-and-ics-security-gaps) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Prompt Injection Via Road Signs](https://www.schneier.com/blog/archives/2026/02/prompt-injection-via-road-signs.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Prompt Injection Via Road Signs](https://www.schneier.com/blog/archives/2026/02/prompt-injection-via-road-signs.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Researchers Observe In-the-Wild Exploitation of BeyondTrust CVSS 9.9 Vulnerability](https://thehackernews.com/2026/02/researchers-observe-in-wild.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -406,8 +462,11 @@ Total rejected articles: **403**
 | [Researchers Observe In-the-Wild Exploitation of BeyondTrust CVSS 9.9 Vulnerability](https://thehackernews.com/2026/02/researchers-observe-in-wild.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Reynolds Ransomware Embeds BYOVD Driver to Disable EDR Security Tools](https://thehackernews.com/2026/02/reynolds-ransomware-embeds-byovd-driver.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Reynolds Ransomware Embeds BYOVD Driver to Disable EDR Security Tools](https://thehackernews.com/2026/02/reynolds-ransomware-embeds-byovd-driver.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Romania's oil pipeline operator Conpet confirms data stolen in attack](https://www.bleepingcomputer.com/news/security/romanias-oil-pipeline-operator-conpet-confirms-data-stolen-in-attack/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SSHStalker Botnet Uses IRC C2 to Control Linux Systems via Legacy Kernel Exploits](https://thehackernews.com/2026/02/sshstalker-botnet-uses-irc-c2-to.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SSHStalker Botnet Uses IRC C2 to Control Linux Systems via Legacy Kernel Exploits](https://thehackernews.com/2026/02/sshstalker-botnet-uses-irc-c2-to.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Senegalese Data Breaches Expose Lack of Security Maturity](https://www.darkreading.com/cyberattacks-data-breaches/hackers-breach-senegal-national-biometric-database) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Snail mail letters target Trezor and Ledger users in crypto-theft attacks](https://www.bleepingcomputer.com/news/security/snail-mail-letters-target-trezor-and-ledger-users-in-crypto-theft-attacks/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SolarWinds WHD Attacks Highlight Risks of Exposed Apps](https://www.darkreading.com/vulnerabilities-threats/solarwinds-whd-attacks-exposed-apps) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SolarWinds Web Help Desk Exploited for RCE in Multi-Stage Attacks on Exposed Servers](https://thehackernews.com/2026/02/solarwinds-web-help-desk-exploited-for.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SolarWinds Web Help Desk Exploited for RCE in Multi-Stage Attacks on Exposed Servers](https://thehackernews.com/2026/02/solarwinds-web-help-desk-exploited-for.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -437,6 +496,7 @@ Total rejected articles: **403**
 | [Warlock Ransomware Breaches SmarterTools Through Unpatched SmarterMail Server](https://thehackernews.com/2026/02/warlock-ransomware-breaches.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Warlock Ransomware Breaches SmarterTools Through Unpatched SmarterMail Server](https://thehackernews.com/2026/02/warlock-ransomware-breaches.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [ZAST.AI Raises $6M Pre-A to Scale "Zero False Positive" AI-Powered Code Security](https://thehackernews.com/2026/02/zastai-raises-6m-pre-to-scale-zero.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Zscaler-SquareX Deal Boosts Zero Trust, Secure Browsing Capabilities](https://www.darkreading.com/remote-workforce/zscaler-squarex-deal-boosts-zero-trust-secure-browsing-capabilities) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [npm’s Update to Harden Their Supply Chain, and Points to Consider](https://thehackernews.com/2026/02/npms-update-to-harden-their-supply.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [npm’s Update to Harden Their Supply Chain, and Points to Consider](https://thehackernews.com/2026/02/npms-update-to-harden-their-supply.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [⚡ Weekly Recap: AI Skill Malware, 31Tbps DDoS, Notepad++ Hack, LLM Backdoors and More](https://thehackernews.com/2026/02/weekly-recap-ai-skill-malware-31tbps.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
