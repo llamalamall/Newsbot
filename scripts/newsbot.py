@@ -123,9 +123,13 @@ class NewsBot:
             
         Returns:
             List of aggregated news items
+
+        Side Effects:
+            Populates self.rejected_results with filtered-out items
         """
         logging.info("Aggregating news from multiple sources...")
         all_results = []
+        rejected_results: List[Dict[str, Any]] = []
         
         # Load previously analyzed articles if skip_analyzed is enabled
         analyzed_ids = set()
@@ -143,7 +147,8 @@ class NewsBot:
                 github_token=self.github_token,
                 github_topics=self.config.get("github_topics", []),
                 days_back=self.config.get("days_back", 7),
-                max_results_per_topic=self.config.get("max_results_per_topic", 10)
+                max_results_per_topic=self.config.get("max_results_per_topic", 10),
+                rejected_results=rejected_results
             )
             
             # Filter GitHub results if deduplication is enabled
@@ -162,7 +167,8 @@ class NewsBot:
                 rss_manager=self.rss_manager,
                 assess_credibility_func=assess_source_credibility,
                 config=self.config,
-                openai_client=self.openai_client
+                openai_client=self.openai_client,
+                rejected_results=rejected_results
             )
             
             # Filter RSS results if deduplication is enabled
@@ -174,6 +180,7 @@ class NewsBot:
             all_results.extend(rss_results)
         
         self.results = all_results
+        self.rejected_results = rejected_results
         return all_results
 
 
@@ -307,6 +314,7 @@ def main():
     
     # Aggregate news (passing output_dir for deduplication)
     results = bot.aggregate_news(output_dir=args.output_dir)
+    rejected_results = getattr(bot, "rejected_results", [])
     
     if not args.quiet:
         print()
@@ -324,9 +332,11 @@ def main():
     # Generate and save reports
     markdown_path = os.path.join(args.output_dir, f"report_{timestamp}.md")
     json_path = os.path.join(args.output_dir, f"results_{timestamp}.json")
+    rejected_path = os.path.join(args.output_dir, f"rejected_{timestamp}.json")
     
     generate_report(results, markdown_path)
     save_json_results(results, json_path)
+    save_json_results(rejected_results, rejected_path)
     
     if not args.quiet:
         print()

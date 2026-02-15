@@ -49,6 +49,7 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
     # Find all results JSON files
     output_path = Path(output_dir)
     json_files = list(output_path.glob('results_*.json'))
+    json_files.extend(list(output_path.glob('rejected_*.json')))
     
     if not json_files:
         logging.debug(f"No previous results found in {output_dir}")
@@ -76,6 +77,7 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
             logging.warning(f"Error reading {json_file.name}: {e}")
     
     logging.info(f"Loaded {len(analyzed_ids)} previously analyzed articles")
+    logging.debug(f"{analyzed_ids}")
     return analyzed_ids
 
 
@@ -107,6 +109,9 @@ def filter_analyzed_articles(
             skipped_count += 1
             logging.debug(f"Skipping already analyzed article: {article.get('title', 'Untitled')}")
         else:
+            logging.debug(f"{analyzed_ids}")
+            logging.debug(f"{article_id}")
+            exit()
             new_articles.append(article)
     
     if skipped_count > 0:

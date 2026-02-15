@@ -37,7 +37,8 @@ def search_rss_feeds(
     rss_manager,
     assess_credibility_func,
     config: Dict[str, Any],
-    openai_client=None
+    openai_client=None,
+    rejected_results: Optional[List[Dict[str, Any]]] = None
 ) -> List[Dict[str, Any]]:
     """Search and aggregate content from RSS feeds.
     
@@ -49,6 +50,7 @@ def search_rss_feeds(
         assess_credibility_func: Function to assess URL credibility
         config: Configuration dictionary
         openai_client: Optional OpenAI client for LLM assessment
+        rejected_results: Optional list to append filtered-out articles
         
     Returns:
         List of relevant RSS feed entries
@@ -179,11 +181,23 @@ def search_rss_feeds(
                     # Filter if applicability score is below threshold
                     if filter_inapplicable and result.llm_applicability_score < applicability_threshold:
                         logging.debug(f"Filtered out (inapplicable, score={result.llm_applicability_score:.2f}): {result.title[:50]}...")
+                        if rejected_results is not None:
+                            rejected = result.to_dict()
+                            rejected["rejection_type"] = "relevance"
+                            rejected["rejection_reason"] = "llm_applicability_below_threshold"
+                            rejected["rejection_threshold"] = applicability_threshold
+                            rejected_results.append(rejected)
                         continue
                     
                     # Filter if credibility score is below threshold
                     if filter_not_credible and result.llm_credibility_score < credibility_threshold:
                         logging.debug(f"Filtered out (not credible, score={result.llm_credibility_score:.2f}): {result.title[:50]}...")
+                        if rejected_results is not None:
+                            rejected = result.to_dict()
+                            rejected["rejection_type"] = "credibility"
+                            rejected["rejection_reason"] = "llm_credibility_below_threshold"
+                            rejected["rejection_threshold"] = credibility_threshold
+                            rejected_results.append(rejected)
                         continue
                     
                 except Exception as e:
