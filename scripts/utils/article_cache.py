@@ -31,8 +31,8 @@ def generate_article_id(article: Dict[str, Any]) -> str:
 def load_analyzed_articles(output_dir: str) -> Set[str]:
     """Load previously analyzed articles from JSON files in the output directory.
     
-    Scans all results_*.json files in the output directory and extracts article URLs
-    to create a set of already-analyzed article identifiers.
+    Scans results_*.json and rejected_*.json files in the output directory and extracts
+    article URLs to create a set of already-analyzed article identifiers.
     
     Args:
         output_dir: Directory containing previous output JSON files
@@ -46,15 +46,15 @@ def load_analyzed_articles(output_dir: str) -> Set[str]:
         logging.debug(f"Output directory does not exist: {output_dir}")
         return analyzed_ids
     
-    # Find all results JSON files (only results, not rejected)
+    # Find all results and rejected JSON files
     output_path = Path(output_dir)
-    json_files = list(output_path.glob('results_*.json'))
+    json_files = list(output_path.glob('results_*.json')) + list(output_path.glob('rejected_*.json'))
     
     if not json_files:
         logging.debug(f"No previous results found in {output_dir}")
         return analyzed_ids
     
-    logging.info(f"Loading previously analyzed articles from {len(json_files)} result file(s)...")
+    logging.info(f"Loading previously analyzed articles from {len(json_files)} file(s)...")
     
     for json_file in json_files:
         try:
