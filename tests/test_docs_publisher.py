@@ -13,7 +13,10 @@ import pytest
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 from reporters.docs_publisher import (
-    initialize_docs_directory
+    initialize_docs_directory,
+    load_rejected_articles,
+    generate_rejected_articles_page,
+    publish_rejected_articles_page
 )
 
 
@@ -285,6 +288,235 @@ class TestStructuredPublishing:
             
             assert "[GitHub Repositories](repositories.md)" in content
             assert "## Latest Articles" in content
+
+
+class TestRejectedArticles:
+    """Tests for rejected articles functionality."""
+    
+    def test_load_rejected_articles_empty_directory(self):
+        """Test loading rejected articles from empty directory."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            rejected = load_rejected_articles(tmpdir)
+            assert rejected == []
+    
+    def test_load_rejected_articles_no_files(self):
+        """Test loading when directory exists but has no rejected JSON files."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create some other files
+            with open(os.path.join(tmpdir, "results.json"), 'w') as f:
+                json.dump([], f)
+            
+            rejected = load_rejected_articles(tmpdir)
+            assert rejected == []
+    
+    def test_load_rejected_articles_single_file(self):
+        """Test loading rejected articles from a single file."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create a rejected articles file
+            rejected_data = [
+                {
+                    "title": "Test Article 1",
+                    "url": "https://example.com/1",
+                    "topic": "security",
+                    "rejection_type": "relevance",
+                    "rejection_reason": "missing_ai_keywords"
+                },
+                {
+                    "title": "Test Article 2",
+                    "url": "https://example.com/2",
+                    "topic": "malware",
+                    "rejection_type": "credibility",
+                    "rejection_reason": "llm_credibility_below_threshold",
+                    "rejection_threshold": 0.6
+                }
+            ]
+            
+            with open(os.path.join(tmpdir, "rejected_20260215_120000.json"), 'w') as f:
+                json.dump(rejected_data, f)
+            
+            rejected = load_rejected_articles(tmpdir)
+            assert len(rejected) == 2
+            assert rejected[0]["title"] == "Test Article 1"
+            assert rejected[1]["rejection_type"] == "credibility"
+    
+    def test_load_rejected_articles_multiple_files(self):
+        """Test loading rejected articles from multiple files."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create multiple rejected articles files
+            for i in range(3):
+                rejected_data = [
+                    {
+                        "title": f"Article {i}",
+                        "url": f"https://example.com/{i}",
+                        "topic": "security",
+                        "rejection_type": "relevance",
+                        "rejection_reason": "missing_ai_keywords"
+                    }
+                ]
+                
+                with open(os.path.join(tmpdir, f"rejected_2026021{i}_120000.json"), 'w') as f:
+                    json.dump(rejected_data, f)
+            
+            rejected = load_rejected_articles(tmpdir)
+            assert len(rejected) == 3
+    
+    def test_generate_rejected_articles_page(self):
+        """Test generating rejected articles page content."""
+        rejected_data = [
+            {
+                "title": "Test Article",
+                "url": "https://example.com/test",
+                "topic": "security",
+                "rejection_type": "relevance",
+                "rejection_reason": "missing_ai_keywords"
+            },
+            {
+                "title": "Another Article",
+                "url": "https://example.com/another",
+                "topic": "malware",
+                "rejection_type": "credibility",
+                "rejection_reason": "llm_credibility_below_threshold",
+                "rejection_threshold": 0.6
+            }
+        ]
+        
+        content = generate_rejected_articles_page(rejected_data)
+        
+        # Check for expected sections
+        assert "# Rejected Articles" in content
+        assert "## What Constitutes a \"Rejected\" Article?" in content
+        assert "## Rejected Articles Table" in content
+        
+        # Check table header
+        assert "| Title | Topic | Rejection Type | Rejection Reason |" in content
+        
+        # Check table content
+        assert "[Test Article](https://example.com/test)" in content
+        assert "missing_ai_keywords" in content
+        assert "llm_credibility_below_threshold (threshold: 0.6)" in content
+        
+        # Check total count
+        assert "Total rejected articles: **2**" in content
+        
+        # Check navigation
+        assert "[← Back to Index](index.md)" in content
+    
+    def test_generate_rejected_articles_page_no_url(self):
+        """Test generating page with articles without URLs."""
+        rejected_data = [
+            {
+                "title": "Test Article",
+                "topic": "security",
+                "rejection_type": "relevance",
+                "rejection_reason": "missing_ai_keywords"
+            }
+        ]
+        
+        content = generate_rejected_articles_page(rejected_data)
+        
+        # Title should not be a link if URL is missing
+        assert "Test Article" in content
+        assert "[Test Article]" not in content
+    
+    def test_publish_rejected_articles_page(self):
+        """Test publishing rejected articles page."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            docs_dir = os.path.join(tmpdir, "docs")
+            output_dir = os.path.join(tmpdir, "outputs")
+            os.makedirs(output_dir, exist_ok=True)
+            os.makedirs(docs_dir, exist_ok=True)
+            
+            # Create rejected articles data
+            rejected_data = [
+                {
+                    "title": "Test Article",
+                    "url": "https://example.com/test",
+                    "topic": "security",
+                    "rejection_type": "relevance",
+                    "rejection_reason": "missing_ai_keywords"
+                }
+            ]
+            
+            with open(os.path.join(output_dir, "rejected_20260215_120000.json"), 'w') as f:
+                json.dump(rejected_data, f)
+            
+            # Publish the page
+            result = publish_rejected_articles_page(output_dir, docs_dir)
+            
+            assert result is not None
+            assert os.path.exists(result)
+            assert result.endswith("rejected.md")
+            
+            # Verify content
+            with open(result, 'r') as f:
+                content = f.read()
+            
+            assert "layout: default" in content
+            assert "title: Rejected Articles" in content
+            assert "[Test Article](https://example.com/test)" in content
+    
+    def test_publish_rejected_articles_page_no_data(self):
+        """Test publishing when no rejected articles exist."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            docs_dir = os.path.join(tmpdir, "docs")
+            output_dir = os.path.join(tmpdir, "outputs")
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # No rejected articles files
+            result = publish_rejected_articles_page(output_dir, docs_dir)
+            
+            # Should return None when no data exists
+            assert result is None
+    
+    def test_publish_structured_docs_includes_rejected(self):
+        """Test that publish_structured_docs includes rejected articles page."""
+        from reporters.docs_publisher import publish_structured_docs
+        
+        with tempfile.TemporaryDirectory() as tmpdir:
+            docs_dir = os.path.join(tmpdir, "docs")
+            output_dir = os.path.join(tmpdir, "outputs")
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Create rejected articles data
+            rejected_data = [
+                {
+                    "title": "Rejected Article",
+                    "url": "https://example.com/rejected",
+                    "topic": "security",
+                    "rejection_type": "relevance",
+                    "rejection_reason": "missing_ai_keywords"
+                }
+            ]
+            
+            with open(os.path.join(output_dir, "rejected_20260215_120000.json"), 'w') as f:
+                json.dump(rejected_data, f)
+            
+            # Create test results
+            results = [
+                {
+                    "source": "github",
+                    "title": "test-repo",
+                    "url": "https://github.com/user/test-repo",
+                    "description": "Test repository",
+                    "stars": 100,
+                    "updated": "2026-02-15T10:00:00Z",
+                    "topic": "security"
+                }
+            ]
+            
+            timestamp = "20260215_120000"
+            published = publish_structured_docs(results, timestamp, docs_dir, output_dir)
+            
+            # Check that rejected page was created
+            assert "rejected" in published
+            assert published["rejected"] is not None
+            assert os.path.exists(published["rejected"])
+            
+            # Verify content
+            with open(published["rejected"], 'r') as f:
+                content = f.read()
+            
+            assert "[Rejected Article](https://example.com/rejected)" in content
 
 
 if __name__ == "__main__":

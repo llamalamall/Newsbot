@@ -437,11 +437,14 @@ Newsbot is an automated news aggregator that searches for the latest articles, a
 ### [GitHub Repositories](repositories.md)
 Browse all discovered GitHub repositories in a searchable table format.
 
+### [Rejected Articles](rejected.md)
+View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.
+
 ## Latest Articles
 
 """
     
-    # Ensure the repositories link exists
+    # Ensure the Content section exists with repositories link and rejected articles link
     if "## Content" not in index_content:
         # Add content section before latest articles
         if "## Latest Articles" in index_content or "## Latest Reports" in index_content:
@@ -454,7 +457,19 @@ Browse all discovered GitHub repositories in a searchable table format.
 ### [GitHub Repositories](repositories.md)
 Browse all discovered GitHub repositories in a searchable table format.
 
+### [Rejected Articles](rejected.md)
+View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.
+
 """ + remaining
+    elif "rejected.md" not in index_content:
+        # Add rejected articles link to existing Content section
+        if "### [GitHub Repositories](repositories.md)" in index_content:
+            index_content = index_content.replace(
+                "Browse all discovered GitHub repositories in a searchable table format.\n",
+                "Browse all discovered GitHub repositories in a searchable table format.\n\n"
+                "### [Rejected Articles](rejected.md)\n"
+                "View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.\n"
+            )
     
     # Update or add articles section
     if article_entries and rss_count > 0:
@@ -556,13 +571,14 @@ Browse all discovered GitHub repositories in a searchable table format.
 
 
 def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
-                           docs_dir: str = "docs") -> Dict[str, Any]:
+                           docs_dir: str = "docs", output_dir: str = "outputs") -> Dict[str, Any]:
     """Publish documentation in the new structured format.
     
     Args:
         results: List of all results (GitHub repos and RSS articles)
         timestamp: Timestamp for this batch (YYYYMMDD_HHMMSS format)
         docs_dir: Target docs directory
+        output_dir: Output directory containing rejected articles (default: "outputs")
         
     Returns:
         Dictionary with paths to published files
@@ -577,6 +593,7 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
     published_files = {
         "repositories": None,
         "articles": [],
+        "rejected": None,
         "index": os.path.join(docs_dir, "index.md")
     }
     
@@ -591,6 +608,11 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
         article_entries = publish_rss_article_pages(rss_items, timestamp, docs_dir)
         published_files["articles"] = [entry["path"] for entry in article_entries]
     
+    # Publish rejected articles page
+    rejected_path = publish_rejected_articles_page(output_dir, docs_dir)
+    if rejected_path:
+        published_files["rejected"] = rejected_path
+    
     # Update index with structured content
     update_index_with_structured_content(
         docs_dir, timestamp, 
@@ -599,3 +621,162 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
     )
     
     return published_files
+
+
+def load_rejected_articles(output_dir: str = "outputs") -> List[Dict[str, Any]]:
+    """Load and aggregate all rejected articles from JSON files.
+    
+    Args:
+        output_dir: Directory containing rejected_*.json files
+        
+    Returns:
+        List of all rejected articles from all JSON files
+    """
+    rejected_articles = []
+    
+    if not os.path.exists(output_dir):
+        logging.warning(f"Output directory not found: {output_dir}")
+        return rejected_articles
+    
+    # Find all rejected JSON files
+    for filename in os.listdir(output_dir):
+        if filename.startswith("rejected_") and filename.endswith(".json"):
+            filepath = os.path.join(output_dir, filename)
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        rejected_articles.extend(data)
+                        logging.info(f"Loaded {len(data)} rejected articles from {filename}")
+            except (json.JSONDecodeError, IOError) as e:
+                logging.warning(f"Could not read rejected articles from {filename}: {e}")
+    
+    logging.info(f"Total rejected articles loaded: {len(rejected_articles)}")
+    return rejected_articles
+
+
+def generate_rejected_articles_page(rejected_articles: List[Dict[str, Any]]) -> str:
+    """Generate the rejected articles documentation page content.
+    
+    Args:
+        rejected_articles: List of rejected article dictionaries
+        
+    Returns:
+        Markdown content for the rejected articles page
+    """
+    content = """# Rejected Articles
+
+This page lists all articles that were evaluated but rejected from publication. Articles are rejected when they do not meet Newsbot's relevance or credibility criteria.
+
+## What Constitutes a "Rejected" Article?
+
+Articles are rejected for the following reasons:
+
+### Rejection Type: Relevance
+
+Articles can be rejected as not relevant if they:
+
+1. **Missing AI Keywords** (`missing_ai_keywords`): GitHub repositories that lack keywords related to AI, automation, or fuzzing in offensive security contexts. These repositories may be related to security but don't involve the use of AI or automation.
+
+2. **LLM Applicability Below Threshold** (`llm_applicability_below_threshold`): RSS feed articles that were assessed by the LLM (Large Language Model) but scored below the configured applicability threshold. This typically means:
+   - The article doesn't contain sufficient content about offensive security topics (penetration testing, red team operations, vulnerability research, exploit development, etc.), OR
+   - The article doesn't explicitly describe the **use** of AI, automation, or fuzzing techniques
+
+   Both requirements must be satisfied for an article to be considered applicable.
+
+### Rejection Type: Credibility
+
+1. **LLM Credibility Below Threshold** (`llm_credibility_below_threshold`): RSS feed articles that scored below the configured credibility threshold. This indicates potential issues with:
+   - Source reliability
+   - Content quality or accuracy
+   - Lack of technical depth
+   - Promotional or marketing-focused content
+
+## Rejected Articles Table
+
+Total rejected articles: **{total}**
+
+| Title | Topic | Rejection Type | Rejection Reason |
+|-------|-------|----------------|------------------|
+"""
+    
+    # Sort articles by topic, then by rejection type
+    sorted_articles = sorted(
+        rejected_articles,
+        key=lambda x: (
+            x.get('topic', 'unknown'),
+            x.get('rejection_type', 'unknown'),
+            x.get('title', 'Untitled')
+        )
+    )
+    
+    # Add table rows
+    for article in sorted_articles:
+        title = article.get('title', 'Untitled')
+        url = article.get('url', '')
+        topic = article.get('topic', 'N/A')
+        rejection_type = article.get('rejection_type', 'N/A')
+        rejection_reason = article.get('rejection_reason', 'N/A')
+        
+        # Format title as link if URL is available
+        if url:
+            title_cell = f"[{title}]({url})"
+        else:
+            title_cell = title
+        
+        # Format rejection reason with threshold if available
+        rejection_threshold = article.get('rejection_threshold')
+        if rejection_threshold is not None:
+            rejection_reason_cell = f"{rejection_reason} (threshold: {rejection_threshold})"
+        else:
+            rejection_reason_cell = rejection_reason
+        
+        content += f"| {title_cell} | {topic} | {rejection_type} | {rejection_reason_cell} |\n"
+    
+    content = content.format(total=len(rejected_articles))
+    
+    content += """
+---
+
+[← Back to Index](index.md)
+"""
+    
+    return content
+
+
+def publish_rejected_articles_page(output_dir: str = "outputs", docs_dir: str = "docs") -> Optional[str]:
+    """Publish the rejected articles page to docs.
+    
+    Args:
+        output_dir: Directory containing rejected_*.json files
+        docs_dir: Target docs directory
+        
+    Returns:
+        Path to the published rejected articles page, or None if failed
+    """
+    # Load all rejected articles
+    rejected_articles = load_rejected_articles(output_dir)
+    
+    if not rejected_articles:
+        logging.warning("No rejected articles found, skipping rejected articles page")
+        return None
+    
+    # Generate page content
+    page_content = generate_rejected_articles_page(rejected_articles)
+    
+    # Add front matter
+    formatted_content = "---\nlayout: default\ntitle: Rejected Articles\n---\n\n"
+    formatted_content += page_content
+    
+    # Write to docs directory
+    rejected_path = os.path.join(docs_dir, "rejected.md")
+    try:
+        with open(rejected_path, 'w', encoding='utf-8') as f:
+            f.write(formatted_content)
+        logging.info(f"Published rejected articles page to: {rejected_path}")
+        return rejected_path
+    except IOError as e:
+        logging.error(f"Failed to publish rejected articles page: {e}")
+        return None
+
+
