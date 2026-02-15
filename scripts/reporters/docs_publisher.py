@@ -11,6 +11,7 @@ import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from urllib.parse import urlparse
+from email.utils import parsedate_to_datetime
 
 
 def format_report_for_docs(report_content: str, timestamp: str, metadata: Optional[Dict[str, Any]] = None) -> str:
@@ -109,6 +110,27 @@ def format_article_link_title(title: str, url: str, max_length: int = 80) -> str
         combined = combined[: max_length - 3].rstrip() + "..."
 
     return combined
+
+
+def sort_articles_by_published(entries: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """Sort article entries in reverse chronological order.
+
+    Args:
+        entries: List of article metadata dictionaries.
+
+    Returns:
+        Sorted list of article metadata dictionaries.
+    """
+    def sort_key(entry: Dict[str, str]) -> datetime:
+        published = entry.get("published")
+        if not published:
+            return datetime.min
+        try:
+            return parsedate_to_datetime(published)
+        except (TypeError, ValueError):
+            return datetime.min
+
+    return sorted(entries, key=sort_key, reverse=True)
 
 
 def update_index(docs_dir: str, new_report_filename: str, new_report_timestamp: str, 
@@ -509,7 +531,8 @@ def publish_rss_article_pages(
                 "filename": article_filename,
                 "path": article_path,
                 "title": article.get("title", "Untitled Article"),
-                "url": article.get("url", "")
+                "url": article.get("url", ""),
+                "published": article.get("published")
             })
             logging.info(f"Published article page: {article_filename}")
         except IOError as e:
@@ -628,7 +651,7 @@ Browse all discovered GitHub repositories in a searchable table format.
             new_entry += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
             
             # Add links to individual articles
-            for entry in article_entries:
+            for entry in sort_articles_by_published(article_entries):
                 article_file = entry.get("filename", "")
                 if not article_file:
                     continue
@@ -651,7 +674,7 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for entry in article_entries:
+                for entry in sort_articles_by_published(article_entries):
                     article_file = entry.get("filename", "")
                     if not article_file:
                         continue
@@ -665,7 +688,7 @@ Browse all discovered GitHub repositories in a searchable table format.
                 new_section = "\n## Latest Articles\n\n"
                 new_section += f"### {date_only}\n\n"
                 new_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} published*\n\n"
-                for entry in article_entries:
+                for entry in sort_articles_by_published(article_entries):
                     article_file = entry.get("filename", "")
                     if not article_file:
                         continue
