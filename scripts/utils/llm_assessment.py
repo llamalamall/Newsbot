@@ -34,6 +34,9 @@ _PROMPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.p
 # Cache for loaded prompt engines
 _PROMPT_ENGINE_CACHE = {}
 
+# Repository README preview constants
+README_PREVIEW_MAX_CHARS = 2000  # Maximum chars for README preview to avoid token limits
+
 
 def _load_prompt(prompt_name: str) -> str:
     """Load a prompt from the prompts directory using prompt-engine-py.
@@ -839,8 +842,8 @@ def assess_repository_applicability(
         repo_text = f"Name: {repo_name}\n\nDescription: {description}\n\nTopics: {topics_str}"
         
         if readme_preview and len(readme_preview) > 0:
-            # Limit README to avoid token limits (roughly 2000 chars = ~500 tokens)
-            repo_text += f"\n\nREADME Preview: {readme_preview[:2000]}"
+            # Limit README to avoid token limits
+            repo_text += f"\n\nREADME Preview: {readme_preview[:README_PREVIEW_MAX_CHARS]}"
         
         # Load prompt template from file
         prompt_template = _load_prompt("assess_repository_applicability")
@@ -970,7 +973,7 @@ def assess_repository_credibility(
         
         if readme_preview and len(readme_preview) > 0:
             # Limit README to avoid token limits
-            repo_text += f"\n\nREADME Preview: {readme_preview[:2000]}"
+            repo_text += f"\n\nREADME Preview: {readme_preview[:README_PREVIEW_MAX_CHARS]}"
         
         # Load prompt template from file
         prompt_template = _load_prompt("assess_repository_credibility")

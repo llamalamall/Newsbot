@@ -5,7 +5,7 @@ Searches for relevant repositories based on topics and filters.
 
 import logging
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional, Set
+from typing import List, Dict, Any, Optional
 from github import Github, Auth
 
 # Import dataclass models
@@ -151,16 +151,11 @@ def search_github_repos(
         if llm_enabled and results and openai_client:
             logging.info(f"Running LLM assessment on {len(results)} repositories...")
             
-            # Prepare repositories for batch assessment
-            repos_to_assess = []
-            for repo in results:
-                repos_to_assess.append(repo)
-            
             # Batch assess repositories
             assessment_keywords = keywords if keywords else []
             assessments = assess_repositories_batch(
                 openai_client=openai_client,
-                repositories=repos_to_assess,
+                repositories=results,
                 keywords=assessment_keywords,
                 model=llm_model,
                 batch_size=batch_size
