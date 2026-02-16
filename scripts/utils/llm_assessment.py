@@ -782,3 +782,373 @@ def _fallback_individual_assessment(
         })
     
     return results
+
+
+def assess_repository_applicability(
+    openai_client: OpenAI,
+    repo_name: str,
+    description: str,
+    topics: List[str],
+    keywords: List[str],
+    model: str,
+    readme_preview: Optional[str] = None
+) -> Dict[str, Any]:
+    """Assess whether a GitHub repository is applicable/relevant using LLM.
+    
+    Uses the provided keywords to determine if the repository matches the
+    project's focus areas (AI/automation/fuzzing in offensive security).
+    
+    Repositories must meet BOTH criteria to be considered applicable:
+    1. Contain keywords/topics related to offensive security
+    2. Explicitly demonstrate the USE of AI, automation, or fuzzing
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repo_name: Repository full name (owner/repo)
+        description: Repository description
+        topics: List of repository topics/tags
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        readme_preview: Optional README content preview
+        
+    Returns:
+        Dictionary with:
+            - applicable: bool (whether repository is relevant)
+            - score: float (0.0-1.0 confidence score)
+            - reason: str (explanation of the decision)
+            - matched_keywords: List[str] (keywords that were relevant)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository assessment")
+        return {
+            "applicable": True,  # Default to including when LLM unavailable
+            "score": 0.5,
+            "reason": "LLM assessment unavailable",
+            "matched_keywords": []
+        }
+
+    if not model:
+        raise ValueError("LLM model must be provided for repository applicability assessment")
+
+    try:
+        # Build the prompt with keywords
+        keywords_str = ", ".join(keywords)
+        
+        # Build repository text with available information
+        topics_str = ", ".join(topics) if topics else "None"
+        repo_text = f"Name: {repo_name}\n\nDescription: {description}\n\nTopics: {topics_str}"
+        
+        if readme_preview and len(readme_preview) > 0:
+            # Limit README to avoid token limits (roughly 2000 chars = ~500 tokens)
+            repo_text += f"\n\nREADME Preview: {readme_preview[:2000]}"
+        
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_repository_applicability")
+        prompt = prompt_template.format(keywords_str=keywords_str, repo_text=repo_text)
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_repository_applicability_system")
+
+        logging.debug(
+            "Running LLM repository applicability assessment",
+            extra={
+                "model": model,
+                "keyword_count": len(keywords),
+                "repo_name": repo_name,
+                "topics_count": len(topics)
+            }
+        )
+        
+        # Call the LLM
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,  # Lower temperature for more consistent results
+            max_tokens=500
+        )
+        increment_llm_call_count()
+
+        logging.debug(
+            "Received LLM repository applicability response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(result_text)
+        
+        # Validate the result structure
+        if not all(key in result for key in ["applicable", "score", "reason", "matched_keywords"]):
+            raise ValueError("LLM response missing required fields")
+        
+        logging.debug(f"LLM repository applicability assessment: {result}")
+        return result
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM repository response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        return {
+            "applicable": True,  # Default to including on error
+            "score": 0.5,
+            "reason": "LLM response parsing failed",
+            "matched_keywords": []
+        }
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM repository applicability assessment: {str(e)}")
+        return {
+            "applicable": True,  # Default to including on error
+            "score": 0.5,
+            "reason": f"Assessment error: {str(e)}",
+            "matched_keywords": []
+        }
+
+
+def assess_repository_credibility(
+    openai_client: OpenAI,
+    repo_name: str,
+    description: str,
+    url: str,
+    stars: int,
+    updated: str,
+    topics: List[str],
+    model: str,
+    readme_preview: Optional[str] = None
+) -> Dict[str, Any]:
+    """Assess the credibility of a GitHub repository using LLM.
+    
+    Evaluates repository quality, maintenance status, community validation,
+    and potential red flags.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repo_name: Repository full name (owner/repo)
+        description: Repository description
+        url: Repository URL
+        stars: Number of GitHub stars
+        updated: Last update timestamp
+        topics: List of repository topics/tags
+        model: LLM model to use
+        readme_preview: Optional README content preview
+        
+    Returns:
+        Dictionary with:
+            - credible: bool (whether repository appears credible)
+            - score: float (0.0-1.0 confidence score)
+            - reason: str (explanation of the decision)
+            - flags: List[str] (any credibility concerns found)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository credibility assessment")
+        return {
+            "credible": True,  # Default to including when LLM unavailable
+            "score": 0.5,
+            "reason": "LLM assessment unavailable",
+            "flags": []
+        }
+
+    if not model:
+        raise ValueError("LLM model must be provided for repository credibility assessment")
+
+    try:
+        # Build repository text with available information
+        topics_str = ", ".join(topics) if topics else "None"
+        repo_text = f"Name: {repo_name}\n\nDescription: {description}\n\nTopics: {topics_str}"
+        
+        if readme_preview and len(readme_preview) > 0:
+            # Limit README to avoid token limits
+            repo_text += f"\n\nREADME Preview: {readme_preview[:2000]}"
+        
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_repository_credibility")
+        prompt = prompt_template.format(
+            repo_name=repo_name,
+            url=url,
+            stars=stars,
+            updated=updated,
+            repo_text=repo_text
+        )
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_repository_credibility_system")
+
+        logging.debug(
+            "Running LLM repository credibility assessment",
+            extra={
+                "model": model,
+                "repo_name": repo_name,
+                "stars": stars
+            }
+        )
+        
+        # Call the LLM
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=500
+        )
+        increment_llm_call_count()
+
+        logging.debug(
+            "Received LLM repository credibility response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(result_text)
+        
+        # Validate the result structure
+        if not all(key in result for key in ["credible", "score", "reason", "flags"]):
+            raise ValueError("LLM response missing required fields")
+        
+        logging.debug(f"LLM repository credibility assessment: {result}")
+        return result
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM repository credibility response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        return {
+            "credible": True,  # Default to including on error
+            "score": 0.5,
+            "reason": "LLM response parsing failed",
+            "flags": []
+        }
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM repository credibility assessment: {str(e)}")
+        return {
+            "credible": True,  # Default to including on error
+            "score": 0.5,
+            "reason": f"Assessment error: {str(e)}",
+            "flags": []
+        }
+
+
+def assess_repositories_batch(
+    openai_client: OpenAI,
+    repositories: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str,
+    batch_size: int = 5
+) -> List[Dict[str, Any]]:
+    """Assess applicability and credibility of multiple repositories in batches.
+    
+    This function processes multiple repositories together for efficiency,
+    similar to how articles are batch-processed.
+    
+    Repositories must meet BOTH criteria to be considered applicable:
+    1. Contain keywords/topics related to offensive security
+    2. Explicitly demonstrate the USE of AI, automation, or fuzzing
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repositories: List of repository dictionaries with keys:
+            - title: str (repo name)
+            - description: str
+            - url: str
+            - stars: int
+            - updated: str (ISO timestamp)
+            - topic: str (matched topic)
+            - topics: List[str] (all repository topics)
+            - readme_preview: str (optional)
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        batch_size: Maximum number of repositories to assess in one call (default: 5)
+        
+    Returns:
+        List of dictionaries, one per repository, containing:
+            - applicable: bool (whether repository is relevant)
+            - applicability_score: float (0.0-1.0 confidence score)
+            - applicability_reason: str (explanation)
+            - matched_keywords: List[str] (keywords that were relevant)
+            - credible: bool (whether repository appears credible)
+            - credibility_score: float (0.0-1.0 confidence score)
+            - credibility_reason: str (explanation)
+            - flags: List[str] (credibility concerns)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository batch assessment")
+        return [
+            {
+                "applicable": True,
+                "applicability_score": 0.5,
+                "applicability_reason": "LLM assessment unavailable",
+                "matched_keywords": [],
+                "credible": True,
+                "credibility_score": 0.5,
+                "credibility_reason": "LLM assessment unavailable",
+                "flags": []
+            }
+            for _ in repositories
+        ]
+    
+    if not repositories:
+        return []
+    
+    if not model:
+        raise ValueError("LLM model must be provided for repository batch assessment")
+
+    # Process repositories in batches (for now, assess individually but could be optimized)
+    # Individual assessment is more reliable for repositories due to their complexity
+    all_results = []
+    for repo in repositories:
+        app_result = assess_repository_applicability(
+            openai_client=openai_client,
+            repo_name=repo.get("title", ""),
+            description=repo.get("description", ""),
+            topics=repo.get("topics", []),
+            keywords=keywords,
+            readme_preview=repo.get("readme_preview"),
+            model=model
+        )
+        cred_result = assess_repository_credibility(
+            openai_client=openai_client,
+            repo_name=repo.get("title", ""),
+            description=repo.get("description", ""),
+            url=repo.get("url", ""),
+            stars=repo.get("stars", 0),
+            updated=repo.get("updated", ""),
+            topics=repo.get("topics", []),
+            readme_preview=repo.get("readme_preview"),
+            model=model
+        )
+        all_results.append({
+            "applicable": app_result["applicable"],
+            "applicability_score": app_result["score"],
+            "applicability_reason": app_result["reason"],
+            "matched_keywords": app_result["matched_keywords"],
+            "credible": cred_result["credible"],
+            "credibility_score": cred_result["score"],
+            "credibility_reason": cred_result["reason"],
+            "flags": cred_result["flags"]
+        })
+    
+    return all_results

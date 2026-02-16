@@ -41,10 +41,27 @@ class GitHubResult(SearchResult):
         stars: Number of GitHub stars
         updated: Last update timestamp (ISO format string)
         topic: GitHub topic that matched the search
+        llm_applicable: Optional boolean indicating LLM applicability assessment
+        llm_applicability_score: Optional float (0.0-1.0) for applicability confidence
+        llm_applicability_reason: Optional explanation for applicability decision
+        llm_matched_keywords: List of keywords matched by LLM assessment
+        llm_credible: Optional boolean indicating LLM credibility assessment
+        llm_credibility_score: Optional float (0.0-1.0) for credibility confidence
+        llm_credibility_reason: Optional explanation for credibility decision
+        llm_credibility_flags: List of credibility concerns identified by LLM
     """
     stars: Optional[int] = None
     updated: Optional[str] = None
     topic: Optional[str] = None
+    # LLM assessment fields
+    llm_applicable: Optional[bool] = None
+    llm_applicability_score: Optional[float] = None
+    llm_applicability_reason: Optional[str] = None
+    llm_matched_keywords: List[str] = field(default_factory=list)
+    llm_credible: Optional[bool] = None
+    llm_credibility_score: Optional[float] = None
+    llm_credibility_reason: Optional[str] = None
+    llm_credibility_flags: List[str] = field(default_factory=list)
     
     def __post_init__(self):
         """Ensure source is set to 'github'."""

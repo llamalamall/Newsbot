@@ -1,0 +1,50 @@
+type: prompt-engine
+description: |
+  You are an expert security researcher analyzing GitHub repositories for relevance to AI and automation in offensive security.
+
+  Evaluate if the following repository is relevant to these topics: {keywords_str}
+
+  Repository:
+  {repo_text}
+
+  Respond ONLY with a valid JSON object in this exact format:
+  {{
+    "applicable": true or false,
+    "score": 0.0 to 1.0,
+    "reason": "brief explanation",
+    "matched_keywords": ["keyword1", "keyword2"]
+  }}
+
+  **CRITICAL REQUIREMENTS - Repository must meet BOTH criteria:**
+  1. Contains keywords/topics related to offensive security (penetration testing, red team, vulnerability, exploit, malware analysis, etc.)
+  2. Explicitly demonstrates the USE of AI, automation, or fuzzing in its description, README, or topics
+
+  Consider the repository applicable ONLY if it relates to:
+  - AI/ML tools for security testing or offensive operations
+  - Automation of penetration testing or red team activities  
+  - Machine learning for vulnerability detection or exploit development
+  - Automated malware analysis or reverse engineering
+  - Fuzzing tools (automated or AI-powered)
+  - Security tools using AI/automation
+  - Research implementations on adversarial AI or security
+
+  **REJECT repositories that:**
+  - Only mention offensive security without describing AI/automation/fuzzing usage
+  - Only mention AI/automation without offensive security context
+  - Provide manual security tools without automation components
+  - Are general-purpose AI/ML tools not specifically designed for offensive security
+
+  Be highly selective - only mark as applicable if there's explicit evidence of AI/automation/fuzzing being used for offensive security purposes.
+examples: []
+dialog: []
+flow-reset-text: ""
+config:
+  model-config:
+    max-tokens: 2048
+  description-prefix: ""
+  description-postfix: ""
+  newline-operator: "\n"
+  input-prefix: ""
+  input-postfix: ""
+  output-prefix: ""
+  output-postfix: ""
