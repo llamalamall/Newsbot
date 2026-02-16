@@ -1,0 +1,45 @@
+[
+  {
+    "title": "exjskdjsdfks/pentest-mcp-server",
+    "url": "https://github.com/exjskdjsdfks/pentest-mcp-server",
+    "description": "\u2699\ufe0f Enable AI agents to conduct autonomous penetration testing on any Linux distribution with a persistent and robust Model Context Protocol server.",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-16T15:08:23+00:00",
+    "topic": "penetration-testing",
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly describes enabling AI agents to autonomously conduct penetration testing; both AI and automation for offensive security are clearly present.",
+    "llm_matched_keywords": [
+      "ai-agents",
+      "ai-penetration-testing",
+      "automation",
+      "penetration-testing"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "Recently updated, clear description, some community validation (7 stars), but not highly popular.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "0x4m4",
+      "ai",
+      "ai-agents",
+      "ai-cybersecurity",
+      "ai-penetration-testing",
+      "asyncio",
+      "automation",
+      "generative-ai",
+      "hexstrike",
+      "kali",
+      "kali-linux",
+      "mcp-client",
+      "model-context-protocol",
+      "parrotsec",
+      "penetration-testing",
+      "penetration-testing-tools",
+      "pentesting",
+      "pentesting-tools"
+    ]
+  }
+]

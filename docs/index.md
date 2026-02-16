@@ -19,7 +19,13 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 ## Latest Repositories
 
-*No repositories in most recent analysis*
+*1 repository from most recent analysis*
+
+| Repository | Description | Stars | Updated | Topic |
+|------------|-------------|-------|---------|-------|
+| [exjskdjsdfks/pentest-mcp-server](https://github.com/exjskdjsdfks/pentest-mcp-server) | ⚙️ Enable AI agents to conduct autonomous penetration testing on any Linux distribution with a pe... | 7 | 2026-02-16 | penetration-testing |
+
+[View all repositories →](repositories.md)
 
 ---
 
