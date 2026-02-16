@@ -34,6 +34,9 @@ _PROMPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.p
 # Cache for loaded prompt engines
 _PROMPT_ENGINE_CACHE = {}
 
+# Repository README preview constants
+README_PREVIEW_MAX_CHARS = 2000  # Maximum chars for README preview to avoid token limits
+
 
 def _load_prompt(prompt_name: str) -> str:
     """Load a prompt from the prompts directory using prompt-engine-py.
@@ -75,6 +78,12 @@ TOKENS_PER_ARTICLE = 300    # Estimated tokens needed for one article's assessme
 TOKEN_OVERHEAD = 500        # Extra tokens for prompt structure and formatting
 MIN_CONTENT_PREVIEW = 500   # Minimum chars for content preview (even in large batches)
 MAX_CONTENT_PREVIEW = 1000  # Maximum chars for content preview per article
+
+# Title filtering token budget constants
+# Target: Keep total context under 8000 tokens
+# Estimation: ~20 tokens per title on average, ~200 tokens for prompt/keywords, ~300 for response
+# Safe batch size: 150 titles = ~3000 tokens for titles + 1500 overhead = ~4500 tokens total (well under 8000)
+MAX_TITLES_PER_BATCH = 150  # Maximum titles to filter in one LLM call
 
 
 def _handle_rate_limit(error: Exception) -> None:
@@ -393,15 +402,21 @@ def filter_titles_by_relevance(
     openai_client: OpenAI,
     titles: List[str],
     keywords: List[str],
-    model: str
+    model: str,
+    max_titles_per_batch: int = MAX_TITLES_PER_BATCH
 ) -> List[int]:
-    """Filter article titles for relevance using the LLM.
+    """Filter article titles for relevance using the LLM with batching.
+    
+    Processes titles in batches to stay within token limits (target: <8000 tokens).
+    Each title is estimated at ~20 tokens on average, and we reserve tokens
+    for the prompt, keywords, and response.
 
     Args:
         openai_client: OpenAI client configured for GitHub Models
         titles: List of article titles
         keywords: List of keywords from config to guide relevance
         model: LLM model to use
+        max_titles_per_batch: Maximum titles to process per batch (default: MAX_TITLES_PER_BATCH)
 
     Returns:
         List of indices for titles deemed relevant
@@ -416,6 +431,49 @@ def filter_titles_by_relevance(
     if not model:
         raise ValueError("LLM model must be provided for title filtering")
 
+    # Process titles in batches to stay within token limits
+    all_relevant_indices = []
+    num_batches = (len(titles) + max_titles_per_batch - 1) // max_titles_per_batch
+    
+    if num_batches > 1:
+        logging.info(f"Filtering {len(titles)} titles in {num_batches} batch(es) (max_titles_per_batch={max_titles_per_batch})")
+    
+    for batch_idx in range(num_batches):
+        start_idx = batch_idx * max_titles_per_batch
+        end_idx = min((batch_idx + 1) * max_titles_per_batch, len(titles))
+        batch_titles = titles[start_idx:end_idx]
+        
+        batch_relevant_indices = _filter_titles_batch_internal(
+            openai_client=openai_client,
+            titles=batch_titles,
+            keywords=keywords,
+            model=model,
+            start_offset=start_idx
+        )
+        all_relevant_indices.extend(batch_relevant_indices)
+    
+    return all_relevant_indices
+
+
+def _filter_titles_batch_internal(
+    openai_client: OpenAI,
+    titles: List[str],
+    keywords: List[str],
+    model: str,
+    start_offset: int = 0
+) -> List[int]:
+    """Internal function to filter a batch of titles with a single LLM call.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        titles: List of article titles for this batch
+        keywords: List of keywords from config to guide relevance
+        model: LLM model to use
+        start_offset: Offset to add to indices (for batching)
+        
+    Returns:
+        List of global indices for titles deemed relevant
+    """
     try:
         keywords_str = ", ".join(keywords) if keywords else "AI/automation in offensive security"
         title_list = "\n".join([f"{idx}: {title}" for idx, title in enumerate(titles)])
@@ -428,11 +486,12 @@ def filter_titles_by_relevance(
         system_prompt = _load_prompt("filter_titles_by_relevance_system")
 
         logging.debug(
-            "Running LLM title filtering",
+            "Running LLM title filtering batch",
             extra={
                 "model": model,
                 "title_count": len(titles),
-                "keyword_count": len(keywords)
+                "keyword_count": len(keywords),
+                "start_offset": start_offset
             }
         )
 
@@ -463,10 +522,16 @@ def filter_titles_by_relevance(
         if not isinstance(indices, list):
             raise ValueError("LLM response 'relevant_indices' is not a list")
 
-        valid_indices = [idx for idx in indices if isinstance(idx, int) and 0 <= idx < len(titles)]
+        # Adjust indices to global positions
+        valid_indices = [
+            idx + start_offset 
+            for idx in indices 
+            if isinstance(idx, int) and 0 <= idx < len(titles)
+        ]
+        
         logging.debug(
-            "LLM title filter selected indices",
-            extra={"selected_count": len(valid_indices)}
+            "LLM title filter batch selected indices",
+            extra={"selected_count": len(valid_indices), "batch_size": len(titles)}
         )
         return valid_indices
 
@@ -768,6 +833,583 @@ def _fallback_individual_assessment(
             source_name=article.get("source_name", "Unknown"),
             domain_credibility=article.get("domain_credibility", "unknown"),
             content=article.get("content"),
+            model=model
+        )
+        results.append({
+            "applicable": app_result["applicable"],
+            "applicability_score": app_result["score"],
+            "applicability_reason": app_result["reason"],
+            "matched_keywords": app_result["matched_keywords"],
+            "credible": cred_result["credible"],
+            "credibility_score": cred_result["score"],
+            "credibility_reason": cred_result["reason"],
+            "flags": cred_result["flags"]
+        })
+    
+    return results
+
+
+def assess_repository_applicability(
+    openai_client: OpenAI,
+    repo_name: str,
+    description: str,
+    topics: List[str],
+    keywords: List[str],
+    model: str,
+    readme_preview: Optional[str] = None
+) -> Dict[str, Any]:
+    """Assess whether a GitHub repository is applicable/relevant using LLM.
+    
+    Uses the provided keywords to determine if the repository matches the
+    project's focus areas (AI/automation/fuzzing in offensive security).
+    
+    Repositories must meet BOTH criteria to be considered applicable:
+    1. Contain keywords/topics related to offensive security
+    2. Explicitly demonstrate the USE of AI, automation, or fuzzing
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repo_name: Repository full name (owner/repo)
+        description: Repository description
+        topics: List of repository topics/tags
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        readme_preview: Optional README content preview
+        
+    Returns:
+        Dictionary with:
+            - applicable: bool (whether repository is relevant)
+            - score: float (0.0-1.0 confidence score)
+            - reason: str (explanation of the decision)
+            - matched_keywords: List[str] (keywords that were relevant)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository assessment")
+        return {
+            "applicable": True,  # Default to including when LLM unavailable
+            "score": 0.5,
+            "reason": "LLM assessment unavailable",
+            "matched_keywords": []
+        }
+
+    if not model:
+        raise ValueError("LLM model must be provided for repository applicability assessment")
+
+    try:
+        # Build the prompt with keywords
+        keywords_str = ", ".join(keywords)
+        
+        # Build repository text with available information
+        topics_str = ", ".join(topics) if topics else "None"
+        repo_text = f"Name: {repo_name}\n\nDescription: {description}\n\nTopics: {topics_str}"
+        
+        if readme_preview and len(readme_preview) > 0:
+            # Limit README to avoid token limits
+            repo_text += f"\n\nREADME Preview: {readme_preview[:README_PREVIEW_MAX_CHARS]}"
+        
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_repository_applicability")
+        prompt = prompt_template.format(keywords_str=keywords_str, repo_text=repo_text)
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_repository_applicability_system")
+
+        logging.debug(
+            "Running LLM repository applicability assessment",
+            extra={
+                "model": model,
+                "keyword_count": len(keywords),
+                "repo_name": repo_name,
+                "topics_count": len(topics)
+            }
+        )
+        
+        # Call the LLM
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,  # Lower temperature for more consistent results
+            max_tokens=500
+        )
+        increment_llm_call_count()
+
+        logging.debug(
+            "Received LLM repository applicability response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(result_text)
+        
+        # Validate the result structure
+        if not all(key in result for key in ["applicable", "score", "reason", "matched_keywords"]):
+            raise ValueError("LLM response missing required fields")
+        
+        logging.debug(f"LLM repository applicability assessment: {result}")
+        return result
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM repository response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        return {
+            "applicable": True,  # Default to including on error
+            "score": 0.5,
+            "reason": "LLM response parsing failed",
+            "matched_keywords": []
+        }
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM repository applicability assessment: {str(e)}")
+        return {
+            "applicable": True,  # Default to including on error
+            "score": 0.5,
+            "reason": f"Assessment error: {str(e)}",
+            "matched_keywords": []
+        }
+
+
+def assess_repository_credibility(
+    openai_client: OpenAI,
+    repo_name: str,
+    description: str,
+    url: str,
+    stars: int,
+    updated: str,
+    topics: List[str],
+    model: str,
+    readme_preview: Optional[str] = None
+) -> Dict[str, Any]:
+    """Assess the credibility of a GitHub repository using LLM.
+    
+    Evaluates repository quality, maintenance status, community validation,
+    and potential red flags.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repo_name: Repository full name (owner/repo)
+        description: Repository description
+        url: Repository URL
+        stars: Number of GitHub stars
+        updated: Last update timestamp
+        topics: List of repository topics/tags
+        model: LLM model to use
+        readme_preview: Optional README content preview
+        
+    Returns:
+        Dictionary with:
+            - credible: bool (whether repository appears credible)
+            - score: float (0.0-1.0 confidence score)
+            - reason: str (explanation of the decision)
+            - flags: List[str] (any credibility concerns found)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository credibility assessment")
+        return {
+            "credible": True,  # Default to including when LLM unavailable
+            "score": 0.5,
+            "reason": "LLM assessment unavailable",
+            "flags": []
+        }
+
+    if not model:
+        raise ValueError("LLM model must be provided for repository credibility assessment")
+
+    try:
+        # Build repository text with available information
+        topics_str = ", ".join(topics) if topics else "None"
+        repo_text = f"Name: {repo_name}\n\nDescription: {description}\n\nTopics: {topics_str}"
+        
+        if readme_preview and len(readme_preview) > 0:
+            # Limit README to avoid token limits
+            repo_text += f"\n\nREADME Preview: {readme_preview[:README_PREVIEW_MAX_CHARS]}"
+        
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_repository_credibility")
+        prompt = prompt_template.format(
+            repo_name=repo_name,
+            url=url,
+            stars=stars,
+            updated=updated,
+            repo_text=repo_text
+        )
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_repository_credibility_system")
+
+        logging.debug(
+            "Running LLM repository credibility assessment",
+            extra={
+                "model": model,
+                "repo_name": repo_name,
+                "stars": stars
+            }
+        )
+        
+        # Call the LLM
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=500
+        )
+        increment_llm_call_count()
+
+        logging.debug(
+            "Received LLM repository credibility response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(result_text)
+        
+        # Validate the result structure
+        if not all(key in result for key in ["credible", "score", "reason", "flags"]):
+            raise ValueError("LLM response missing required fields")
+        
+        logging.debug(f"LLM repository credibility assessment: {result}")
+        return result
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM repository credibility response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        return {
+            "credible": True,  # Default to including on error
+            "score": 0.5,
+            "reason": "LLM response parsing failed",
+            "flags": []
+        }
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM repository credibility assessment: {str(e)}")
+        return {
+            "credible": True,  # Default to including on error
+            "score": 0.5,
+            "reason": f"Assessment error: {str(e)}",
+            "flags": []
+        }
+
+
+def assess_repositories_batch(
+    openai_client: OpenAI,
+    repositories: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str,
+    batch_size: int = 5
+) -> List[Dict[str, Any]]:
+    """Assess applicability and credibility of multiple repositories in batches.
+    
+    This function processes multiple repositories together in single LLM calls for efficiency,
+    similar to how articles are batch-processed.
+    
+    Repositories must meet BOTH criteria to be considered applicable:
+    1. Contain keywords/topics related to offensive security
+    2. Explicitly demonstrate the USE of AI, automation, or fuzzing
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repositories: List of repository dictionaries with keys:
+            - title: str (repo name)
+            - description: str
+            - url: str
+            - stars: int
+            - updated: str (ISO timestamp)
+            - topic: str (matched topic)
+            - topics: List[str] (all repository topics)
+            - readme_preview: str (optional)
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        batch_size: Maximum number of repositories to assess in one call (default: 5)
+        
+    Returns:
+        List of dictionaries, one per repository, containing:
+            - applicable: bool (whether repository is relevant)
+            - applicability_score: float (0.0-1.0 confidence score)
+            - applicability_reason: str (explanation)
+            - matched_keywords: List[str] (keywords that were relevant)
+            - credible: bool (whether repository appears credible)
+            - credibility_score: float (0.0-1.0 confidence score)
+            - credibility_reason: str (explanation)
+            - flags: List[str] (credibility concerns)
+    """
+    if not openai_client:
+        logging.warning("No OpenAI client available for LLM repository batch assessment")
+        return [
+            {
+                "applicable": True,
+                "applicability_score": 0.5,
+                "applicability_reason": "LLM assessment unavailable",
+                "matched_keywords": [],
+                "credible": True,
+                "credibility_score": 0.5,
+                "credibility_reason": "LLM assessment unavailable",
+                "flags": []
+            }
+            for _ in repositories
+        ]
+    
+    if not repositories:
+        return []
+    
+    if not model:
+        raise ValueError("LLM model must be provided for repository batch assessment")
+
+    # Process repositories in batches
+    all_results = []
+    for i in range(0, len(repositories), batch_size):
+        batch = repositories[i:i + batch_size]
+        
+        # If batch has only one repository, use single-repository assessment for compatibility
+        if len(batch) == 1:
+            repo = batch[0]
+            app_result = assess_repository_applicability(
+                openai_client=openai_client,
+                repo_name=repo.get("title", ""),
+                description=repo.get("description", ""),
+                topics=repo.get("topics", []),
+                keywords=keywords,
+                readme_preview=repo.get("readme_preview"),
+                model=model
+            )
+            cred_result = assess_repository_credibility(
+                openai_client=openai_client,
+                repo_name=repo.get("title", ""),
+                description=repo.get("description", ""),
+                url=repo.get("url", ""),
+                stars=repo.get("stars", 0),
+                updated=repo.get("updated", ""),
+                topics=repo.get("topics", []),
+                readme_preview=repo.get("readme_preview"),
+                model=model
+            )
+            all_results.append({
+                "applicable": app_result["applicable"],
+                "applicability_score": app_result["score"],
+                "applicability_reason": app_result["reason"],
+                "matched_keywords": app_result["matched_keywords"],
+                "credible": cred_result["credible"],
+                "credibility_score": cred_result["score"],
+                "credibility_reason": cred_result["reason"],
+                "flags": cred_result["flags"]
+            })
+            continue
+        
+        # Process batch of multiple repositories
+        batch_results = _assess_repositories_batch_internal(
+            openai_client=openai_client,
+            repositories=batch,
+            keywords=keywords,
+            model=model
+        )
+        all_results.extend(batch_results)
+    
+    return all_results
+
+
+def _assess_repositories_batch_internal(
+    openai_client: OpenAI,
+    repositories: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str
+) -> List[Dict[str, Any]]:
+    """Internal function to assess a batch of repositories with a single LLM call.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repositories: List of repository dictionaries (should be 2 or more)
+        keywords: List of keywords from config to guide assessment
+        model: LLM model to use
+        
+    Returns:
+        List of assessment results, one per repository
+    """
+    try:
+        keywords_str = ", ".join(keywords)
+        
+        # Build the batch prompt
+        repositories_text = []
+        for idx, repo in enumerate(repositories):
+            repo_name = repo.get("title", "Unknown")
+            description = repo.get("description", "No description")
+            url = repo.get("url", "")
+            stars = repo.get("stars", 0)
+            updated = repo.get("updated", "Unknown")
+            topics = repo.get("topics", [])
+            topics_str = ", ".join(topics) if topics else "None"
+            readme_preview = repo.get("readme_preview", "")
+            
+            repo_text = f"""Repository {idx}:
+Name: {repo_name}
+URL: {url}
+Description: {description}
+Topics: {topics_str}
+Stars: {stars}
+Last Updated: {updated}"""
+            
+            if readme_preview and len(readme_preview) > 0:
+                # Scale README preview based on batch size to fit within context window
+                readme_limit = max(500, min(README_PREVIEW_MAX_CHARS, 3000 // len(repositories)))
+                repo_text += f"\nREADME Preview: {readme_preview[:readme_limit]}"
+            
+            repositories_text.append(repo_text)
+        
+        combined_repositories = "\n\n---\n\n".join(repositories_text)
+        
+        # Load prompt template from file
+        prompt_template = _load_prompt("assess_repositories_batch_internal")
+        prompt = prompt_template.format(
+            num_repositories=len(repositories),
+            keywords_str=keywords_str,
+            combined_repositories=combined_repositories
+        )
+        
+        # Load system prompt from file
+        system_prompt = _load_prompt("assess_repositories_batch_internal_system")
+
+        logging.debug(
+            "Running LLM batch repository assessment",
+            extra={
+                "model": model,
+                "batch_size": len(repositories),
+                "keyword_count": len(keywords)
+            }
+        )
+        
+        # Call the LLM
+        # Scale max_tokens based on batch size to ensure adequate response capacity
+        max_response_tokens = min(MAX_RESPONSE_TOKENS, TOKENS_PER_ARTICLE * len(repositories) + TOKEN_OVERHEAD)
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=max_response_tokens
+        )
+        increment_llm_call_count()
+        
+        logging.debug(
+            "Received LLM batch repository response",
+            extra={"response_length": len(response.choices[0].message.content or "")}
+        )
+        
+        # Parse the response
+        result_text = response.choices[0].message.content.strip()
+        
+        # Try to extract JSON from the response
+        if "```json" in result_text:
+            result_text = result_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in result_text:
+            result_text = result_text.split("```")[1].split("```")[0].strip()
+        
+        results = json.loads(result_text)
+        
+        # Validate the results
+        if not isinstance(results, list):
+            raise ValueError("LLM response is not a JSON array")
+        
+        if len(results) != len(repositories):
+            logging.warning(
+                f"LLM returned {len(results)} results for {len(repositories)} repositories, falling back to individual assessment"
+            )
+            # Fallback to individual assessment
+            return _fallback_individual_repository_assessment(openai_client, repositories, keywords, model)
+        
+        # Validate each result structure
+        for idx, result in enumerate(results):
+            required_keys = [
+                "applicable", "applicability_score", "applicability_reason", "matched_keywords",
+                "credible", "credibility_score", "credibility_reason", "flags"
+            ]
+            if not all(key in result for key in required_keys):
+                logging.warning(f"Result {idx} missing required fields, falling back to individual assessment")
+                return _fallback_individual_repository_assessment(openai_client, repositories, keywords, model)
+        
+        logging.debug(f"LLM batch repository assessment completed for {len(results)} repositories")
+        return results
+        
+    except RateLimitError as e:
+        _handle_rate_limit(e)
+        raise
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse LLM batch repository response as JSON: {e}")
+        logging.debug(f"Raw response: {result_text if 'result_text' in locals() else 'N/A'}")
+        # Fallback to individual assessment
+        return _fallback_individual_repository_assessment(openai_client, repositories, keywords, model)
+    except Exception as e:
+        _handle_rate_limit(e)
+        logging.error(f"Error in LLM batch repository assessment: {str(e)}")
+        # Fallback to individual assessment
+        return _fallback_individual_repository_assessment(openai_client, repositories, keywords, model)
+
+
+def _fallback_individual_repository_assessment(
+    openai_client: OpenAI,
+    repositories: List[Dict[str, Any]],
+    keywords: List[str],
+    model: str
+) -> List[Dict[str, Any]]:
+    """Fallback to individual repository assessment when batch processing fails.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        repositories: List of repository dictionaries
+        keywords: List of keywords from config
+        model: LLM model to use
+        
+    Returns:
+        List of assessment results, one per repository
+    """
+    logging.info(f"Falling back to individual assessment for {len(repositories)} repositories")
+    results = []
+    
+    for repo in repositories:
+        app_result = assess_repository_applicability(
+            openai_client=openai_client,
+            repo_name=repo.get("title", ""),
+            description=repo.get("description", ""),
+            topics=repo.get("topics", []),
+            keywords=keywords,
+            readme_preview=repo.get("readme_preview"),
+            model=model
+        )
+        cred_result = assess_repository_credibility(
+            openai_client=openai_client,
+            repo_name=repo.get("title", ""),
+            description=repo.get("description", ""),
+            url=repo.get("url", ""),
+            stars=repo.get("stars", 0),
+            updated=repo.get("updated", ""),
+            topics=repo.get("topics", []),
+            readme_preview=repo.get("readme_preview"),
             model=model
         )
         results.append({

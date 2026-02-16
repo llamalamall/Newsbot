@@ -205,14 +205,12 @@ class NewsBot:
                 github_topics=self.config.get("github_topics", []),
                 days_back=self.config.get("days_back", 7),
                 max_results_per_topic=self.config.get("max_results_per_topic", 10),
-                rejected_results=rejected_results
+                rejected_results=rejected_results,
+                openai_client=self.openai_client,
+                config=self.config,
+                keywords=self.config.get("search_keywords", []),
+                analyzed_ids=analyzed_ids if skip_analyzed_enabled else None
             )
-            
-            # Filter GitHub results if deduplication is enabled
-            if skip_analyzed_enabled and analyzed_ids:
-                github_results, skipped = filter_analyzed_articles(github_results, analyzed_ids)
-                if skipped > 0:
-                    logging.info(f"Skipped {skipped} already analyzed GitHub repositories")
             
             all_results.extend(github_results)
         else:

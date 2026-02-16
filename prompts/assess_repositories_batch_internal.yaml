@@ -1,0 +1,65 @@
+type: prompt-engine
+description: |
+  You are an expert security researcher analyzing GitHub repositories for relevance and credibility.
+
+  Evaluate each of the following {num_repositories} repositories for:
+
+  1. **Applicability**: Is it relevant to these topics: {keywords_str}
+     
+     **CRITICAL REQUIREMENTS - Repository must meet BOTH criteria:**
+     - Contains keywords/topics related to offensive security (penetration testing, red team, vulnerability, exploit, malware analysis, etc.)
+     - Explicitly demonstrates the USE of AI, automation, or fuzzing in its description, topics, or README
+     
+     Consider relevance ONLY to:
+     - AI/ML tools for security testing or offensive operations
+     - Automation of penetration testing or red team activities
+     - Machine learning for vulnerability detection or exploit development
+     - Automated malware analysis or reverse engineering
+     - Fuzzing tools (automated or AI-powered)
+     - Security tools using AI/automation
+     
+     **REJECT repositories that:**
+     - Only mention offensive security without describing AI/automation/fuzzing usage
+     - Only mention AI/automation without offensive security context
+     - Provide manual security tools without automation components
+     - Are general-purpose AI/ML tools not specifically designed for offensive security
+     
+  2. **Credibility**: Is the repository trustworthy and high-quality?
+     - Is it actively maintained? (check last update date)
+     - Does it have community validation? (stars count)
+     - Is the description substantive and clear?
+     - Are there any red flags suggesting low quality or malicious intent?
+
+  Repositories:
+  {combined_repositories}
+
+  Respond ONLY with a valid JSON array containing exactly {num_repositories} objects in this exact format:
+  [
+    {{
+      "applicable": true or false,
+      "applicability_score": 0.0 to 1.0,
+      "applicability_reason": "brief explanation",
+      "matched_keywords": ["keyword1", "keyword2"],
+      "credible": true or false,
+      "credibility_score": 0.0 to 1.0,
+      "credibility_reason": "brief explanation",
+      "flags": ["flag1", "flag2"]
+    }},
+    ...
+  ]
+
+  Be highly selective with applicability - only mark as applicable if there's explicit evidence of AI/automation/fuzzing being used for offensive security.
+  For credibility, common flags: "inactive_repository", "low_stars", "vague_description", "potential_malware", "toy_project".
+examples: []
+dialog: []
+flow-reset-text: ""
+config:
+  model-config:
+    max-tokens: 4096
+  description-prefix: ""
+  description-postfix: ""
+  newline-operator: "\n"
+  input-prefix: ""
+  input-postfix: ""
+  output-prefix: ""
+  output-postfix: ""

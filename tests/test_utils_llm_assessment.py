@@ -28,7 +28,11 @@ if not LLM_MODEL:
 from utils.llm_assessment import (
     assess_article_applicability,
     assess_article_credibility,
-    assess_articles_batch
+    assess_articles_batch,
+    assess_repository_applicability,
+    assess_repository_credibility,
+    assess_repositories_batch,
+    filter_titles_by_relevance
 )
 
 
@@ -1075,3 +1079,490 @@ class TestBatchAssessment:
         assert results[0]["applicable"] is True
         # Second article has only offensive security - should not be applicable
         assert results[1]["applicable"] is False
+
+
+class TestAssessRepositoryApplicability:
+    """Test assess_repository_applicability function."""
+    
+    def test_repository_applicability_with_no_client(self):
+        """Test that function returns default values when client is None."""
+        result = assess_repository_applicability(
+            openai_client=None,
+            repo_name="test/repo",
+            description="Test repository",
+            topics=["security", "ai"],
+            keywords=["security", "AI"],
+            model=LLM_MODEL
+        )
+        
+        assert isinstance(result, dict)
+        assert "applicable" in result
+        assert "score" in result
+        assert "reason" in result
+        assert "matched_keywords" in result
+        assert result["applicable"] is True  # Default to including
+        assert result["score"] == 0.5
+        assert "unavailable" in result["reason"].lower()
+    
+    def test_repository_applicability_with_valid_response(self):
+        """Test successful LLM repository applicability assessment."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        json_response = {
+            "applicable": True,
+            "score": 0.9,
+            "reason": "Repository provides AI tools for penetration testing",
+            "matched_keywords": ["AI", "penetration testing", "automation"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_repository_applicability(
+            openai_client=mock_client,
+            repo_name="user/ai-pentest-tool",
+            description="AI-powered automated penetration testing framework",
+            topics=["security", "ai", "penetration-testing"],
+            keywords=["AI", "penetration testing", "automation"],
+            model=LLM_MODEL
+        )
+        
+        assert result["applicable"] is True
+        assert result["score"] == 0.9
+        # Verify reason is meaningful
+        assert len(result["reason"]) > 0
+        assert "AI" in result["matched_keywords"]
+    
+    def test_repository_applicability_with_readme_preview(self):
+        """Test that README preview is included in assessment."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        json_response = {
+            "applicable": True,
+            "score": 0.85,
+            "reason": "README shows AI automation usage",
+            "matched_keywords": ["AI", "automation"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_repository_applicability(
+            openai_client=mock_client,
+            repo_name="user/sec-tool",
+            description="Security tool",
+            topics=["security"],
+            keywords=["AI", "automation", "security"],
+            readme_preview="This tool uses machine learning to automatically identify vulnerabilities...",
+            model=LLM_MODEL
+        )
+        
+        # Verify README was passed to LLM
+        call_args = mock_client.chat.completions.create.call_args
+        user_message = call_args[1]['messages'][1]['content']
+        assert "machine learning" in user_message.lower()
+        assert result["applicable"] is True
+
+
+class TestAssessRepositoryCredibility:
+    """Test assess_repository_credibility function."""
+    
+    def test_repository_credibility_with_no_client(self):
+        """Test that function returns default values when client is None."""
+        result = assess_repository_credibility(
+            openai_client=None,
+            repo_name="test/repo",
+            description="Test repository",
+            url="https://github.com/test/repo",
+            stars=100,
+            updated="2024-01-01T00:00:00Z",
+            topics=["security"],
+            model=LLM_MODEL
+        )
+        
+        assert isinstance(result, dict)
+        assert "credible" in result
+        assert "score" in result
+        assert "reason" in result
+        assert "flags" in result
+        assert result["credible"] is True
+        assert result["score"] == 0.5
+        assert "unavailable" in result["reason"].lower()
+    
+    def test_repository_credibility_with_high_stars(self):
+        """Test credibility assessment for well-starred repository."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        json_response = {
+            "credible": True,
+            "score": 0.95,
+            "reason": "Popular repository with active maintenance and community validation",
+            "flags": []
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_repository_credibility(
+            openai_client=mock_client,
+            repo_name="popular/security-tool",
+            description="Well-known security testing framework",
+            url="https://github.com/popular/security-tool",
+            stars=5000,
+            updated="2024-02-01T00:00:00Z",
+            topics=["security", "penetration-testing"],
+            model=LLM_MODEL
+        )
+        
+        assert result["credible"] is True
+        assert result["score"] == 0.95
+        assert len(result["flags"]) == 0
+    
+    def test_repository_credibility_with_low_stars_inactive(self):
+        """Test credibility assessment for low-starred inactive repository."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        json_response = {
+            "credible": False,
+            "score": 0.25,
+            "reason": "Low community validation and inactive maintenance",
+            "flags": ["low_stars", "inactive_repository"]
+        }
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        result = assess_repository_credibility(
+            openai_client=mock_client,
+            repo_name="unknown/tool",
+            description="Security tool",
+            url="https://github.com/unknown/tool",
+            stars=3,
+            updated="2022-01-01T00:00:00Z",
+            topics=["security"],
+            model=LLM_MODEL
+        )
+        
+        assert result["credible"] is False
+        assert result["score"] == 0.25
+        assert "low_stars" in result["flags"]
+        assert "inactive_repository" in result["flags"]
+
+
+class TestAssessRepositoriesBatch:
+    """Test assess_repositories_batch function."""
+    
+    def test_batch_repository_assessment_with_no_client(self):
+        """Test that batch function returns default values when client is None."""
+        repos = [
+            {"title": "repo1/test", "description": "Test repo 1", "topics": []},
+            {"title": "repo2/test", "description": "Test repo 2", "topics": []}
+        ]
+        
+        results = assess_repositories_batch(
+            openai_client=None,
+            repositories=repos,
+            keywords=["security", "AI"],
+            model=LLM_MODEL
+        )
+        
+        assert len(results) == 2
+        for result in results:
+            assert result["applicable"] is True
+            assert result["applicability_score"] == 0.5
+            assert "unavailable" in result["applicability_reason"].lower()
+            assert result["credible"] is True
+            assert result["credibility_score"] == 0.5
+    
+    def test_batch_repository_assessment_empty_list(self):
+        """Test that batch function handles empty list."""
+        mock_client = Mock()
+        
+        results = assess_repositories_batch(
+            openai_client=mock_client,
+            repositories=[],
+            keywords=["security"],
+            model=LLM_MODEL
+        )
+        
+        assert results == []
+    
+    def test_batch_repository_assessment_processes_repos(self):
+        """Test batch assessment processes repositories individually."""
+        mock_client = Mock()
+        
+        # Mock responses for applicability and credibility
+        app_response = {
+            "applicable": True,
+            "score": 0.8,
+            "reason": "Relevant AI security tool",
+            "matched_keywords": ["AI", "security"]
+        }
+        cred_response = {
+            "credible": True,
+            "score": 0.85,
+            "reason": "Active and well-maintained",
+            "flags": []
+        }
+        
+        # Set up mock to alternate between applicability and credibility responses
+        mock_client.chat.completions.create.side_effect = [
+            Mock(choices=[Mock(message=Mock(content=json.dumps(app_response)))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps(cred_response)))])
+        ]
+        
+        repos = [
+            {
+                "title": "user/ai-tool",
+                "description": "AI security tool",
+                "url": "https://github.com/user/ai-tool",
+                "stars": 150,
+                "updated": "2024-02-01T00:00:00Z",
+                "topics": ["ai", "security"]
+            }
+        ]
+        
+        results = assess_repositories_batch(
+            openai_client=mock_client,
+            repositories=repos,
+            keywords=["AI", "security", "automation"],
+            model=LLM_MODEL
+        )
+        
+        assert len(results) == 1
+        assert results[0]["applicable"] is True
+        assert results[0]["applicability_score"] == 0.8
+        assert results[0]["credible"] is True
+        assert results[0]["credibility_score"] == 0.85
+        # Should make 2 calls (one for applicability, one for credibility)
+        assert mock_client.chat.completions.create.call_count == 2
+    
+    def test_batch_repository_assessment_multiple_repos_batched(self):
+        """Test batch assessment processes multiple repositories in a single LLM call."""
+        mock_client = Mock()
+        
+        # Mock batch response for 2 repositories
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.9,
+                "applicability_reason": "AI-powered security tool",
+                "matched_keywords": ["AI", "security"],
+                "credible": True,
+                "credibility_score": 0.85,
+                "credibility_reason": "Well-maintained with community validation",
+                "flags": []
+            },
+            {
+                "applicable": False,
+                "applicability_score": 0.3,
+                "applicability_reason": "Lacks AI/automation component",
+                "matched_keywords": ["security"],
+                "credible": True,
+                "credibility_score": 0.7,
+                "credibility_reason": "Active but modest stars",
+                "flags": ["low_stars"]
+            }
+        ]
+        
+        mock_client.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content=json.dumps(batch_response)))]
+        )
+        
+        repos = [
+            {
+                "title": "user/ai-security-tool",
+                "description": "AI-powered security testing framework",
+                "url": "https://github.com/user/ai-security-tool",
+                "stars": 500,
+                "updated": "2024-02-15T00:00:00Z",
+                "topics": ["ai", "security", "testing"]
+            },
+            {
+                "title": "user/manual-tool",
+                "description": "Manual security testing toolkit",
+                "url": "https://github.com/user/manual-tool",
+                "stars": 50,
+                "updated": "2024-02-10T00:00:00Z",
+                "topics": ["security", "testing"]
+            }
+        ]
+        
+        results = assess_repositories_batch(
+            openai_client=mock_client,
+            repositories=repos,
+            keywords=["AI", "security", "automation"],
+            model=LLM_MODEL,
+            batch_size=5  # Large enough to process both in one batch
+        )
+        
+        assert len(results) == 2
+        # Should make only 1 call for batch of 2
+        assert mock_client.chat.completions.create.call_count == 1
+        
+        # Verify first repository results
+        assert results[0]["applicable"] is True
+        assert results[0]["applicability_score"] == 0.9
+        assert "AI" in results[0]["matched_keywords"]
+        
+        # Verify second repository results
+        assert results[1]["applicable"] is False
+        assert results[1]["applicability_score"] == 0.3
+        assert "low_stars" in results[1]["flags"]
+
+
+class TestFilterTitlesByRelevanceBatching:
+    """Test batched title filtering functionality."""
+    
+    def test_filter_titles_single_batch(self):
+        """Test title filtering with titles that fit in one batch."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Mock response with relevant indices
+        json_response = {"relevant_indices": [0, 2, 4]}
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        titles = [
+            "AI-powered penetration testing",
+            "Cloud computing basics",
+            "Machine learning for malware detection",
+            "Introduction to Python",
+            "Automated red team operations"
+        ]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "automation", "security"],
+            model=LLM_MODEL
+        )
+        
+        assert result == [0, 2, 4]
+        # Should make only 1 call for a small batch
+        assert mock_client.chat.completions.create.call_count == 1
+    
+    def test_filter_titles_multiple_batches(self):
+        """Test title filtering with titles requiring multiple batches."""
+        mock_client = Mock()
+        
+        # Create responses for 2 batches
+        # Batch 1: indices 0, 1 from first 3 titles
+        batch1_response = Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))])
+        # Batch 2: indices 1, 2 from next 3 titles (global indices 4, 5)
+        batch2_response = Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [1, 2]})))])
+        
+        mock_client.chat.completions.create.side_effect = [batch1_response, batch2_response]
+        
+        # Create 6 titles to test batching
+        titles = [
+            "AI security tool",
+            "Automated testing",
+            "Manual process",
+            "Cloud storage",
+            "ML-based detection",
+            "Automated exploitation"
+        ]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "automation"],
+            model=LLM_MODEL,
+            max_titles_per_batch=3  # Force 2 batches
+        )
+        
+        # Should return global indices: 0, 1 from batch 1, and 4, 5 from batch 2
+        assert sorted(result) == [0, 1, 4, 5]
+        # Should make 2 calls (one per batch)
+        assert mock_client.chat.completions.create.call_count == 2
+    
+    def test_filter_titles_empty_list(self):
+        """Test title filtering with empty list."""
+        mock_client = Mock()
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=[],
+            keywords=["AI"],
+            model=LLM_MODEL
+        )
+        
+        assert result == []
+        # Should not make any calls
+        mock_client.chat.completions.create.assert_not_called()
+    
+    def test_filter_titles_large_batch(self):
+        """Test that large number of titles are batched correctly."""
+        mock_client = Mock()
+        
+        # Create a large number of titles
+        num_titles = 120
+        titles = [f"Title {i}" for i in range(num_titles)]
+        
+        # Mock responses for each batch (using default batch size of 50)
+        # Expected: 3 batches (50, 50, 20)
+        batch_responses = [
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0]})))])
+        ]
+        mock_client.chat.completions.create.side_effect = batch_responses
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "security"],
+            model=LLM_MODEL
+        )
+        
+        # Should make 3 calls (120 titles / 50 per batch = 2.4 -> 3 batches)
+        assert mock_client.chat.completions.create.call_count == 3
+        # Should return indices adjusted for batches: [0,1] from batch1, [50,51] from batch2, [100] from batch3
+        assert sorted(result) == [0, 1, 50, 51, 100]
+    
+    def test_filter_titles_handles_json_error(self):
+        """Test that title filtering handles JSON parsing errors gracefully."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Return invalid JSON
+        mock_message.content = "Not valid JSON"
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        titles = ["AI security", "Cloud computing"]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI"],
+            model=LLM_MODEL
+        )
+        
+        # Should return empty list on error
+        assert result == []

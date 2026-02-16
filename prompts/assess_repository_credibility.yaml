@@ -1,0 +1,51 @@
+type: prompt-engine
+description: |
+  You are an expert at evaluating the credibility and quality of GitHub repositories for security tools and research.
+
+  Analyze this repository for credibility and trustworthiness:
+
+  Repository: {repo_name}
+  URL: {url}
+  Stars: {stars}
+  Last Updated: {updated}
+
+  Repository Information:
+  {repo_text}
+
+  Respond ONLY with a valid JSON object in this exact format:
+  {{
+    "credible": true or false,
+    "score": 0.0 to 1.0,
+    "reason": "brief explanation",
+    "flags": ["flag1", "flag2"]
+  }}
+
+  Evaluate based on:
+  - Is the description substantive and clear about the tool's purpose?
+  - Does it appear to be actively maintained? (check last update date)
+  - Is there community validation? (stars count as indicator)
+  - Does it seem like a serious security tool/research or a toy project?
+  - Are there any red flags suggesting low quality or malicious intent?
+
+  Common flags to check for:
+  - "inactive_repository" - Not updated recently (>6 months old)
+  - "low_stars" - Few stars suggesting limited community validation (<10 stars)
+  - "vague_description" - Description doesn't clearly explain the tool
+  - "potential_malware" - Signs of malicious intent or suspicious patterns
+  - "toy_project" - Appears to be a learning project rather than a serious tool
+
+  Only mark as not credible if there are serious quality or trustworthiness issues.
+  Consider repositories with >50 stars and recent updates as generally credible unless other red flags exist.
+examples: []
+dialog: []
+flow-reset-text: ""
+config:
+  model-config:
+    max-tokens: 2048
+  description-prefix: ""
+  description-postfix: ""
+  newline-operator: "\n"
+  input-prefix: ""
+  input-postfix: ""
+  output-prefix: ""
+  output-postfix: ""

@@ -19,12 +19,19 @@ Newsbot automatically searches for and aggregates content related to:
 ## Features
 
 - **GitHub Repository Search**: Finds recently updated repositories with relevant topics
+  - **LLM-Powered Repository Assessment**: Uses GitHub Models (GPT-4o) to evaluate repository applicability and credibility
+    - **Applicability Assessment**: Determines if repositories are relevant to AI/automation/fuzzing in offensive security
+      - **Dual Requirement Filtering**: Repositories must BOTH contain offensive security topics/keywords AND explicitly demonstrate the use of AI, automation, or fuzzing
+      - Rejects repositories that only mention offensive security without AI/automation/fuzzing components
+      - Rejects repositories that only mention AI/automation without offensive security context
+    - **Credibility Evaluation**: Assesses repository quality based on stars, maintenance status, and community validation
+    - **Transparent Scoring**: Provides confidence scores and explanations for each assessment
 - **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
-- **Smart Article Deduplication**: Automatically detects and skips articles that have already been analyzed in previous runs
+- **Smart Article Deduplication**: Automatically detects and skips articles/repositories that have already been analyzed in previous runs
   - URL-based identification ensures accurate duplicate detection
   - Configurable via `skip_analyzed.enabled` setting
   - Reduces redundant processing and LLM API calls
-- **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o mini) to evaluate article applicability and credibility
+- **LLM-Powered Article Assessment**: Uses GitHub Models (GPT-4o) to evaluate article applicability and credibility
   - **Applicability Assessment**: Determines if articles are relevant to AI/automation/fuzzing in offensive security
     - **Dual Requirement Filtering**: Articles must BOTH contain offensive security keywords AND explicitly describe the use of AI, automation, or fuzzing
     - Rejects articles that only mention offensive security without AI/automation/fuzzing usage
@@ -138,33 +145,37 @@ Edit `config.json` to customize:
 
 ### LLM Assessment Configuration
 
-- `llm_assessment`: Settings for LLM-based article evaluation
+- `llm_assessment`: Settings for LLM-based content evaluation (applies to both articles and repositories)
   - `enabled`: Enable/disable LLM assessment (default: true)
-  - `model`: LLM model to use (default: "gpt-4o-mini")
-  - `applicability_threshold`: Minimum score to consider article applicable (default: 0.6)
-  - `credibility_threshold`: Minimum score to consider article credible (default: 0.5)
-  - `filter_inapplicable`: Remove articles deemed not applicable (default: true)
-  - `filter_not_credible`: Remove articles deemed not credible (default: true)
-  - `batch_size`: Number of articles to assess in a single LLM call (default: 5)
+  - `model`: LLM model to use (default: "gpt-4o")
+  - `applicability_threshold`: Minimum score to consider content applicable (default: 0.6)
+  - `credibility_threshold`: Minimum score to consider content credible (default: 0.5)
+  - `filter_inapplicable`: Remove content deemed not applicable (default: true)
+  - `filter_not_credible`: Remove content deemed not credible (default: true)
+  - `batch_size`: Number of items to assess in a single LLM call (default: 5)
 
 **How LLM Assessment Works:**
-1. **Applicability**: The LLM evaluates if an article is relevant to your configured `search_keywords_file` keywords and topics related to AI/automation in offensive security
-2. **Credibility**: The LLM assesses article quality by checking for clickbait titles, lack of sources, bias, and other credibility concerns
-3. **Batching**: Multiple articles are assessed together in a single LLM call for efficiency. The `batch_size` parameter controls how many articles are processed per batch (default: 5)
-4. **Filtering**: Articles below the threshold scores are automatically filtered out (configurable)
+1. **Applicability**: The LLM evaluates if content (articles or repositories) is relevant to your configured `search_keywords_file` keywords and topics related to AI/automation in offensive security
+   - **For Articles**: Analyzes title, description, and content preview
+   - **For Repositories**: Analyzes repository name, description, topics, and README preview
+2. **Credibility**: The LLM assesses content quality
+   - **For Articles**: Checks for clickbait titles, lack of sources, bias, and other credibility concerns
+   - **For Repositories**: Evaluates stars, maintenance status, community validation, and potential red flags
+3. **Batching**: Multiple items are assessed individually but efficiently (repositories process individually for accuracy)
+4. **Filtering**: Content below the threshold scores is automatically filtered out (configurable)
 5. **Transparency**: Each assessment includes a confidence score (0.0-1.0) and explanation in the output
 
-**Batch Processing Benefits:**
-- Reduces the number of LLM API calls by processing multiple articles together
-- Maintains individual assessment results for each article
-- Automatically falls back to individual assessment when needed
-- Configurable batch size to balance context window limits and efficiency
+**LLM Assessment Benefits:**
+- Unified evaluation approach for both articles and repositories
+- Reduces false positives by requiring both offensive security AND AI/automation context
+- Provides detailed reasoning for inclusion/exclusion decisions
+- Minimizes LLM API calls through efficient processing and caching
 
 ### Article Deduplication Configuration
 
-- `skip_analyzed`: Settings for automatic article deduplication
-  - `enabled`: When `true`, automatically detects and skips articles already analyzed in previous runs (default: `true`)
-  - Articles are identified by URL and compared against all `results_*.json` files in the output directory
+- `skip_analyzed`: Settings for automatic content deduplication (applies to both articles and repositories)
+  - `enabled`: When `true`, automatically detects and skips content already analyzed in previous runs (default: `true`)
+  - Content is identified by URL and compared against all `results_*.json` files in the output directory
   - Significantly reduces redundant processing and LLM API calls on subsequent runs
   - Logging clearly reports the number of articles skipped (e.g., "Skipped 5 already analyzed RSS articles")
   - Can be disabled by setting `enabled` to `false` to re-analyze all articles
