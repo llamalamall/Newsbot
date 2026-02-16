@@ -1,0 +1,243 @@
+[
+  {
+    "title": "xoxruns/deadend-cli",
+    "url": "https://github.com/xoxruns/deadend-cli",
+    "description": "Agentic pentest tooling. Currently achieving around 78% on XBOW's benchmark in full black-box. Completely Self-hosted. Every model available on LiteLLM (Ollama, anthropic, openai...)",
+    "source": "github",
+    "credibility": null,
+    "stars": 167,
+    "updated": "2026-02-16T17:07:59+00:00",
+    "topic": "offensive-security",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.95,
+    "llm_applicability_reason": "Explicitly describes agentic AI-driven pentest tooling, mentions use of multiple AI models, and is focused on offensive security.",
+    "llm_matched_keywords": [
+      "agentic-ai",
+      "ai",
+      "pentesting",
+      "offensive-security"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.9,
+    "llm_credibility_reason": "Actively maintained, substantive description, moderate star count, no red flags.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "agentic-ai",
+      "ai",
+      "cybersecurity",
+      "cybersecurity-tools",
+      "pentesting",
+      "secure-coding",
+      "offensive-security"
+    ]
+  },
+  {
+    "title": "murad-bakirov/BugHunter-AI",
+    "url": "https://github.com/murad-bakirov/BugHunter-AI",
+    "description": "\ud83d\udd0d Automate penetration testing with an AI-driven tool featuring a cyber-inspired GUI and efficient task scheduling for authorized testing environments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 6,
+    "updated": "2026-02-16T17:16:01+00:00",
+    "topic": "penetration-testing",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.9,
+    "llm_applicability_reason": "Explicitly describes AI-driven automation for penetration testing, with relevant keywords and description.",
+    "llm_matched_keywords": [
+      "ai",
+      "automation",
+      "penetration-testing",
+      "pentest-tool"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "Recently updated, clear description, but low star count and limited community validation.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "ai",
+      "automation",
+      "cyberpunks",
+      "cybersecurity",
+      "cybersecurity-tools",
+      "ethical-hacking",
+      "ethical-hacking-tools",
+      "kali-linux-hacking",
+      "kali-linux-tools",
+      "nmap",
+      "openai",
+      "openrouter",
+      "penetration-testing",
+      "pentest",
+      "pentest-tool",
+      "pentesting",
+      "pentesting-tools",
+      "resource-monitor"
+    ]
+  },
+  {
+    "title": "sinewaveai/agent-security-scanner-mcp",
+    "url": "https://github.com/sinewaveai/agent-security-scanner-mcp",
+    "description": "Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucination detection (4.3M+ packages), 1000+ vulnerability rules with AST & taint analysis, auto-fix.",
+    "source": "github",
+    "credibility": null,
+    "stars": 18,
+    "updated": "2026-02-16T17:11:54+00:00",
+    "topic": "ai-security",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.95,
+    "llm_applicability_reason": "Explicitly describes an AI-powered security scanner with automation, prompt injection firewall, and auto-fix features for vulnerability analysis.",
+    "llm_matched_keywords": [
+      "ai-security",
+      "prompt-injection",
+      "vulnerability-scanner",
+      "automation",
+      "auto-fix"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.8,
+    "llm_credibility_reason": "Actively maintained, substantive description, and some community validation with 18 stars.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "ai-security",
+      "claude-code",
+      "cursor",
+      "hallucination-detection",
+      "mcp",
+      "mcp-server",
+      "prompt-injection",
+      "sast",
+      "security",
+      "vulnerability-scanner"
+    ]
+  },
+  {
+    "title": "LLMs are Getting a Lot Better and Faster at Finding and Exploiting Zero-Days",
+    "url": "https://www.schneier.com/blog/archives/2026/02/llms-are-getting-a-lot-better-and-faster-at-finding-and-exploiting-zero-days.html",
+    "description": "<p>This is <a href=\"https://red.anthropic.com/2026/zero-days/\">amazing</a>:</p>\n<blockquote><p>Opus 4.6 is notably better at finding high-severity vulnerabilities than previous models and a sign of how quickly things are moving. Security teams have been automating vulnerability discovery for years, investing heavily in fuzzing infrastructure and custom harnesses to find bugs at scale. But what stood out in early testing is how quickly Opus 4.6 found vulnerabilities out of the box without task-specific tooling, custom scaffolding, or specialized prompting. Even more interesting is how it found them. Fuzzers work by throwing massive amounts of random inputs at code to see what breaks. Opus 4.6 reads and reasons about code the way a human researcher would\u00ad&#8212;looking at past fixes to find similar bugs that weren&#8217;t addressed, spotting patterns that tend to cause problems, or understanding a piece of logic well enough to know exactly what input would break it. When we pointed Opus 4.6 at some of the most well-tested codebases (projects that have had fuzzers running against them for years, ...</p></blockquote>",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-09T12:04:29",
+    "feed_name": "Schneier on Security",
+    "feed_category": "research",
+    "priority": "high",
+    "keyword_matches": 0,
+    "author": "Bruce Schneier",
+    "tags": [
+      "Uncategorized",
+      "AI",
+      "LLM",
+      "zero-day"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly describes LLMs (Opus 4.6) automating vulnerability discovery and exploit development, referencing fuzzing and offensive security.",
+    "llm_matched_keywords": [
+      "LLM",
+      "vulnerability",
+      "exploit",
+      "automation",
+      "fuzzing"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.95,
+    "llm_credibility_reason": "High domain credibility, in-depth technical discussion, no clickbait or sensationalism.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "AI-supported vulnerability triage with the GitHub Security Lab Taskflow Agent",
+    "url": "https://github.blog/security/ai-supported-vulnerability-triage-with-the-github-security-lab-taskflow-agent/",
+    "description": "<p>Learn how we are using the newly released GitHub Security Lab Taskflow Agent to triage categories of vulnerabilities in GitHub Actions and JavaScript projects.</p>\n<p>The post <a href=\"https://github.blog/security/ai-supported-vulnerability-triage-with-the-github-security-lab-taskflow-agent/\">AI-supported vulnerability triage with the GitHub Security Lab Taskflow Agent</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-01-20T19:52:50",
+    "feed_name": "GitHub Security Blog",
+    "feed_category": "development",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Man Yue Mo",
+    "tags": [
+      "AI & ML",
+      "Open Source",
+      "Security",
+      "agentic AI",
+      "GitHub Security Lab",
+      "MCP",
+      "open source"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.85,
+    "llm_applicability_reason": "Explicitly describes AI-supported automation for vulnerability triage in offensive security contexts (GitHub Actions and JavaScript projects).",
+    "llm_matched_keywords": [
+      "vulnerability",
+      "AI-supported",
+      "automation",
+      "triage"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.9,
+    "llm_credibility_reason": "Published on GitHub Security Blog, high domain credibility, clear description, no clickbait or bias.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "What Security Teams Need to Know About OpenClaw, the AI Super Agent",
+    "url": "https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/",
+    "description": "",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-04T00:00:00-08:00",
+    "feed_name": "CrowdStrike Blog",
+    "feed_category": "research",
+    "priority": "high",
+    "keyword_matches": 0,
+    "author": "Elia Zaitsev",
+    "tags": [
+      "Securing AI"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.9,
+    "llm_applicability_reason": "Article discusses OpenClaw, an AI agent used in security operations, with explicit mention of AI automation for offensive security tasks.",
+    "llm_matched_keywords": [
+      "AI",
+      "automation",
+      "offensive security",
+      "penetration testing",
+      "red team"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.95,
+    "llm_credibility_reason": "CrowdStrike is a highly credible source; article likely provides in-depth analysis and avoids clickbait.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "TruConfirm: Autonomous, Agent-Led, Safe Exploit Validation for Real-World Risk Reduction",
+    "url": "https://blog.qualys.com/category/product-tech",
+    "description": "Key Takeaways The Question CISOs Cannot Answer Today The scan is done. Dashboards are full. Change windows are tight.&#160;And one critical question dominates every vulnerability review:&#160;\u201cIs this exposure actually exploitable on&#160;our&#160;asset, in&#160;our&#160;production environment,with our controls,&#160;right now?\u201d Volume is no longer an&#160;anomaly. In 2025,&#160;a staggering&#160;48,177 CVEs&#160;were published.&#160;Most organizations now face thousands &#8211; often tens of thousands [&#8230;]",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-04T17:00:00",
+    "feed_name": "Qualys Threat Research Blog",
+    "feed_category": "research",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Himanshu Kathpal",
+    "tags": [
+      "Product and Tech",
+      "TruConfirm"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.85,
+    "llm_applicability_reason": "Describes autonomous exploit validation and agent-led automation for vulnerability exploitation, directly relating to offensive security and AI/automation.",
+    "llm_matched_keywords": [
+      "autonomous",
+      "exploit",
+      "vulnerability",
+      "automation"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.8,
+    "llm_credibility_reason": "Qualys is a reputable source, though blog content may lack deep citations; overall credible.",
+    "llm_credibility_flags": []
+  }
+]

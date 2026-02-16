@@ -19,10 +19,10 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 | Source | Updated | Applicability | Credibility | Title |
 |--------|---------|--------------|-------------|-------|
-| www.darkreading.com | 2026-02-12 | 0.95 | 0.80 | [Booz Allen Announces General Availability of Vellox Reverser to Automate Malware Defense](articles/article_20260216_163046_001.md) |
-| arxiv.org | 2026-02-16 | 1.00 | 0.95 | [GPU-Fuzz: Finding Memory Errors in Deep Learning Frameworks](articles/article_20260216_163046_002.md) |
-| arxiv.org | 2026-02-16 | 0.80 | 0.95 | [PIDSMaker: Building and Evaluating Provenance-based Intrusion Detection Systems](articles/article_20260216_163046_003.md) |
-| arxiv.org | 2026-02-16 | 1.00 | 0.95 | [GPU-Fuzz: Finding Memory Errors in Deep Learning Frameworks](articles/article_20260216_163046_004.md) |
+| www.schneier.com | 2026-02-09 | 1.00 | 0.95 | [LLMs are Getting a Lot Better and Faster at Finding and Exploiting Zero-Days](articles/article_20260216_172124_001.md) |
+| www.crowdstrike.com | 2026-02-04 | 0.90 | 0.95 | [What Security Teams Need to Know About OpenClaw, the AI Super Agent](articles/article_20260216_172124_002.md) |
+| github.blog | 2026-01-20 | 0.85 | 0.90 | [AI-supported vulnerability triage with the GitHub Security Lab Taskflow Agent](articles/article_20260216_172124_003.md) |
+| blog.qualys.com | 2026-02-04 | 0.85 | 0.80 | [TruConfirm: Autonomous, Agent-Led, Safe Exploit Validation for Real-World Risk Reduction](articles/article_20260216_172124_004.md) |
 
 [View all articles →](articles.md)
 
@@ -32,9 +32,9 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
-| [clolomagico123/ai-security-lab](https://github.com/clolomagico123/ai-security-lab) | 🤖 Test and secure AI systems with advanced techniques for Large Language Models, including jailbr... | 3 | 0.90 2026-02-16 | ai-security |
-| [LXrdKnowkill/HikariSystem-HexCore](https://github.com/LXrdKnowkill/HikariSystem-HexCore) | The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), a... | 5 | 0.80 2026-02-16 | binary-analysis |
-| [RildoNeto17/llmSecurityDemo](https://github.com/RildoNeto17/llmSecurityDemo) | 🛡️ Detect LLM vulnerabilities using the OWASP Top 10 with this demo tool, providing accurate anal... | 0 | 0.70 2026-02-16 | ai-security |
+| [xoxruns/deadend-cli](https://github.com/xoxruns/deadend-cli) | Agentic pentest tooling. Currently achieving around 78% on XBOW's benchmark in full black-box. Co... | 167 | 0.95 2026-02-16 | offensive-security |
+| [sinewaveai/agent-security-scanner-mcp](https://github.com/sinewaveai/agent-security-scanner-mcp) | Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucinatio... | 18 | 0.95 2026-02-16 | ai-security |
+| [murad-bakirov/BugHunter-AI](https://github.com/murad-bakirov/BugHunter-AI) | 🔍 Automate penetration testing with an AI-driven tool featuring a cyber-inspired GUI and efficien... | 6 | 0.90 2026-02-16 | penetration-testing |
 
 [View all repositories →](repositories.md)
 
