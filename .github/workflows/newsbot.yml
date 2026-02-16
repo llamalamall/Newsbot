@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/newsbot.py --publish-docs
+          python scripts/newsbot.py --publish-docs --config=config_90days.json
           
       - name: Upload results as artifacts
         uses: actions/upload-artifact@v4
