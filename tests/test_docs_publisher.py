@@ -16,7 +16,15 @@ from reporters.docs_publisher import (
     initialize_docs_directory,
     load_rejected_articles,
     generate_rejected_articles_page,
-    publish_rejected_articles_page
+    publish_rejected_articles_page,
+    load_all_analyzed_articles,
+    load_all_analyzed_repositories,
+    group_articles_by_month,
+    group_repositories_by_month,
+    generate_comprehensive_articles_page,
+    generate_comprehensive_repositories_page,
+    publish_comprehensive_articles_page,
+    publish_comprehensive_repositories_page
 )
 
 
@@ -211,8 +219,19 @@ class TestStructuredPublishing:
                 }
             ]
             
+            github_items = [
+                {
+                    "title": "test-repo",
+                    "url": "https://github.com/user/test-repo",
+                    "description": "Test repository",
+                    "stars": 100,
+                    "updated": "2026-02-15T10:00:00Z",
+                    "topic": "security"
+                }
+            ]
+            
             update_index_with_structured_content(
-                docs_dir, "20260215_120000", 5, 2, article_entries
+                docs_dir, "20260215_120000", 1, 2, article_entries, github_items
             )
             
             assert os.path.exists(index_path)
@@ -220,12 +239,16 @@ class TestStructuredPublishing:
             with open(index_path, 'r') as f:
                 content = f.read()
             
-            # Check for repositories link
-            assert "[GitHub Repositories](repositories.md)" in content
+            # Check for new structure with comprehensive archives links
+            assert "[All Repositories](repositories.md)" in content
+            assert "## Comprehensive Archives" in content
             
             # Check for articles section
             assert "## Latest Articles" in content
-            assert "2 articles total" in content
+            assert "2 articles from most recent analysis" in content
+            
+            # Check for repositories section
+            assert "## Latest Repositories" in content
             
             # Check for table format
             assert "| Source | Updated | Applicability | Credibility | Title |" in content
@@ -246,7 +269,9 @@ class TestStructuredPublishing:
         from reporters.docs_publisher import publish_structured_docs
         
         with tempfile.TemporaryDirectory() as tmpdir:
-            docs_dir = tmpdir
+            docs_dir = os.path.join(tmpdir, "docs")
+            output_dir = os.path.join(tmpdir, "outputs")
+            os.makedirs(output_dir)
             
             # Create test results with both GitHub repos and RSS articles
             results = [
@@ -265,16 +290,22 @@ class TestStructuredPublishing:
                     "url": "https://example.com/article",
                     "description": "Test article content",
                     "feed_name": "Test Feed",
-                    "published": "2026-02-15T10:00:00Z"
+                    "published": "2026-02-15T10:00:00Z",
+                    "llm_applicability_score": 0.90,
+                    "llm_credibility_score": 0.85
                 }
             ]
             
+            # Also save results to output_dir so comprehensive pages can load them
+            with open(os.path.join(output_dir, "results_20260215_120000.json"), 'w') as f:
+                json.dump(results, f)
+            
             timestamp = "20260215_120000"
-            published = publish_structured_docs(results, timestamp, docs_dir)
+            published = publish_structured_docs(results, timestamp, docs_dir, output_dir)
             
             # Check that all expected files were created
-            assert published["repositories"] is not None
-            assert os.path.exists(published["repositories"])
+            assert published["comprehensive_repositories"] is not None
+            assert os.path.exists(published["comprehensive_repositories"])
             
             assert len(published["articles"]) == 1
             assert os.path.exists(published["articles"][0])
@@ -285,8 +316,9 @@ class TestStructuredPublishing:
             with open(published["index"], 'r') as f:
                 content = f.read()
             
-            assert "[GitHub Repositories](repositories.md)" in content
+            assert "[All Repositories](repositories.md)" in content
             assert "## Latest Articles" in content
+            assert "## Comprehensive Archives" in content
 
 
 class TestRejectedArticles:
@@ -516,6 +548,227 @@ class TestRejectedArticles:
                 content = f.read()
             
             assert "[Rejected Article](https://example.com/rejected)" in content
+
+
+class TestComprehensivePages:
+    """Tests for comprehensive articles and repositories pages."""
+    
+    def test_load_all_analyzed_articles(self):
+        """Test loading all articles from multiple results files."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = tmpdir
+            
+            # Create test results files
+            results1 = [
+                {"source": "rss", "title": "Article 1", "url": "https://example.com/1", "published": "2026-01-15"},
+                {"source": "github", "title": "Repo 1"}
+            ]
+            results2 = [
+                {"source": "rss", "title": "Article 2", "url": "https://example.com/2", "published": "2026-02-10"}
+            ]
+            
+            with open(os.path.join(output_dir, "results_20260115_000000.json"), 'w') as f:
+                json.dump(results1, f)
+            with open(os.path.join(output_dir, "results_20260210_000000.json"), 'w') as f:
+                json.dump(results2, f)
+            
+            articles = load_all_analyzed_articles(output_dir)
+            
+            assert len(articles) == 2
+            assert all(a.get("source") == "rss" for a in articles)
+            assert articles[0]["title"] == "Article 1"
+            assert articles[1]["title"] == "Article 2"
+    
+    def test_load_all_analyzed_repositories(self):
+        """Test loading all repositories from multiple results files."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = tmpdir
+            
+            # Create test results files
+            results1 = [
+                {"source": "github", "title": "Repo 1", "url": "https://github.com/user/repo1", "stars": 100},
+                {"source": "rss", "title": "Article 1"}
+            ]
+            results2 = [
+                {"source": "github", "title": "Repo 2", "url": "https://github.com/user/repo2", "stars": 50}
+            ]
+            
+            with open(os.path.join(output_dir, "results_20260115_000000.json"), 'w') as f:
+                json.dump(results1, f)
+            with open(os.path.join(output_dir, "results_20260210_000000.json"), 'w') as f:
+                json.dump(results2, f)
+            
+            repos = load_all_analyzed_repositories(output_dir)
+            
+            assert len(repos) == 2
+            assert all(r.get("source") == "github" for r in repos)
+            assert repos[0]["title"] == "Repo 1"
+            assert repos[1]["title"] == "Repo 2"
+    
+    def test_group_articles_by_month(self):
+        """Test grouping articles by month."""
+        articles = [
+            {"title": "Article 1", "published": "2026-01-15T10:00:00Z"},
+            {"title": "Article 2", "published": "2026-01-20T10:00:00Z"},
+            {"title": "Article 3", "published": "2026-02-05T10:00:00Z"},
+        ]
+        
+        grouped = group_articles_by_month(articles)
+        
+        assert "2026-01" in grouped
+        assert "2026-02" in grouped
+        assert len(grouped["2026-01"]) == 2
+        assert len(grouped["2026-02"]) == 1
+    
+    def test_group_repositories_by_month(self):
+        """Test grouping repositories by month."""
+        repos = [
+            {"title": "Repo 1", "updated": "2026-01-15T10:00:00Z"},
+            {"title": "Repo 2", "updated": "2026-01-20T10:00:00Z"},
+            {"title": "Repo 3", "updated": "2026-02-05T10:00:00Z"},
+        ]
+        
+        grouped = group_repositories_by_month(repos)
+        
+        assert "2026-01" in grouped
+        assert "2026-02" in grouped
+        assert len(grouped["2026-01"]) == 2
+        assert len(grouped["2026-02"]) == 1
+    
+    def test_generate_comprehensive_articles_page(self):
+        """Test generating comprehensive articles page content."""
+        articles = [
+            {
+                "title": "High Priority Article",
+                "url": "https://example.com/1",
+                "published": "2026-02-10T10:00:00Z",
+                "llm_applicability_score": 0.95,
+                "llm_credibility_score": 0.90
+            },
+            {
+                "title": "Lower Priority Article",
+                "url": "https://example.com/2",
+                "published": "2026-02-15T10:00:00Z",
+                "llm_applicability_score": 0.80,
+                "llm_credibility_score": 0.85
+            }
+        ]
+        
+        content = generate_comprehensive_articles_page(articles)
+        
+        assert "# All Analyzed Articles" in content
+        assert "**Total articles:** 2" in content
+        assert "February 2026" in content
+        assert "[High Priority Article](https://example.com/1)" in content
+        # Verify sorting: high applicability should come first
+        high_idx = content.index("High Priority Article")
+        low_idx = content.index("Lower Priority Article")
+        assert high_idx < low_idx
+    
+    def test_generate_comprehensive_repositories_page(self):
+        """Test generating comprehensive repositories page content."""
+        repos = [
+            {
+                "title": "user/popular-repo",
+                "url": "https://github.com/user/popular-repo",
+                "description": "A popular repository",
+                "stars": 1000,
+                "updated": "2026-02-10T10:00:00Z",
+                "topic": "security"
+            },
+            {
+                "title": "user/new-repo",
+                "url": "https://github.com/user/new-repo",
+                "description": "A new repository",
+                "stars": 10,
+                "updated": "2026-02-15T10:00:00Z",
+                "topic": "automation"
+            }
+        ]
+        
+        content = generate_comprehensive_repositories_page(repos)
+        
+        assert "# All Analyzed Repositories" in content
+        assert "**Total repositories:** 2" in content
+        assert "February 2026" in content
+        assert "[user/popular-repo](https://github.com/user/popular-repo)" in content
+        # Verify sorting: higher stars should come first
+        popular_idx = content.index("popular-repo")
+        new_idx = content.index("new-repo")
+        assert popular_idx < new_idx
+    
+    def test_publish_comprehensive_articles_page(self):
+        """Test publishing comprehensive articles page."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = os.path.join(tmpdir, "outputs")
+            docs_dir = os.path.join(tmpdir, "docs")
+            os.makedirs(output_dir)
+            os.makedirs(docs_dir)
+            
+            # Create test results
+            results = [
+                {
+                    "source": "rss",
+                    "title": "Test Article",
+                    "url": "https://example.com/article",
+                    "published": "2026-02-10T10:00:00Z",
+                    "llm_applicability_score": 0.90,
+                    "llm_credibility_score": 0.85
+                }
+            ]
+            
+            with open(os.path.join(output_dir, "results_20260210_000000.json"), 'w') as f:
+                json.dump(results, f)
+            
+            # Publish comprehensive articles page
+            path = publish_comprehensive_articles_page(output_dir, docs_dir)
+            
+            assert path is not None
+            assert os.path.exists(path)
+            assert path == os.path.join(docs_dir, "articles.md")
+            
+            with open(path, 'r') as f:
+                content = f.read()
+            
+            assert "# All Analyzed Articles" in content
+            assert "[Test Article](https://example.com/article)" in content
+    
+    def test_publish_comprehensive_repositories_page(self):
+        """Test publishing comprehensive repositories page."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = os.path.join(tmpdir, "outputs")
+            docs_dir = os.path.join(tmpdir, "docs")
+            os.makedirs(output_dir)
+            os.makedirs(docs_dir)
+            
+            # Create test results
+            results = [
+                {
+                    "source": "github",
+                    "title": "user/test-repo",
+                    "url": "https://github.com/user/test-repo",
+                    "description": "Test repository",
+                    "stars": 100,
+                    "updated": "2026-02-10T10:00:00Z",
+                    "topic": "security"
+                }
+            ]
+            
+            with open(os.path.join(output_dir, "results_20260210_000000.json"), 'w') as f:
+                json.dump(results, f)
+            
+            # Publish comprehensive repositories page
+            path = publish_comprehensive_repositories_page(output_dir, docs_dir)
+            
+            assert path is not None
+            assert os.path.exists(path)
+            assert path == os.path.join(docs_dir, "repositories.md")
+            
+            with open(path, 'r') as f:
+                content = f.read()
+            
+            assert "# All Analyzed Repositories" in content
+            assert "[user/test-repo](https://github.com/user/test-repo)" in content
 
 
 if __name__ == "__main__":

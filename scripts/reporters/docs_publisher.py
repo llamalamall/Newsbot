@@ -389,114 +389,100 @@ def update_index_with_structured_content(
     timestamp: str,
     github_count: int,
     rss_count: int,
-    article_entries: Optional[List[Dict[str, str]]] = None
+    article_entries: Optional[List[Dict[str, str]]] = None,
+    github_items: Optional[List[Dict[str, Any]]] = None
 ) -> None:
-    """Update index.md with structured links to repositories and articles.
+    """Update index.md with latest analysis summary and links to comprehensive pages.
     
     Args:
         docs_dir: Path to the docs directory
         timestamp: Timestamp of the report (YYYYMMDD_HHMMSS format)
-        github_count: Number of GitHub repositories
-        rss_count: Number of RSS articles
-        article_entries: List of article metadata dictionaries
+        github_count: Number of GitHub repositories in latest run
+        rss_count: Number of RSS articles in latest run
+        article_entries: List of article metadata dictionaries from latest run
+        github_items: List of GitHub repository items from latest run
     """
     index_path = os.path.join(docs_dir, "index.md")
     
-    # Read existing index if it exists
-    if os.path.exists(index_path):
-        with open(index_path, 'r') as f:
-            index_content = f.read()
-    else:
-        # Create new index with header
-        index_content = """# Newsbot - Security News Aggregator
+    # Build the complete index content from scratch for latest analysis
+    index_content = """# Newsbot - Latest Analysis
 
-Welcome to the Newsbot documentation. This page provides access to all generated security news reports.
+This page shows the **most recent analysis** from Newsbot. For comprehensive historical data, see the links below.
 
-## About Newsbot
+## Comprehensive Archives
 
-Newsbot is an automated news aggregator that searches for the latest articles, announcements, repositories, and blog posts related to AI and automation in offensive security.
-
-### Features
-- **GitHub Repository Search**: Finds recently updated repositories with relevant topics
-- **RSS Feed Aggregation**: Monitors security blogs, research feeds, and official advisories
-- **Smart Article Deduplication**: Automatically detects and skips already analyzed articles
-- **LLM-Powered Assessment**: Uses AI to evaluate article applicability and credibility
-- **Automated Daily Updates**: Runs via GitHub Actions
-
-## Content
-
-### [GitHub Repositories](repositories.md)
-Browse all discovered GitHub repositories in a searchable table format.
-
-### [Rejected Articles](rejected.md)
-View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.
-
-## Latest Articles
+- **[All Articles](articles.md)** - Complete archive of all analyzed articles, organized by month
+- **[All Repositories](repositories.md)** - Complete archive of all analyzed repositories, organized by month
+- **[Rejected Articles](rejected.md)** - Articles that didn't meet relevance or credibility criteria
 
 """
     
-    # Ensure the Content section exists with repositories link and rejected articles link
-    if "## Content" not in index_content:
-        # Add content section before latest articles
-        if "## Latest Articles" in index_content or "## Latest Reports" in index_content:
-            parts = index_content.split("## Latest", 1)
-            header_section = parts[0]
-            remaining = "## Latest" + parts[1] if len(parts) > 1 else ""
-            
-            index_content = header_section + """## Content
-
-### [GitHub Repositories](repositories.md)
-Browse all discovered GitHub repositories in a searchable table format.
-
-### [Rejected Articles](rejected.md)
-View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.
-
-""" + remaining
-    elif "rejected.md" not in index_content:
-        # Add rejected articles link to existing Content section
-        if "### [GitHub Repositories](repositories.md)" in index_content:
-            index_content = index_content.replace(
-                "Browse all discovered GitHub repositories in a searchable table format.\n",
-                "Browse all discovered GitHub repositories in a searchable table format.\n\n"
-                "### [Rejected Articles](rejected.md)\n"
-                "View all articles that were evaluated but rejected from publication due to relevance or credibility criteria.\n"
-            )
-    
-    # Update or add articles section as a single merged table
+    # Add latest articles summary
     if article_entries and rss_count > 0:
-        articles_section = "## Latest Articles\n\n"
-        articles_section += f"*{rss_count} article{'s' if rss_count != 1 else ''} total*\n\n"
-        articles_section += "| Source | Updated | Applicability | Credibility | Title |\n"
-        articles_section += "|--------|---------|--------------|-------------|-------|\n"
-        articles_section += generate_article_table_rows(article_entries)
-
-        if "## Latest Articles" in index_content:
-            before, after = index_content.split("## Latest Articles", 1)
-            next_header_idx = after.find("\n## ")
-            footer_idx = after.find("\n---")
-            cut_points = [idx for idx in [next_header_idx, footer_idx] if idx != -1]
-            cut = min(cut_points) if cut_points else len(after)
-            trailing = after[cut:] if cut < len(after) else ""
-            index_content = before + articles_section + trailing
-        elif "\n---" in index_content:
-            main_content, footer = index_content.rsplit("\n---", 1)
-            index_content = main_content.rstrip() + "\n\n" + articles_section + "\n---" + footer
-        else:
-            index_content = index_content.rstrip() + "\n\n" + articles_section
+        index_content += f"## Latest Articles\n\n"
+        index_content += f"*{rss_count} article{'s' if rss_count != 1 else ''} from most recent analysis*\n\n"
+        index_content += "| Source | Updated | Applicability | Credibility | Title |\n"
+        index_content += "|--------|---------|--------------|-------------|-------|\n"
+        index_content += generate_article_table_rows(article_entries)
+        index_content += "\n"
+        index_content += "[View all articles →](articles.md)\n\n"
+    else:
+        index_content += "## Latest Articles\n\n"
+        index_content += "*No articles in most recent analysis*\n\n"
     
-    # Ensure footer exists
-    if "[View on GitHub]" not in index_content:
-        if not index_content.endswith('\n'):
-            index_content += '\n'
-        index_content += "\n---\n\n[View on GitHub](https://github.com/llamalamall/Newsbot)\n"
+    # Add latest repositories summary
+    if github_items and github_count > 0:
+        index_content += f"## Latest Repositories\n\n"
+        index_content += f"*{github_count} repositor{'ies' if github_count != 1 else 'y'} from most recent analysis*\n\n"
+        index_content += "| Repository | Description | Stars | Updated | Topic |\n"
+        index_content += "|------------|-------------|-------|---------|-------|\n"
+        
+        # Sort by stars
+        sorted_repos = sorted(github_items, key=lambda x: x.get("stars", 0), reverse=True)
+        
+        for repo in sorted_repos:
+            title = repo.get("title", "Unknown")
+            url = repo.get("url", "")
+            description = repo.get("description", "")
+            stars = repo.get("stars", 0)
+            updated = repo.get("updated", "")
+            topic = repo.get("topic", "N/A")
+            
+            # Escape pipe characters and truncate
+            if description:
+                description = description.replace('|', '\\|')
+                if len(description) > 100:
+                    description = description[:97] + "..."
+            
+            # Create title link
+            if url:
+                title_link = f"[{title}]({url})"
+            else:
+                title_link = title
+            
+            # Format date
+            date_str = format_date_only(updated)
+            
+            index_content += f"| {title_link} | {description} | {stars} | {date_str} | {topic} |\n"
+        
+        index_content += "\n"
+        index_content += "[View all repositories →](repositories.md)\n\n"
+    else:
+        index_content += "## Latest Repositories\n\n"
+        index_content += "*No repositories in most recent analysis*\n\n"
     
+    # Add footer
+    index_content += "---\n\n"
+    index_content += "[View on GitHub](https://github.com/llamalamall/Newsbot)\n"
+    
+    # Add front matter
     index_content = ensure_index_front_matter(index_content)
 
     # Write updated index
     with open(index_path, 'w') as f:
         f.write(index_content)
     
-    logging.info(f"Updated docs/index.md with structured content")
+    logging.info(f"Updated docs/index.md with latest analysis summary")
 
 
 def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
@@ -515,23 +501,30 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
     # Initialize docs directory
     initialize_docs_directory(docs_dir)
     
-    # Separate GitHub repos and RSS articles
+    # Separate GitHub repos and RSS articles from latest run
     github_items = [r for r in results if r.get("source") == "github"]
     rss_items = [r for r in results if r.get("source") == "rss"]
     
     published_files = {
         "repositories": None,
         "articles": [],
+        "comprehensive_articles": None,
+        "comprehensive_repositories": None,
         "rejected": None,
         "index": os.path.join(docs_dir, "index.md")
     }
     
-    # Publish repositories page
-    if github_items:
-        repos_path = publish_repositories_page(github_items, docs_dir)
-        published_files["repositories"] = repos_path
+    # Publish comprehensive articles page (ALL articles from output_dir)
+    comprehensive_articles_path = publish_comprehensive_articles_page(output_dir, docs_dir)
+    if comprehensive_articles_path:
+        published_files["comprehensive_articles"] = comprehensive_articles_path
     
-    # Publish individual article pages
+    # Publish comprehensive repositories page (ALL repositories from output_dir)
+    comprehensive_repos_path = publish_comprehensive_repositories_page(output_dir, docs_dir)
+    if comprehensive_repos_path:
+        published_files["comprehensive_repositories"] = comprehensive_repos_path
+    
+    # Publish individual article pages for latest run
     article_entries: List[Dict[str, str]] = []
     if rss_items:
         article_entries = publish_rss_article_pages(rss_items, timestamp, docs_dir)
@@ -542,11 +535,12 @@ def publish_structured_docs(results: List[Dict[str, Any]], timestamp: str,
     if rejected_path:
         published_files["rejected"] = rejected_path
     
-    # Update index with structured content
+    # Update index with latest analysis summary
     update_index_with_structured_content(
         docs_dir, timestamp, 
         len(github_items), len(rss_items),
-        article_entries
+        article_entries,
+        github_items
     )
     
     return published_files
@@ -706,6 +700,452 @@ def publish_rejected_articles_page(output_dir: str = "outputs", docs_dir: str = 
         return rejected_path
     except IOError as e:
         logging.error(f"Failed to publish rejected articles page: {e}")
+        return None
+
+
+def load_all_analyzed_articles(output_dir: str = "outputs") -> List[Dict[str, Any]]:
+    """Load all analyzed articles from results_*.json files.
+    
+    This function loads ALL articles without using skip_analyzed logic,
+    as it's meant to create a comprehensive historical record.
+    
+    Args:
+        output_dir: Directory containing results_*.json files
+        
+    Returns:
+        List of all analyzed articles from all results files
+    """
+    all_articles = []
+    
+    if not os.path.exists(output_dir):
+        logging.warning(f"Output directory not found: {output_dir}")
+        return all_articles
+    
+    # Find all results JSON files
+    for filename in sorted(os.listdir(output_dir)):
+        if filename.startswith("results_") and filename.endswith(".json"):
+            filepath = os.path.join(output_dir, filename)
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        # Filter for RSS articles only
+                        rss_articles = [item for item in data if item.get("source") == "rss"]
+                        all_articles.extend(rss_articles)
+                        logging.info(f"Loaded {len(rss_articles)} articles from {filename}")
+            except (json.JSONDecodeError, IOError) as e:
+                logging.warning(f"Could not read articles from {filename}: {e}")
+    
+    logging.info(f"Total analyzed articles loaded: {len(all_articles)}")
+    return all_articles
+
+
+def load_all_analyzed_repositories(output_dir: str = "outputs") -> List[Dict[str, Any]]:
+    """Load all analyzed repositories from results_*.json files.
+    
+    This function loads ALL repositories without using skip_analyzed logic,
+    as it's meant to create a comprehensive historical record.
+    
+    Args:
+        output_dir: Directory containing results_*.json files
+        
+    Returns:
+        List of all analyzed repositories from all results files
+    """
+    all_repositories = []
+    
+    if not os.path.exists(output_dir):
+        logging.warning(f"Output directory not found: {output_dir}")
+        return all_repositories
+    
+    # Find all results JSON files
+    for filename in sorted(os.listdir(output_dir)):
+        if filename.startswith("results_") and filename.endswith(".json"):
+            filepath = os.path.join(output_dir, filename)
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        # Filter for GitHub repositories only
+                        github_repos = [item for item in data if item.get("source") == "github"]
+                        all_repositories.extend(github_repos)
+                        logging.info(f"Loaded {len(github_repos)} repositories from {filename}")
+            except (json.JSONDecodeError, IOError) as e:
+                logging.warning(f"Could not read repositories from {filename}: {e}")
+    
+    logging.info(f"Total analyzed repositories loaded: {len(all_repositories)}")
+    return all_repositories
+
+
+def group_articles_by_month(articles: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+    """Group articles by month based on their published date.
+    
+    Args:
+        articles: List of article dictionaries
+        
+    Returns:
+        Dictionary with month strings as keys (e.g., "2026-02") and lists of articles as values
+    """
+    from collections import defaultdict
+    from email.utils import parsedate_to_datetime
+    
+    grouped = defaultdict(list)
+    
+    for article in articles:
+        published = article.get("published") or article.get("updated")
+        if not published:
+            grouped["Unknown"].append(article)
+            continue
+        
+        try:
+            # Parse the date
+            if isinstance(published, str):
+                if "T" in published:
+                    dt = datetime.fromisoformat(published.replace("Z", "+00:00"))
+                else:
+                    dt = parsedate_to_datetime(published)
+                
+                month_key = dt.strftime("%Y-%m")
+                grouped[month_key].append(article)
+            else:
+                grouped["Unknown"].append(article)
+        except (TypeError, ValueError) as e:
+            logging.warning(f"Could not parse date '{published}': {e}")
+            grouped["Unknown"].append(article)
+    
+    return dict(grouped)
+
+
+def group_repositories_by_month(repositories: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+    """Group repositories by month based on their updated date.
+    
+    Args:
+        repositories: List of repository dictionaries
+        
+    Returns:
+        Dictionary with month strings as keys (e.g., "2026-02") and lists of repositories as values
+    """
+    from collections import defaultdict
+    
+    grouped = defaultdict(list)
+    
+    for repo in repositories:
+        updated = repo.get("updated")
+        if not updated:
+            grouped["Unknown"].append(repo)
+            continue
+        
+        try:
+            # Parse the date
+            if isinstance(updated, str):
+                dt = datetime.fromisoformat(updated.replace("Z", "+00:00"))
+                month_key = dt.strftime("%Y-%m")
+                grouped[month_key].append(repo)
+            else:
+                grouped["Unknown"].append(repo)
+        except (TypeError, ValueError) as e:
+            logging.warning(f"Could not parse date '{updated}': {e}")
+            grouped["Unknown"].append(repo)
+    
+    return dict(grouped)
+
+
+def generate_comprehensive_articles_page(articles: List[Dict[str, Any]]) -> str:
+    """Generate the comprehensive articles page with all articles organized by month.
+    
+    Args:
+        articles: List of all analyzed article dictionaries
+        
+    Returns:
+        Markdown content for the comprehensive articles page
+    """
+    from email.utils import parsedate_to_datetime
+    
+    content = """# All Analyzed Articles
+
+This page contains **all articles ever analyzed** by Newsbot, organized by month.
+
+"""
+    
+    if not articles:
+        content += "*No articles found.*\n"
+        return content
+    
+    # Group articles by month
+    grouped = group_articles_by_month(articles)
+    
+    # Sort months in reverse chronological order
+    sorted_months = sorted(grouped.keys(), reverse=True)
+    
+    # Add summary
+    content += f"**Total articles:** {len(articles)}\n\n"
+    content += f"**Months covered:** {len(sorted_months)}\n\n"
+    content += "[← Back to Index](index.md)\n\n"
+    content += "---\n\n"
+    
+    # Generate a table for each month
+    for month in sorted_months:
+        month_articles = grouped[month]
+        
+        # Format month header
+        if month != "Unknown":
+            try:
+                dt = datetime.strptime(month, "%Y-%m")
+                month_display = dt.strftime("%B %Y")
+            except ValueError:
+                month_display = month
+        else:
+            month_display = "Unknown Date"
+        
+        content += f"## {month_display}\n\n"
+        content += f"*{len(month_articles)} article{'s' if len(month_articles) != 1 else ''}*\n\n"
+        
+        # Sort articles by applicability score (descending), then by date (descending)
+        def sort_key(article):
+            # Primary sort: applicability score (higher first)
+            applicability = article.get("llm_applicability_score", 0)
+            
+            # Secondary sort: date (newer first)
+            published = article.get("published") or article.get("updated")
+            try:
+                if published:
+                    if isinstance(published, str):
+                        if "T" in published:
+                            dt = datetime.fromisoformat(published.replace("Z", "+00:00"))
+                        else:
+                            dt = parsedate_to_datetime(published)
+                        date_val = dt
+                    else:
+                        date_val = datetime.min
+                else:
+                    date_val = datetime.min
+            except (TypeError, ValueError):
+                date_val = datetime.min
+            
+            return (-applicability, -date_val.timestamp() if date_val != datetime.min else 0)
+        
+        sorted_articles = sorted(month_articles, key=sort_key)
+        
+        # Generate table
+        content += "| Source | Date | Applicability | Credibility | Title |\n"
+        content += "|--------|------|--------------|-------------|-------|\n"
+        
+        for article in sorted_articles:
+            # Extract domain
+            domain = extract_domain_from_url(article.get("url", ""))
+            
+            # Get scores
+            applicability = article.get("llm_applicability_score", 0)
+            credibility = article.get("llm_credibility_score", 0)
+            
+            # Get title and URL
+            title = article.get("title", "Untitled Article")
+            url = article.get("url", "")
+            
+            # Escape pipe characters
+            title = title.replace('|', '\\|')
+            
+            # Create title link
+            if url:
+                title_link = f"[{title}]({url})"
+            else:
+                title_link = title
+            
+            # Get date
+            published_raw = article.get("published") or article.get("updated")
+            date_str = format_date_only(published_raw)
+            
+            content += f"| {domain} | {date_str} | {applicability:.2f} | {credibility:.2f} | {title_link} |\n"
+        
+        content += "\n"
+    
+    content += "---\n\n"
+    content += "[← Back to Index](index.md)\n"
+    
+    return content
+
+
+def generate_comprehensive_repositories_page(repositories: List[Dict[str, Any]]) -> str:
+    """Generate the comprehensive repositories page with all repos organized by month.
+    
+    Args:
+        repositories: List of all analyzed repository dictionaries
+        
+    Returns:
+        Markdown content for the comprehensive repositories page
+    """
+    content = """# All Analyzed Repositories
+
+This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
+
+"""
+    
+    if not repositories:
+        content += "*No repositories found.*\n"
+        return content
+    
+    # Group repositories by month
+    grouped = group_repositories_by_month(repositories)
+    
+    # Sort months in reverse chronological order
+    sorted_months = sorted(grouped.keys(), reverse=True)
+    
+    # Add summary
+    content += f"**Total repositories:** {len(repositories)}\n\n"
+    content += f"**Months covered:** {len(sorted_months)}\n\n"
+    content += "[← Back to Index](index.md)\n\n"
+    content += "---\n\n"
+    
+    # Generate a table for each month
+    for month in sorted_months:
+        month_repos = grouped[month]
+        
+        # Format month header
+        if month != "Unknown":
+            try:
+                dt = datetime.strptime(month, "%Y-%m")
+                month_display = dt.strftime("%B %Y")
+            except ValueError:
+                month_display = month
+        else:
+            month_display = "Unknown Date"
+        
+        content += f"## {month_display}\n\n"
+        content += f"*{len(month_repos)} repositor{'ies' if len(month_repos) != 1 else 'y'}*\n\n"
+        
+        # Sort repositories by star count (descending), then by updated date (descending)
+        def sort_key(repo):
+            # Primary sort: stars (higher first)
+            stars = repo.get("stars", 0)
+            
+            # Secondary sort: date (newer first)
+            updated = repo.get("updated")
+            try:
+                if updated:
+                    if isinstance(updated, str):
+                        dt = datetime.fromisoformat(updated.replace("Z", "+00:00"))
+                        date_val = dt
+                    else:
+                        date_val = datetime.min
+                else:
+                    date_val = datetime.min
+            except (TypeError, ValueError):
+                date_val = datetime.min
+            
+            return (-stars, -date_val.timestamp() if date_val != datetime.min else 0)
+        
+        sorted_repos = sorted(month_repos, key=sort_key)
+        
+        # Generate table
+        content += "| Repository | Description | Stars | Updated | Topic |\n"
+        content += "|------------|-------------|-------|---------|-------|\n"
+        
+        for repo in sorted_repos:
+            # Get repository info
+            title = repo.get("title", "Unknown")
+            url = repo.get("url", "")
+            description = repo.get("description", "")
+            stars = repo.get("stars", 0)
+            updated = repo.get("updated", "")
+            topic = repo.get("topic", "N/A")
+            
+            # Escape pipe characters
+            if description:
+                description = description.replace('|', '\\|')
+                # Truncate long descriptions
+                if len(description) > 100:
+                    description = description[:97] + "..."
+            
+            # Create title link
+            if url:
+                title_link = f"[{title}]({url})"
+            else:
+                title_link = title
+            
+            # Format date
+            date_str = format_date_only(updated)
+            
+            content += f"| {title_link} | {description} | {stars} | {date_str} | {topic} |\n"
+        
+        content += "\n"
+    
+    content += "---\n\n"
+    content += "[← Back to Index](index.md)\n"
+    
+    return content
+
+
+def publish_comprehensive_articles_page(output_dir: str = "outputs", docs_dir: str = "docs") -> Optional[str]:
+    """Publish the comprehensive articles page to docs.
+    
+    This page contains ALL articles ever analyzed, without skip_analyzed logic.
+    
+    Args:
+        output_dir: Directory containing results_*.json files
+        docs_dir: Target docs directory
+        
+    Returns:
+        Path to the published articles page, or None if failed
+    """
+    # Load all analyzed articles (no skip_analyzed)
+    all_articles = load_all_analyzed_articles(output_dir)
+    
+    if not all_articles:
+        logging.warning("No articles found, creating empty articles page")
+    
+    # Generate page content
+    page_content = generate_comprehensive_articles_page(all_articles)
+    
+    # Add front matter
+    formatted_content = "---\nlayout: default\ntitle: All Analyzed Articles\n---\n\n"
+    formatted_content += page_content
+    
+    # Write to docs directory
+    articles_path = os.path.join(docs_dir, "articles.md")
+    try:
+        with open(articles_path, 'w', encoding='utf-8') as f:
+            f.write(formatted_content)
+        logging.info(f"Published comprehensive articles page to: {articles_path}")
+        return articles_path
+    except IOError as e:
+        logging.error(f"Failed to publish comprehensive articles page: {e}")
+        return None
+
+
+def publish_comprehensive_repositories_page(output_dir: str = "outputs", docs_dir: str = "docs") -> Optional[str]:
+    """Publish the comprehensive repositories page to docs.
+    
+    This page contains ALL repositories ever analyzed, without skip_analyzed logic.
+    
+    Args:
+        output_dir: Directory containing results_*.json files
+        docs_dir: Target docs directory
+        
+    Returns:
+        Path to the published repositories page, or None if failed
+    """
+    # Load all analyzed repositories (no skip_analyzed)
+    all_repositories = load_all_analyzed_repositories(output_dir)
+    
+    if not all_repositories:
+        logging.warning("No repositories found, creating empty repositories page")
+    
+    # Generate page content
+    page_content = generate_comprehensive_repositories_page(all_repositories)
+    
+    # Add front matter
+    formatted_content = "---\nlayout: default\ntitle: All Analyzed Repositories\n---\n\n"
+    formatted_content += page_content
+    
+    # Write to docs directory
+    repos_path = os.path.join(docs_dir, "repositories.md")
+    try:
+        with open(repos_path, 'w', encoding='utf-8') as f:
+            f.write(formatted_content)
+        logging.info(f"Published comprehensive repositories page to: {repos_path}")
+        return repos_path
+    except IOError as e:
+        logging.error(f"Failed to publish comprehensive repositories page: {e}")
         return None
 
 
