@@ -7,7 +7,7 @@
   "rss_enabled": true,
   "rss_feeds_file": "rss_feeds.json",
   "rss_settings": {
-    "max_age_days": 14,
+    "max_age_days": 7,
     "min_keyword_matches": 1,
     "cache_enabled": true,
     "cache_ttl_hours": 6,
