@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 10
+**Total repositories:** 11
 
 **Months covered:** 1
 
@@ -17,7 +17,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*10 repositories*
+*11 repositories*
 
 | Repository | Description | Stars | Updated | Topic |
 |------------|-------------|-------|---------|-------|
@@ -25,6 +25,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [future-architect/vuls](https://github.com/future-architect/vuls) | Agent-less vulnerability scanner for Linux, FreeBSD, Container, WordPress, Programming language l... | 12046 | 2026-02-16 | security-automation |
 | [CERT-Polska/drakvuf-sandbox](https://github.com/CERT-Polska/drakvuf-sandbox) | DRAKVUF Sandbox - automated hypervisor-level malware analysis system | 1264 | 2026-02-16 | malware-analysis |
 | [SHAdd0WTAka/Zen-Ai-Pentest](https://github.com/SHAdd0WTAka/Zen-Ai-Pentest) | 🛡⚔️AI-Powered Penetration Testing Framework with automated vulnerability scanning, multi-agent sy... | 191 | 2026-02-16 | penetration-testing |
+| [jtang613/BinAssist](https://github.com/jtang613/BinAssist) | Binary Ninja plugin to provide LLM assistance analyzing binaries. | 49 | 2026-02-16 | reverse-engineering |
 | [Vortalitys/PrivHunterAI-detects-access-vulnerabilities](https://github.com/Vortalitys/PrivHunterAI-detects-access-vulnerabilities) | A tool that detects unauthorized access vulnerabilities through passive proxies, leveraging mains... | 11 | 2026-02-16 | ai-security |
 | [exjskdjsdfks/pentest-mcp-server](https://github.com/exjskdjsdfks/pentest-mcp-server) | ⚙️ Enable AI agents to conduct autonomous penetration testing on any Linux distribution with a pe... | 7 | 2026-02-16 | penetration-testing |
 | [AltairaLabs/PromptKit](https://github.com/AltairaLabs/PromptKit) | Test, red-team, and deploy LLM applications with confidence. Multi-provider support (OpenAI, Anth... | 7 | 2026-02-16 | red-team |
