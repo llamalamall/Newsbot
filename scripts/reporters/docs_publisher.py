@@ -437,8 +437,8 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
         index_content += "| Repository | Description | Stars | Applicability | Updated | Topic |\n"
         index_content += "|------------|-------------|-------|---------------|---------|-------|\n"
         
-        # Sort by stars
-        sorted_repos = sorted(github_items, key=lambda x: x.get("stars", 0), reverse=True)
+        # Sort by llm_applicability_score
+        sorted_repos = sorted(github_items, key=lambda x: x.get("llm_applicability_score", 0), reverse=True)
         
         for repo in sorted_repos:
             title = repo.get("title", "Unknown")
@@ -1016,8 +1016,8 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
         
         # Sort repositories by star count (descending), then by updated date (descending)
         def sort_key(repo):
-            # Primary sort: stars (higher first)
-            stars = repo.get("stars", 0)
+            # Primary sort: llm_applicability_score (higher first)
+            applicability = repo.get("llm_applicability_score", 0)
             
             # Secondary sort: date (newer first)
             updated = repo.get("updated")
@@ -1033,13 +1033,13 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
             except (TypeError, ValueError):
                 date_val = datetime.min
             
-            return (-stars, -date_val.timestamp() if date_val != datetime.min else 0)
+            return (-applicability, -date_val.timestamp() if date_val != datetime.min else 0)
         
         sorted_repos = sorted(month_repos, key=sort_key)
         
         # Generate table
-        content += "| Repository | Description | Stars | Updated | Topic |\n"
-        content += "|------------|-------------|-------|---------|-------|\n"
+        content += "| Repository | Description | Stars | Applicability | Updated | Topic |\n"
+        content += "|------------|-------------|-------|---------------|---------|-------|\n"
         
         for repo in sorted_repos:
             # Get repository info
@@ -1047,6 +1047,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
             url = repo.get("url", "")
             description = repo.get("description", "")
             stars = repo.get("stars", 0)
+            applicability = repo.get("llm_applicability_score", "N/A")
             updated = repo.get("updated", "")
             topic = repo.get("topic", "N/A")
             
@@ -1066,7 +1067,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
             # Format date
             date_str = format_date_only(updated)
             
-            content += f"| {title_link} | {description} | {stars} | {date_str} | {topic} |\n"
+            content += f"| {title_link} | {description} | {stars} | {applicability:.2f} | {date_str} | {topic} |\n"
         
         content += "\n"
     
