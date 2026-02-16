@@ -19,7 +19,14 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 ## Latest Repositories
 
-*No repositories in most recent analysis*
+*2 repositories from most recent analysis*
+
+| Repository | Description | Stars | Updated | Topic |
+|------------|-------------|-------|---------|-------|
+| [secwexen/aapp-mart](https://github.com/secwexen/aapp-mart) | AAPP-MART is an AI-driven multi-agent red team simulation engine for proactive security assessmen... | 2 | 2026-02-16 | security-automation |
+| [paolovella/vellaveto](https://github.com/paolovella/vellaveto) | Vellaveto — Runtime security engine for AI agent tool calls. MCP firewall with policy enforcement... | 1 | 2026-02-16 | ai-security |
+
+[View all repositories →](repositories.md)
 
 ---
 

@@ -1,0 +1,97 @@
+[
+  {
+    "title": "paolovella/vellaveto",
+    "url": "https://github.com/paolovella/vellaveto",
+    "description": "Vellaveto \u2014 Runtime security engine for AI agent tool calls. MCP firewall with policy enforcement, tamper-evident audit, and compliance.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-16T14:00:35+00:00",
+    "topic": "ai-security",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.8,
+    "llm_applicability_reason": "The repository explicitly mentions AI security and runtime policy enforcement, which aligns with AI/automation for offensive security.",
+    "llm_matched_keywords": [
+      "ai-security",
+      "llm-security",
+      "policy-engine",
+      "security-audit"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "The repository is recently updated and has a clear description, but it has very low stars, which slightly impacts credibility.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "ai-agents",
+      "ai-security",
+      "audit-log",
+      "firewall",
+      "llm-security",
+      "mcp",
+      "model-context-protocol",
+      "policy-engine",
+      "rust",
+      "tool-use",
+      "ai-safety",
+      "security",
+      "dlp",
+      "oauth",
+      "owasp",
+      "prometheus",
+      "siem",
+      "security-audit",
+      "compliance",
+      "eu-ai-act"
+    ]
+  },
+  {
+    "title": "secwexen/aapp-mart",
+    "url": "https://github.com/secwexen/aapp-mart",
+    "description": "AAPP-MART is an AI-driven multi-agent red team simulation engine for proactive security assessment. It enables automated attack path prediction, adversarial strategy simulation, and structured threat modeling via programmable CLI and API interfaces.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-16T14:02:25+00:00",
+    "topic": "security-automation",
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "The repository explicitly focuses on AI-driven red team simulation, automated attack path prediction, and adversarial strategy simulation, which are highly relevant to offensive security and automation.",
+    "llm_matched_keywords": [
+      "ai-red-team",
+      "red-team-simulation",
+      "attack-path-prediction",
+      "security-automation",
+      "penetration-testing"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.9,
+    "llm_credibility_reason": "The repository is actively maintained, has a clear and detailed description, and includes relevant topics, though it has relatively low stars.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "attack-graph",
+      "multi-agent-system",
+      "offensive-security",
+      "penetration-testing",
+      "python",
+      "attack-simulation",
+      "mitre-attack",
+      "ai-red-team",
+      "attack-path-prediction",
+      "red-team-simulation",
+      "blue-team",
+      "cybersecurity",
+      "ethical-hacking",
+      "machine-learning",
+      "open-source",
+      "cyber-range",
+      "cyber-risk",
+      "penetration-testing-tools",
+      "security-automation",
+      "threat-simulation"
+    ]
+  }
+]

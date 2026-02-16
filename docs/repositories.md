@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 122
+**Total repositories:** 124
 
 **Months covered:** 1
 
@@ -17,7 +17,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*122 repositories*
+*124 repositories*
 
 | Repository | Description | Stars | Updated | Topic |
 |------------|-------------|-------|---------|-------|
@@ -53,6 +53,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [clolomagico123/ai-security-lab](https://github.com/clolomagico123/ai-security-lab) | 🤖 Test and secure AI systems with advanced techniques for Large Language Models, including jailbr... | 3 | 2026-02-15 | offensive-security |
 | [clolomagico123/ai-security-lab](https://github.com/clolomagico123/ai-security-lab) | 🤖 Test and secure AI systems with advanced techniques for Large Language Models, including jailbr... | 3 | 2026-02-15 | ai-security |
 | [mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW](https://github.com/mwakidenis/UN-OFFICIAL-KPLC-TOKEN-HISTORY-VIEW) | Unofficial web tool and API for accessing Kenya Power (KPLC) prepaid token purchase history. Feat... | 3 | 2026-02-15 | reverse-engineering |
+| [secwexen/aapp-mart](https://github.com/secwexen/aapp-mart) | AAPP-MART is an AI-driven multi-agent red team simulation engine for proactive security assessmen... | 2 | 2026-02-16 | security-automation |
 | [arielyte/mischiever](https://github.com/arielyte/mischiever) | A high-performance offensive security framework engineered in C++. Features a custom modular arch... | 2 | 2026-02-15 | penetration-testing |
 | [GhostkillerMMIX/enterprise-soc-blueprint](https://github.com/GhostkillerMMIX/enterprise-soc-blueprint) | 🔍 Build a robust Security Operations Center (SOC) with this comprehensive blueprint, featuring Sp... | 2 | 2026-02-15 | security-automation |
 | [zlulalala/TAutoPentest](https://github.com/zlulalala/TAutoPentest) | 🔍 Automate security assessments with TAuto Pentest, an AI-driven tool that combines Nmap scanning... | 2 | 2026-02-15 | penetration-testing |
@@ -60,6 +61,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [secwexen/enterprise-attack-simulator](https://github.com/secwexen/enterprise-attack-simulator) | Enterprise Attack Simulator is a MITRE ATT&CK-based adversary simulation framework, providing cor... | 2 | 2026-02-15 | security-automation |
 | [ar157209/soc-roadmap-2026](https://github.com/ar157209/soc-roadmap-2026) | 🔒 Build your skills with the SOC Roadmap 2026, a complete training program for aspiring SOC analy... | 2 | 2026-02-15 | security-automation |
 | [TypicalShot/zenmap](https://github.com/TypicalShot/zenmap) | 🗂️ Memory-map large files efficiently with this cross-platform Zig library, featuring zero-copy a... | 2 | 2026-02-15 | security-automation |
+| [paolovella/vellaveto](https://github.com/paolovella/vellaveto) | Vellaveto — Runtime security engine for AI agent tool calls. MCP firewall with policy enforcement... | 1 | 2026-02-16 | ai-security |
 | [Rul1an/assay](https://github.com/Rul1an/assay) | Policy-as-Code for AI Agents. Deterministic testing, runtime enforcement, and verifiable evidence... | 1 | 2026-02-16 | ai-security |
 | [gubogushod/cyphisher](https://github.com/gubogushod/cyphisher) | 🔒 Educate and raise phishing awareness with Cyphisher, the advanced multi-platform framework for ... | 1 | 2026-02-16 | penetration-testing |
 | [gubogushod/cyphisher](https://github.com/gubogushod/cyphisher) | 🔒 Educate and raise phishing awareness with Cyphisher, the advanced multi-platform framework for ... | 1 | 2026-02-16 | red-team |
