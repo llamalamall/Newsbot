@@ -274,8 +274,11 @@ The `outputs/` directory is a **critical resource** containing previous analysis
 
 **Files Generated Per Run:**
 - `results_YYYYMMDD_HHMMSS.json` - Articles that passed LLM assessment (applicable and credible)
+  - Example: `results_20260215_174538.json`
 - `rejected_YYYYMMDD_HHMMSS.json` - Articles filtered out by LLM assessment
+  - Example: `rejected_20260215_174538.json`
 - `report_YYYYMMDD_HHMMSS.md` - Human-readable report
+  - Example: `report_20260215_174538.md`
 
 **What's Stored in JSON Files:**
 - Article URL (used as unique identifier)
