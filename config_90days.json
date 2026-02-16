@@ -2,7 +2,7 @@
   "search_keywords_file": "search_keywords.json",
   "github_topics_file": "github_topics.json",
   "days_back": 90,
-  "max_results_per_topic": 1000,
+  "max_results_per_topic": 25,
   "github_enabled": true,
   "rss_enabled": true,
   "rss_feeds_file": "rss_feeds.json",
