@@ -434,8 +434,8 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
     if github_items and github_count > 0:
         index_content += f"## Latest Repositories\n\n"
         index_content += f"*{github_count} repositor{'ies' if github_count != 1 else 'y'} from most recent analysis*\n\n"
-        index_content += "| Repository | Description | Stars | Updated | Topic |\n"
-        index_content += "|------------|-------------|-------|---------|-------|\n"
+        index_content += "| Repository | Description | Stars | Applicability | Updated | Topic |\n"
+        index_content += "|------------|-------------|-------|---------------|---------|-------|\n"
         
         # Sort by stars
         sorted_repos = sorted(github_items, key=lambda x: x.get("stars", 0), reverse=True)
@@ -447,7 +447,8 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
             stars = repo.get("stars", 0)
             updated = repo.get("updated", "")
             topic = repo.get("topic", "N/A")
-            
+            applicability = repo.get("llm_applicability_score", 0)
+
             # Escape pipe characters and truncate
             if description:
                 description = description.replace('|', '\\|')
@@ -463,7 +464,7 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
             # Format date
             date_str = format_date_only(updated)
             
-            index_content += f"| {title_link} | {description} | {stars} | {date_str} | {topic} |\n"
+            index_content += f"| {title_link} | {description} | {stars} | {applicability:.2f} {date_str} | {topic} |\n"
         
         index_content += "\n"
         index_content += "[View all repositories →](repositories.md)\n\n"
