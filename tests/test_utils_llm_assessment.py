@@ -31,7 +31,8 @@ from utils.llm_assessment import (
     assess_articles_batch,
     assess_repository_applicability,
     assess_repository_credibility,
-    assess_repositories_batch
+    assess_repositories_batch,
+    filter_titles_by_relevance
 )
 
 
@@ -1424,3 +1425,144 @@ class TestAssessRepositoriesBatch:
         assert results[1]["applicable"] is False
         assert results[1]["applicability_score"] == 0.3
         assert "low_stars" in results[1]["flags"]
+
+
+class TestFilterTitlesByRelevanceBatching:
+    """Test batched title filtering functionality."""
+    
+    def test_filter_titles_single_batch(self):
+        """Test title filtering with titles that fit in one batch."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Mock response with relevant indices
+        json_response = {"relevant_indices": [0, 2, 4]}
+        mock_message.content = json.dumps(json_response)
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        titles = [
+            "AI-powered penetration testing",
+            "Cloud computing basics",
+            "Machine learning for malware detection",
+            "Introduction to Python",
+            "Automated red team operations"
+        ]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "automation", "security"],
+            model=LLM_MODEL
+        )
+        
+        assert result == [0, 2, 4]
+        # Should make only 1 call for a small batch
+        assert mock_client.chat.completions.create.call_count == 1
+    
+    def test_filter_titles_multiple_batches(self):
+        """Test title filtering with titles requiring multiple batches."""
+        mock_client = Mock()
+        
+        # Create responses for 2 batches
+        # Batch 1: indices 0, 1 from first 3 titles
+        batch1_response = Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))])
+        # Batch 2: indices 1, 2 from next 3 titles (global indices 4, 5)
+        batch2_response = Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [1, 2]})))])
+        
+        mock_client.chat.completions.create.side_effect = [batch1_response, batch2_response]
+        
+        # Create 6 titles to test batching
+        titles = [
+            "AI security tool",
+            "Automated testing",
+            "Manual process",
+            "Cloud storage",
+            "ML-based detection",
+            "Automated exploitation"
+        ]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "automation"],
+            model=LLM_MODEL,
+            max_titles_per_batch=3  # Force 2 batches
+        )
+        
+        # Should return global indices: 0, 1 from batch 1, and 4, 5 from batch 2
+        assert sorted(result) == [0, 1, 4, 5]
+        # Should make 2 calls (one per batch)
+        assert mock_client.chat.completions.create.call_count == 2
+    
+    def test_filter_titles_empty_list(self):
+        """Test title filtering with empty list."""
+        mock_client = Mock()
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=[],
+            keywords=["AI"],
+            model=LLM_MODEL
+        )
+        
+        assert result == []
+        # Should not make any calls
+        mock_client.chat.completions.create.assert_not_called()
+    
+    def test_filter_titles_large_batch(self):
+        """Test that large number of titles are batched correctly."""
+        mock_client = Mock()
+        
+        # Create a large number of titles
+        num_titles = 120
+        titles = [f"Title {i}" for i in range(num_titles)]
+        
+        # Mock responses for each batch (using default batch size of 50)
+        # Expected: 3 batches (50, 50, 20)
+        batch_responses = [
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0, 1]})))]),
+            Mock(choices=[Mock(message=Mock(content=json.dumps({"relevant_indices": [0]})))])
+        ]
+        mock_client.chat.completions.create.side_effect = batch_responses
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI", "security"],
+            model=LLM_MODEL
+        )
+        
+        # Should make 3 calls (120 titles / 50 per batch = 2.4 -> 3 batches)
+        assert mock_client.chat.completions.create.call_count == 3
+        # Should return indices adjusted for batches: [0,1] from batch1, [50,51] from batch2, [100] from batch3
+        assert sorted(result) == [0, 1, 50, 51, 100]
+    
+    def test_filter_titles_handles_json_error(self):
+        """Test that title filtering handles JSON parsing errors gracefully."""
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_choice = Mock()
+        mock_message = Mock()
+        
+        # Return invalid JSON
+        mock_message.content = "Not valid JSON"
+        mock_choice.message = mock_message
+        mock_response.choices = [mock_choice]
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        titles = ["AI security", "Cloud computing"]
+        
+        result = filter_titles_by_relevance(
+            openai_client=mock_client,
+            titles=titles,
+            keywords=["AI"],
+            model=LLM_MODEL
+        )
+        
+        # Should return empty list on error
+        assert result == []

@@ -79,6 +79,12 @@ TOKEN_OVERHEAD = 500        # Extra tokens for prompt structure and formatting
 MIN_CONTENT_PREVIEW = 500   # Minimum chars for content preview (even in large batches)
 MAX_CONTENT_PREVIEW = 1000  # Maximum chars for content preview per article
 
+# Title filtering token budget constants
+# Target: Keep total context under 8000 tokens
+# Estimation: ~20 tokens per title on average, ~200 tokens for prompt/keywords, ~300 for response
+# Safe batch size: 50 titles = ~1000 tokens for titles + 500 overhead = ~1500 tokens total (well under 8000)
+MAX_TITLES_PER_BATCH = 50  # Maximum titles to filter in one LLM call
+
 
 def _handle_rate_limit(error: Exception) -> None:
     """Handle rate limit errors by checking status code and exiting if rate-limited.
@@ -396,15 +402,21 @@ def filter_titles_by_relevance(
     openai_client: OpenAI,
     titles: List[str],
     keywords: List[str],
-    model: str
+    model: str,
+    max_titles_per_batch: int = MAX_TITLES_PER_BATCH
 ) -> List[int]:
-    """Filter article titles for relevance using the LLM.
+    """Filter article titles for relevance using the LLM with batching.
+    
+    Processes titles in batches to stay within token limits (target: <8000 tokens).
+    Each title is estimated at ~20 tokens on average, and we reserve tokens
+    for the prompt, keywords, and response.
 
     Args:
         openai_client: OpenAI client configured for GitHub Models
         titles: List of article titles
         keywords: List of keywords from config to guide relevance
         model: LLM model to use
+        max_titles_per_batch: Maximum titles to process per batch (default: MAX_TITLES_PER_BATCH)
 
     Returns:
         List of indices for titles deemed relevant
@@ -419,6 +431,49 @@ def filter_titles_by_relevance(
     if not model:
         raise ValueError("LLM model must be provided for title filtering")
 
+    # Process titles in batches to stay within token limits
+    all_relevant_indices = []
+    num_batches = (len(titles) + max_titles_per_batch - 1) // max_titles_per_batch
+    
+    if num_batches > 1:
+        logging.info(f"Filtering {len(titles)} titles in {num_batches} batch(es) (max_titles_per_batch={max_titles_per_batch})")
+    
+    for batch_idx in range(num_batches):
+        start_idx = batch_idx * max_titles_per_batch
+        end_idx = min((batch_idx + 1) * max_titles_per_batch, len(titles))
+        batch_titles = titles[start_idx:end_idx]
+        
+        batch_relevant_indices = _filter_titles_batch_internal(
+            openai_client=openai_client,
+            titles=batch_titles,
+            keywords=keywords,
+            model=model,
+            start_offset=start_idx
+        )
+        all_relevant_indices.extend(batch_relevant_indices)
+    
+    return all_relevant_indices
+
+
+def _filter_titles_batch_internal(
+    openai_client: OpenAI,
+    titles: List[str],
+    keywords: List[str],
+    model: str,
+    start_offset: int = 0
+) -> List[int]:
+    """Internal function to filter a batch of titles with a single LLM call.
+    
+    Args:
+        openai_client: OpenAI client configured for GitHub Models
+        titles: List of article titles for this batch
+        keywords: List of keywords from config to guide relevance
+        model: LLM model to use
+        start_offset: Offset to add to indices (for batching)
+        
+    Returns:
+        List of global indices for titles deemed relevant
+    """
     try:
         keywords_str = ", ".join(keywords) if keywords else "AI/automation in offensive security"
         title_list = "\n".join([f"{idx}: {title}" for idx, title in enumerate(titles)])
@@ -431,11 +486,12 @@ def filter_titles_by_relevance(
         system_prompt = _load_prompt("filter_titles_by_relevance_system")
 
         logging.debug(
-            "Running LLM title filtering",
+            "Running LLM title filtering batch",
             extra={
                 "model": model,
                 "title_count": len(titles),
-                "keyword_count": len(keywords)
+                "keyword_count": len(keywords),
+                "start_offset": start_offset
             }
         )
 
@@ -466,10 +522,16 @@ def filter_titles_by_relevance(
         if not isinstance(indices, list):
             raise ValueError("LLM response 'relevant_indices' is not a list")
 
-        valid_indices = [idx for idx in indices if isinstance(idx, int) and 0 <= idx < len(titles)]
+        # Adjust indices to global positions
+        valid_indices = [
+            idx + start_offset 
+            for idx in indices 
+            if isinstance(idx, int) and 0 <= idx < len(titles)
+        ]
+        
         logging.debug(
-            "LLM title filter selected indices",
-            extra={"selected_count": len(valid_indices)}
+            "LLM title filter batch selected indices",
+            extra={"selected_count": len(valid_indices), "batch_size": len(titles)}
         )
         return valid_indices
 
