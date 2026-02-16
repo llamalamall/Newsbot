@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Froezens/Python-Blacklist-Breaker",
+    "url": "https://github.com/Froezens/Python-Blacklist-Breaker",
+    "description": "It is an automated Python virtual machine escape payload skipping framework that helps security researchers discover viable payload variants under strict character blacklist restrictions.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T14:42:32+00:00",
+    "topic": "reverse-engineering",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.95,
+    "llm_applicability_reason": "Repository explicitly targets offensive security (exploit development, sandbox bypass) and describes automation (automated payload generation, fuzzing) for security testing.",
+    "llm_matched_keywords": [
+      "offensive-security",
+      "exploit-development",
+      "fuzzing",
+      "payload-generation",
+      "automation"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "Recently updated and description is substantive and clear, but lacks stars and community validation.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "ast",
+      "cli-tool",
+      "code-analysis",
+      "ctf",
+      "exploit-development",
+      "fuzzing",
+      "obfuscation",
+      "offensive-security",
+      "payload-generation",
+      "python",
+      "reverse-engineering",
+      "sandbox-bypass",
+      "security",
+      "windows-security",
+      "bypass-framework",
+      "payload-minimization",
+      "unicode-bypass"
+    ]
+  },
+  {
+    "title": "future-architect/vuls",
+    "url": "https://github.com/future-architect/vuls",
+    "description": "Agent-less vulnerability scanner for Linux, FreeBSD, Container, WordPress, Programming language libraries, Network devices",
+    "source": "github",
+    "credibility": null,
+    "stars": 12046,
+    "updated": "2026-02-16T14:45:01+00:00",
+    "topic": "security-automation",
+    "llm_applicable": false,
+    "llm_applicability_score": 0.6,
+    "llm_applicability_reason": "Automates vulnerability scanning but does not mention AI, ML, or fuzzing; automation is present but not AI/ML-based as required.",
+    "llm_matched_keywords": [
+      "vulnerability-scanner",
+      "security-automation",
+      "vulnerability-detection"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 1.0,
+    "llm_credibility_reason": "Very high star count, active maintenance, and substantive description; widely recognized tool.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "vuls",
+      "vulnerability-scanners",
+      "golang",
+      "go",
+      "linux",
+      "freebsd",
+      "vulnerability-detection",
+      "security",
+      "security-tools",
+      "cybersecurity",
+      "security-vulnerability",
+      "security-scanner",
+      "security-hardening",
+      "security-automation",
+      "security-audit",
+      "vulnerability-assessment",
+      "vulnerability-management",
+      "vulnerability-scanner",
+      "vulnerabilities",
+      "administrator"
+    ]
+  },
+  {
+    "title": "KeygraphHQ/shannon",
+    "url": "https://github.com/KeygraphHQ/shannon",
+    "description": "Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15% success rate on the hint-free, source-aware XBOW Benchmark.",
+    "source": "github",
+    "credibility": null,
+    "stars": 22666,
+    "updated": "2026-02-16T14:46:38+00:00",
+    "topic": "security-automation",
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "The repository explicitly describes itself as a 'fully autonomous AI hacker' for finding exploits in web applications, indicating both offensive security relevance and the use of AI and automation. Topics such as 'penetration-testing' and 'security-automation' further support this.",
+    "llm_matched_keywords": [
+      "penetration-testing",
+      "security-automation",
+      "AI",
+      "autonomous",
+      "exploit"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.98,
+    "llm_credibility_reason": "The repository has a clear and substantive description, is highly starred (22,666 stars), and was updated recently (2026-02-16), indicating active maintenance and strong community validation. The topics and description suggest it is a serious security tool.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "penetration-testing",
+      "pentesting",
+      "security-audit",
+      "security-automation",
+      "security-tools"
+    ]
+  }
+]
