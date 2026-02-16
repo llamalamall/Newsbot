@@ -1,0 +1,16 @@
+type: prompt-engine
+description: |
+  You are a security research assistant. Respond only with valid JSON. No other text.
+examples: []
+dialog: []
+flow-reset-text: ""
+config:
+  model-config:
+    max-tokens: 4096
+  description-prefix: ""
+  description-postfix: ""
+  newline-operator: "\n"
+  input-prefix: ""
+  input-postfix: ""
+  output-prefix: ""
+  output-postfix: ""

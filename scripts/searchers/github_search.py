@@ -5,7 +5,7 @@ Searches for relevant repositories based on topics and filters.
 
 import logging
 from datetime import datetime, timedelta
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 from github import Github, Auth
 
 # Import dataclass models
@@ -16,6 +16,7 @@ try:
         get_llm_call_count,
         reset_llm_call_count
     )
+    from ..utils.article_cache import generate_article_id
 except ImportError:
     # Fallback for direct execution
     import sys
@@ -29,6 +30,7 @@ except ImportError:
         get_llm_call_count,
         reset_llm_call_count
     )
+    from utils.article_cache import generate_article_id
 
 
 AI_KEYWORDS = [
@@ -50,7 +52,8 @@ def search_github_repos(
     rejected_results: Optional[List[Dict[str, Any]]] = None,
     openai_client=None,
     config: Optional[Dict[str, Any]] = None,
-    keywords: Optional[List[str]] = None
+    keywords: Optional[List[str]] = None,
+    analyzed_ids: Optional[Set[str]] = None
 ) -> List[Dict[str, Any]]:
     """Search GitHub for relevant repositories.
     
@@ -63,6 +66,7 @@ def search_github_repos(
         openai_client: Optional OpenAI client for LLM assessment
         config: Optional configuration dictionary containing llm_assessment settings
         keywords: Optional list of keywords for LLM assessment
+        analyzed_ids: Optional set of previously analyzed repository IDs to skip
         
     Returns:
         List of repository dictionaries with metadata
@@ -147,9 +151,26 @@ def search_github_repos(
         
         logging.info(f"Found {len(results)} repositories matching AI/automation keywords")
         
+        # Skip repositories already analyzed (reduces unnecessary LLM calls)
+        if analyzed_ids:
+            filtered_results = []
+            skipped_count = 0
+            for repo in results:
+                repo_id = generate_article_id(repo)
+                if repo_id and repo_id in analyzed_ids:
+                    skipped_count += 1
+                    logging.debug(f"Skipping already analyzed repository: {repo.get('title', 'Untitled')}")
+                else:
+                    filtered_results.append(repo)
+            
+            if skipped_count > 0:
+                logging.info(f"Skipped {skipped_count} previously analyzed repository/repositories before LLM assessment")
+            results = filtered_results
+        
         # Apply LLM assessment if enabled
         if llm_enabled and results and openai_client:
-            logging.info(f"Running LLM assessment on {len(results)} repositories...")
+            num_batches = (len(results) + batch_size - 1) // batch_size
+            logging.info(f"Running batch LLM assessment for {len(results)} repositories in {num_batches} batch(es) (batch_size={batch_size})...")
             
             # Batch assess repositories
             assessment_keywords = keywords if keywords else []

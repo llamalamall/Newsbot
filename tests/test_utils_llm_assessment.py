@@ -1351,3 +1351,76 @@ class TestAssessRepositoriesBatch:
         assert results[0]["credibility_score"] == 0.85
         # Should make 2 calls (one for applicability, one for credibility)
         assert mock_client.chat.completions.create.call_count == 2
+    
+    def test_batch_repository_assessment_multiple_repos_batched(self):
+        """Test batch assessment processes multiple repositories in a single LLM call."""
+        mock_client = Mock()
+        
+        # Mock batch response for 2 repositories
+        batch_response = [
+            {
+                "applicable": True,
+                "applicability_score": 0.9,
+                "applicability_reason": "AI-powered security tool",
+                "matched_keywords": ["AI", "security"],
+                "credible": True,
+                "credibility_score": 0.85,
+                "credibility_reason": "Well-maintained with community validation",
+                "flags": []
+            },
+            {
+                "applicable": False,
+                "applicability_score": 0.3,
+                "applicability_reason": "Lacks AI/automation component",
+                "matched_keywords": ["security"],
+                "credible": True,
+                "credibility_score": 0.7,
+                "credibility_reason": "Active but modest stars",
+                "flags": ["low_stars"]
+            }
+        ]
+        
+        mock_client.chat.completions.create.return_value = Mock(
+            choices=[Mock(message=Mock(content=json.dumps(batch_response)))]
+        )
+        
+        repos = [
+            {
+                "title": "user/ai-security-tool",
+                "description": "AI-powered security testing framework",
+                "url": "https://github.com/user/ai-security-tool",
+                "stars": 500,
+                "updated": "2024-02-15T00:00:00Z",
+                "topics": ["ai", "security", "testing"]
+            },
+            {
+                "title": "user/manual-tool",
+                "description": "Manual security testing toolkit",
+                "url": "https://github.com/user/manual-tool",
+                "stars": 50,
+                "updated": "2024-02-10T00:00:00Z",
+                "topics": ["security", "testing"]
+            }
+        ]
+        
+        results = assess_repositories_batch(
+            openai_client=mock_client,
+            repositories=repos,
+            keywords=["AI", "security", "automation"],
+            model=LLM_MODEL,
+            batch_size=5  # Large enough to process both in one batch
+        )
+        
+        assert len(results) == 2
+        # Should make only 1 call for batch of 2
+        assert mock_client.chat.completions.create.call_count == 1
+        
+        # Verify first repository results
+        assert results[0]["applicable"] is True
+        assert results[0]["applicability_score"] == 0.9
+        assert "AI" in results[0]["matched_keywords"]
+        
+        # Verify second repository results
+        assert results[1]["applicable"] is False
+        assert results[1]["applicability_score"] == 0.3
+        assert "low_stars" in results[1]["flags"]
