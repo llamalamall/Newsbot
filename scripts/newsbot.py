@@ -384,7 +384,7 @@ def main():
     except json.JSONDecodeError as e:
         logging.error(f"Invalid JSON in configuration file: {e}")
         sys.exit(1)
-    
+    logging.info(f"Using cinfig: {args.config}")
     # Aggregate news (passing output_dir for deduplication)
     results = bot.aggregate_news(output_dir=args.output_dir)
     rejected_results = getattr(bot, "rejected_results", [])
