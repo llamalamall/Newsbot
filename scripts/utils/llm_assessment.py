@@ -82,8 +82,8 @@ MAX_CONTENT_PREVIEW = 1000  # Maximum chars for content preview per article
 # Title filtering token budget constants
 # Target: Keep total context under 8000 tokens
 # Estimation: ~20 tokens per title on average, ~200 tokens for prompt/keywords, ~300 for response
-# Safe batch size: 50 titles = ~1000 tokens for titles + 500 overhead = ~1500 tokens total (well under 8000)
-MAX_TITLES_PER_BATCH = 50  # Maximum titles to filter in one LLM call
+# Safe batch size: 150 titles = ~3000 tokens for titles + 1500 overhead = ~4500 tokens total (well under 8000)
+MAX_TITLES_PER_BATCH = 150  # Maximum titles to filter in one LLM call
 
 
 def _handle_rate_limit(error: Exception) -> None:
