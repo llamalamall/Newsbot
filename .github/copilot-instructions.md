@@ -233,7 +233,7 @@ if new_articles and llm_assessment_enabled:
 - The codebase tracks LLM calls via `get_llm_call_count()`
 - Logs display "Total LLM calls" at the end of each search operation
 - **When debugging or testing:** Check this count to verify caching is working
-- **Expected behavior:** Re-running on same data should result in ~0 LLM calls
+- **Expected behavior:** Re-running on same data should result in zero LLM calls
 
 ## Contributing
 
