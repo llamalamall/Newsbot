@@ -1,0 +1,222 @@
+[
+  {
+    "title": "venom4044/Web-Vulnerability-Attack-Defense-and-Patch-Experimentation-on-the-RailsGoat-Application",
+    "url": "https://github.com/venom4044/Web-Vulnerability-Attack-Defense-and-Patch-Experimentation-on-the-RailsGoat-Application",
+    "description": "\ud83d\udee1\ufe0f Reproduce SQL Injection and XSS issues in RailsGoat, then implement secure patches and verification methods to enhance application security.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:52:46+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "dagule/blackarch-i3-kvm-setup",
+    "url": "https://github.com/dagule/blackarch-i3-kvm-setup",
+    "description": "\ud83d\udc27 Automate your BlackArch Linux setup with i3 tiling window manager and KVM virtualization for seamless penetration testing and security research.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:52:40+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "murad-bakirov/BugHunter-AI",
+    "url": "https://github.com/murad-bakirov/BugHunter-AI",
+    "description": "\ud83d\udd0d Automate penetration testing with an AI-driven tool featuring a cyber-inspired GUI and efficient task scheduling for authorized testing environments.",
+    "source": "github",
+    "credibility": null,
+    "stars": 6,
+    "updated": "2026-02-16T09:52:29+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "jimmyner009/Krafter",
+    "url": "https://github.com/jimmyner009/Krafter",
+    "description": "\ud83d\ude80 Create efficient AI-assisted applications with Krafter, a modern .NET 9 full-stack platform using Vertical Slice Architecture and Blazor WebAssembly.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:49:55+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "exjskdjsdfks/pentest-mcp-server",
+    "url": "https://github.com/exjskdjsdfks/pentest-mcp-server",
+    "description": "\u2699\ufe0f Enable AI agents to conduct autonomous penetration testing on any Linux distribution with a persistent and robust Model Context Protocol server.",
+    "source": "github",
+    "credibility": null,
+    "stars": 7,
+    "updated": "2026-02-16T09:49:55+00:00",
+    "topic": "penetration-testing"
+  },
+  {
+    "title": "Zain3311/CVE-2025-49844",
+    "url": "https://github.com/Zain3311/CVE-2025-49844",
+    "description": "\ud83d\udea8 Exploit the CVE-2025-49844 Redis Lua interpreter UAF vulnerability to execute arbitrary shellcode and gain persistent backdoor access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:49:29+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "OPBOY1203/redmind",
+    "url": "https://github.com/OPBOY1203/redmind",
+    "description": "\ud83d\udee0\ufe0f Streamline offensive operations with RedMind: a curated collection of working binaries, write-ups, and runbooks for real-world engagement challenges.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:49:24+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "LagZeroCode/HackWire",
+    "url": "https://github.com/LagZeroCode/HackWire",
+    "description": "\ud83d\udd27 Streamline your hacking workflow with HackWire, a powerful tool for efficient code management and collaboration in software development.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:19+00:00",
+    "topic": "red-team"
+  },
+  {
+    "title": "mrfeelssss/ObfuscationZone",
+    "url": "https://github.com/mrfeelssss/ObfuscationZone",
+    "description": "\ud83d\udd12 Protect your code with ObfuscationZone, ensuring your software remains secure and unreadable against unauthorized access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:48+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "kingdenofficial/ReverseBox",
+    "url": "https://github.com/kingdenofficial/ReverseBox",
+    "description": "\ud83d\udd04 ReverseBox streamlines the process of reversing text and data, making it quick and simple for developers to integrate into their projects.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:35+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "stepanovmykola/CryptInject",
+    "url": "https://github.com/stepanovmykola/CryptInject",
+    "description": "\ud83d\udee1\ufe0f Enhance your applications with CryptInject, a seamless solution for injecting encryption into your data workflows.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:35+00:00",
+    "topic": "reverse-engineering"
+  },
+  {
+    "title": "Jeremy344555/rat",
+    "url": "https://github.com/Jeremy344555/rat",
+    "description": "\ud83d\udd17 Access and manage 1C databases remotely using REST API for seamless integration testing and data manipulation.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3,
+    "updated": "2026-02-16T09:49:59+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "mrfeelssss/ObfuscationZone",
+    "url": "https://github.com/mrfeelssss/ObfuscationZone",
+    "description": "\ud83d\udd12 Protect your code with ObfuscationZone, ensuring your software remains secure and unreadable against unauthorized access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:48+00:00",
+    "topic": "malware-analysis"
+  },
+  {
+    "title": "Sarb-jot/system-prompt-research",
+    "url": "https://github.com/Sarb-jot/system-prompt-research",
+    "description": "\ud83d\udd0d Analyze system prompts in large language models to understand design principles and enhance AI application effectiveness.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:52:33+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Zain3311/CVE-2025-49844",
+    "url": "https://github.com/Zain3311/CVE-2025-49844",
+    "description": "\ud83d\udea8 Exploit the CVE-2025-49844 Redis Lua interpreter UAF vulnerability to execute arbitrary shellcode and gain persistent backdoor access.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:49:29+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "labkomputerinformatika/HISSI-Policy-Concept",
+    "url": "https://github.com/labkomputerinformatika/HISSI-Policy-Concept",
+    "description": "\ud83e\udd16 Secure the supply chain for humanoid robotics in U.S. defense, enhancing logistics and support roles through independent policy concepts.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:48:40+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Rul1an/assay",
+    "url": "https://github.com/Rul1an/assay",
+    "description": "Policy-as-Code for AI Agents. Deterministic testing, runtime enforcement, and verifiable evidence for MCP.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-16T09:41:05+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "Elmahrosa/agent-code-risk-mcp",
+    "url": "https://github.com/Elmahrosa/agent-code-risk-mcp",
+    "description": "Production-grade MCP server for autonomous code risk analysis. Built for AI agents + CI/CD gates\u2014fast, deterministic checks with x402 pay-per-call on Base (USDC) and optional on-chain verification.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3,
+    "updated": "2026-02-16T09:34:18+00:00",
+    "topic": "ai-security"
+  },
+  {
+    "title": "DependencyTrack/dependency-track",
+    "url": "https://github.com/DependencyTrack/dependency-track",
+    "description": "Dependency-Track is an intelligent Component Analysis platform that allows organizations to identify and reduce risk in the software supply chain.",
+    "source": "github",
+    "credibility": null,
+    "stars": 3600,
+    "updated": "2026-02-16T09:52:43+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "Thenguyenvn/rsync-backup-solution",
+    "url": "https://github.com/Thenguyenvn/rsync-backup-solution",
+    "description": "\ud83d\uddc2\ufe0f Implement automated high-availability backups for virtualized environments using rsync over SSH, ensuring quick recovery and data protection.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:49:39+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "bznbnn/Code-Reviewer-AI",
+    "url": "https://github.com/bznbnn/Code-Reviewer-AI",
+    "description": "\ud83e\udd16 Elevate your coding with AI-driven code reviews that provide fast, professional feedback and improve your code quality instantly.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:47:23+00:00",
+    "topic": "security-automation"
+  },
+  {
+    "title": "akutemmanuel/StormSec",
+    "url": "https://github.com/akutemmanuel/StormSec",
+    "description": "\ud83c\udf29\ufe0f Fortify your applications with StormSec, a powerful security framework designed to protect against modern threats and vulnerabilities.",
+    "source": "github",
+    "credibility": null,
+    "stars": 0,
+    "updated": "2026-02-16T09:46:21+00:00",
+    "topic": "security-automation"
+  }
+]
