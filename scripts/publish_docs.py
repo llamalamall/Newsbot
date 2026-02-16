@@ -190,6 +190,7 @@ def main() -> int:
         combined_results,
         latest_timestamp,
         args.docs_dir,
+        args.output_dir,
     )
     published_path = published_files.get("index")
 
