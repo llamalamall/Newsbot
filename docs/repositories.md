@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 17
+**Total repositories:** 22
 
 **Months covered:** 1
 
@@ -17,10 +17,14 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*17 repositories*
+*22 repositories*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
+| [three2hot/cyber-agent](https://github.com/three2hot/cyber-agent) | 🤖 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient an... | 0 | 1.00 | 2026-02-18 | red-team |
+| [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | 🔍 Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver compr... | 0 | 1.00 | 2026-02-18 | red-team |
+| [beamstar/cheatengine-mcp-bridge](https://github.com/beamstar/cheatengine-mcp-bridge) | 🔗 Connect AI to Cheat Engine for fast memory analysis, enabling quick mods and audits without the... | 6 | 1.00 | 2026-02-18 | reverse-engineering |
+| [owusuarko/ReconFusionAi](https://github.com/owusuarko/ReconFusionAi) | 🔍 Detect exposed secrets and vulnerabilities across web apps with ReconFusionAI's advanced scanni... | 0 | 1.00 | 2026-02-18 | ai-security |
 | [jtang613/BinAssist](https://github.com/jtang613/BinAssist) | Binary Ninja plugin to provide LLM assistance analyzing binaries. | 49 | 1.00 | 2026-02-16 | reverse-engineering |
 | [exjskdjsdfks/pentest-mcp-server](https://github.com/exjskdjsdfks/pentest-mcp-server) | ⚙️ Enable AI agents to conduct autonomous penetration testing on any Linux distribution with a pe... | 7 | 1.00 | 2026-02-16 | penetration-testing |
 | [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15... | 22666 | 1.00 | 2026-02-16 | security-automation |
@@ -29,6 +33,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [sinewaveai/agent-security-scanner-mcp](https://github.com/sinewaveai/agent-security-scanner-mcp) | Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucinatio... | 18 | 0.95 | 2026-02-16 | ai-security |
 | [xoxruns/deadend-cli](https://github.com/xoxruns/deadend-cli) | Agentic pentest tooling. Currently achieving around 78% on XBOW's benchmark in full black-box. Co... | 167 | 0.95 | 2026-02-16 | offensive-security |
 | [Froezens/Python-Blacklist-Breaker](https://github.com/Froezens/Python-Blacklist-Breaker) | It is an automated Python virtual machine escape payload skipping framework that helps security r... | 0 | 0.95 | 2026-02-16 | reverse-engineering |
+| [ecko554-554/capsaicin](https://github.com/ecko554-554/capsaicin) | 🌶️ Detect web vulnerabilities with Capsaicin, the intelligent web fuzzer and WAF hunter designed ... | 1 | 0.90 | 2026-02-18 | red-team |
 | [murad-bakirov/BugHunter-AI](https://github.com/murad-bakirov/BugHunter-AI) | 🔍 Automate penetration testing with an AI-driven tool featuring a cyber-inspired GUI and efficien... | 6 | 0.90 | 2026-02-16 | penetration-testing |
 | [clolomagico123/ai-security-lab](https://github.com/clolomagico123/ai-security-lab) | 🤖 Test and secure AI systems with advanced techniques for Large Language Models, including jailbr... | 3 | 0.90 | 2026-02-16 | ai-security |
 | [AltairaLabs/PromptKit](https://github.com/AltairaLabs/PromptKit) | Test, red-team, and deploy LLM applications with confidence. Multi-provider support (OpenAI, Anth... | 7 | 0.90 | 2026-02-16 | red-team |

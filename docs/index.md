@@ -15,26 +15,29 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 ## Latest Articles
 
-*4 articles from most recent analysis*
+*5 articles from most recent analysis*
 
 | Source | Updated | Applicability | Credibility | Title |
 |--------|---------|--------------|-------------|-------|
-| www.schneier.com | 2026-02-09 | 1.00 | 0.95 | [LLMs are Getting a Lot Better and Faster at Finding and Exploiting Zero-Days](articles/article_20260216_172124_001.md) |
-| www.crowdstrike.com | 2026-02-04 | 0.90 | 0.95 | [What Security Teams Need to Know About OpenClaw, the AI Super Agent](articles/article_20260216_172124_002.md) |
-| github.blog | 2026-01-20 | 0.85 | 0.90 | [AI-supported vulnerability triage with the GitHub Security Lab Taskflow Agent](articles/article_20260216_172124_003.md) |
-| blog.qualys.com | 2026-02-04 | 0.85 | 0.80 | [TruConfirm: Autonomous, Agent-Led, Safe Exploit Validation for Real-World Risk Reduction](articles/article_20260216_172124_004.md) |
+| thehackernews.com | 2026-02-17 | 0.90 | 0.90 | [Researchers Show Copilot and Grok Can Be Abused as Malware C2 Proxies](articles/article_20260218_095128_001.md) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](articles/article_20260218_095128_002.md) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [Large Language Models for Secure Code Assessment: A Multi-Language Empirical Study](articles/article_20260218_095128_003.md) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](articles/article_20260218_095128_004.md) |
+| arxiv.org | 2026-02-18 | 0.85 | 0.95 | [ER-MIA: Black-Box Adversarial Memory Injection Attacks on Long-Term Memory-Augmented Large Language Models](articles/article_20260218_095128_005.md) |
 
 [View all articles →](articles.md)
 
 ## Latest Repositories
 
-*3 repositories from most recent analysis*
+*5 repositories from most recent analysis*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
-| [xoxruns/deadend-cli](https://github.com/xoxruns/deadend-cli) | Agentic pentest tooling. Currently achieving around 78% on XBOW's benchmark in full black-box. Co... | 167 | 0.95 2026-02-16 | offensive-security |
-| [sinewaveai/agent-security-scanner-mcp](https://github.com/sinewaveai/agent-security-scanner-mcp) | Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucinatio... | 18 | 0.95 2026-02-16 | ai-security |
-| [murad-bakirov/BugHunter-AI](https://github.com/murad-bakirov/BugHunter-AI) | 🔍 Automate penetration testing with an AI-driven tool featuring a cyber-inspired GUI and efficien... | 6 | 0.90 2026-02-16 | penetration-testing |
+| [three2hot/cyber-agent](https://github.com/three2hot/cyber-agent) | 🤖 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient an... | 0 | 1.00 2026-02-18 | red-team |
+| [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | 🔍 Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver compr... | 0 | 1.00 2026-02-18 | red-team |
+| [beamstar/cheatengine-mcp-bridge](https://github.com/beamstar/cheatengine-mcp-bridge) | 🔗 Connect AI to Cheat Engine for fast memory analysis, enabling quick mods and audits without the... | 6 | 1.00 2026-02-18 | reverse-engineering |
+| [owusuarko/ReconFusionAi](https://github.com/owusuarko/ReconFusionAi) | 🔍 Detect exposed secrets and vulnerabilities across web apps with ReconFusionAI's advanced scanni... | 0 | 1.00 2026-02-18 | ai-security |
+| [ecko554-554/capsaicin](https://github.com/ecko554-554/capsaicin) | 🌶️ Detect web vulnerabilities with Capsaicin, the intelligent web fuzzer and WAF hunter designed ... | 1 | 0.90 2026-02-18 | red-team |
 
 [View all repositories →](repositories.md)
 

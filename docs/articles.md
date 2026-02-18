@@ -7,7 +7,7 @@ title: All Analyzed Articles
 
 This page contains **all articles ever analyzed** by Newsbot, organized by month.
 
-**Total articles:** 15
+**Total articles:** 20
 
 **Months covered:** 2
 
@@ -17,7 +17,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 
 ## February 2026
 
-*14 articles*
+*19 articles*
 
 | Source | Date | Applicability | Credibility | Title |
 |--------|------|--------------|-------------|-------|
@@ -25,11 +25,16 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | arxiv.org | 2026-02-16 | 1.00 | 0.95 | [GPU-Fuzz: Finding Memory Errors in Deep Learning Frameworks](https://arxiv.org/abs/2602.10478) |
 | www.schneier.com | 2026-02-11 | 1.00 | 0.95 | [Prompt Injection Via Road Signs](https://www.schneier.com/blog/archives/2026/02/prompt-injection-via-road-signs.html) |
 | www.schneier.com | 2026-02-09 | 1.00 | 0.95 | [LLMs are Getting a Lot Better and Faster at Finding and Exploiting Zero-Days](https://www.schneier.com/blog/archives/2026/02/llms-are-getting-a-lot-better-and-faster-at-finding-and-exploiting-zero-days.html) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](https://arxiv.org/abs/2602.15376) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [Large Language Models for Secure Code Assessment: A Multi-Language Empirical Study](https://arxiv.org/abs/2408.06428) |
+| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](https://arxiv.org/abs/2602.15376) |
 | arxiv.org | 2026-02-16 | 0.95 | 0.95 | [Favia: Forensic Agent for Vulnerability-fix Identification and Analysis](https://arxiv.org/abs/2602.12500) |
 | arxiv.org | 2026-02-16 | 0.95 | 0.95 | [Fool Me If You Can: On the Robustness of Binary Code Similarity Detection Models against Semantics-preserving Transformations](https://arxiv.org/abs/2602.12681) |
 | www.darkreading.com | 2026-02-12 | 0.95 | 0.80 | [Booz Allen Announces General Availability of Vellox Reverser to Automate Malware Defense](https://www.darkreading.com/endpoint-security/booz-allen-announces-general-availability-vellox-reverser) |
+| thehackernews.com | 2026-02-17 | 0.90 | 0.90 | [Researchers Show Copilot and Grok Can Be Abused as Malware C2 Proxies](https://thehackernews.com/2026/02/researchers-show-copilot-and-grok-can.html) |
 | www.schneier.com | 2026-02-16 | 0.90 | 0.95 | [The Promptware Kill Chain](https://www.schneier.com/blog/archives/2026/02/the-promptware-kill-chain.html) |
 | www.crowdstrike.com | 2026-02-04 | 0.90 | 0.95 | [What Security Teams Need to Know About OpenClaw, the AI Super Agent](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/) |
+| arxiv.org | 2026-02-18 | 0.85 | 0.95 | [ER-MIA: Black-Box Adversarial Memory Injection Attacks on Long-Term Memory-Augmented Large Language Models](https://arxiv.org/abs/2602.15344) |
 | thehackernews.com | 2026-02-12 | 0.85 | 0.90 | [Google Reports State-Backed Hackers Using Gemini AI for Recon and Attack Support](https://thehackernews.com/2026/02/google-reports-state-backed-hackers.html) |
 | blog.qualys.com | 2026-02-04 | 0.85 | 0.80 | [TruConfirm: Autonomous, Agent-Led, Safe Exploit Validation for Real-World Risk Reduction](https://blog.qualys.com/category/product-tech) |
 | arxiv.org | 2026-02-16 | 0.80 | 0.95 | [PIDSMaker: Building and Evaluating Provenance-based Intrusion Detection Systems](https://arxiv.org/abs/2601.22983) |
