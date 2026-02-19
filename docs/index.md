@@ -15,29 +15,36 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 ## Latest Articles
 
-*5 articles from most recent analysis*
+*14 articles from most recent analysis*
 
 | Source | Updated | Applicability | Credibility | Title |
 |--------|---------|--------------|-------------|-------|
-| thehackernews.com | 2026-02-17 | 0.90 | 0.90 | [Researchers Show Copilot and Grok Can Be Abused as Malware C2 Proxies](articles/article_20260218_095128_001.md) |
-| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](articles/article_20260218_095128_002.md) |
-| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [Large Language Models for Secure Code Assessment: A Multi-Language Empirical Study](articles/article_20260218_095128_003.md) |
-| arxiv.org | 2026-02-18 | 0.95 | 0.98 | [A Unified Evaluation of Learning-Based Similarity Techniques for Malware Detection](articles/article_20260218_095128_004.md) |
-| arxiv.org | 2026-02-18 | 0.85 | 0.95 | [ER-MIA: Black-Box Adversarial Memory Injection Attacks on Long-Term Memory-Augmented Large Language Models](articles/article_20260218_095128_005.md) |
+| www.schneier.com | 2026-02-18 | 0.95 | 0.95 | [AI Found Twelve New Vulnerabilities in OpenSSL](articles/article_20260219_094723_001.md) |
+| blog.talosintelligence.com | 2026-02-18 | 0.90 | 0.95 | [“Good enough” emulation: Fuzzing a single thread to uncover vulnerabilities](articles/article_20260219_094723_002.md) |
+| www.bleepingcomputer.com | 2026-02-18 | 0.80 | 0.80 | [AI platforms can be abused for stealthy malware communication](articles/article_20260219_094723_003.md) |
+| arxiv.org | 2026-02-19 | 0.85 | 0.95 | [From Tool Orchestration to Code Execution: A Study of MCP Design Choices](articles/article_20260219_094723_004.md) |
+| arxiv.org | 2026-02-19 | 0.90 | 0.95 | [Mind the Gap: Evaluating LLMs for High-Level Malicious Package Detection vs. Fine-Grained Indicator Identification](articles/article_20260219_094723_005.md) |
+| arxiv.org | 2026-02-19 | 0.85 | 0.95 | [The Trojan Example: Jailbreaking LLMs through Template Filling and Unsafety Reasoning](articles/article_20260219_094723_006.md) |
+| arxiv.org | 2026-02-19 | 0.95 | 0.98 | ["Someone Hid It": Query-Agnostic Black-Box Attacks on LLM-Based Retrieval](articles/article_20260219_094723_007.md) |
+| arxiv.org | 2026-02-19 | 0.90 | 0.97 | [Secure Coding with AI -- From Detection to Repair](articles/article_20260219_094723_008.md) |
+| arxiv.org | 2026-02-19 | 0.85 | 0.96 | [From Tool Orchestration to Code Execution: A Study of MCP Design Choices](articles/article_20260219_094723_009.md) |
+| arxiv.org | 2026-02-19 | 0.95 | 0.98 | [SecCodeBench-V2 Technical Report](articles/article_20260219_094723_010.md) |
+| arxiv.org | 2026-02-19 | 0.90 | 0.97 | [Vulnerability Analysis of Safe Reinforcement Learning via Inverse Constrained Reinforcement Learning](articles/article_20260219_094723_011.md) |
+| arxiv.org | 2026-02-19 | 0.95 | 0.95 | [Helpful to a Fault: Measuring Illicit Assistance in Multi-Turn, Multilingual LLM Agents](articles/article_20260219_094723_012.md) |
+| arxiv.org | 2026-02-19 | 0.90 | 0.95 | [Boundary Point Jailbreaking of Black-Box LLMs](articles/article_20260219_094723_013.md) |
+| github.blog | 2025-12-29 | 0.95 | 0.95 | [Bugs that survive the heat of continuous fuzzing](articles/article_20260219_094723_014.md) |
 
 [View all articles →](articles.md)
 
 ## Latest Repositories
 
-*5 repositories from most recent analysis*
+*3 repositories from most recent analysis*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
-| [three2hot/cyber-agent](https://github.com/three2hot/cyber-agent) | 🤖 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient an... | 0 | 1.00 2026-02-18 | red-team |
-| [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | 🔍 Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver compr... | 0 | 1.00 2026-02-18 | red-team |
-| [beamstar/cheatengine-mcp-bridge](https://github.com/beamstar/cheatengine-mcp-bridge) | 🔗 Connect AI to Cheat Engine for fast memory analysis, enabling quick mods and audits without the... | 6 | 1.00 2026-02-18 | reverse-engineering |
-| [owusuarko/ReconFusionAi](https://github.com/owusuarko/ReconFusionAi) | 🔍 Detect exposed secrets and vulnerabilities across web apps with ReconFusionAI's advanced scanni... | 0 | 1.00 2026-02-18 | ai-security |
-| [ecko554-554/capsaicin](https://github.com/ecko554-554/capsaicin) | 🌶️ Detect web vulnerabilities with Capsaicin, the intelligent web fuzzer and WAF hunter designed ... | 1 | 0.90 2026-02-18 | red-team |
+| [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1701 | 1.00 2026-02-19 | offensive-security |
+| [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1702 | 1.00 2026-02-19 | security-automation |
+| [RedHatProductSecurity/rapidast](https://github.com/RedHatProductSecurity/rapidast) | RapiDAST enables simple, continuous and fully automated application security testing | 83 | 0.60 2026-02-19 | security-automation |
 
 [View all repositories →](repositories.md)
 

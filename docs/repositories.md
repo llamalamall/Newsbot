@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 22
+**Total repositories:** 25
 
 **Months covered:** 1
 
@@ -17,10 +17,12 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*22 repositories*
+*25 repositories*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
+| [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1702 | 1.00 | 2026-02-19 | security-automation |
+| [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1701 | 1.00 | 2026-02-19 | offensive-security |
 | [three2hot/cyber-agent](https://github.com/three2hot/cyber-agent) | 🤖 Automate penetration testing with AI using Cyber Agent, powered by Claude Code for efficient an... | 0 | 1.00 | 2026-02-18 | red-team |
 | [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | 🔍 Automate your pentesting with KameLionStack OSE, using AI to streamline scans and deliver compr... | 0 | 1.00 | 2026-02-18 | red-team |
 | [beamstar/cheatengine-mcp-bridge](https://github.com/beamstar/cheatengine-mcp-bridge) | 🔗 Connect AI to Cheat Engine for fast memory analysis, enabling quick mods and audits without the... | 6 | 1.00 | 2026-02-18 | reverse-engineering |
@@ -42,6 +44,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [LXrdKnowkill/HikariSystem-HexCore](https://github.com/LXrdKnowkill/HikariSystem-HexCore) | The Native Reverse Engineering IDE. Zero-overhead binary analysis, full CPU emulation (PE/ELF), a... | 5 | 0.80 | 2026-02-16 | binary-analysis |
 | [SreejaPuthan/ICEBERG-Threat-Intel-updator](https://github.com/SreejaPuthan/ICEBERG-Threat-Intel-updator) | Automated CVE, exploit & risk intelligence pipeline with GitHub Actions | 1 | 0.80 | 2026-02-16 | security-automation |
 | [RildoNeto17/llmSecurityDemo](https://github.com/RildoNeto17/llmSecurityDemo) | 🛡️ Detect LLM vulnerabilities using the OWASP Top 10 with this demo tool, providing accurate anal... | 0 | 0.70 | 2026-02-16 | ai-security |
+| [RedHatProductSecurity/rapidast](https://github.com/RedHatProductSecurity/rapidast) | RapiDAST enables simple, continuous and fully automated application security testing | 83 | 0.60 | 2026-02-19 | security-automation |
 | [future-architect/vuls](https://github.com/future-architect/vuls) | Agent-less vulnerability scanner for Linux, FreeBSD, Container, WordPress, Programming language l... | 12046 | 0.60 | 2026-02-16 | security-automation |
 
 ---
