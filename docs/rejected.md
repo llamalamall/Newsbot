@@ -33,10 +33,11 @@ Articles can be rejected as not relevant if they:
 
 ## Rejected Articles Table
 
-Total rejected articles: **962**
+Total rejected articles: **1124**
 
 | Title | Topic | Rejection Type | Rejection Reason |
 |-------|-------|----------------|------------------|
+| [3stythe/ai-novel-generator](https://github.com/3stythe/ai-novel-generator) | ai-security | applicability | Primarily an AI-powered novel generator; despite some security-related keywords, there is no explicit evidence of offensive security, automation, or fuzzing usage. |
 | [AakarshakKaushal00/guardrail-layer](https://github.com/AakarshakKaushal00/guardrail-layer) | ai-security | applicability | Focuses on data privacy and access control using AI, not offensive security or automated offensive tooling. |
 | [Carricacha/local-rag-system](https://github.com/Carricacha/local-rag-system) | ai-security | applicability | Repository is about Retrieval-Augmented Generation (RAG) for private AI memory, not offensive security or automated security testing. |
 | [CloudDefenseAI/secure-agents-md](https://github.com/CloudDefenseAI/secure-agents-md) | ai-security | applicability | Focuses on governance and secure coding practices for AI agents but lacks explicit mention of offensive security or AI-driven automation for penetration testing or vulnerability detection. |
@@ -58,8 +59,10 @@ Total rejected articles: **962**
 | [Yosuraki/claude4-audit-recon](https://github.com/Yosuraki/claude4-audit-recon) | ai-security | applicability | Focuses on ethical auditing and introspection of AI models without offensive security or automation context. |
 | [Zain3311/CVE-2025-49844](https://github.com/Zain3311/CVE-2025-49844) | ai-security | applicability | Repository is an exploit PoC for a Redis vulnerability with offensive security context, but there is no explicit evidence of AI, automation, or fuzzing being used in the exploit or its description. |
 | [always-further/nono](https://github.com/always-further/nono) | ai-security | applicability | Focuses on sandboxing and securing AI agents (defensive, not offensive security); no evidence of use for penetration testing, red teaming, or vulnerability discovery. |
+| [anticipatorai/anticipator](https://github.com/anticipatorai/anticipator) | ai-security | applicability | Repository is about threat detection for AI systems, not offensive security or automation/fuzzing for penetration testing or red team activities. |
 | [arcanjohacklindo/security-vulnerabilities-cli-llm](https://github.com/arcanjohacklindo/security-vulnerabilities-cli-llm) | ai-security | applicability | Analyzes vulnerabilities in LLM deployments but does not demonstrate offensive security automation, AI-powered attacks, or fuzzing. |
 | [datacline/open-threat-detector](https://github.com/datacline/open-threat-detector) | ai-security | applicability | Focuses on detecting shadow AI threats in organizational environments but lacks explicit mention of offensive security or AI-driven automation for penetration testing or vulnerability detection. |
+| [dormstern/leashed](https://github.com/dormstern/leashed) | ai-security | applicability | Focuses on AI agent governance and credential safety, but does not explicitly demonstrate offensive security, penetration testing, or AI/automation/fuzzing for offensive operations. |
 | [ethicxlhuman/security-automation-insights](https://github.com/ethicxlhuman/security-automation-insights) | ai-security | applicability | The repository focuses on automation and AI in security operations and compliance, but lacks explicit evidence of offensive security context such as penetration testing, red teaming, vulnerability analysis, exploit development, or malware analysis. The topics and description do not demonstrate the use of AI/automation/fuzzing for offensive security purposes. |
 | [fkern4612-design/openclaw-telemetry](https://github.com/fkern4612-design/openclaw-telemetry) | ai-security | applicability | Focuses on observability, telemetry, and LLM security for defense, not offensive security or automation for offensive operations. |
 | [foodman1227/awesome-ai-tools](https://github.com/foodman1227/awesome-ai-tools) | ai-security | applicability | General AI tools list; not specific to offensive security or automation for security testing. |
@@ -91,13 +94,17 @@ Total rejected articles: **962**
 | [FlorianBruniaux/claude-code-ultimate-guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [Rizwan723/MCP-Security-Proxy](https://github.com/Rizwan723/MCP-Security-Proxy) | ai-security | relevance | missing_ai_keywords |
 | [Soulreaper1188/openclaw-detect](https://github.com/Soulreaper1188/openclaw-detect) | ai-security | relevance | missing_ai_keywords |
+| [Soulreaper1188/openclaw-detect](https://github.com/Soulreaper1188/openclaw-detect) | ai-security | relevance | missing_ai_keywords |
+| [andyaziz/claude-code-ultimate-guide](https://github.com/andyaziz/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [andyaziz/claude-code-ultimate-guide](https://github.com/andyaziz/claude-code-ultimate-guide) | ai-security | relevance | missing_ai_keywords |
 | [baagad-ai/content-wand](https://github.com/baagad-ai/content-wand) | ai-security | relevance | missing_ai_keywords |
+| [chrismmt/mcp-adversarial-suite](https://github.com/chrismmt/mcp-adversarial-suite) | ai-security | relevance | missing_ai_keywords |
 | [chrismmt/mcp-adversarial-suite](https://github.com/chrismmt/mcp-adversarial-suite) | ai-security | relevance | missing_ai_keywords |
 | [javidahmed64592/cyber-query-ai](https://github.com/javidahmed64592/cyber-query-ai) | ai-security | relevance | missing_ai_keywords |
 | [ksnnd32/redis_exploit](https://github.com/ksnnd32/redis_exploit) | ai-security | relevance | missing_ai_keywords |
 | [ksnnd32/redis_exploit](https://github.com/ksnnd32/redis_exploit) | ai-security | relevance | missing_ai_keywords |
 | [ksnnd32/redis_exploit](https://github.com/ksnnd32/redis_exploit) | ai-security | relevance | missing_ai_keywords |
+| [stacklok/toolhive](https://github.com/stacklok/toolhive) | ai-security | relevance | missing_ai_keywords |
 | [stacklok/toolhive](https://github.com/stacklok/toolhive) | ai-security | relevance | missing_ai_keywords |
 | [stacklok/toolhive](https://github.com/stacklok/toolhive) | ai-security | relevance | missing_ai_keywords |
 | [stacklok/toolhive](https://github.com/stacklok/toolhive) | ai-security | relevance | missing_ai_keywords |
@@ -118,11 +125,14 @@ Total rejected articles: **962**
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
 | [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
+| [Andepzaiiii/semantic-copycat-binarysniffer](https://github.com/Andepzaiiii/semantic-copycat-binarysniffer) | binary-analysis | relevance | missing_ai_keywords |
+| [B2R2-org/B2R2](https://github.com/B2R2-org/B2R2) | binary-analysis | relevance | missing_ai_keywords |
 | [CUB3D/ghidra-hexagon-sleigh](https://github.com/CUB3D/ghidra-hexagon-sleigh) | binary-analysis | relevance | missing_ai_keywords |
 | [Chaoses-Ib/FormalLanguages](https://github.com/Chaoses-Ib/FormalLanguages) | binary-analysis | relevance | missing_ai_keywords |
 | [Chaoses-Ib/FormalLanguages](https://github.com/Chaoses-Ib/FormalLanguages) | binary-analysis | relevance | missing_ai_keywords |
 | [DynamoRIO/dynamorio](https://github.com/DynamoRIO/dynamorio) | binary-analysis | relevance | missing_ai_keywords |
 | [HyperDbg/HyperDbg](https://github.com/HyperDbg/HyperDbg) | binary-analysis | relevance | missing_ai_keywords |
+| [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | binary-analysis | relevance | missing_ai_keywords |
@@ -142,9 +152,12 @@ Total rejected articles: **962**
 | [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
+| [Krix77/IDAFind](https://github.com/Krix77/IDAFind) | binary-analysis | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
+| [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | binary-analysis | relevance | missing_ai_keywords |
+| [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | binary-analysis | relevance | missing_ai_keywords |
@@ -158,6 +171,8 @@ Total rejected articles: **962**
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
+| [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | binary-analysis | relevance | missing_ai_keywords |
+| [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
@@ -167,14 +182,19 @@ Total rejected articles: **962**
 | [SenSeiSGS/ida-structor](https://github.com/SenSeiSGS/ida-structor) | binary-analysis | relevance | missing_ai_keywords |
 | [Vector35/binaryninja-api](https://github.com/Vector35/binaryninja-api) | binary-analysis | relevance | missing_ai_keywords |
 | [Vector35/binaryninja-api](https://github.com/Vector35/binaryninja-api) | binary-analysis | relevance | missing_ai_keywords |
+| [Vector35/binaryninja-api](https://github.com/Vector35/binaryninja-api) | binary-analysis | relevance | missing_ai_keywords |
+| [Wing-summer/WingHexExplorer2](https://github.com/Wing-summer/WingHexExplorer2) | binary-analysis | relevance | missing_ai_keywords |
 | [Yessi-cmd/spectra](https://github.com/Yessi-cmd/spectra) | binary-analysis | relevance | missing_ai_keywords |
 | [Yessi-cmd/spectra](https://github.com/Yessi-cmd/spectra) | binary-analysis | relevance | missing_ai_keywords |
 | [ZukiZero/udbg](https://github.com/ZukiZero/udbg) | binary-analysis | relevance | missing_ai_keywords |
 | [ZukiZero/udbg](https://github.com/ZukiZero/udbg) | binary-analysis | relevance | missing_ai_keywords |
 | [ZukiZero/udbg](https://github.com/ZukiZero/udbg) | binary-analysis | relevance | missing_ai_keywords |
 | [ZukiZero/udbg](https://github.com/ZukiZero/udbg) | binary-analysis | relevance | missing_ai_keywords |
+| [ZukiZero/udbg](https://github.com/ZukiZero/udbg) | binary-analysis | relevance | missing_ai_keywords |
+| [aboutcode-org/scancode.io](https://github.com/aboutcode-org/scancode.io) | binary-analysis | relevance | missing_ai_keywords |
 | [camilo123433/Dridex-Malware-Unpacking-Report](https://github.com/camilo123433/Dridex-Malware-Unpacking-Report) | binary-analysis | relevance | missing_ai_keywords |
 | [e-m-b-a/emba](https://github.com/e-m-b-a/emba) | binary-analysis | relevance | missing_ai_keywords |
+| [horsicq/DIE-engine](https://github.com/horsicq/DIE-engine) | binary-analysis | relevance | missing_ai_keywords |
 | [horsicq/DIE-engine](https://github.com/horsicq/DIE-engine) | binary-analysis | relevance | missing_ai_keywords |
 | [horsicq/DIE-engine](https://github.com/horsicq/DIE-engine) | binary-analysis | relevance | missing_ai_keywords |
 | [horsicq/DIE-engine](https://github.com/horsicq/DIE-engine) | binary-analysis | relevance | missing_ai_keywords |
@@ -189,15 +209,20 @@ Total rejected articles: **962**
 | [krauzermaster1/GTI](https://github.com/krauzermaster1/GTI) | binary-analysis | relevance | missing_ai_keywords |
 | [krauzermaster1/GTI](https://github.com/krauzermaster1/GTI) | binary-analysis | relevance | missing_ai_keywords |
 | [krauzermaster1/GTI](https://github.com/krauzermaster1/GTI) | binary-analysis | relevance | missing_ai_keywords |
+| [krauzermaster1/GTI](https://github.com/krauzermaster1/GTI) | binary-analysis | relevance | missing_ai_keywords |
 | [lief-project/LIEF](https://github.com/lief-project/LIEF) | binary-analysis | relevance | missing_ai_keywords |
 | [lifting-bits/sleigh](https://github.com/lifting-bits/sleigh) | binary-analysis | relevance | missing_ai_keywords |
 | [mandiant/capa](https://github.com/mandiant/capa) | binary-analysis | relevance | missing_ai_keywords |
 | [mandiant/capa](https://github.com/mandiant/capa) | binary-analysis | relevance | missing_ai_keywords |
+| [mandiant/capa](https://github.com/mandiant/capa) | binary-analysis | relevance | missing_ai_keywords |
 | [packing-box/python-exeplot](https://github.com/packing-box/python-exeplot) | binary-analysis | relevance | missing_ai_keywords |
+| [pumpkin-bit/EUVA](https://github.com/pumpkin-bit/EUVA) | binary-analysis | relevance | missing_ai_keywords |
 | [pumpkin-bit/EUVA-](https://github.com/pumpkin-bit/EUVA-) | binary-analysis | relevance | missing_ai_keywords |
 | [radareorg/radare2](https://github.com/radareorg/radare2) | binary-analysis | relevance | missing_ai_keywords |
 | [radareorg/radare2](https://github.com/radareorg/radare2) | binary-analysis | relevance | missing_ai_keywords |
 | [radareorg/radare2](https://github.com/radareorg/radare2) | binary-analysis | relevance | missing_ai_keywords |
+| [radareorg/radare2](https://github.com/radareorg/radare2) | binary-analysis | relevance | missing_ai_keywords |
+| [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | binary-analysis | relevance | missing_ai_keywords |
@@ -214,6 +239,8 @@ Total rejected articles: **962**
 | [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
 | [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
 | [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
+| [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | binary-analysis | relevance | missing_ai_keywords |
+| [z0mb13w4r/objtools](https://github.com/z0mb13w4r/objtools) | binary-analysis | relevance | missing_ai_keywords |
 | [z0mb13w4r/objtools](https://github.com/z0mb13w4r/objtools) | binary-analysis | relevance | missing_ai_keywords |
 | [z0mb13w4r/objtools](https://github.com/z0mb13w4r/objtools) | binary-analysis | relevance | missing_ai_keywords |
 | [z0mb13w4r/objtools](https://github.com/z0mb13w4r/objtools) | binary-analysis | relevance | missing_ai_keywords |
@@ -224,6 +251,7 @@ Total rejected articles: **962**
 | [RealRGJ/cyber-training-resources](https://github.com/RealRGJ/cyber-training-resources) | malware-analysis | applicability | Focuses on cyber training resources and education, not on AI/automation/fuzzing for offensive security. |
 | [Truong882/ReVex](https://github.com/Truong882/ReVex) | malware-analysis | applicability | While it mentions exploit-development and malware-analysis in topics, the description and content focus on a browser-based HTTP repeater for web security testing, with no explicit mention of AI, automation, or fuzzing. |
 | [gaga84700/police](https://github.com/gaga84700/police) | malware-analysis | applicability | Uses AI for video analysis, but not in an offensive security context (no penetration testing, red teaming, or vulnerability/exploit focus). |
+| [iprautomo2507-lang/yara-rule-skill](https://github.com/iprautomo2507-lang/yara-rule-skill) | malware-analysis | applicability | Mentions YARA rules and malware analysis, but no explicit mention of AI, ML, automation, or fuzzing for offensive security. |
 | [mrfeelssss/ObfuscationZone](https://github.com/mrfeelssss/ObfuscationZone) | malware-analysis | applicability | Focuses on code obfuscation and anti-debugging, which are relevant to security, but there is no explicit mention of AI, automation, or fuzzing being used for offensive security purposes. |
 | [ocramtec-marco/suspicious](https://github.com/ocramtec-marco/suspicious) | malware-analysis | applicability | Mentions machine learning and malware analysis, but lacks explicit indication of offensive security automation or AI-driven offensive tooling. |
 | [pedro00715/C3_CRT_Python](https://github.com/pedro00715/C3_CRT_Python) | malware-analysis | applicability | Mentions automation and some security topics, but no explicit mention of AI, ML, or fuzzing for offensive security. Description is vague about automation's role. |
@@ -242,15 +270,21 @@ Total rejected articles: **962**
 | [AleX-AA08/PhantomStego](https://github.com/AleX-AA08/PhantomStego) | malware-analysis | relevance | missing_ai_keywords |
 | [Badasone/Cyberlivre](https://github.com/Badasone/Cyberlivre) | malware-analysis | relevance | missing_ai_keywords |
 | [Badasone/Cyberlivre](https://github.com/Badasone/Cyberlivre) | malware-analysis | relevance | missing_ai_keywords |
+| [Badasone/Cyberlivre](https://github.com/Badasone/Cyberlivre) | malware-analysis | relevance | missing_ai_keywords |
+| [CYB3RMX/Qu1cksc0pe](https://github.com/CYB3RMX/Qu1cksc0pe) | malware-analysis | relevance | missing_ai_keywords |
 | [CYB3RMX/Qu1cksc0pe](https://github.com/CYB3RMX/Qu1cksc0pe) | malware-analysis | relevance | missing_ai_keywords |
 | [CYB3RMX/Qu1cksc0pe](https://github.com/CYB3RMX/Qu1cksc0pe) | malware-analysis | relevance | missing_ai_keywords |
 | [Coursa4lyfe/NekoFlare](https://github.com/Coursa4lyfe/NekoFlare) | malware-analysis | relevance | missing_ai_keywords |
 | [Coursa4lyfe/NekoFlare](https://github.com/Coursa4lyfe/NekoFlare) | malware-analysis | relevance | missing_ai_keywords |
+| [Coursa4lyfe/NekoFlare](https://github.com/Coursa4lyfe/NekoFlare) | malware-analysis | relevance | missing_ai_keywords |
+| [Cvar1984/sussyfinder](https://github.com/Cvar1984/sussyfinder) | malware-analysis | relevance | missing_ai_keywords |
 | [Cvar1984/sussyfinder](https://github.com/Cvar1984/sussyfinder) | malware-analysis | relevance | missing_ai_keywords |
 | [CybercentreCanada/assemblyline](https://github.com/CybercentreCanada/assemblyline) | malware-analysis | relevance | missing_ai_keywords |
 | [CybercentreCanada/assemblyline-service-urldownloader](https://github.com/CybercentreCanada/assemblyline-service-urldownloader) | malware-analysis | relevance | missing_ai_keywords |
 | [CybercentreCanada/assemblyline-service-urldownloader](https://github.com/CybercentreCanada/assemblyline-service-urldownloader) | malware-analysis | relevance | missing_ai_keywords |
+| [DanDreadless/Vault1337](https://github.com/DanDreadless/Vault1337) | malware-analysis | relevance | missing_ai_keywords |
 | [DeadFox55YZ/ShadowSploit](https://github.com/DeadFox55YZ/ShadowSploit) | malware-analysis | relevance | missing_ai_keywords |
+| [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
 | [Extenedi/DeleteShadowCopies](https://github.com/Extenedi/DeleteShadowCopies) | malware-analysis | relevance | missing_ai_keywords |
@@ -258,7 +292,9 @@ Total rejected articles: **962**
 | [Gobabi25/python-obfuscator-CalypsisOBF](https://github.com/Gobabi25/python-obfuscator-CalypsisOBF) | malware-analysis | relevance | missing_ai_keywords |
 | [Gobabi25/python-obfuscator-CalypsisOBF](https://github.com/Gobabi25/python-obfuscator-CalypsisOBF) | malware-analysis | relevance | missing_ai_keywords |
 | [Goldroger0262/PwnRM](https://github.com/Goldroger0262/PwnRM) | malware-analysis | relevance | missing_ai_keywords |
+| [Goldroger0262/PwnRM](https://github.com/Goldroger0262/PwnRM) | malware-analysis | relevance | missing_ai_keywords |
 | [Jay-melly/NoBBomb](https://github.com/Jay-melly/NoBBomb) | malware-analysis | relevance | missing_ai_keywords |
+| [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | malware-analysis | relevance | missing_ai_keywords |
@@ -268,25 +304,32 @@ Total rejected articles: **962**
 | [Karthik-reddy6/aegistrace-threat-intelligence](https://github.com/Karthik-reddy6/aegistrace-threat-intelligence) | malware-analysis | relevance | missing_ai_keywords |
 | [Karthik-reddy6/aegistrace-threat-intelligence](https://github.com/Karthik-reddy6/aegistrace-threat-intelligence) | malware-analysis | relevance | missing_ai_keywords |
 | [KasunCSB/Live-Malware-DB](https://github.com/KasunCSB/Live-Malware-DB) | malware-analysis | relevance | missing_ai_keywords |
+| [KasunCSB/Live-Malware-DB](https://github.com/KasunCSB/Live-Malware-DB) | malware-analysis | relevance | missing_ai_keywords |
 | [Krizx6/IntrudeLab](https://github.com/Krizx6/IntrudeLab) | malware-analysis | relevance | missing_ai_keywords |
 | [Krizx6/IntrudeLab](https://github.com/Krizx6/IntrudeLab) | malware-analysis | relevance | missing_ai_keywords |
 | [LFBaptista/IAmAntimalware](https://github.com/LFBaptista/IAmAntimalware) | malware-analysis | relevance | missing_ai_keywords |
 | [LFBaptista/IAmAntimalware](https://github.com/LFBaptista/IAmAntimalware) | malware-analysis | relevance | missing_ai_keywords |
+| [LadyPatricia/198macros-v1.4.0](https://github.com/LadyPatricia/198macros-v1.4.0) | malware-analysis | relevance | missing_ai_keywords |
 | [LadyPatricia/198macros-v1.4.0](https://github.com/LadyPatricia/198macros-v1.4.0) | malware-analysis | relevance | missing_ai_keywords |
 | [LadyPatricia/198macros-v1.4.0](https://github.com/LadyPatricia/198macros-v1.4.0) | malware-analysis | relevance | missing_ai_keywords |
 | [MARIAMSOFT/Bytecode-Truth-Not-Source](https://github.com/MARIAMSOFT/Bytecode-Truth-Not-Source) | malware-analysis | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | malware-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | malware-analysis | relevance | missing_ai_keywords |
 | [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | malware-analysis | relevance | missing_ai_keywords |
+| [Natikverma/C_BitPacking](https://github.com/Natikverma/C_BitPacking) | malware-analysis | relevance | missing_ai_keywords |
+| [NishanthGSuryavamshi/thinksec](https://github.com/NishanthGSuryavamshi/thinksec) | malware-analysis | relevance | missing_ai_keywords |
 | [NishanthGSuryavamshi/thinksec](https://github.com/NishanthGSuryavamshi/thinksec) | malware-analysis | relevance | missing_ai_keywords |
 | [Pareekshithmk/Anti-Sandbox](https://github.com/Pareekshithmk/Anti-Sandbox) | malware-analysis | relevance | missing_ai_keywords |
+| [Prajwalgrathish/TotalOSINT](https://github.com/Prajwalgrathish/TotalOSINT) | malware-analysis | relevance | missing_ai_keywords |
 | [Prajwalgrathish/TotalOSINT](https://github.com/Prajwalgrathish/TotalOSINT) | malware-analysis | relevance | missing_ai_keywords |
 | [Rohan17182004/SmrtiLog](https://github.com/Rohan17182004/SmrtiLog) | malware-analysis | relevance | missing_ai_keywords |
 | [Rohan17182004/SmrtiLog](https://github.com/Rohan17182004/SmrtiLog) | malware-analysis | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | malware-analysis | relevance | missing_ai_keywords |
 | [Soocile/ShadowStrike](https://github.com/Soocile/ShadowStrike) | malware-analysis | relevance | missing_ai_keywords |
 | [Soocile/ShadowStrike](https://github.com/Soocile/ShadowStrike) | malware-analysis | relevance | missing_ai_keywords |
+| [Soocile/ShadowStrike](https://github.com/Soocile/ShadowStrike) | malware-analysis | relevance | missing_ai_keywords |
 | [Threatwise/attack-rs](https://github.com/Threatwise/attack-rs) | malware-analysis | relevance | missing_ai_keywords |
+| [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | malware-analysis | relevance | missing_ai_keywords |
@@ -301,12 +344,14 @@ Total rejected articles: **962**
 | [WilliamLCardoso/ShellStrike](https://github.com/WilliamLCardoso/ShellStrike) | malware-analysis | relevance | missing_ai_keywords |
 | [anshlmalik/CustomC2ChannelTemplate](https://github.com/anshlmalik/CustomC2ChannelTemplate) | malware-analysis | relevance | missing_ai_keywords |
 | [arieahXxshrek/secwexen.github.io](https://github.com/arieahXxshrek/secwexen.github.io) | malware-analysis | relevance | missing_ai_keywords |
+| [arieahXxshrek/secwexen.github.io](https://github.com/arieahXxshrek/secwexen.github.io) | malware-analysis | relevance | missing_ai_keywords |
 | [awab208/CyberSecurity-Journey](https://github.com/awab208/CyberSecurity-Journey) | malware-analysis | relevance | missing_ai_keywords |
 | [awab208/CyberSecurity-Journey](https://github.com/awab208/CyberSecurity-Journey) | malware-analysis | relevance | missing_ai_keywords |
 | [binbi123/RedAudit-USB](https://github.com/binbi123/RedAudit-USB) | malware-analysis | relevance | missing_ai_keywords |
 | [camilo123433/Dridex-Malware-Unpacking-Report](https://github.com/camilo123433/Dridex-Malware-Unpacking-Report) | malware-analysis | relevance | missing_ai_keywords |
 | [dishantar/cybratix-extention](https://github.com/dishantar/cybratix-extention) | malware-analysis | relevance | missing_ai_keywords |
 | [doniboyd/IOC-Checker-Pro](https://github.com/doniboyd/IOC-Checker-Pro) | malware-analysis | relevance | missing_ai_keywords |
+| [enzoplaaygamemg12/gtfobinSUID](https://github.com/enzoplaaygamemg12/gtfobinSUID) | malware-analysis | relevance | missing_ai_keywords |
 | [enzoplaaygamemg12/gtfobinSUID](https://github.com/enzoplaaygamemg12/gtfobinSUID) | malware-analysis | relevance | missing_ai_keywords |
 | [ferxxo2024/PenetrationSystem](https://github.com/ferxxo2024/PenetrationSystem) | malware-analysis | relevance | missing_ai_keywords |
 | [ferxxo2024/PenetrationSystem](https://github.com/ferxxo2024/PenetrationSystem) | malware-analysis | relevance | missing_ai_keywords |
@@ -325,6 +370,7 @@ Total rejected articles: **962**
 | [mreshuu/STForensicMacOS](https://github.com/mreshuu/STForensicMacOS) | malware-analysis | relevance | missing_ai_keywords |
 | [mreshuu/STForensicMacOS](https://github.com/mreshuu/STForensicMacOS) | malware-analysis | relevance | missing_ai_keywords |
 | [mtysedke/security-incident-artifact-analyzer](https://github.com/mtysedke/security-incident-artifact-analyzer) | malware-analysis | relevance | missing_ai_keywords |
+| [mtysedke/security-incident-artifact-analyzer](https://github.com/mtysedke/security-incident-artifact-analyzer) | malware-analysis | relevance | missing_ai_keywords |
 | [plichycode/DLL-Injection-Engine](https://github.com/plichycode/DLL-Injection-Engine) | malware-analysis | relevance | missing_ai_keywords |
 | [plichycode/DLL-Injection-Engine](https://github.com/plichycode/DLL-Injection-Engine) | malware-analysis | relevance | missing_ai_keywords |
 | [prateek123s/HWBP-DEP-Bypass](https://github.com/prateek123s/HWBP-DEP-Bypass) | malware-analysis | relevance | missing_ai_keywords |
@@ -333,11 +379,15 @@ Total rejected articles: **962**
 | [reuteras/dfirws](https://github.com/reuteras/dfirws) | malware-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | malware-analysis | relevance | missing_ai_keywords |
 | [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | malware-analysis | relevance | missing_ai_keywords |
+| [senaMizo/assembly-reverse-engineering](https://github.com/senaMizo/assembly-reverse-engineering) | malware-analysis | relevance | missing_ai_keywords |
 | [spontopt/StyxLoaderX-EDR-Evasion](https://github.com/spontopt/StyxLoaderX-EDR-Evasion) | malware-analysis | relevance | missing_ai_keywords |
 | [spontopt/StyxLoaderX-EDR-Evasion](https://github.com/spontopt/StyxLoaderX-EDR-Evasion) | malware-analysis | relevance | missing_ai_keywords |
 | [tabishcricketer/pe-signgen](https://github.com/tabishcricketer/pe-signgen) | malware-analysis | relevance | missing_ai_keywords |
 | [tabishcricketer/pe-signgen](https://github.com/tabishcricketer/pe-signgen) | malware-analysis | relevance | missing_ai_keywords |
+| [thisarasewmina/DbgNexum](https://github.com/thisarasewmina/DbgNexum) | malware-analysis | relevance | missing_ai_keywords |
 | [vmkspv/lenspect](https://github.com/vmkspv/lenspect) | malware-analysis | relevance | missing_ai_keywords |
+| [vmkspv/lenspect](https://github.com/vmkspv/lenspect) | malware-analysis | relevance | missing_ai_keywords |
+| [FuzzingLabs/mcp-security-hub](https://github.com/FuzzingLabs/mcp-security-hub) | offensive-security | applicability | Focuses on integrating offensive security tools with AI assistants, but does not demonstrate direct use of AI, automation, or fuzzing for offensive security itself. |
 | [KhonneyMann/nightops-drop](https://github.com/KhonneyMann/nightops-drop) | offensive-security | applicability | Describes red team payload delivery platform but no explicit mention of AI, automation, or fuzzing in description or topics. |
 | [Leywkeny/WinNT-add-system-user-injector](https://github.com/Leywkeny/WinNT-add-system-user-injector) | offensive-security | applicability | Focuses on system administration and automation without offensive security context or AI usage. |
 | [Maamitiana/cybersec-projects](https://github.com/Maamitiana/cybersec-projects) | offensive-security | applicability | Mentions automation scripts and AI in topics, but lacks explicit evidence that AI or automation is used for offensive security tasks (no details in description or topics). |
@@ -348,6 +398,7 @@ Total rejected articles: **962**
 | [n3rada/toboggan](https://github.com/n3rada/toboggan) | offensive-security | applicability | Focuses on transforming RCE into shells for offensive security, but no mention of AI, automation, or fuzzing in description or topics. |
 | [sairysee/aappmart](https://github.com/sairysee/aappmart) | offensive-security | applicability | Although the topics and description mention offensive security and AI/automation-related terms, there is no explicit evidence that the repository demonstrates the use of AI, automation, or fuzzing for offensive security. The description is focused on building an online marketplace. |
 | [Froezens/Python-Blacklist-Breaker](https://github.com/Froezens/Python-Blacklist-Breaker) | offensive-security | credibility | No stars and no community validation; description is clear but repository is unvalidated and could be a toy project. |
+| [Panda1847/NullSec-RedTeam-AI](https://github.com/Panda1847/NullSec-RedTeam-AI) | offensive-security | credibility | No stars and no community validation; description is somewhat vague and could be a placeholder or duplicate. No evidence of activity from others. |
 | [ahmetdrak/drakben](https://github.com/ahmetdrak/drakben) | offensive-security | credibility | Very low star count (4) and future last update date suggest possible toy project or placeholder; otherwise, description is substantive. |
 | [secwexen/aapp-mart](https://github.com/secwexen/aapp-mart) | offensive-security | credibility | Low stars count and outdated repository with last update in 2026, suggesting inactive maintenance. |
 | [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | offensive-security | credibility | No community validation (0 stars), but description and topics are substantive and clear. Recently updated, but lack of stars is a concern. |
@@ -355,9 +406,12 @@ Total rejected articles: **962**
 | [AKURHULA/LLMSecurityGuide](https://github.com/AKURHULA/LLMSecurityGuide) | offensive-security | relevance | missing_ai_keywords |
 | [AKURHULA/LLMSecurityGuide](https://github.com/AKURHULA/LLMSecurityGuide) | offensive-security | relevance | missing_ai_keywords |
 | [AKURHULA/LLMSecurityGuide](https://github.com/AKURHULA/LLMSecurityGuide) | offensive-security | relevance | missing_ai_keywords |
+| [Ahmedsofteng/red-team-arsenal](https://github.com/Ahmedsofteng/red-team-arsenal) | offensive-security | relevance | missing_ai_keywords |
 | [Aviwe45/metasploit-for-beginners](https://github.com/Aviwe45/metasploit-for-beginners) | offensive-security | relevance | missing_ai_keywords |
 | [Aviwe45/metasploit-for-beginners](https://github.com/Aviwe45/metasploit-for-beginners) | offensive-security | relevance | missing_ai_keywords |
 | [Aviwe45/metasploit-for-beginners](https://github.com/Aviwe45/metasploit-for-beginners) | offensive-security | relevance | missing_ai_keywords |
+| [Aviwe45/metasploit-for-beginners](https://github.com/Aviwe45/metasploit-for-beginners) | offensive-security | relevance | missing_ai_keywords |
+| [Cur1iosity/GitlabHarvester](https://github.com/Cur1iosity/GitlabHarvester) | offensive-security | relevance | missing_ai_keywords |
 | [Eabnfccblls/awesome-cybersecurity-tools](https://github.com/Eabnfccblls/awesome-cybersecurity-tools) | offensive-security | relevance | missing_ai_keywords |
 | [Eabnfccblls/awesome-cybersecurity-tools](https://github.com/Eabnfccblls/awesome-cybersecurity-tools) | offensive-security | relevance | missing_ai_keywords |
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
@@ -367,6 +421,7 @@ Total rejected articles: **962**
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
+| [Finnnwm/CloneX-Muck-security-testing-tool](https://github.com/Finnnwm/CloneX-Muck-security-testing-tool) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
@@ -374,6 +429,8 @@ Total rejected articles: **962**
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
 | [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
+| [FlameBudy/MSSQLServer-CLR-CommandKit](https://github.com/FlameBudy/MSSQLServer-CLR-CommandKit) | offensive-security | relevance | missing_ai_keywords |
+| [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | offensive-security | relevance | missing_ai_keywords |
@@ -384,11 +441,14 @@ Total rejected articles: **962**
 | [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | offensive-security | relevance | missing_ai_keywords |
 | [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | offensive-security | relevance | missing_ai_keywords |
 | [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | offensive-security | relevance | missing_ai_keywords |
+| [MiguelArmando/Bug-Bounty-Roadmap](https://github.com/MiguelArmando/Bug-Bounty-Roadmap) | offensive-security | relevance | missing_ai_keywords |
 | [Morenoch26/OffsetInspect](https://github.com/Morenoch26/OffsetInspect) | offensive-security | relevance | missing_ai_keywords |
 | [MuhammadSufyanSikander/emacs-tramp-rpc](https://github.com/MuhammadSufyanSikander/emacs-tramp-rpc) | offensive-security | relevance | missing_ai_keywords |
 | [MuhammadSufyanSikander/emacs-tramp-rpc](https://github.com/MuhammadSufyanSikander/emacs-tramp-rpc) | offensive-security | relevance | missing_ai_keywords |
 | [MuhammadSufyanSikander/emacs-tramp-rpc](https://github.com/MuhammadSufyanSikander/emacs-tramp-rpc) | offensive-security | relevance | missing_ai_keywords |
+| [MuhammadSufyanSikander/emacs-tramp-rpc](https://github.com/MuhammadSufyanSikander/emacs-tramp-rpc) | offensive-security | relevance | missing_ai_keywords |
 | [Ornateill/nightmare-exploit-roadmap](https://github.com/Ornateill/nightmare-exploit-roadmap) | offensive-security | relevance | missing_ai_keywords |
+| [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | offensive-security | relevance | missing_ai_keywords |
 | [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | offensive-security | relevance | missing_ai_keywords |
 | [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | offensive-security | relevance | missing_ai_keywords |
 | [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | offensive-security | relevance | missing_ai_keywords |
@@ -405,7 +465,9 @@ Total rejected articles: **962**
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
+| [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | offensive-security | relevance | missing_ai_keywords |
 | [Wanssss1/BOFs](https://github.com/Wanssss1/BOFs) | offensive-security | relevance | missing_ai_keywords |
+| [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
 | [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
 | [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
 | [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | offensive-security | relevance | missing_ai_keywords |
@@ -422,6 +484,7 @@ Total rejected articles: **962**
 | [edoardottt/secfiles](https://github.com/edoardottt/secfiles) | offensive-security | relevance | missing_ai_keywords |
 | [enzoplaaygamemg12/gtfobinSUID](https://github.com/enzoplaaygamemg12/gtfobinSUID) | offensive-security | relevance | missing_ai_keywords |
 | [enzoplaaygamemg12/gtfobinSUID](https://github.com/enzoplaaygamemg12/gtfobinSUID) | offensive-security | relevance | missing_ai_keywords |
+| [enzoplaaygamemg12/gtfobinSUID](https://github.com/enzoplaaygamemg12/gtfobinSUID) | offensive-security | relevance | missing_ai_keywords |
 | [halilkirazkaya/gecit](https://github.com/halilkirazkaya/gecit) | offensive-security | relevance | missing_ai_keywords |
 | [halilkirazkaya/gecit](https://github.com/halilkirazkaya/gecit) | offensive-security | relevance | missing_ai_keywords |
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | offensive-security | relevance | missing_ai_keywords |
@@ -429,7 +492,9 @@ Total rejected articles: **962**
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | offensive-security | relevance | missing_ai_keywords |
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | offensive-security | relevance | missing_ai_keywords |
 | [lizxyyyc/sc-reentrancy-attack](https://github.com/lizxyyyc/sc-reentrancy-attack) | offensive-security | relevance | missing_ai_keywords |
+| [neyokay1/Beast-Scanner](https://github.com/neyokay1/Beast-Scanner) | offensive-security | relevance | missing_ai_keywords |
 | [nikamhritik/awesome-battery-data](https://github.com/nikamhritik/awesome-battery-data) | offensive-security | relevance | missing_ai_keywords |
+| [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | offensive-security | relevance | missing_ai_keywords |
 | [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | offensive-security | relevance | missing_ai_keywords |
 | [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | offensive-security | relevance | missing_ai_keywords |
 | [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | offensive-security | relevance | missing_ai_keywords |
@@ -437,12 +502,15 @@ Total rejected articles: **962**
 | [praetorian-inc/brutus](https://github.com/praetorian-inc/brutus) | offensive-security | relevance | missing_ai_keywords |
 | [thesp0nge/nightcrawler-mitm](https://github.com/thesp0nge/nightcrawler-mitm) | offensive-security | relevance | missing_ai_keywords |
 | [unk9vvn/unk9vvn.github.io](https://github.com/unk9vvn/unk9vvn.github.io) | offensive-security | relevance | missing_ai_keywords |
+| [unk9vvn/unk9vvn.github.io](https://github.com/unk9vvn/unk9vvn.github.io) | offensive-security | relevance | missing_ai_keywords |
+| [vishalo7o1/chronix](https://github.com/vishalo7o1/chronix) | offensive-security | relevance | missing_ai_keywords |
 | [vishalo7o1/chronix](https://github.com/vishalo7o1/chronix) | offensive-security | relevance | missing_ai_keywords |
 | [vishalo7o1/chronix](https://github.com/vishalo7o1/chronix) | offensive-security | relevance | missing_ai_keywords |
 | [vishalo7o1/chronix](https://github.com/vishalo7o1/chronix) | offensive-security | relevance | missing_ai_keywords |
 | [voltsparx/NetLoader-X](https://github.com/voltsparx/NetLoader-X) | offensive-security | relevance | missing_ai_keywords |
 | [voltsparx/NetLoader-X](https://github.com/voltsparx/NetLoader-X) | offensive-security | relevance | missing_ai_keywords |
 | [voltsparx/mercury-framework](https://github.com/voltsparx/mercury-framework) | offensive-security | relevance | missing_ai_keywords |
+| [xseduran/ofxpwn](https://github.com/xseduran/ofxpwn) | offensive-security | relevance | missing_ai_keywords |
 | [xseduran/ofxpwn](https://github.com/xseduran/ofxpwn) | offensive-security | relevance | missing_ai_keywords |
 | [Fishin09/GodzillaNodeJsPayload](https://github.com/Fishin09/GodzillaNodeJsPayload) | penetration-testing | applicability | Focuses on payload development for Godzilla platform but does not mention AI, automation, or fuzzing in the context of offensive security. |
 | [Kasim200429/GoBypass403](https://github.com/Kasim200429/GoBypass403) | penetration-testing | applicability | The repository is a tool for bypassing 403 errors during penetration testing but does not demonstrate the use of AI, automation, or fuzzing. |
@@ -465,6 +533,7 @@ Total rejected articles: **962**
 | [melolixodocaralho/mercury-framework](https://github.com/melolixodocaralho/mercury-framework) | penetration-testing | applicability | Mentions penetration testing and machine learning, but lacks explicit evidence of AI, automation, or fuzzing being used for offensive security in the description or topics. |
 | [modifiable-japaneseiris792/r-shell](https://github.com/modifiable-japaneseiris792/r-shell) | penetration-testing | applicability | Repository focuses on remote shell access and penetration testing but does not mention AI, automation, or fuzzing in its description or topics. |
 | [mohamedelalfy27/argus](https://github.com/mohamedelalfy27/argus) | penetration-testing | applicability | Mentions penetration-testing and ethical-hacking, but the AI/automation component is about agent observability, not offensive security. No explicit evidence of AI/automation being used for offensive operations. |
+| [nataliayzikv/impacket-jump](https://github.com/nataliayzikv/impacket-jump) | penetration-testing | applicability | Focuses on manual deployment of remote services for lateral movement; no mention of AI, automation, or fuzzing. |
 | [romeorone/ShellStrike](https://github.com/romeorone/ShellStrike) | penetration-testing | applicability | General-purpose shell scripting toolkit; while it mentions automation and some security topics, it does not demonstrate AI, fuzzing, or offensive security automation. |
 | [swathigoud/WhisperNet](https://github.com/swathigoud/WhisperNet) | penetration-testing | applicability | The repository is a password generator tool for penetration testing but does not mention AI, automation, or fuzzing explicitly. |
 | [timgerstel/suspicious_IPs](https://github.com/timgerstel/suspicious_IPs) | penetration-testing | applicability | The repository focuses on collecting suspicious IPs from a honeypot but does not demonstrate the use of AI, automation, or fuzzing for offensive security. |
@@ -475,8 +544,10 @@ Total rejected articles: **962**
 | [vukssan/KamelionStack-OSE](https://github.com/vukssan/KamelionStack-OSE) | penetration-testing | credibility | No community validation (0 stars), but description and topics are substantive and clear. Recently updated, but lack of stars is a concern. |
 | [zee839/APTBench](https://github.com/zee839/APTBench) | penetration-testing | credibility | Recently updated but has only 1 star and limited community validation. The description is somewhat clear but lacks detail about implementation. |
 | [Abhishek-innovation/ShadowSploit](https://github.com/Abhishek-innovation/ShadowSploit) | penetration-testing | relevance | missing_ai_keywords |
+| [Ahmedsofteng/red-team-arsenal](https://github.com/Ahmedsofteng/red-team-arsenal) | penetration-testing | relevance | missing_ai_keywords |
 | [Ajoloid/cybersecurity-interview-boilerplate](https://github.com/Ajoloid/cybersecurity-interview-boilerplate) | penetration-testing | relevance | missing_ai_keywords |
 | [Alakaroud/vuln-structure](https://github.com/Alakaroud/vuln-structure) | penetration-testing | relevance | missing_ai_keywords |
+| [Ancescride/Ethical-Hacking-College_Project](https://github.com/Ancescride/Ethical-Hacking-College_Project) | penetration-testing | relevance | missing_ai_keywords |
 | [Ancescride/Ethical-Hacking-College_Project](https://github.com/Ancescride/Ethical-Hacking-College_Project) | penetration-testing | relevance | missing_ai_keywords |
 | [Ancescride/Ethical-Hacking-College_Project](https://github.com/Ancescride/Ethical-Hacking-College_Project) | penetration-testing | relevance | missing_ai_keywords |
 | [Asder10/React2Shell](https://github.com/Asder10/React2Shell) | penetration-testing | relevance | missing_ai_keywords |
@@ -493,6 +564,8 @@ Total rejected articles: **962**
 | [Eunsei677383/Free-Passive](https://github.com/Eunsei677383/Free-Passive) | penetration-testing | relevance | missing_ai_keywords |
 | [FaresArgus/artaxerxes](https://github.com/FaresArgus/artaxerxes) | penetration-testing | relevance | missing_ai_keywords |
 | [Giufenix/ChicomaloTools](https://github.com/Giufenix/ChicomaloTools) | penetration-testing | relevance | missing_ai_keywords |
+| [Goldroger0262/PwnRM](https://github.com/Goldroger0262/PwnRM) | penetration-testing | relevance | missing_ai_keywords |
+| [Icy-Senpal/bypass-all](https://github.com/Icy-Senpal/bypass-all) | penetration-testing | relevance | missing_ai_keywords |
 | [Icy-Senpal/bypass-all](https://github.com/Icy-Senpal/bypass-all) | penetration-testing | relevance | missing_ai_keywords |
 | [Icy-Senpal/bypass-all](https://github.com/Icy-Senpal/bypass-all) | penetration-testing | relevance | missing_ai_keywords |
 | [Karararam/SpringBoot-Exploit-Toolkit](https://github.com/Karararam/SpringBoot-Exploit-Toolkit) | penetration-testing | relevance | missing_ai_keywords |
@@ -505,9 +578,12 @@ Total rejected articles: **962**
 | [Oz134/perishable-inventory-risk-engine](https://github.com/Oz134/perishable-inventory-risk-engine) | penetration-testing | relevance | missing_ai_keywords |
 | [RoshanBetediya/minecraft-account-checker](https://github.com/RoshanBetediya/minecraft-account-checker) | penetration-testing | relevance | missing_ai_keywords |
 | [TahaGameDev/Offensive-Security-Forensics-Portfolio](https://github.com/TahaGameDev/Offensive-Security-Forensics-Portfolio) | penetration-testing | relevance | missing_ai_keywords |
+| [Tibisihkr/dismap-identification-tool](https://github.com/Tibisihkr/dismap-identification-tool) | penetration-testing | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | penetration-testing | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | penetration-testing | relevance | missing_ai_keywords |
 | [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | penetration-testing | relevance | missing_ai_keywords |
+| [Trimamkash/SqlKnife](https://github.com/Trimamkash/SqlKnife) | penetration-testing | relevance | missing_ai_keywords |
+| [Trivexion/FscanOutput-Beautify](https://github.com/Trivexion/FscanOutput-Beautify) | penetration-testing | relevance | missing_ai_keywords |
 | [Vectoricks/RDP-Forensic](https://github.com/Vectoricks/RDP-Forensic) | penetration-testing | relevance | missing_ai_keywords |
 | [WilliamLCardoso/ShellStrike](https://github.com/WilliamLCardoso/ShellStrike) | penetration-testing | relevance | missing_ai_keywords |
 | [Yaxiswagonwheel794/AbyssForge](https://github.com/Yaxiswagonwheel794/AbyssForge) | penetration-testing | relevance | missing_ai_keywords |
@@ -521,6 +597,8 @@ Total rejected articles: **962**
 | [aidenateagain/ghostscan](https://github.com/aidenateagain/ghostscan) | penetration-testing | relevance | missing_ai_keywords |
 | [arieahXxshrek/secwexen.github.io](https://github.com/arieahXxshrek/secwexen.github.io) | penetration-testing | relevance | missing_ai_keywords |
 | [awab208/CyberSecurity-Journey](https://github.com/awab208/CyberSecurity-Journey) | penetration-testing | relevance | missing_ai_keywords |
+| [ayinedjimi/NTLM-HASH-CALCULATOR](https://github.com/ayinedjimi/NTLM-HASH-CALCULATOR) | penetration-testing | relevance | missing_ai_keywords |
+| [ayinedjimi/TcpPortFuzzer](https://github.com/ayinedjimi/TcpPortFuzzer) | penetration-testing | relevance | missing_ai_keywords |
 | [carolinavigil/prickly](https://github.com/carolinavigil/prickly) | penetration-testing | relevance | missing_ai_keywords |
 | [dedsec1121fk/DedSec](https://github.com/dedsec1121fk/DedSec) | penetration-testing | relevance | missing_ai_keywords |
 | [ferxxo2024/PenetrationSystem](https://github.com/ferxxo2024/PenetrationSystem) | penetration-testing | relevance | missing_ai_keywords |
@@ -533,6 +611,7 @@ Total rejected articles: **962**
 | [javidahmed64592/cyber-query-ai](https://github.com/javidahmed64592/cyber-query-ai) | penetration-testing | relevance | missing_ai_keywords |
 | [jinsolkr/Ethical-Hacking-Course-Resources](https://github.com/jinsolkr/Ethical-Hacking-Course-Resources) | penetration-testing | relevance | missing_ai_keywords |
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | penetration-testing | relevance | missing_ai_keywords |
+| [kaka158b/SQL-Injector](https://github.com/kaka158b/SQL-Injector) | penetration-testing | relevance | missing_ai_keywords |
 | [kal21k/HWBP-DEP-Bypass](https://github.com/kal21k/HWBP-DEP-Bypass) | penetration-testing | relevance | missing_ai_keywords |
 | [landoalva/jira-servicedesk-enum](https://github.com/landoalva/jira-servicedesk-enum) | penetration-testing | relevance | missing_ai_keywords |
 | [landoalva/jira-servicedesk-enum](https://github.com/landoalva/jira-servicedesk-enum) | penetration-testing | relevance | missing_ai_keywords |
@@ -540,11 +619,14 @@ Total rejected articles: **962**
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
+| [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | penetration-testing | relevance | missing_ai_keywords |
 | [moikakd/Camphish-pro](https://github.com/moikakd/Camphish-pro) | penetration-testing | relevance | missing_ai_keywords |
+| [neyokay1/Beast-Scanner](https://github.com/neyokay1/Beast-Scanner) | penetration-testing | relevance | missing_ai_keywords |
 | [niago1967/ExploitHawk](https://github.com/niago1967/ExploitHawk) | penetration-testing | relevance | missing_ai_keywords |
 | [niago1967/ExploitHawk](https://github.com/niago1967/ExploitHawk) | penetration-testing | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | penetration-testing | relevance | missing_ai_keywords |
 | [pbarucco/Wayback-Recon](https://github.com/pbarucco/Wayback-Recon) | penetration-testing | relevance | missing_ai_keywords |
+| [pcwill068-cloud/vm0](https://github.com/pcwill068-cloud/vm0) | penetration-testing | relevance | missing_ai_keywords |
 | [pedrocruz2202/mongobleed-scanner](https://github.com/pedrocruz2202/mongobleed-scanner) | penetration-testing | relevance | missing_ai_keywords |
 | [phiduong1230/kali-setup](https://github.com/phiduong1230/kali-setup) | penetration-testing | relevance | missing_ai_keywords |
 | [pigeon-wings/Port-Phantom](https://github.com/pigeon-wings/Port-Phantom) | penetration-testing | relevance | missing_ai_keywords |
@@ -555,6 +637,8 @@ Total rejected articles: **962**
 | [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
+| [rix4uni/medium-writeups](https://github.com/rix4uni/medium-writeups) | penetration-testing | relevance | missing_ai_keywords |
+| [rix4uni/resolvers](https://github.com/rix4uni/resolvers) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/resolvers](https://github.com/rix4uni/resolvers) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/resolvers](https://github.com/rix4uni/resolvers) | penetration-testing | relevance | missing_ai_keywords |
 | [rix4uni/resolvers](https://github.com/rix4uni/resolvers) | penetration-testing | relevance | missing_ai_keywords |
@@ -564,10 +648,15 @@ Total rejected articles: **962**
 | [tushuuu01/Inventory](https://github.com/tushuuu01/Inventory) | penetration-testing | relevance | missing_ai_keywords |
 | [tushuuu01/Inventory](https://github.com/tushuuu01/Inventory) | penetration-testing | relevance | missing_ai_keywords |
 | [viaC5real/ParamX](https://github.com/viaC5real/ParamX) | penetration-testing | relevance | missing_ai_keywords |
+| [viaC5real/ParamX](https://github.com/viaC5real/ParamX) | penetration-testing | relevance | missing_ai_keywords |
+| [waftester/waftester](https://github.com/waftester/waftester) | penetration-testing | relevance | missing_ai_keywords |
+| [waftester/waftester-action](https://github.com/waftester/waftester-action) | penetration-testing | relevance | missing_ai_keywords |
+| [Bernardtrnp/chanakya-opsec](https://github.com/Bernardtrnp/chanakya-opsec) | red-team | applicability | Focuses on operational security and signal correlation, but no explicit mention of AI, automation, or fuzzing for offensive security. |
 | [Bossthetigan/NOLO](https://github.com/Bossthetigan/NOLO) | red-team | applicability | The repository focuses on AI-powered PTZ tracking using YOLO but does not relate to offensive security or automation for security testing. |
 | [KhonneyMann/nightops-drop](https://github.com/KhonneyMann/nightops-drop) | red-team | applicability | Focuses on payload delivery and red team operations, but lacks explicit mention of AI, automation, or fuzzing in description or topics. |
 | [LagZeroCode/HackWire](https://github.com/LagZeroCode/HackWire) | red-team | applicability | Mentions offensive security topics but no explicit mention of AI, automation, or fuzzing in the description or topics. |
 | [MASHJJS/aTerm](https://github.com/MASHJJS/aTerm) | red-team | applicability | Mentions AI tools and red-team in topics, but the description and topics indicate a general-purpose developer terminal workspace, not an offensive security tool using AI/automation. |
+| [MarkhorCodex/nullsec-desktop](https://github.com/MarkhorCodex/nullsec-desktop) | red-team | applicability | Acts as a launcher/organizer for security tools, but does not demonstrate AI, automation, or fuzzing for offensive security. |
 | [Moayd307/superpoweredcv](https://github.com/Moayd307/superpoweredcv) | red-team | applicability | Mentions red-team and AI, but context is job application tooling and prompt engineering, not offensive security automation or AI-powered security testing. |
 | [OPBOY1203/redmind](https://github.com/OPBOY1203/redmind) | red-team | applicability | Mentions offensive security and machine learning, but no explicit evidence that AI/ML is used for offensive operations or automation; appears to be a collection of resources. |
 | [Quocton1/kali-linux-teaching-course-live](https://github.com/Quocton1/kali-linux-teaching-course-live) | red-team | applicability | Focuses on teaching penetration testing and security automation but does not explicitly mention AI, ML, or fuzzing for offensive security. |
@@ -576,12 +665,17 @@ Total rejected articles: **962**
 | [david3c2004/CLR-Unhook](https://github.com/david3c2004/CLR-Unhook) | red-team | applicability | Repository is related to bypassing EDR/AV for red team/offensive security, but there is no explicit mention of AI, automation, or fuzzing in its description or topics. |
 | [gubogushod/cyphisher](https://github.com/gubogushod/cyphisher) | red-team | applicability | Duplicate of Repository 2; no explicit AI, automation, or fuzzing for offensive security. |
 | [loaiasd/redspecter-ai-usage-watchdog](https://github.com/loaiasd/redspecter-ai-usage-watchdog) | red-team | applicability | Repository is related to monitoring AI usage for security, but it is focused on blue team/monitoring/defensive security, not offensive security or automation of offensive tasks. |
+| [luismmtss/Watchman](https://github.com/luismmtss/Watchman) | red-team | applicability | Monitors file changes for blue/purple team use; no offensive security or AI/automation/fuzzing context. |
+| [nataliayzikv/impacket-jump](https://github.com/nataliayzikv/impacket-jump) | red-team | applicability | Describes offensive security and exploit development, but lacks explicit mention of AI, automation, or fuzzing. |
 | [rabeal21/Tea](https://github.com/rabeal21/Tea) | red-team | applicability | The repository focuses on generating TEA wallet addresses and does not explicitly mention AI, automation, or fuzzing for offensive security. |
 | [usa2692/noemvex-wayback](https://github.com/usa2692/noemvex-wayback) | red-team | applicability | Duplicate of Repository 2. Focuses on passive enumeration and file discovery, with no explicit AI, automation, or fuzzing for offensive security. |
 | [v2lurpin/portscan-vulnerabilidades](https://github.com/v2lurpin/portscan-vulnerabilidades) | red-team | applicability | Mentions automation and vulnerability scanning for pentesting, but lacks explicit evidence of AI, advanced automation, or fuzzing in description or topics. |
+| [Panda1847/NullSec-RedTeam-AI](https://github.com/Panda1847/NullSec-RedTeam-AI) | red-team | credibility | No stars and no community validation; description is somewhat vague and could be a placeholder or duplicate. No evidence of activity from others. |
 | [ahmetdrak/drakben](https://github.com/ahmetdrak/drakben) | red-team | credibility | Very low star count (4) despite ambitious claims; possible toy project or early stage. However, recently updated and description is clear. |
+| [4ndr0666/userscripts](https://github.com/4ndr0666/userscripts) | red-team | relevance | missing_ai_keywords |
 | [Ahirshath/nmap-cheatsheet-tr](https://github.com/Ahirshath/nmap-cheatsheet-tr) | red-team | relevance | missing_ai_keywords |
 | [Ahirshath/nmap-cheatsheet-tr](https://github.com/Ahirshath/nmap-cheatsheet-tr) | red-team | relevance | missing_ai_keywords |
+| [Akunpubg9236/proyecto_AICAD_JPereira](https://github.com/Akunpubg9236/proyecto_AICAD_JPereira) | red-team | relevance | missing_ai_keywords |
 | [Akunpubg9236/proyecto_AICAD_JPereira](https://github.com/Akunpubg9236/proyecto_AICAD_JPereira) | red-team | relevance | missing_ai_keywords |
 | [AlejandroZaZ/cybersecurity-tools](https://github.com/AlejandroZaZ/cybersecurity-tools) | red-team | relevance | missing_ai_keywords |
 | [AlejandroZaZ/cybersecurity-tools](https://github.com/AlejandroZaZ/cybersecurity-tools) | red-team | relevance | missing_ai_keywords |
@@ -589,9 +683,12 @@ Total rejected articles: **962**
 | [BishopFox/sliver](https://github.com/BishopFox/sliver) | red-team | relevance | missing_ai_keywords |
 | [BlackArch/blackarch](https://github.com/BlackArch/blackarch) | red-team | relevance | missing_ai_keywords |
 | [Calla-DZ/Applied-Cybersecurity-Incident-Response-Web-Attacks-and-Secure-System-Design](https://github.com/Calla-DZ/Applied-Cybersecurity-Incident-Response-Web-Attacks-and-Secure-System-Design) | red-team | relevance | missing_ai_keywords |
+| [Cur1iosity/GitlabHarvester](https://github.com/Cur1iosity/GitlabHarvester) | red-team | relevance | missing_ai_keywords |
 | [DEVayman20/firewall-whitelist-admin](https://github.com/DEVayman20/firewall-whitelist-admin) | red-team | relevance | missing_ai_keywords |
 | [DEVayman20/firewall-whitelist-admin](https://github.com/DEVayman20/firewall-whitelist-admin) | red-team | relevance | missing_ai_keywords |
 | [DeepZatakiya/OpenMalleableC2](https://github.com/DeepZatakiya/OpenMalleableC2) | red-team | relevance | missing_ai_keywords |
+| [DeepZatakiya/OpenMalleableC2](https://github.com/DeepZatakiya/OpenMalleableC2) | red-team | relevance | missing_ai_keywords |
+| [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
 | [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
 | [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
 | [Jancarow/BypassNeo-reGeorg](https://github.com/Jancarow/BypassNeo-reGeorg) | red-team | relevance | missing_ai_keywords |
@@ -605,6 +702,7 @@ Total rejected articles: **962**
 | [Mazzy-Stars/lain_c2](https://github.com/Mazzy-Stars/lain_c2) | red-team | relevance | missing_ai_keywords |
 | [Mazzy-Stars/lain_c2](https://github.com/Mazzy-Stars/lain_c2) | red-team | relevance | missing_ai_keywords |
 | [Mazzy-Stars/lain_c2](https://github.com/Mazzy-Stars/lain_c2) | red-team | relevance | missing_ai_keywords |
+| [Mazzy-Stars/lain_c2](https://github.com/Mazzy-Stars/lain_c2) | red-team | relevance | missing_ai_keywords |
 | [Michael1-dav/red-teaming](https://github.com/Michael1-dav/red-teaming) | red-team | relevance | missing_ai_keywords |
 | [Michael1-dav/red-teaming](https://github.com/Michael1-dav/red-teaming) | red-team | relevance | missing_ai_keywords |
 | [Michael1-dav/red-teaming](https://github.com/Michael1-dav/red-teaming) | red-team | relevance | missing_ai_keywords |
@@ -613,11 +711,13 @@ Total rejected articles: **962**
 | [Nikopmpm/Fsociety-CVE-2024-0670-CheckMK-LPE](https://github.com/Nikopmpm/Fsociety-CVE-2024-0670-CheckMK-LPE) | red-team | relevance | missing_ai_keywords |
 | [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | red-team | relevance | missing_ai_keywords |
 | [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | red-team | relevance | missing_ai_keywords |
+| [Rakum713/ColdWer](https://github.com/Rakum713/ColdWer) | red-team | relevance | missing_ai_keywords |
 | [Ramborat1013/BreakerZero_PasswordCracker_v1.0](https://github.com/Ramborat1013/BreakerZero_PasswordCracker_v1.0) | red-team | relevance | missing_ai_keywords |
 | [Renpapi/n8n-workflows](https://github.com/Renpapi/n8n-workflows) | red-team | relevance | missing_ai_keywords |
 | [Rizwan723/MCP-Security-Proxy](https://github.com/Rizwan723/MCP-Security-Proxy) | red-team | relevance | missing_ai_keywords |
 | [Wanssss1/BOFs](https://github.com/Wanssss1/BOFs) | red-team | relevance | missing_ai_keywords |
 | [ZayaCrypt/memtap](https://github.com/ZayaCrypt/memtap) | red-team | relevance | missing_ai_keywords |
+| [abckit0324-crypto/Paper_Agg](https://github.com/abckit0324-crypto/Paper_Agg) | red-team | relevance | missing_ai_keywords |
 | [abckit0324-crypto/Paper_Agg](https://github.com/abckit0324-crypto/Paper_Agg) | red-team | relevance | missing_ai_keywords |
 | [ahmedawad22/Offense-to-Defense-A-Kali-Linux-Guide-to-Reverse-Shells-and-Backdoors](https://github.com/ahmedawad22/Offense-to-Defense-A-Kali-Linux-Guide-to-Reverse-Shells-and-Backdoors) | red-team | relevance | missing_ai_keywords |
 | [ahmedawad22/Offense-to-Defense-A-Kali-Linux-Guide-to-Reverse-Shells-and-Backdoors](https://github.com/ahmedawad22/Offense-to-Defense-A-Kali-Linux-Guide-to-Reverse-Shells-and-Backdoors) | red-team | relevance | missing_ai_keywords |
@@ -631,6 +731,7 @@ Total rejected articles: **962**
 | [chrisgallenx/Interactive-MITRE-Tree](https://github.com/chrisgallenx/Interactive-MITRE-Tree) | red-team | relevance | missing_ai_keywords |
 | [chrisgallenx/Interactive-MITRE-Tree](https://github.com/chrisgallenx/Interactive-MITRE-Tree) | red-team | relevance | missing_ai_keywords |
 | [chrismmt/mcp-adversarial-suite](https://github.com/chrismmt/mcp-adversarial-suite) | red-team | relevance | missing_ai_keywords |
+| [deptif/linux-less-persistence](https://github.com/deptif/linux-less-persistence) | red-team | relevance | missing_ai_keywords |
 | [ferxxo2024/PenetrationSystem](https://github.com/ferxxo2024/PenetrationSystem) | red-team | relevance | missing_ai_keywords |
 | [ferxxo2024/PenetrationSystem](https://github.com/ferxxo2024/PenetrationSystem) | red-team | relevance | missing_ai_keywords |
 | [fhgggggggggggggggggggg/IntrudeLab](https://github.com/fhgggggggggggggggggggg/IntrudeLab) | red-team | relevance | missing_ai_keywords |
@@ -649,11 +750,13 @@ Total rejected articles: **962**
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | red-team | relevance | missing_ai_keywords |
 | [jm7knz/CVE-2025-54253-Exploit-Demo](https://github.com/jm7knz/CVE-2025-54253-Exploit-Demo) | red-team | relevance | missing_ai_keywords |
 | [kemalyaa/webinar-session-jwt](https://github.com/kemalyaa/webinar-session-jwt) | red-team | relevance | missing_ai_keywords |
+| [kemalyaa/webinar-session-jwt](https://github.com/kemalyaa/webinar-session-jwt) | red-team | relevance | missing_ai_keywords |
 | [kronossphpp/Hardcoded-Token-Hunter](https://github.com/kronossphpp/Hardcoded-Token-Hunter) | red-team | relevance | missing_ai_keywords |
 | [ksnnd32/redis_exploit](https://github.com/ksnnd32/redis_exploit) | red-team | relevance | missing_ai_keywords |
 | [ksnnd32/redis_exploit](https://github.com/ksnnd32/redis_exploit) | red-team | relevance | missing_ai_keywords |
 | [luq12-growagarden/Adversarial-Detection-Engineering-Framework](https://github.com/luq12-growagarden/Adversarial-Detection-Engineering-Framework) | red-team | relevance | missing_ai_keywords |
 | [luq12-growagarden/Adversarial-Detection-Engineering-Framework](https://github.com/luq12-growagarden/Adversarial-Detection-Engineering-Framework) | red-team | relevance | missing_ai_keywords |
+| [luq12-growagarden/Adversarial-Detection-Engineering-Framework](https://github.com/luq12-growagarden/Adversarial-Detection-Engineering-Framework) | red-team | relevance | missing_ai_keywords |
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | red-team | relevance | missing_ai_keywords |
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
@@ -661,11 +764,14 @@ Total rejected articles: **962**
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
 | [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
+| [mods20hh/ZeroLogon-PoC-DC-Pwn](https://github.com/mods20hh/ZeroLogon-PoC-DC-Pwn) | red-team | relevance | missing_ai_keywords |
+| [n3rada/MSSQLand](https://github.com/n3rada/MSSQLand) | red-team | relevance | missing_ai_keywords |
 | [nupurgurnule/GoldMAC](https://github.com/nupurgurnule/GoldMAC) | red-team | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit](https://github.com/otuhsgcasg/Cooolis-ms-C2-Loader-Metasploit) | red-team | relevance | missing_ai_keywords |
 | [pedrocruz2202/mongobleed-scanner](https://github.com/pedrocruz2202/mongobleed-scanner) | red-team | relevance | missing_ai_keywords |
+| [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | red-team | relevance | missing_ai_keywords |
 | [pepitopere666/WireTapper](https://github.com/pepitopere666/WireTapper) | red-team | relevance | missing_ai_keywords |
 | [plichycode/DLL-Injection-Engine](https://github.com/plichycode/DLL-Injection-Engine) | red-team | relevance | missing_ai_keywords |
 | [plichycode/DLL-Injection-Engine](https://github.com/plichycode/DLL-Injection-Engine) | red-team | relevance | missing_ai_keywords |
@@ -680,8 +786,11 @@ Total rejected articles: **962**
 | [spontopt/StyxLoaderX-EDR-Evasion](https://github.com/spontopt/StyxLoaderX-EDR-Evasion) | red-team | relevance | missing_ai_keywords |
 | [srvishal/sliver-tor-bridge](https://github.com/srvishal/sliver-tor-bridge) | red-team | relevance | missing_ai_keywords |
 | [temboohms68/Flipper-Zero-IR-Signal-Generator](https://github.com/temboohms68/Flipper-Zero-IR-Signal-Generator) | red-team | relevance | missing_ai_keywords |
+| [temboohms68/Flipper-Zero-IR-Signal-Generator](https://github.com/temboohms68/Flipper-Zero-IR-Signal-Generator) | red-team | relevance | missing_ai_keywords |
 | [tharun27102006/Aether-C2-Framework](https://github.com/tharun27102006/Aether-C2-Framework) | red-team | relevance | missing_ai_keywords |
+| [vishalo7o1/chronix](https://github.com/vishalo7o1/chronix) | red-team | relevance | missing_ai_keywords |
 | [vonofdaville/adversarial-phish-forge](https://github.com/vonofdaville/adversarial-phish-forge) | red-team | relevance | missing_ai_keywords |
+| [xsa/infosec-events](https://github.com/xsa/infosec-events) | red-team | relevance | missing_ai_keywords |
 | [CanvizTechnologies/cloud-claw](https://github.com/CanvizTechnologies/cloud-claw) | reverse-engineering | applicability | AI assistant for workflow enhancement; no explicit connection to offensive security, automation, or fuzzing. |
 | [DUVALL707/ExploitMaze](https://github.com/DUVALL707/ExploitMaze) | reverse-engineering | applicability | Focuses on vulnerability assessment and exploit development but lacks explicit mention of AI, automation, or fuzzing. |
 | [JKASle/Inspector](https://github.com/JKASle/Inspector) | reverse-engineering | applicability | Transforms Google AI Studio exports for analysis; no evidence of offensive security, automation, or fuzzing. |
@@ -700,6 +809,7 @@ Total rejected articles: **962**
 | [by-reales/fripack](https://github.com/by-reales/fripack) | reverse-engineering | applicability | Focuses on packaging Frida scripts for reverse engineering, but does not mention AI, automation, or fuzzing for offensive security. |
 | [dhesnut/gemini_gpt](https://github.com/dhesnut/gemini_gpt) | reverse-engineering | applicability | AI chat application with no explicit connection to offensive security, penetration testing, or automation for security testing. |
 | [eslamfox100/AIDA](https://github.com/eslamfox100/AIDA) | reverse-engineering | applicability | Mentions AI and pentesting tools, but lacks explicit evidence of AI/automation/fuzzing being used for offensive security; description is vague about actual implementation. |
+| [even88813-hash/anticheat](https://github.com/even88813-hash/anticheat) | reverse-engineering | applicability | Focuses on anti-cheat for gaming servers; no evidence of AI, ML, automation, or fuzzing for offensive security. |
 | [imamardiyanto/ts-testdoc](https://github.com/imamardiyanto/ts-testdoc) | reverse-engineering | applicability | Repository is a documentation testing tool and not related to offensive security, AI, automation, or fuzzing. |
 | [kidkaitou121212/Roblox-Executor-Injector-2025](https://github.com/kidkaitou121212/Roblox-Executor-Injector-2025) | reverse-engineering | applicability | Mentions exploit and reverse-engineering, but no explicit evidence of AI, automation, or fuzzing for offensive security; appears to be a game cheat/injector. |
 | [kingdenofficial/ReverseBox](https://github.com/kingdenofficial/ReverseBox) | reverse-engineering | applicability | Repository is about reversing text/data, not offensive security or AI/automation/fuzzing. |
@@ -711,6 +821,8 @@ Total rejected articles: **962**
 | [rdnrhm92/switch](https://github.com/rdnrhm92/switch) | reverse-engineering | applicability | The repository is a feature flag management platform for enterprise applications. While it mentions AI-tools and reverse-engineering in topics, there is no explicit evidence of AI, automation, or fuzzing being used for offensive security purposes. |
 | [stepanovmykola/CryptInject](https://github.com/stepanovmykola/CryptInject) | reverse-engineering | applicability | While the repository mentions penetration testing and malware analysis, there is no explicit indication of AI, automation, or fuzzing being used. |
 | [viniciussantos2004/strata](https://github.com/viniciussantos2004/strata) | reverse-engineering | applicability | Repository is focused on AI initiative management and compliance, not offensive security or automation/fuzzing for security testing. |
+| [xtekky/gpt4free](https://github.com/xtekky/gpt4free) | reverse-engineering | applicability | Repository is a collection of language models and chatbots; no explicit connection to offensive security, AI for security, or automation for offensive operations. |
+| [xu-xiang/inkeep-mcp](https://github.com/xu-xiang/inkeep-mcp) | reverse-engineering | applicability | Mentions AI and automation, but not in an offensive security context; focuses on documentation Q&A. |
 | [yassiroz/sekaictf-2025](https://github.com/yassiroz/sekaictf-2025) | reverse-engineering | applicability | Repository contains CTF challenges and writeups related to offensive security, but there is no explicit mention of AI, automation, or fuzzing usage. |
 | [yutangru1114/hwidtool](https://github.com/yutangru1114/hwidtool) | reverse-engineering | applicability | The repository is a hardware ID management tool focused on privacy and system programming; no explicit mention of AI, automation, or fuzzing for offensive security. |
 | [OnlyyxErika/Ciphey](https://github.com/OnlyyxErika/Ciphey) | reverse-engineering | credibility | No stars and potentially a fork or duplicate; description is substantive but no community validation. |
@@ -729,6 +841,7 @@ Total rejected articles: **962**
 | [Bienfait-Mutunzi/Awesome-Hacking-Learning-Path](https://github.com/Bienfait-Mutunzi/Awesome-Hacking-Learning-Path) | reverse-engineering | relevance | missing_ai_keywords |
 | [BillyGitau/My-first-game](https://github.com/BillyGitau/My-first-game) | reverse-engineering | relevance | missing_ai_keywords |
 | [Chrimakan/WinRAR-Password-Cracker-Tool](https://github.com/Chrimakan/WinRAR-Password-Cracker-Tool) | reverse-engineering | relevance | missing_ai_keywords |
+| [Chrimakan/WinRAR-Password-Cracker-Tool](https://github.com/Chrimakan/WinRAR-Password-Cracker-Tool) | reverse-engineering | relevance | missing_ai_keywords |
 | [Coconginamo/MoovitPatcher](https://github.com/Coconginamo/MoovitPatcher) | reverse-engineering | relevance | missing_ai_keywords |
 | [Crossie7/WeChat-Channels-Video-File-Decryption](https://github.com/Crossie7/WeChat-Channels-Video-File-Decryption) | reverse-engineering | relevance | missing_ai_keywords |
 | [DeadFox55YZ/ShadowSploit](https://github.com/DeadFox55YZ/ShadowSploit) | reverse-engineering | relevance | missing_ai_keywords |
@@ -737,9 +850,12 @@ Total rejected articles: **962**
 | [GeoloeG-IsT/agents-reverse-engineer](https://github.com/GeoloeG-IsT/agents-reverse-engineer) | reverse-engineering | relevance | missing_ai_keywords |
 | [Hans11609/planning-with-files](https://github.com/Hans11609/planning-with-files) | reverse-engineering | relevance | missing_ai_keywords |
 | [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | reverse-engineering | relevance | missing_ai_keywords |
+| [Jazeredz/DLL-Hijacking-Vulnerability-Scanner](https://github.com/Jazeredz/DLL-Hijacking-Vulnerability-Scanner) | reverse-engineering | relevance | missing_ai_keywords |
 | [Laeteth/advanced-anti-sandbox-Virtual-Machine](https://github.com/Laeteth/advanced-anti-sandbox-Virtual-Machine) | reverse-engineering | relevance | missing_ai_keywords |
 | [Laeteth/advanced-anti-sandbox-Virtual-Machine](https://github.com/Laeteth/advanced-anti-sandbox-Virtual-Machine) | reverse-engineering | relevance | missing_ai_keywords |
 | [Laeteth/advanced-anti-sandbox-Virtual-Machine](https://github.com/Laeteth/advanced-anti-sandbox-Virtual-Machine) | reverse-engineering | relevance | missing_ai_keywords |
+| [Laeteth/advanced-anti-sandbox-Virtual-Machine](https://github.com/Laeteth/advanced-anti-sandbox-Virtual-Machine) | reverse-engineering | relevance | missing_ai_keywords |
+| [Matteo907-boop/zyrox](https://github.com/Matteo907-boop/zyrox) | reverse-engineering | relevance | missing_ai_keywords |
 | [Matteo907-boop/zyrox](https://github.com/Matteo907-boop/zyrox) | reverse-engineering | relevance | missing_ai_keywords |
 | [Michelplayer/android-re-ctfs](https://github.com/Michelplayer/android-re-ctfs) | reverse-engineering | relevance | missing_ai_keywords |
 | [Mighty08war/PEBLoader.h](https://github.com/Mighty08war/PEBLoader.h) | reverse-engineering | relevance | missing_ai_keywords |
@@ -748,6 +864,7 @@ Total rejected articles: **962**
 | [Omkar675/ImHex](https://github.com/Omkar675/ImHex) | reverse-engineering | relevance | missing_ai_keywords |
 | [Ornateill/nightmare-exploit-roadmap](https://github.com/Ornateill/nightmare-exploit-roadmap) | reverse-engineering | relevance | missing_ai_keywords |
 | [Orpheashatzis/JDX_ReverseEngineeringJSONExample](https://github.com/Orpheashatzis/JDX_ReverseEngineeringJSONExample) | reverse-engineering | relevance | missing_ai_keywords |
+| [Rafiadnan20/AppleSEPKeyStore-UAF-Panic](https://github.com/Rafiadnan20/AppleSEPKeyStore-UAF-Panic) | reverse-engineering | relevance | missing_ai_keywords |
 | [Rbel12b/Lpf2](https://github.com/Rbel12b/Lpf2) | reverse-engineering | relevance | missing_ai_keywords |
 | [Rych156/PEAnalyzer](https://github.com/Rych156/PEAnalyzer) | reverse-engineering | relevance | missing_ai_keywords |
 | [SEPTMOON/planning-with-files](https://github.com/SEPTMOON/planning-with-files) | reverse-engineering | relevance | missing_ai_keywords |
@@ -755,11 +872,16 @@ Total rejected articles: **962**
 | [SoWeBegin/ToyBattlesHQ](https://github.com/SoWeBegin/ToyBattlesHQ) | reverse-engineering | relevance | missing_ai_keywords |
 | [SoWeBegin/ToyBattlesHQ](https://github.com/SoWeBegin/ToyBattlesHQ) | reverse-engineering | relevance | missing_ai_keywords |
 | [SoWeBegin/ToyBattlesHQ](https://github.com/SoWeBegin/ToyBattlesHQ) | reverse-engineering | relevance | missing_ai_keywords |
+| [Soocile/ShadowStrike](https://github.com/Soocile/ShadowStrike) | reverse-engineering | relevance | missing_ai_keywords |
 | [Spray6T9/dexter](https://github.com/Spray6T9/dexter) | reverse-engineering | relevance | missing_ai_keywords |
 | [SteamDatabase/GameTracking-Deadlock](https://github.com/SteamDatabase/GameTracking-Deadlock) | reverse-engineering | relevance | missing_ai_keywords |
+| [Sysovo/android-reverse-engineering-skill](https://github.com/Sysovo/android-reverse-engineering-skill) | reverse-engineering | relevance | missing_ai_keywords |
 | [TECHNO-SOUQ/AspyrArchiveTool](https://github.com/TECHNO-SOUQ/AspyrArchiveTool) | reverse-engineering | relevance | missing_ai_keywords |
 | [Terralyp/SunloginLP-Eanalysis-tool](https://github.com/Terralyp/SunloginLP-Eanalysis-tool) | reverse-engineering | relevance | missing_ai_keywords |
+| [Terralyp/SunloginLP-Eanalysis-tool](https://github.com/Terralyp/SunloginLP-Eanalysis-tool) | reverse-engineering | relevance | missing_ai_keywords |
 | [Terralyp/UnrealDbg-VT-engine](https://github.com/Terralyp/UnrealDbg-VT-engine) | reverse-engineering | relevance | missing_ai_keywords |
+| [Terralyp/UnrealDbg-VT-engine](https://github.com/Terralyp/UnrealDbg-VT-engine) | reverse-engineering | relevance | missing_ai_keywords |
+| [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | reverse-engineering | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | reverse-engineering | relevance | missing_ai_keywords |
 | [Trivexion/iMonitor-System-Activity-Monitor](https://github.com/Trivexion/iMonitor-System-Activity-Monitor) | reverse-engineering | relevance | missing_ai_keywords |
 | [Ujwaldahal/dexdumper](https://github.com/Ujwaldahal/dexdumper) | reverse-engineering | relevance | missing_ai_keywords |
@@ -767,6 +889,7 @@ Total rejected articles: **962**
 | [VectorlyApp/bluebox](https://github.com/VectorlyApp/bluebox) | reverse-engineering | relevance | missing_ai_keywords |
 | [Winich007/samsung-umtz0](https://github.com/Winich007/samsung-umtz0) | reverse-engineering | relevance | missing_ai_keywords |
 | [Winich007/samsung-umtz0](https://github.com/Winich007/samsung-umtz0) | reverse-engineering | relevance | missing_ai_keywords |
+| [Ylxmy/Windows-Shellcode-Generator-Loader](https://github.com/Ylxmy/Windows-Shellcode-Generator-Loader) | reverse-engineering | relevance | missing_ai_keywords |
 | [ak-sports/qiling](https://github.com/ak-sports/qiling) | reverse-engineering | relevance | missing_ai_keywords |
 | [alilooop/AssetRetrieval3D](https://github.com/alilooop/AssetRetrieval3D) | reverse-engineering | relevance | missing_ai_keywords |
 | [arieahXxshrek/secwexen.github.io](https://github.com/arieahXxshrek/secwexen.github.io) | reverse-engineering | relevance | missing_ai_keywords |
@@ -777,9 +900,11 @@ Total rejected articles: **962**
 | [fromgabyaaye/UniPwn](https://github.com/fromgabyaaye/UniPwn) | reverse-engineering | relevance | missing_ai_keywords |
 | [jovibor/HexCtrl](https://github.com/jovibor/HexCtrl) | reverse-engineering | relevance | missing_ai_keywords |
 | [kal21k/HWBP-DEP-Bypass](https://github.com/kal21k/HWBP-DEP-Bypass) | reverse-engineering | relevance | missing_ai_keywords |
+| [laykhinkhin/baileys](https://github.com/laykhinkhin/baileys) | reverse-engineering | relevance | missing_ai_keywords |
 | [lukenixon8/CryptInject](https://github.com/lukenixon8/CryptInject) | reverse-engineering | relevance | missing_ai_keywords |
 | [lukenixon8/CryptInject](https://github.com/lukenixon8/CryptInject) | reverse-engineering | relevance | missing_ai_keywords |
 | [lympdegrin919fl/AnyDesk-Ultimate-2026](https://github.com/lympdegrin919fl/AnyDesk-Ultimate-2026) | reverse-engineering | relevance | missing_ai_keywords |
+| [madal1nn/PascalCTF-2026](https://github.com/madal1nn/PascalCTF-2026) | reverse-engineering | relevance | missing_ai_keywords |
 | [manishvedwal2609/mips-atan2](https://github.com/manishvedwal2609/mips-atan2) | reverse-engineering | relevance | missing_ai_keywords |
 | [megakiyaiscool/Smart_Plug](https://github.com/megakiyaiscool/Smart_Plug) | reverse-engineering | relevance | missing_ai_keywords |
 | [megakiyaiscool/Smart_Plug](https://github.com/megakiyaiscool/Smart_Plug) | reverse-engineering | relevance | missing_ai_keywords |
@@ -791,6 +916,7 @@ Total rejected articles: **962**
 | [pwndbg/pwndbg](https://github.com/pwndbg/pwndbg) | reverse-engineering | relevance | missing_ai_keywords |
 | [radareorg/radare2](https://github.com/radareorg/radare2) | reverse-engineering | relevance | missing_ai_keywords |
 | [rashmiranjanp/frida-reversing-lab](https://github.com/rashmiranjanp/frida-reversing-lab) | reverse-engineering | relevance | missing_ai_keywords |
+| [redpost0/NativeAot2IL](https://github.com/redpost0/NativeAot2IL) | reverse-engineering | relevance | missing_ai_keywords |
 | [rizinorg/rz-libdemangle](https://github.com/rizinorg/rz-libdemangle) | reverse-engineering | relevance | missing_ai_keywords |
 | [snaku/Persona3-FES-Decompilation](https://github.com/snaku/Persona3-FES-Decompilation) | reverse-engineering | relevance | missing_ai_keywords |
 | [usethesource/rascal](https://github.com/usethesource/rascal) | reverse-engineering | relevance | missing_ai_keywords |
@@ -818,6 +944,7 @@ Total rejected articles: **962**
 | [ar157209/soc-roadmap-2026](https://github.com/ar157209/soc-roadmap-2026) | security-automation | applicability | The repository focuses on SOC analyst training, automation, and machine learning, but its topics and description are centered on blue-team (defensive) operations rather than offensive security. There is no explicit evidence of AI/automation/fuzzing being used for offensive security purposes such as penetration testing, red teaming, or exploit/malware analysis. |
 | [bznbnn/Code-Reviewer-AI](https://github.com/bznbnn/Code-Reviewer-AI) | security-automation | applicability | The repository focuses on AI-driven code review and coding assistance, but does not explicitly mention offensive security, penetration testing, vulnerability detection, exploit development, or malware analysis. The 'security-automation' topic is present, but context is generic and not tied to offensive security. |
 | [designershount/astra](https://github.com/designershount/astra) | security-automation | applicability | Mentions penetration-testing-framework and security-automation, but description and topics focus on AI agent environments, not offensive security or automation for security testing. |
+| [l3montree-dev/devguard](https://github.com/l3montree-dev/devguard) | security-automation | applicability | Focuses on vulnerability management and automation for compliance, but lacks explicit evidence of AI, fuzzing, or automation for offensive security or penetration testing. |
 | [mikehubers/Awesome-AI-For-Security](https://github.com/mikehubers/Awesome-AI-For-Security) | security-automation | applicability | Curated list of resources; not a tool or implementation, and does not demonstrate the use of AI/automation/fuzzing for offensive security. |
 | [yud1takata/security-ops-blueprint](https://github.com/yud1takata/security-ops-blueprint) | security-automation | applicability | Focuses on security operations and automation, but lacks explicit mention of offensive security activities or AI/fuzzing for offensive use. |
 | [zricethezav/h1domains](https://github.com/zricethezav/h1domains) | security-automation | applicability | Repository provides a list of domains for HackerOne but does not involve AI, automation, or fuzzing for offensive security. |
@@ -830,9 +957,12 @@ Total rejected articles: **962**
 | [Fireresistive-bottleneck299/aws-jit-access](https://github.com/Fireresistive-bottleneck299/aws-jit-access) | security-automation | relevance | missing_ai_keywords |
 | [Fireresistive-bottleneck299/aws-jit-access](https://github.com/Fireresistive-bottleneck299/aws-jit-access) | security-automation | relevance | missing_ai_keywords |
 | [Gberegbe/infrastructure-security-automation](https://github.com/Gberegbe/infrastructure-security-automation) | security-automation | relevance | missing_ai_keywords |
+| [Gberegbe/infrastructure-security-automation](https://github.com/Gberegbe/infrastructure-security-automation) | security-automation | relevance | missing_ai_keywords |
 | [Gervis123212/azure-sentinel-honeypot](https://github.com/Gervis123212/azure-sentinel-honeypot) | security-automation | relevance | missing_ai_keywords |
 | [Gervis123212/azure-sentinel-honeypot](https://github.com/Gervis123212/azure-sentinel-honeypot) | security-automation | relevance | missing_ai_keywords |
 | [Gervis123212/azure-sentinel-honeypot](https://github.com/Gervis123212/azure-sentinel-honeypot) | security-automation | relevance | missing_ai_keywords |
+| [Gervis123212/azure-sentinel-honeypot](https://github.com/Gervis123212/azure-sentinel-honeypot) | security-automation | relevance | missing_ai_keywords |
+| [Ivan55555555555/Pentest-Clink-Completions](https://github.com/Ivan55555555555/Pentest-Clink-Completions) | security-automation | relevance | missing_ai_keywords |
 | [Ivan55555555555/Pentest-Clink-Completions](https://github.com/Ivan55555555555/Pentest-Clink-Completions) | security-automation | relevance | missing_ai_keywords |
 | [JulesJujuu/wpaudit](https://github.com/JulesJujuu/wpaudit) | security-automation | relevance | missing_ai_keywords |
 | [JulesJujuu/wpaudit](https://github.com/JulesJujuu/wpaudit) | security-automation | relevance | missing_ai_keywords |
@@ -840,18 +970,24 @@ Total rejected articles: **962**
 | [JulesJujuu/wpaudit](https://github.com/JulesJujuu/wpaudit) | security-automation | relevance | missing_ai_keywords |
 | [JulesJujuu/wpaudit](https://github.com/JulesJujuu/wpaudit) | security-automation | relevance | missing_ai_keywords |
 | [Lmgsd-2024/skill-security-scan](https://github.com/Lmgsd-2024/skill-security-scan) | security-automation | relevance | missing_ai_keywords |
+| [Lmgsd-2024/skill-security-scan](https://github.com/Lmgsd-2024/skill-security-scan) | security-automation | relevance | missing_ai_keywords |
 | [Munem-1/File-Integrity-Checker-Cybersecurity-Tool](https://github.com/Munem-1/File-Integrity-Checker-Cybersecurity-Tool) | security-automation | relevance | missing_ai_keywords |
+| [Munem-1/File-Integrity-Checker-Cybersecurity-Tool](https://github.com/Munem-1/File-Integrity-Checker-Cybersecurity-Tool) | security-automation | relevance | missing_ai_keywords |
+| [Ramyachand/ezbio-username-checker](https://github.com/Ramyachand/ezbio-username-checker) | security-automation | relevance | missing_ai_keywords |
 | [Ramyachand/ezbio-username-checker](https://github.com/Ramyachand/ezbio-username-checker) | security-automation | relevance | missing_ai_keywords |
 | [SecObserve/SecObserve](https://github.com/SecObserve/SecObserve) | security-automation | relevance | missing_ai_keywords |
 | [SecObserve/SecObserve](https://github.com/SecObserve/SecObserve) | security-automation | relevance | missing_ai_keywords |
 | [Shubh2-0/Spring_Security](https://github.com/Shubh2-0/Spring_Security) | security-automation | relevance | missing_ai_keywords |
 | [Shubh2-0/Spring_Security](https://github.com/Shubh2-0/Spring_Security) | security-automation | relevance | missing_ai_keywords |
+| [Shubh2-0/Spring_Security](https://github.com/Shubh2-0/Spring_Security) | security-automation | relevance | missing_ai_keywords |
 | [TianTheHacker/cloudflare-auto-protection](https://github.com/TianTheHacker/cloudflare-auto-protection) | security-automation | relevance | missing_ai_keywords |
 | [TianTheHacker/cloudflare-auto-protection](https://github.com/TianTheHacker/cloudflare-auto-protection) | security-automation | relevance | missing_ai_keywords |
 | [TianTheHacker/cloudflare-auto-protection](https://github.com/TianTheHacker/cloudflare-auto-protection) | security-automation | relevance | missing_ai_keywords |
 | [WhyN0tTh0/enterprise-attack-simulator](https://github.com/WhyN0tTh0/enterprise-attack-simulator) | security-automation | relevance | missing_ai_keywords |
 | [WhyN0tTh0/enterprise-attack-simulator](https://github.com/WhyN0tTh0/enterprise-attack-simulator) | security-automation | relevance | missing_ai_keywords |
 | [WhyN0tTh0/enterprise-attack-simulator](https://github.com/WhyN0tTh0/enterprise-attack-simulator) | security-automation | relevance | missing_ai_keywords |
+| [WhyN0tTh0/enterprise-attack-simulator](https://github.com/WhyN0tTh0/enterprise-attack-simulator) | security-automation | relevance | missing_ai_keywords |
+| [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
 | [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
 | [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
 | [hitq11/AdaPol](https://github.com/hitq11/AdaPol) | security-automation | relevance | missing_ai_keywords |
@@ -865,6 +1001,7 @@ Total rejected articles: **962**
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | security-automation | relevance | missing_ai_keywords |
 | [mahaishu/n8n-CyberSecurity-Workflows](https://github.com/mahaishu/n8n-CyberSecurity-Workflows) | security-automation | relevance | missing_ai_keywords |
 | [nancy12341/husky-image-guard](https://github.com/nancy12341/husky-image-guard) | security-automation | relevance | missing_ai_keywords |
+| [nancy12341/husky-image-guard](https://github.com/nancy12341/husky-image-guard) | security-automation | relevance | missing_ai_keywords |
 | [octivi/update-securitytxt-expires](https://github.com/octivi/update-securitytxt-expires) | security-automation | relevance | missing_ai_keywords |
 | [octivi/update-securitytxt-expires](https://github.com/octivi/update-securitytxt-expires) | security-automation | relevance | missing_ai_keywords |
 | [osamahamad/payout-targets-data](https://github.com/osamahamad/payout-targets-data) | security-automation | relevance | missing_ai_keywords |
@@ -873,6 +1010,8 @@ Total rejected articles: **962**
 | [osamahamad/payout-targets-data](https://github.com/osamahamad/payout-targets-data) | security-automation | relevance | missing_ai_keywords |
 | [osamahamad/payout-targets-data](https://github.com/osamahamad/payout-targets-data) | security-automation | relevance | missing_ai_keywords |
 | [osamahamad/payout-targets-data](https://github.com/osamahamad/payout-targets-data) | security-automation | relevance | missing_ai_keywords |
+| [osamahamad/payout-targets-data](https://github.com/osamahamad/payout-targets-data) | security-automation | relevance | missing_ai_keywords |
+| [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
 | [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
 | [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
 | [quinntrys/devsecops](https://github.com/quinntrys/devsecops) | security-automation | relevance | missing_ai_keywords |
@@ -880,6 +1019,7 @@ Total rejected articles: **962**
 | [securego/gosec](https://github.com/securego/gosec) | security-automation | relevance | missing_ai_keywords |
 | [securego/gosec](https://github.com/securego/gosec) | security-automation | relevance | missing_ai_keywords |
 | [securego/gosec](https://github.com/securego/gosec) | security-automation | relevance | missing_ai_keywords |
+| [vulnlog/vulnlog](https://github.com/vulnlog/vulnlog) | security-automation | relevance | missing_ai_keywords |
 | [wazuh/wazuh](https://github.com/wazuh/wazuh) | security-automation | relevance | missing_ai_keywords |
 | [wazuh/wazuh](https://github.com/wazuh/wazuh) | security-automation | relevance | missing_ai_keywords |
 | [wazuh/wazuh](https://github.com/wazuh/wazuh) | security-automation | relevance | missing_ai_keywords |
@@ -889,6 +1029,7 @@ Total rejected articles: **962**
 | [80% of Fortune 500 use active AI Agents: Observability, governance, and security shape the new frontier](https://www.microsoft.com/en-us/security/blog/2026/02/10/80-of-fortune-500-use-active-ai-agents-observability-governance-and-security-shape-the-new-frontier/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [A Content-Based Framework for Cybersecurity Refusal Decisions in Large Language Models](https://arxiv.org/abs/2602.15689) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [A Content-Based Framework for Cybersecurity Refusal Decisions in Large Language Models](https://arxiv.org/abs/2602.15689) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [A Real-Time Approach to Autonomous CAN Bus Reverse Engineering](https://arxiv.org/abs/2602.16722) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [A Scalable Approach to Solving Simulation-Based Network Security Games](https://arxiv.org/abs/2602.16564) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [A one-prompt attack that breaks LLM safety alignment](https://www.microsoft.com/en-us/security/blog/2026/02/09/prompt-attack-breaks-llm-safety/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [AEGIS: Adversarial Target-Guided Retention-Data-Free Robust Concept Erasure from Diffusion Models](https://arxiv.org/abs/2602.06771) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -896,14 +1037,19 @@ Total rejected articles: **962**
 | [AI Malware: Hype vs. Reality](https://www.recordedfuture.com/blog/ai-malware-hype-vs-reality) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [AI May Supplant Pen Testers, But Oversight &amp; Trust Are Not There Yet](https://www.darkreading.com/cybersecurity-operations/ai-supplant-pen-testers-oversight-trust-not-there-yet) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [AI Rising: Do We Know Enough About the Data Populating It?](https://www.darkreading.com/data-privacy/do-we-know-enough-about-data-populating-ai) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [AI Security, From Data to Runtime: A Holistic Defense Approach](https://www.sentinelone.com/blog/ai-security-from-data-to-runtime-a-holistic-defense-approach/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [AI-Generated Text and the Detection Arms Race](https://www.schneier.com/blog/archives/2026/02/the-ai-generated-text-arms-race.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [AI-generated passwords are a security risk](https://www.malwarebytes.com/blog/news/2026/02/ai-generated-passwords-are-a-security-risk) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Abstractive Red-Teaming of Language Model Character](https://arxiv.org/abs/2602.12318) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Advanced Web Shell Detection and Prevention: A Deep Dive into CrowdStrike's Linux Sensor Capabilities](https://www.crowdstrike.com/en-us/blog/advanced-web-shell-detection-and-prevention/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Agent Skills for Large Language Models: Architecture, Acquisition, Security, and the Path Forward](https://arxiv.org/abs/2602.12430) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks](https://arxiv.org/abs/2602.16901) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Agentic AI Security: Threats, Defenses, Evaluation, and Open Challenges](https://arxiv.org/abs/2510.23883) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Agentic AI Site 'Moltbook' Is Riddled With Security Risks](https://www.darkreading.com/cyber-risk/agentic-ai-moltbook-security-risks) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Agentic AI for Cybersecurity: A Meta-Cognitive Architecture for Governable Autonomy](https://arxiv.org/abs/2602.11897) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Agentic AI for Cybersecurity: A Meta-Cognitive Architecture for Governable Autonomy](https://arxiv.org/abs/2602.11897) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [All gas, no brakes: Time to come to AI church](https://blog.talosintelligence.com/all-gas-no-brakes-time-to-come-to-ai-church/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Automated Web Application Testing: End-to-End Test Case Generation with Large Language Models and Screen Transition Graphs](https://arxiv.org/abs/2506.02529) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Autonomous Threat Operations in action: Real results from Recorded Future’s own SOC team | Recorded Future](https://www.recordedfuture.com/blog/autonomous-threat-operations-in-action) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Backdoor Attacks on Contrastive Continual Learning for IoT Systems](https://arxiv.org/abs/2602.13062) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Blind Gods and Broken Screens: Architecting a Secure, Intent-Centric Mobile Agent Operating System](https://arxiv.org/abs/2602.10915) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -922,17 +1068,21 @@ Total rejected articles: **962**
 | [Cybersecurity 2026 | The Year Ahead in AI, Adversaries, and Global Change](https://www.sentinelone.com/blog/cybersecurity-2026-the-year-ahead-in-ai-adversaries-and-global-change/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Datadog uses Codex for system-level code review](https://openai.com/index/datadog) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Deep Learning for Contextualized NetFlow-Based Network Intrusion Detection: Methods, Data, Evaluation and Deployment](https://arxiv.org/abs/2602.05594) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [DeepContext: Stateful Real-Time Detection of Multi-Turn Adversarial Intent Drift in LLMs](https://arxiv.org/abs/2602.16935) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Detecting Object Tracking Failure via Sequential Hypothesis Testing](https://arxiv.org/abs/2602.12983) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Detecting backdoored language models at scale](https://www.microsoft.com/en-us/security/blog/2026/02/04/detecting-backdoored-language-models-at-scale/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Discrete optimal transport is a strong audio adversarial attack](https://arxiv.org/abs/2509.14959) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Drift-Aware Variational Autoencoder-based Anomaly Detection with Two-level Ensembling](https://arxiv.org/abs/2602.12976) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Efficient Semi-Supervised Adversarial Training via Latent Clustering-Based Data Reduction](https://arxiv.org/abs/2501.10466) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [EnCase Driver Weaponized as EDR Killers Persist](https://www.darkreading.com/threat-intelligence/encase-driver-weaponized-edr-killers-persist) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Exact Certification of Data-Poisoning Attacks Using Mixed-Integer Programming](https://arxiv.org/abs/2602.16944) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Exploiting Layer-Specific Vulnerabilities to Backdoor Attack in Federated Learning](https://arxiv.org/abs/2602.15161) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Exploiting Layer-Specific Vulnerabilities to Backdoor Attack in Federated Learning](https://arxiv.org/abs/2602.15161) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Exploiting Layer-Specific Vulnerabilities to Backdoor Attack in Federated Learning](https://arxiv.org/abs/2602.15161) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Federated Graph AGI for Cross-Border Insider Threat Intelligence in Government Financial Schemes](https://arxiv.org/abs/2602.16109) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Four Seconds to Botnet - Analyzing a Self Propagating SSH Worm with Cryptographically Signed C2 &#x5b;Guest Diary&#x5d;, (Wed, Feb 11th)](https://isc.sans.edu/diary/rss/32708) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [From 27 Steps to 5: How Recorded Future Reimagined Threat Hunting with Autonomous Threat Operations](https://www.recordedfuture.com/blog/threat-hunting-27-steps-to-5) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [From Exposure to Exploitation: How AI Collapses Your Response Window](https://thehackernews.com/2026/02/from-exposure-to-exploitation-how-ai.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [From Prompts to Protection: Large Language Model-Enabled In-Context Learning for Smart Public Safety UAV](https://arxiv.org/abs/2506.02649) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [GPTZero: Robust Detection of LLM-Generated Texts](https://arxiv.org/abs/2602.13042) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -947,16 +1097,23 @@ Total rejected articles: **962**
 | [Intent-Driven Smart Manufacturing Integrating Knowledge Graphs and Large Language Models](https://arxiv.org/abs/2602.12419) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Introducing &quot;AI Unlocked: Decoding Prompt Injection,&quot; a New Interactive Challenge](https://www.crowdstrike.com/en-us/blog/introducing-ai-unlocked-interactive-prompt-injection-challenge/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Keeping your data safe when an AI agent clicks a link](https://openai.com/index/ai-agent-link-safety) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [LLM4Cov: Execution-Aware Agentic Learning for High-coverage Testbench Generation](https://arxiv.org/abs/2602.16953) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [LLM4Cov: Execution-Aware Agentic Learning for High-coverage Testbench Generation](https://arxiv.org/abs/2602.16953) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Large-scale online deanonymization with LLMs](https://arxiv.org/abs/2602.16800) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [MASPRM: Multi-Agent System Process Reward Model](https://arxiv.org/abs/2510.24803) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Malicious AI](https://www.schneier.com/blog/archives/2026/02/malicious-ai.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Manipulating AI memory for profit: The rise of AI Recommendation Poisoning](https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Membership and Dataset Inference Attacks on Large Audio Generative Models](https://arxiv.org/abs/2512.09654) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Memory Injection Attacks on LLM Agents via Query-Only Interaction](https://arxiv.org/abs/2503.03704) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Metasploit Wrap-Up 01/30/2026](https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-01-30-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Metasploit Wrap-Up 02/06/2026](https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-02-06-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Metasploit Wrap-Up 02/13/2026](https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-02-13-2026) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Microsoft Finds “Summarize with AI” Prompts Manipulating Chatbot Recommendations](https://thehackernews.com/2026/02/microsoft-finds-summarize-with-ai.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [North Korea's UNC1069 Hammers Crypto Firms With AI](https://www.darkreading.com/threat-intelligence/north-koreas-unc1069-hammers-crypto-firms) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [North Korea-Linked UNC1069 Uses AI Lures to Attack Cryptocurrency Organizations](https://thehackernews.com/2026/02/north-korea-linked-unc1069-uses-ai.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [OneClaw: Discovery and Observability for the Agentic Era](https://www.sentinelone.com/blog/oneclaw-discovery-and-observability-for-the-agentic-era/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [OpenSage: Self-programming Agent Generation Engine](https://arxiv.org/abs/2602.16891) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Operation DoppelBrand: Weaponizing Fortune 500 Brands](https://www.darkreading.com/cyberattacks-data-breaches/operation-doppelbrand-weaponizing-fortune-500-brands) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Peak + Accumulation: A Proxy-Level Scoring Formula for Multi-Turn LLM Attack Detection](https://arxiv.org/abs/2602.11247) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Pixel-Based Similarities as an Alternative to Neural Data for Improving Convolutional Neural Network Adversarial Robustness](https://arxiv.org/abs/2410.03952) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Policy Compiler for Secure Agentic Systems](https://arxiv.org/abs/2602.16708) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
@@ -980,19 +1137,24 @@ Total rejected articles: **962**
 | [SmartGuard: Leveraging Large Language Models for Network Attack Detection through Audit Log Analysis and Summarization](https://arxiv.org/abs/2506.16981) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Sparse Autoencoders are Capable LLM Jailbreak Mitigators](https://arxiv.org/abs/2602.12418) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [SpecterOps Launches BloodHound Scentry to Accelerate the Practice of Identity Attack Path Management](https://www.darkreading.com/identity-access-management-security/specterops-launches-bloodhound-scentry) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Supply Chain Attack Secretly Installs OpenClaw for Cline Users](https://www.darkreading.com/application-security/supply-chain-attack-openclaw-cline-users) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [TCRL: Temporal-Coupled Adversarial Training for Robust Constrained Reinforcement Learning in Worst-Case Scenarios](https://arxiv.org/abs/2602.13040) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [TeamPCP Turns Cloud Infrastructure Into Crime Bots](https://www.darkreading.com/cloud-security/teampcp-cloud-infrastructure-crime-bots) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [The Buyer’s Guide to AI Usage Control](https://thehackernews.com/2026/02/the-buyers-guide-to-ai-usage-control.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [The Vulnerability of LLM Rankers to Prompt Injection Attacks](https://arxiv.org/abs/2602.16752) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [The strategic SIEM buyer’s guide: Choosing an AI-ready platform for the agentic era](https://www.microsoft.com/en-us/security/blog/2026/02/11/the-strategic-siem-buyers-guide-choosing-an-ai-ready-platform-for-the-agentic-era/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Those 'Summarize With AI' Buttons May Be Lying to You](https://www.darkreading.com/cyber-risk/summarize-ai-buttons-may-be-lying) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Threat Intelligence Automation](https://www.recordedfuture.com/blog/threat-intelligence-automation) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [ThreatsDay Bulletin: Codespaces RCE, AsyncRAT C2, BYOVD Abuse, AI Cloud Intrusions & 15+ Stories](https://thehackernews.com/2026/02/threatsday-bulletin-codespaces-rce.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [ThreatsDay Bulletin: OpenSSL RCE, Foxit 0-Days, Copilot Leak, AI Password Flaws & 20+ Stories](https://thehackernews.com/2026/02/threatsday-bulletin-openssl-rce-foxit-0.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Unrolling the Codex agent loop](https://openai.com/index/unrolling-the-codex-agent-loop) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [Using AI to defeat AI](https://blog.talosintelligence.com/using-ai-to-defeat-ai/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Visual Memory Injection Attacks for Multi-Turn Conversations](https://arxiv.org/abs/2602.15927) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Webinar: How Modern SOC Teams Use AI and Context to Investigate Cloud Breaches Faster](https://thehackernews.com/2026/02/cloud-forensics-webinar-learn-how-ai.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Weekly Recap: Outlook Add-Ins Hijack, 0-Day Patches, Wormable Botnet & AI Malware](https://thehackernews.com/2026/02/weekly-recap-outlook-add-ins-hijack-0.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Weight space Detection of Backdoors in LoRA Adapters](https://arxiv.org/abs/2602.15195) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [Weight space Detection of Backdoors in LoRA Adapters](https://arxiv.org/abs/2602.15195) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
+| [What Breaks Embodied AI Security:LLM Vulnerabilities, CPS Flaws,or Something Else?](https://arxiv.org/abs/2602.17345) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [When Your AI Coding Plugin Starts Picking Your Dependencies: Marketplace Skills and Dependency Hijack in Claude Code](https://www.sentinelone.com/blog/marketplace-skills-and-dependency-hijack-in-claude-code/) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [X-MAP: eXplainable Misclassification Analysis and Profiling for Spam and Phishing Detection](https://arxiv.org/abs/2602.15298) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |
 | [ZAST.AI Raises $6M Pre-A to Scale "Zero False Positive" AI-Powered Code Security](https://thehackernews.com/2026/02/zastai-raises-6m-pre-to-scale-zero.html) | N/A | relevance | llm_applicability_below_threshold (threshold: 0.6) |

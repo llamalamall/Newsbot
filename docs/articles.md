@@ -7,7 +7,7 @@ title: All Analyzed Articles
 
 This page contains **all articles ever analyzed** by Newsbot, organized by month.
 
-**Total articles:** 34
+**Total articles:** 46
 
 **Months covered:** 3
 
@@ -17,14 +17,23 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 
 ## February 2026
 
-*32 articles*
+*44 articles*
 
 | Source | Date | Applicability | Credibility | Title |
 |--------|------|--------------|-------------|-------|
+| arxiv.org | 2026-02-20 | 1.00 | 0.95 | [Can Adversarial Code Comments Fool AI Security Reviewers -- Large-Scale Empirical Study of Comment-Based Attacks and Defenses Against LLM Code Analysis](https://arxiv.org/abs/2602.16741) |
+| arxiv.org | 2026-02-20 | 1.00 | 0.95 | [What Makes a Good LLM Agent for Real-world Penetration Testing?](https://arxiv.org/abs/2602.17622) |
+| arxiv.org | 2026-02-20 | 1.00 | 0.95 | [Patch-to-PoC: A Systematic Study of Agentic LLM Systems for Linux Kernel N-Day Reproduction](https://arxiv.org/abs/2602.07287) |
+| arxiv.org | 2026-02-20 | 1.00 | 0.98 | [Automating Agent Hijacking via Structural Template Injection](https://arxiv.org/abs/2602.16958) |
+| arxiv.org | 2026-02-20 | 1.00 | 0.98 | [SoK: DARPA's AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned](https://arxiv.org/abs/2602.07666) |
+| thehackernews.com | 2026-02-19 | 1.00 | 0.90 | [PromptSpy Android Malware Abuses Gemini AI to Automate Recent-Apps Persistence](https://thehackernews.com/2026/02/promptspy-android-malware-abuses-google.html) |
 | arxiv.org | 2026-02-16 | 1.00 | 0.95 | [GPU-Fuzz: Finding Memory Errors in Deep Learning Frameworks](https://arxiv.org/abs/2602.10478) |
 | arxiv.org | 2026-02-16 | 1.00 | 0.95 | [GPU-Fuzz: Finding Memory Errors in Deep Learning Frameworks](https://arxiv.org/abs/2602.10478) |
 | www.schneier.com | 2026-02-11 | 1.00 | 0.95 | [Prompt Injection Via Road Signs](https://www.schneier.com/blog/archives/2026/02/prompt-injection-via-road-signs.html) |
 | www.schneier.com | 2026-02-09 | 1.00 | 0.95 | [LLMs are Getting a Lot Better and Faster at Finding and Exploiting Zero-Days](https://www.schneier.com/blog/archives/2026/02/llms-are-getting-a-lot-better-and-faster-at-finding-and-exploiting-zero-days.html) |
+| arxiv.org | 2026-02-20 | 0.95 | 0.95 | [SoK: DARPA's AI Cyber Challenge (AIxCC): Competition Design, Architectures, and Lessons Learned](https://arxiv.org/abs/2602.07666) |
+| arxiv.org | 2026-02-20 | 0.95 | 0.97 | [Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting](https://arxiv.org/abs/2602.17645) |
+| arxiv.org | 2026-02-20 | 0.95 | 0.95 | [Automating Agent Hijacking via Structural Template Injection](https://arxiv.org/abs/2602.16958) |
 | arxiv.org | 2026-02-19 | 0.95 | 0.98 | ["Someone Hid It": Query-Agnostic Black-Box Attacks on LLM-Based Retrieval](https://arxiv.org/abs/2602.00364) |
 | arxiv.org | 2026-02-19 | 0.95 | 0.98 | [SecCodeBench-V2 Technical Report](https://arxiv.org/abs/2602.15485) |
 | arxiv.org | 2026-02-19 | 0.95 | 0.95 | [Helpful to a Fault: Measuring Illicit Assistance in Multi-Turn, Multilingual LLM Agents](https://arxiv.org/abs/2602.16346) |
@@ -35,6 +44,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | arxiv.org | 2026-02-16 | 0.95 | 0.95 | [Favia: Forensic Agent for Vulnerability-fix Identification and Analysis](https://arxiv.org/abs/2602.12500) |
 | arxiv.org | 2026-02-16 | 0.95 | 0.95 | [Fool Me If You Can: On the Robustness of Binary Code Similarity Detection Models against Semantics-preserving Transformations](https://arxiv.org/abs/2602.12681) |
 | www.darkreading.com | 2026-02-12 | 0.95 | 0.80 | [Booz Allen Announces General Availability of Vellox Reverser to Automate Malware Defense](https://www.darkreading.com/endpoint-security/booz-allen-announces-general-availability-vellox-reverser) |
+| www.bleepingcomputer.com | 2026-02-19 | 0.90 | 0.70 | [PromptSpy is the first known Android malware to use generative AI at runtime](https://www.bleepingcomputer.com/news/security/promptspy-is-the-first-known-android-malware-to-use-generative-ai-at-runtime/) |
 | arxiv.org | 2026-02-19 | 0.90 | 0.95 | [Mind the Gap: Evaluating LLMs for High-Level Malicious Package Detection vs. Fine-Grained Indicator Identification](https://arxiv.org/abs/2602.16304) |
 | arxiv.org | 2026-02-19 | 0.90 | 0.97 | [Secure Coding with AI -- From Detection to Repair](https://arxiv.org/abs/2504.20814) |
 | arxiv.org | 2026-02-19 | 0.90 | 0.97 | [Vulnerability Analysis of Safe Reinforcement Learning via Inverse Constrained Reinforcement Learning](https://arxiv.org/abs/2602.16543) |
@@ -43,6 +53,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | thehackernews.com | 2026-02-17 | 0.90 | 0.90 | [Researchers Show Copilot and Grok Can Be Abused as Malware C2 Proxies](https://thehackernews.com/2026/02/researchers-show-copilot-and-grok-can.html) |
 | www.schneier.com | 2026-02-16 | 0.90 | 0.95 | [The Promptware Kill Chain](https://www.schneier.com/blog/archives/2026/02/the-promptware-kill-chain.html) |
 | www.crowdstrike.com | 2026-02-04 | 0.90 | 0.95 | [What Security Teams Need to Know About OpenClaw, the AI Super Agent](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/) |
+| arxiv.org | 2026-02-20 | 0.85 | 0.97 | [Can Adversarial Code Comments Fool AI Security Reviewers -- Large-Scale Empirical Study of Comment-Based Attacks and Defenses Against LLM Code Analysis](https://arxiv.org/abs/2602.16741) |
 | arxiv.org | 2026-02-19 | 0.85 | 0.95 | [From Tool Orchestration to Code Execution: A Study of MCP Design Choices](https://arxiv.org/abs/2602.15945) |
 | arxiv.org | 2026-02-19 | 0.85 | 0.95 | [The Trojan Example: Jailbreaking LLMs through Template Filling and Unsafety Reasoning](https://arxiv.org/abs/2510.21190) |
 | arxiv.org | 2026-02-19 | 0.85 | 0.96 | [From Tool Orchestration to Code Execution: A Study of MCP Design Choices](https://arxiv.org/abs/2602.15945) |
@@ -53,6 +64,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | arxiv.org | 2026-02-16 | 0.80 | 0.95 | [PIDSMaker: Building and Evaluating Provenance-based Intrusion Detection Systems](https://arxiv.org/abs/2601.22983) |
 | thehackernews.com | 2026-02-12 | 0.80 | 0.80 | [ThreatsDay Bulletin: AI Prompt RCE, Claude 0-Click, RenEngine Loader, Auto 0-Days & 25+ Stories](https://thehackernews.com/2026/02/threatsday-bulletin-ai-prompt-rce.html) |
 | www.rapid7.com | 2026-02-10 | 0.80 | 0.70 | [Measuring AI Security: Separating Signal from Panic](https://www.rapid7.com/blog/post/tr-measuring-ai-security-mcp-exposure) |
+| arxiv.org | 2026-02-20 | 0.60 | 0.96 | [Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting](https://arxiv.org/abs/2602.17645) |
 
 ## January 2026
 
