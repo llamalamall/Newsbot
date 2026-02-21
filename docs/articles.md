@@ -7,7 +7,7 @@ title: All Analyzed Articles
 
 This page contains **all articles ever analyzed** by Newsbot, organized by month.
 
-**Total articles:** 46
+**Total articles:** 48
 
 **Months covered:** 3
 
@@ -17,10 +17,11 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 
 ## February 2026
 
-*44 articles*
+*46 articles*
 
 | Source | Date | Applicability | Credibility | Title |
 |--------|------|--------------|-------------|-------|
+| blog.trailofbits.com | 2026-02-20 | 1.00 | 0.95 | [Using threat modeling and prompt injection to audit Comet](https://blog.trailofbits.com/2026/02/20/using-threat-modeling-and-prompt-injection-to-audit-comet/) |
 | arxiv.org | 2026-02-20 | 1.00 | 0.95 | [Can Adversarial Code Comments Fool AI Security Reviewers -- Large-Scale Empirical Study of Comment-Based Attacks and Defenses Against LLM Code Analysis](https://arxiv.org/abs/2602.16741) |
 | arxiv.org | 2026-02-20 | 1.00 | 0.95 | [What Makes a Good LLM Agent for Real-world Penetration Testing?](https://arxiv.org/abs/2602.17622) |
 | arxiv.org | 2026-02-20 | 1.00 | 0.95 | [Patch-to-PoC: A Systematic Study of Agentic LLM Systems for Linux Kernel N-Day Reproduction](https://arxiv.org/abs/2602.07287) |
@@ -53,6 +54,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | thehackernews.com | 2026-02-17 | 0.90 | 0.90 | [Researchers Show Copilot and Grok Can Be Abused as Malware C2 Proxies](https://thehackernews.com/2026/02/researchers-show-copilot-and-grok-can.html) |
 | www.schneier.com | 2026-02-16 | 0.90 | 0.95 | [The Promptware Kill Chain](https://www.schneier.com/blog/archives/2026/02/the-promptware-kill-chain.html) |
 | www.crowdstrike.com | 2026-02-04 | 0.90 | 0.95 | [What Security Teams Need to Know About OpenClaw, the AI Super Agent](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/) |
+| thehackernews.com | 2026-02-21 | 0.85 | 0.90 | [Anthropic Launches Claude Code Security for AI-Powered Vulnerability Scanning](https://thehackernews.com/2026/02/anthropic-launches-claude-code-security.html) |
 | arxiv.org | 2026-02-20 | 0.85 | 0.97 | [Can Adversarial Code Comments Fool AI Security Reviewers -- Large-Scale Empirical Study of Comment-Based Attacks and Defenses Against LLM Code Analysis](https://arxiv.org/abs/2602.16741) |
 | arxiv.org | 2026-02-19 | 0.85 | 0.95 | [From Tool Orchestration to Code Execution: A Study of MCP Design Choices](https://arxiv.org/abs/2602.15945) |
 | arxiv.org | 2026-02-19 | 0.85 | 0.95 | [The Trojan Example: Jailbreaking LLMs through Template Filling and Unsafety Reasoning](https://arxiv.org/abs/2510.21190) |

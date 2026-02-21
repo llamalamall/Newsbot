@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 28
+**Total repositories:** 30
 
 **Months covered:** 1
 
@@ -17,10 +17,12 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*28 repositories*
+*30 repositories*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
+| [samugit83/redamon](https://github.com/samugit83/redamon) | An AI-powered agentic red team framework that automates offensive security operations, from recon... | 860 | 1.00 | 2026-02-21 | penetration-testing |
+| [samugit83/redamon](https://github.com/samugit83/redamon) | An AI-powered agentic red team framework that automates offensive security operations, from recon... | 860 | 1.00 | 2026-02-21 | red-team |
 | [ARCANGEL0/EVA](https://github.com/ARCANGEL0/EVA) | EVA is an AI-assisted penetration testing agent that enhances offensive security workflows by pro... | 372 | 1.00 | 2026-02-20 | offensive-security |
 | [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1702 | 1.00 | 2026-02-19 | security-automation |
 | [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi) | ✨ Fully autonomous AI Agents system capable of performing complex penetration testing tasks | 1701 | 1.00 | 2026-02-19 | offensive-security |
