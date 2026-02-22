@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 30
+**Total repositories:** 34
 
 **Months covered:** 1
 
@@ -17,10 +17,14 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*30 repositories*
+*34 repositories*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
+| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | penetration-testing |
+| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | reverse-engineering |
+| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | malware-analysis |
+| [TheOneWhoAlwaysWatches/pincer](https://github.com/TheOneWhoAlwaysWatches/pincer) | 🦞 Perform automated red team assessments on LLM APIs with streaming results, analysis, and detail... | 0 | 1.00 | 2026-02-22 | red-team |
 | [samugit83/redamon](https://github.com/samugit83/redamon) | An AI-powered agentic red team framework that automates offensive security operations, from recon... | 860 | 1.00 | 2026-02-21 | penetration-testing |
 | [samugit83/redamon](https://github.com/samugit83/redamon) | An AI-powered agentic red team framework that automates offensive security operations, from recon... | 860 | 1.00 | 2026-02-21 | red-team |
 | [ARCANGEL0/EVA](https://github.com/ARCANGEL0/EVA) | EVA is an AI-assisted penetration testing agent that enhances offensive security workflows by pro... | 372 | 1.00 | 2026-02-20 | offensive-security |

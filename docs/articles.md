@@ -7,7 +7,7 @@ title: All Analyzed Articles
 
 This page contains **all articles ever analyzed** by Newsbot, organized by month.
 
-**Total articles:** 48
+**Total articles:** 49
 
 **Months covered:** 3
 
@@ -17,7 +17,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 
 ## February 2026
 
-*46 articles*
+*47 articles*
 
 | Source | Date | Applicability | Credibility | Title |
 |--------|------|--------------|-------------|-------|
@@ -66,6 +66,7 @@ This page contains **all articles ever analyzed** by Newsbot, organized by month
 | arxiv.org | 2026-02-16 | 0.80 | 0.95 | [PIDSMaker: Building and Evaluating Provenance-based Intrusion Detection Systems](https://arxiv.org/abs/2601.22983) |
 | thehackernews.com | 2026-02-12 | 0.80 | 0.80 | [ThreatsDay Bulletin: AI Prompt RCE, Claude 0-Click, RenEngine Loader, Auto 0-Days & 25+ Stories](https://thehackernews.com/2026/02/threatsday-bulletin-ai-prompt-rce.html) |
 | www.rapid7.com | 2026-02-10 | 0.80 | 0.70 | [Measuring AI Security: Separating Signal from Panic](https://www.rapid7.com/blog/post/tr-measuring-ai-security-mcp-exposure) |
+| www.rapid7.com | 2026-02-20 | 0.70 | 0.85 | [Metasploit Wrap-Up 02/20/2026](https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-02-20-2026) |
 | arxiv.org | 2026-02-20 | 0.60 | 0.96 | [Pushing the Frontier of Black-Box LVLM Attacks via Fine-Grained Detail Targeting](https://arxiv.org/abs/2602.17645) |
 
 ## January 2026
