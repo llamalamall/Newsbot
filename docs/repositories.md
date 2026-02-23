@@ -7,7 +7,7 @@ title: All Analyzed Repositories
 
 This page contains **all GitHub repositories ever analyzed** by Newsbot, organized by month.
 
-**Total repositories:** 34
+**Total repositories:** 37
 
 **Months covered:** 1
 
@@ -17,10 +17,12 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 
 ## February 2026
 
-*34 repositories*
+*37 repositories*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
+| [WHAZAZA/AI-cyber-range](https://github.com/WHAZAZA/AI-cyber-range) | ⚔️ Build, break, and secure Large Language Models with our automated OWASP Top 10 cyber range for... | 2 | 1.00 | 2026-02-23 | penetration-testing |
+| [treezz24/WP-Audit](https://github.com/treezz24/WP-Audit) | 🛡️ Analyze WordPress security with WP-Audit, an AI-powered tool that detects vulnerabilities and ... | 1 | 1.00 | 2026-02-23 | penetration-testing |
 | [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | penetration-testing |
 | [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | reverse-engineering |
 | [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 | 2026-02-22 | malware-analysis |
@@ -39,6 +41,7 @@ This page contains **all GitHub repositories ever analyzed** by Newsbot, organiz
 | [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon) | Fully autonomous AI hacker to find actual exploits in your web apps. Shannon has achieved a 96.15... | 22666 | 1.00 | 2026-02-16 | security-automation |
 | [SHAdd0WTAka/Zen-Ai-Pentest](https://github.com/SHAdd0WTAka/Zen-Ai-Pentest) | 🛡⚔️AI-Powered Penetration Testing Framework with automated vulnerability scanning, multi-agent sy... | 191 | 1.00 | 2026-02-16 | penetration-testing |
 | [secwexen/aapp-mart](https://github.com/secwexen/aapp-mart) | AAPP-MART is an AI-driven multi-agent red team simulation engine for proactive security assessmen... | 2 | 1.00 | 2026-02-16 | security-automation |
+| [mrexodia/ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp) | AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP. | 5705 | 0.95 | 2026-02-23 | binary-analysis |
 | [sinewaveai/agent-security-scanner-mcp](https://github.com/sinewaveai/agent-security-scanner-mcp) | Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucinatio... | 18 | 0.95 | 2026-02-16 | ai-security |
 | [xoxruns/deadend-cli](https://github.com/xoxruns/deadend-cli) | Agentic pentest tooling. Currently achieving around 78% on XBOW's benchmark in full black-box. Co... | 167 | 0.95 | 2026-02-16 | offensive-security |
 | [Froezens/Python-Blacklist-Breaker](https://github.com/Froezens/Python-Blacklist-Breaker) | It is an automated Python virtual machine escape payload skipping framework that helps security r... | 0 | 0.95 | 2026-02-16 | reverse-engineering |

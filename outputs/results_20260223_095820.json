@@ -1,0 +1,316 @@
+[
+  {
+    "title": "WHAZAZA/AI-cyber-range",
+    "url": "https://github.com/WHAZAZA/AI-cyber-range",
+    "description": "\u2694\ufe0f Build, break, and secure Large Language Models with our automated OWASP Top 10 cyber range for hands-on AI security training and research.",
+    "source": "github",
+    "credibility": null,
+    "stars": 2,
+    "updated": "2026-02-23T09:51:03+00:00",
+    "topic": "penetration-testing",
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly describes an automated cyber range for offensive AI security training, including hands-on penetration testing with AI/automation.",
+    "llm_matched_keywords": [
+      "ai",
+      "aipentest",
+      "aisecurity",
+      "penetration-testing",
+      "automated"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "Recently updated, substantive description, and some community validation, though stars are low.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "ai",
+      "aihacking",
+      "aipentest",
+      "aisecurity",
+      "cyber",
+      "cyberrange",
+      "cybersecurity",
+      "exercise",
+      "hacking",
+      "hacking-tool",
+      "llm",
+      "model",
+      "owasp-top-10",
+      "penetration-testing",
+      "penetration-testing-tools",
+      "training"
+    ]
+  },
+  {
+    "title": "treezz24/WP-Audit",
+    "url": "https://github.com/treezz24/WP-Audit",
+    "description": "\ud83d\udee1\ufe0f Analyze WordPress security with WP-Audit, an AI-powered tool that detects vulnerabilities and generates detailed reports for authorized testing.",
+    "source": "github",
+    "credibility": null,
+    "stars": 1,
+    "updated": "2026-02-23T09:49:18+00:00",
+    "topic": "penetration-testing",
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly described as an AI-powered tool for vulnerability detection and reporting in WordPress, with focus on penetration testing.",
+    "llm_matched_keywords": [
+      "ai-powered",
+      "penetration-testing",
+      "vulnerability-scanner",
+      "wordpress"
+    ],
+    "llm_credible": false,
+    "llm_credibility_score": 0.5,
+    "llm_credibility_reason": "Recently updated and description is clear, but only 1 star and minimal community validation.",
+    "llm_credibility_flags": [
+      "low_stars"
+    ],
+    "topics": [
+      "activity-log",
+      "activity-log-wordpress",
+      "activity-logger",
+      "activity-logging",
+      "ai-powered",
+      "audit",
+      "axe",
+      "cybersecurity",
+      "ethical-hacking",
+      "modular",
+      "penetration-testing",
+      "security",
+      "vulnerability-scanner",
+      "wordpress",
+      "worpdress-plugin",
+      "wp-scanner",
+      "wp-theme-auditor",
+      "wpscan"
+    ]
+  },
+  {
+    "title": "mrexodia/ida-pro-mcp",
+    "url": "https://github.com/mrexodia/ida-pro-mcp",
+    "description": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+    "source": "github",
+    "credibility": null,
+    "stars": 5705,
+    "updated": "2026-02-23T09:55:06+00:00",
+    "topic": "binary-analysis",
+    "llm_applicable": true,
+    "llm_applicability_score": 0.95,
+    "llm_applicability_reason": "Explicitly describes AI-powered reverse engineering assistant for binary analysis, bridging IDA Pro with language models. Demonstrates use of AI and automation in offensive security context.",
+    "llm_matched_keywords": [
+      "reverse-engineering",
+      "ai",
+      "binary-analysis",
+      "ida-pro",
+      "aiagent"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.95,
+    "llm_credibility_reason": "High star count, recent update, clear description, and reputable author. No red flags.",
+    "llm_credibility_flags": [],
+    "topics": [
+      "ida-plugin",
+      "ida-pro",
+      "mcp",
+      "mcp-server",
+      "modelcontextprotocol",
+      "reverse-engineering",
+      "ai",
+      "aiagent",
+      "binary-analysis"
+    ]
+  },
+  {
+    "title": "Arkanix Stealer pops up as short-lived AI info-stealer experiment",
+    "url": "https://www.bleepingcomputer.com/news/security/arkanix-stealer-pops-up-as-short-lived-ai-info-stealer-experiment/",
+    "description": "An information-stealing malware operation named\u00a0Arkanix Stealer, promoted on multiple dark web forums towards the end\u00a0of 2025, was likely developed as an AI-assisted experiment. [...]",
+    "source": "rss",
+    "credibility": "medium",
+    "published": "2026-02-22T15:33:26",
+    "feed_name": "BleepingComputer",
+    "feed_category": "news",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Bill Toulas",
+    "tags": [
+      "Security",
+      "Artificial Intelligence"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.7,
+    "llm_applicability_reason": "Explicitly describes an AI-assisted information-stealing malware, indicating use of AI in offensive security operations.",
+    "llm_matched_keywords": [
+      "AI",
+      "malware",
+      "information-stealer",
+      "exploit"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.7,
+    "llm_credibility_reason": "BleepingComputer is a medium-credibility source; article appears factual but lacks depth and citations.",
+    "llm_credibility_flags": [
+      "no_sources"
+    ]
+  },
+  {
+    "title": "TFL: Targeted Bit-Flip Attack on Large Language Model",
+    "url": "https://arxiv.org/abs/2602.17837",
+    "description": "arXiv:2602.17837v1 Announce Type: new \nAbstract: Large language models (LLMs) are increasingly deployed in safety and security critical applications, raising concerns about their robustness to model parameter fault injection attacks. Recent studies have shown that bit-flip attacks (BFAs), which exploit computer main memory (i.e., DRAM) vulnerabilities to flip a small number of bits in model weights, can severely disrupt LLM behavior. However, existing BFA on LLM largely induce un-targeted failure or general performance degradation, offering limited control over manipulating specific or targeted outputs. In this paper, we present TFL, a novel targeted bit-flip attack framework that enables precise manipulation of LLM outputs for selected prompts while maintaining almost no or minor degradation on unrelated inputs. Within our TFL framework, we propose a novel keyword-focused attack loss to promote attacker-specified target tokens in generative outputs, together with an auxiliary utility score that balances attack effectiveness against collateral performance impact on benign data. We evaluate TFL on multiple LLMs (Qwen, DeepSeek, Llama) and benchmarks (DROP, GSM8K, and TriviaQA). The experiments show that TFL achieves successful targeted LLM output manipulations with less than 50 bit flips and significantly reduced effect on unrelated queries compared to prior BFA approaches. This demonstrates the effectiveness of TFL and positions it as a new class of stealthy and targeted LLM model attack.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-23T05:00:00",
+    "feed_name": "arXiv Security & Cryptography",
+    "feed_category": "academic",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Jingkai Guo, Chaitali Chakrabarti, Deliang Fan",
+    "tags": [
+      "cs.CR",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Describes targeted bit-flip attacks on LLMs, exploiting vulnerabilities using automation and AI techniques for offensive purposes.",
+    "llm_matched_keywords": [
+      "bit-flip attack",
+      "exploit",
+      "vulnerability",
+      "automation",
+      "AI",
+      "LLM"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 1.0,
+    "llm_credibility_reason": "arXiv is a high-credibility source; article is technical, well-cited, and non-sensational.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Detecting PowerShell-based Fileless Cryptojacking Attacks Using Machine Learning",
+    "url": "https://arxiv.org/abs/2602.18285",
+    "description": "arXiv:2602.18285v1 Announce Type: new \nAbstract: With the emergence of remote code execution (RCE) vulnerabilities in ubiquitous libraries and advanced social engineering techniques, threat actors have started conducting widespread fileless cryptojacking attacks. These attacks have become effective with stealthy techniques based on PowerShell-based exploitation in Windows OS environments. Even if attacks are detected and malicious scripts removed, processes may remain operational on victim endpoints, creating a significant challenge for detection mechanisms. In this paper, we conducted an experimental study with a collected dataset on detecting PowerShell-based fileless cryptojacking scripts. The results showed that Abstract Syntax Tree (AST)-based fine-tuned CodeBERT achieved a high recall rate, proving the importance of the use of AST integration and fine-tuned pre-trained models for programming language.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-23T05:00:00",
+    "feed_name": "arXiv Security & Cryptography",
+    "feed_category": "academic",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Said Varlioglu, Nelly Elsayed, Murat Ozer, Zag ElSayed, John M. Emmert",
+    "tags": [
+      "cs.CR"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.9,
+    "llm_applicability_reason": "Discusses machine learning (CodeBERT) for detecting PowerShell-based fileless cryptojacking, which is an offensive security technique.",
+    "llm_matched_keywords": [
+      "machine learning",
+      "cryptojacking",
+      "exploit",
+      "vulnerability",
+      "automation"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 1.0,
+    "llm_credibility_reason": "arXiv is a high-credibility source; article is technical, well-cited, and non-sensational.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "Jailbreaking Leaves a Trace: Understanding and Detecting Jailbreak Attacks from Internal Representations of Large Language Models",
+    "url": "https://arxiv.org/abs/2602.11495",
+    "description": "arXiv:2602.11495v2 Announce Type: replace \nAbstract: Jailbreaking large language models (LLMs) has emerged as a critical security challenge with the widespread deployment of conversational AI systems. Adversarial users exploit these models through carefully crafted prompts to elicit restricted or unsafe outputs, a phenomenon commonly referred to as Jailbreaking. Despite numerous proposed defense mechanisms, attackers continue to develop adaptive prompting strategies, and existing models remain vulnerable. This motivates approaches that examine the internal behavior of LLMs rather than relying solely on prompt-level defenses. In this work, we study jailbreaking from both security and interpretability perspectives by analyzing how internal representations differ between jailbreak and benign prompts. We conduct a systematic layer-wise analysis across multiple open-source models, including GPT-J, LLaMA, Mistral, and the state-space model Mamba, and identify consistent latent-space patterns associated with harmful inputs. We then propose a tensor-based latent representation framework that captures structure in hidden activations and enables lightweight jailbreak detection without model fine-tuning or auxiliary LLM-based detectors. We further demonstrate that the latent signals can be used to actively disrupt jailbreak execution at inference time. On an abliterated LLaMA-3.1-8B model, selectively bypassing high-susceptibility layers blocks 78% of jailbreak attempts while preserving benign behavior on 94% of benign prompts. This intervention operates entirely at inference time and introduces minimal overhead, providing a scalable foundation for achieving stronger coverage by incorporating additional attack distributions or more refined susceptibility thresholds. Our results provide evidence that jailbreak behavior is rooted in identifiable internal structures and suggest a complementary, architecture-agnostic direction for improving LLM security.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-23T05:00:00",
+    "feed_name": "arXiv Security & Cryptography",
+    "feed_category": "academic",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Sri Durga Sai Sowmya Kadali, Evangelos E. Papalexakis",
+    "tags": [
+      "cs.CR",
+      "cs.CL"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 0.8,
+    "llm_applicability_reason": "Describes automated detection and disruption of jailbreak attacks on LLMs, using AI and automation for offensive security mitigation.",
+    "llm_matched_keywords": [
+      "jailbreak",
+      "attack",
+      "LLM",
+      "automation",
+      "AI",
+      "security"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 1.0,
+    "llm_credibility_reason": "arXiv is a high-credibility source; article is technical, well-cited, and non-sensational.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "MultiVer: Zero-Shot Multi-Agent Vulnerability Detection",
+    "url": "https://arxiv.org/abs/2602.17875",
+    "description": "arXiv:2602.17875v1 Announce Type: cross \nAbstract: We present MultiVer, a zero-shot multi-agent system for vulnerability detection that achieves state-of-the-art recall without fine-tuning. A four-agent ensemble (security, correctness, performance, style) with union voting achieves 82.7% recall on PyVul, exceeding fine-tuned GPT-3.5 (81.3%) by 1.4 percentage points -- the first zeroshot system to surpass fine-tuned performance on this benchmark. On SecurityEval, the same architecture achieves 91.7% detection rate, matching specialized systems. The recall improvement comes at a precision cost: 48.8% precision versus 63.9% for fine-tuned baselines, yielding 61.4% F1. Ablation experiments isolate component contributions: the multi-agent ensemble adds 17 percentage points recall over single-agent security analysis. These results demonstrate that for security applications where false negatives are costlier than false positives, zero-shot multi-agent ensembles can match and exceed fine-tuned models on the metric that matters most.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-23T05:00:00",
+    "feed_name": "arXiv Artificial Intelligence",
+    "feed_category": "academic",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Shreshth Rajan",
+    "tags": [
+      "cs.MA",
+      "cs.AI"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly describes an AI-powered multi-agent system for automated vulnerability detection, referencing offensive security keywords and automation.",
+    "llm_matched_keywords": [
+      "vulnerability detection",
+      "security",
+      "AI",
+      "automation",
+      "multi-agent"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.95,
+    "llm_credibility_reason": "Published on arXiv with detailed methodology and benchmark results; high domain credibility, no clickbait or unverified claims.",
+    "llm_credibility_flags": []
+  },
+  {
+    "title": "TFL: Targeted Bit-Flip Attack on Large Language Model",
+    "url": "https://arxiv.org/abs/2602.17837",
+    "description": "arXiv:2602.17837v1 Announce Type: cross \nAbstract: Large language models (LLMs) are increasingly deployed in safety and security critical applications, raising concerns about their robustness to model parameter fault injection attacks. Recent studies have shown that bit-flip attacks (BFAs), which exploit computer main memory (i.e., DRAM) vulnerabilities to flip a small number of bits in model weights, can severely disrupt LLM behavior. However, existing BFA on LLM largely induce un-targeted failure or general performance degradation, offering limited control over manipulating specific or targeted outputs. In this paper, we present TFL, a novel targeted bit-flip attack framework that enables precise manipulation of LLM outputs for selected prompts while maintaining almost no or minor degradation on unrelated inputs. Within our TFL framework, we propose a novel keyword-focused attack loss to promote attacker-specified target tokens in generative outputs, together with an auxiliary utility score that balances attack effectiveness against collateral performance impact on benign data. We evaluate TFL on multiple LLMs (Qwen, DeepSeek, Llama) and benchmarks (DROP, GSM8K, and TriviaQA). The experiments show that TFL achieves successful targeted LLM output manipulations with less than 50 bit flips and significantly reduced effect on unrelated queries compared to prior BFA approaches. This demonstrates the effectiveness of TFL and positions it as a new class of stealthy and targeted LLM model attack.",
+    "source": "rss",
+    "credibility": "high",
+    "published": "2026-02-23T05:00:00",
+    "feed_name": "arXiv Machine Learning",
+    "feed_category": "academic",
+    "priority": "medium",
+    "keyword_matches": 0,
+    "author": "Jingkai Guo, Chaitali Chakrabarti, Deliang Fan",
+    "tags": [
+      "cs.CR",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "llm_applicable": true,
+    "llm_applicability_score": 1.0,
+    "llm_applicability_reason": "Explicitly describes an automated targeted bit-flip attack framework against LLMs, using AI/automation for offensive purposes (model manipulation, exploit development).",
+    "llm_matched_keywords": [
+      "bit-flip attack",
+      "exploit",
+      "vulnerability",
+      "automation",
+      "LLM"
+    ],
+    "llm_credible": true,
+    "llm_credibility_score": 0.95,
+    "llm_credibility_reason": "arXiv publication, high domain credibility, technical depth, experiments and benchmarks cited, no clickbait or bias.",
+    "llm_credibility_flags": []
+  }
+]

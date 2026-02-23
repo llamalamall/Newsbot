@@ -15,24 +15,28 @@ This page shows the **most recent analysis** from Newsbot. For comprehensive his
 
 ## Latest Articles
 
-*1 article from most recent analysis*
+*6 articles from most recent analysis*
 
 | Source | Updated | Applicability | Credibility | Title |
 |--------|---------|--------------|-------------|-------|
-| www.rapid7.com | 2026-02-20 | 0.70 | 0.85 | [Metasploit Wrap-Up 02/20/2026](articles/article_20260222_093233_001.md) |
+| www.bleepingcomputer.com | 2026-02-22 | 0.70 | 0.70 | [Arkanix Stealer pops up as short-lived AI info-stealer experiment](articles/article_20260223_095820_001.md) |
+| arxiv.org | 2026-02-23 | 1.00 | 1.00 | [TFL: Targeted Bit-Flip Attack on Large Language Model](articles/article_20260223_095820_002.md) |
+| arxiv.org | 2026-02-23 | 0.90 | 1.00 | [Detecting PowerShell-based Fileless Cryptojacking Attacks Using Machine Learning](articles/article_20260223_095820_003.md) |
+| arxiv.org | 2026-02-23 | 0.80 | 1.00 | [Jailbreaking Leaves a Trace: Understanding and Detecting Jailbreak Attacks from Internal Representations of Large Language Models](articles/article_20260223_095820_004.md) |
+| arxiv.org | 2026-02-23 | 1.00 | 0.95 | [MultiVer: Zero-Shot Multi-Agent Vulnerability Detection](articles/article_20260223_095820_005.md) |
+| arxiv.org | 2026-02-23 | 1.00 | 0.95 | [TFL: Targeted Bit-Flip Attack on Large Language Model](articles/article_20260223_095820_006.md) |
 
 [View all articles →](articles.md)
 
 ## Latest Repositories
 
-*4 repositories from most recent analysis*
+*3 repositories from most recent analysis*
 
 | Repository | Description | Stars | Applicability | Updated | Topic |
 |------------|-------------|-------|---------------|---------|-------|
-| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 2026-02-22 | penetration-testing |
-| [TheOneWhoAlwaysWatches/pincer](https://github.com/TheOneWhoAlwaysWatches/pincer) | 🦞 Perform automated red team assessments on LLM APIs with streaming results, analysis, and detail... | 0 | 1.00 2026-02-22 | red-team |
-| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 2026-02-22 | reverse-engineering |
-| [lowwkezer/shannon](https://github.com/lowwkezer/shannon) | 🛡️ Automate web app pentesting with AI to find real exploits before attackers do, enhancing your ... | 0 | 1.00 2026-02-22 | malware-analysis |
+| [WHAZAZA/AI-cyber-range](https://github.com/WHAZAZA/AI-cyber-range) | ⚔️ Build, break, and secure Large Language Models with our automated OWASP Top 10 cyber range for... | 2 | 1.00 2026-02-23 | penetration-testing |
+| [treezz24/WP-Audit](https://github.com/treezz24/WP-Audit) | 🛡️ Analyze WordPress security with WP-Audit, an AI-powered tool that detects vulnerabilities and ... | 1 | 1.00 2026-02-23 | penetration-testing |
+| [mrexodia/ida-pro-mcp](https://github.com/mrexodia/ida-pro-mcp) | AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP. | 5705 | 0.95 2026-02-23 | binary-analysis |
 
 [View all repositories →](repositories.md)
 
