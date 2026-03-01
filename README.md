@@ -514,6 +514,22 @@ Newsbot/
 - Check that all dependencies are installed
 - Verify GITHUB_TOKEN environment variable is set correctly
 
+## Future Enhancements
+
+### Deeper Article Analysis (Planned)
+
+A comprehensive, manual-triggered analysis system for in-depth validation of articles and repositories. This feature will:
+
+- **Multi-source investigation** - Cross-reference Reddit, Hacker News, Twitter, GitHub, and security forums
+- **Hype detection** - Identify and call out unsupported marketing claims
+- **Enterprise readiness assessment** - Evaluate production suitability for large organizations
+- **Security effectiveness scoring** - Validate vulnerability discovery claims and offensive security value
+
+**Status:** Planning complete  
+**Documentation:** See [`docs/DEEPER_ANALYSIS_PLAN.md`](docs/DEEPER_ANALYSIS_PLAN.md) and [`docs/deeper-analysis/`](docs/deeper-analysis/) for complete architecture, data sources, and implementation roadmap.
+
+**Trigger (when implemented):** Post issue comment with `analyze-deep: <URL or article ID>`
+
 ## Contributing
 
 Contributions are welcome! Please:
@@ -521,6 +537,8 @@ Contributions are welcome! Please:
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## License
 
